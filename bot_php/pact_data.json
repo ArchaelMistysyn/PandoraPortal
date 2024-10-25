@@ -1,0 +1,21 @@
+{
+    "pact_variants": {
+        "Wrath": [["Attack Speed Bonus", "Elemental Capacity"], ["Mitigation Bonus", "Luck Bonus"]],
+        "Sloth": [["Recovery", "Max HP"], ["Attack Speed", "Max Stamina"]],
+        "Greed": [["Specialty Rate Bonus", "Coin Acquisition"], ["Charge Generation", "EXP Acquisition"]],
+        "Gluttony": [["Charge Generation", "EXP Acquisition"], ["Elemental Capacity", "Coin Acquisition"]],
+        "Envy": [["Final Damage", "Base Luck"], ["Max HP", "Recovery"]],
+        "Pride": [["Singularity Damage", "Human Bane"], ["Dodge Rate", "Block Rate"]],
+        "Lust": [["Class Mastery Bonus", "Bleed Damage"], ["Singularity Damage", "Mana Damage"]]
+    },
+    "demon_variants": {
+        "1": "Lesser Incubus",
+        "2": "Shadow Fiend",
+        "3": "Cursed Defiler",
+        "4": "Death Shade",
+        "5": "Void Devourer",
+        "6": "Arch Demon",
+        "7": "Abyssal Monarch",
+        "8": "Stygian Reaver"
+    }
+}

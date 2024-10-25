@@ -1,0 +1,379 @@
+<div class="filter-section">
+	<input type="text" id="filter-input" onkeyup="filterItems()" placeholder="Search Ring/Category/ID">
+</div>
+
+<div class="search-category">
+	<h3>Elemental Signet &lpar;Tier 4&rpar;</h3>
+	<table>
+		<thead>
+			<tr>
+				<th><div>Ring</div></th>
+				<th><div>Image</div></th>
+				<th><div>Elements</div></th>
+				<th><div>Bonus</div></th>
+				<th><div>Cost 1</div></th>
+				<th><div>Cost 2</div></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr class="tier-4">
+				<td>Elemental Signet of Fire</td>
+				<td class='icon-cell'><div><img src="./gallery/Rings/Elemental Signets/Elemental Signet of Fire.png" alt="Fire Signet"></div></td>
+				<td class='icon-cell'><div><img src="./gallery/Icons/Elements/Fire.png" alt="Fire"></div></td>
+				<td>200% Fire Curse</td>
+				<td>2x Blazing Ruby</td>
+				<td>100x Equipment Scrap</td>
+			</tr>
+			<tr class="tier-4">
+				<td>Elemental Signet of Water</td>
+				<td class='icon-cell'><div><img src="./gallery/Rings/Elemental Signets/Elemental Signet of Water.png" alt="Water Signet"></div></td>
+				<td class='icon-cell'><div><img src="./gallery/Icons/Elements/Water.png" alt="Water"></div></td>
+				<td>200% Water Curse</td>
+				<td>2x Drowned Sapphire</td>
+				<td>100x Equipment Scrap</td>
+			</tr>
+			<tr class="tier-4">
+				<td>Elemental Signet of Lightning</td>
+				<td class='icon-cell'><div><img src="./gallery/Rings/Elemental Signets/Elemental Signet of Lightning.png" alt="Lightning Signet"></div></td>
+				<td class='icon-cell'><div><img src="./gallery/Icons/Elements/Lightning.png" alt="Lightning"></div></td>
+				<td>200% Lightning Curse</td>
+				<td>2x Silent Topaz</td>
+				<td>100x Equipment Scrap</td>
+			</tr>
+			<tr class="tier-4">
+				<td>Elemental Signet of Earth</td>
+				<td class='icon-cell'><div><img src="./gallery/Rings/Elemental Signets/Elemental Signet of Earth.png" alt="Earth Signet"></div></td>
+				<td class='icon-cell'><div><img src="./gallery/Icons/Elements/Earth.png" alt="Earth"></div></td>
+				<td>200% Earth Curse</td>
+				<td>2x Ancient Agate</td>
+				<td>100x Equipment Scrap</td>
+			</tr>
+			<tr class="tier-4">
+				<td>Elemental Signet of Wind</td>
+				<td class='icon-cell'><div><img src="./gallery/Rings/Elemental Signets/Elemental Signet of Wind.png" alt="Wind Signet"></div></td>
+				<td class='icon-cell'><div><img src="./gallery/Icons/Elements/Wind.png" alt="Wind"></div></td>
+				<td>200% Wind Curse</td>
+				<td>2x Whispering Emerald</td>
+				<td>100x Equipment Scrap</td>
+			</tr>
+			<tr class="tier-4">
+				<td>Elemental Signet of Ice</td>
+				<td class='icon-cell'><div><img src="./gallery/Rings/Elemental Signets/Elemental Signet of Ice.png" alt="Ice Signet"></div></td>
+				<td class='icon-cell'><div><img src="./gallery/Icons/Elements/Ice.png" alt="Ice"></div></td>
+				<td>200% Ice Curse</td>
+				<td>2x Arctic Zircon</td>
+				<td>100x Equipment Scrap</td>
+			</tr>
+			<tr class="tier-4">
+				<td>Elemental Signet of Shadow</td>
+				<td class='icon-cell'><div><img src="./gallery/Rings/Elemental Signets/Elemental Signet of Shadow.png" alt="Shadow Signet"></div></td>
+				<td class='icon-cell'><div><img src="./gallery/Icons/Elements/Shadow.png" alt="Shadow"></div></td>
+				<td>200% Shadow Curse</td>
+				<td>2x Haunted Obsidian</td>
+				<td>100x Equipment Scrap</td>
+			</tr>
+			<tr class="tier-4">
+				<td>Elemental Signet of Light</td>
+				<td class='icon-cell'><div><img src="./gallery/Rings/Elemental Signets/Elemental Signet of Light.png" alt="Light Signet"></div></td>
+				<td class='icon-cell'><div><img src="./gallery/Icons/Elements/Light.png" alt="Light"></div></td>
+				<td>200% Light Curse</td>
+				<td>2x Prismatic Opal</td>
+				<td>100x Equipment Scrap</td>
+			</tr>
+			<tr class="tier-4">
+				<td>Elemental Signet of Celestia</td>
+				<td class='icon-cell'><div><img src="./gallery/Rings/Elemental Signets/Elemental Signet of Celestia.png" alt="Celestial Signet"></div></td>
+				<td class='icon-cell'><div><img src="./gallery/Icons/Elements/Celestial.png" alt="Celestial"></div></td>
+				<td>200% Celestial Curse</td>
+				<td>2x Spatial Amethyst</td>
+				<td>100x Equipment Scrap</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+<div class="search-category">
+	<h3>Primordial Ring &lpar;Tier 5&rpar;</h3>
+	<table>
+		<thead>
+			<tr>
+				<th><div>Ring</div></th>
+				<th><div>Image</div></th>
+				<th><div>Elements</div></th>
+				<th><div>Bonus</div></th>
+				<th><div>Resonance</div></th>
+				<th><div>Cost 1</div></th>
+				<th><div>Cost 2</div></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr class="tier-5">
+				<td>Ruby Ring of Incineration</td>
+				<td class='icon-cell'><div><img src="./gallery/Rings/Elemental Rings/Ruby Ring of Incineration.png" alt="Fire Signet"></div></td>
+				<td class='icon-cell'><div><img src="./gallery/Icons/Elements/Fire.png" alt="Fire"></div></td>
+				<td>500% Fire Curse</td>
+				<td>[The Magic]</td>
+				<td>1x Aurora Tear</td>
+				<td>5x Blazing Ruby</td>
+			</tr>
+			<tr class="tier-5">
+				<td>Sapphire Ring of Atlantis</td>
+				<td class='icon-cell'><div><img src="./gallery/Rings/Elemental Rings/Sapphire Ring of Atlantis.png" alt="Water Signet"></div></td>
+				<td class='icon-cell'><div><img src="./gallery/Icons/Elements/Water.png" alt="Water"></div></td>
+				<td>500% Water Curse</td>
+				<td>[The Clarity]</td>
+				<td>1x Aurora Tear</td>
+				<td>5x Drowned Sapphire</td>
+			</tr>
+			<tr class="tier-5">
+				<td>Topaz Ring of Dancing Thunder</td>
+				<td class='icon-cell'><div><img src="./gallery/Rings/Elemental Rings/Topaz Ring of Dancing Thunder.png" alt="Lightning Signet"></div></td>
+				<td class='icon-cell'><div><img src="./gallery/Icons/Elements/Lightning.png" alt="Lightning"></div></td>
+				<td>500% Lightning Curse</td>
+				<td>[The Behemoth]</td>
+				<td>1x Aurora Tear</td>
+				<td>5x Silent Topaz</td>
+			</tr>
+			<tr class="tier-5">
+				<td>Agate Ring of Seismic Tremors</td>
+				<td class='icon-cell'><div><img src="./gallery/Rings/Elemental Rings/Agate Ring of Seismic Tremors.png" alt="Earth Signet"></div></td>
+				<td class='icon-cell'><div><img src="./gallery/Icons/Elements/Earth.png" alt="Earth"></div></td>
+				<td>500% Earth Curse</td>
+				<td>[The Fortress]</td>
+				<td>1x Aurora Tear</td>
+				<td>5x Ancient Agate</td>
+			</tr>
+			<tr class="tier-5">
+				<td>Emerald Ring of Wailing Winds</td>
+				<td class='icon-cell'><div><img src="./gallery/Rings/Elemental Rings/Emerald Ring of Wailing Winds.png" alt="Wind Signet"></div></td>
+				<td class='icon-cell'><div><img src="./gallery/Icons/Elements/Wind.png" alt="Wind"></div></td>
+				<td>500% Wind Curse</td>
+				<td>[The Memory]</td>
+				<td>1x Aurora Tear</td>
+				<td>5x Whispering Emerald</td>
+			</tr>
+			<tr class="tier-5">
+				<td>Zircon Ring of the Frozen Castle</td>
+				<td class='icon-cell'><div><img src="./gallery/Rings/Elemental Rings/Zircon Ring of the Frozen Castle.png" alt="Ice Signet"></div></td>
+				<td class='icon-cell'><div><img src="./gallery/Icons/Elements/Ice.png" alt="Ice"></div></td>
+				<td>500% Ice Curse</td>
+				<td>[The Death]</td>
+				<td>1x Aurora Tear</td>
+				<td>5x Arctic Zircon</td>
+			</tr>
+			<tr class="tier-5">
+				<td>Obsidian Ring of Tormented Souls</td>
+				<td class='icon-cell'><div><img src="./gallery/Rings/Elemental Rings/Obsidian Ring of Tormented Souls.png" alt="Shadow Signet"></div></td>
+				<td class='icon-cell'><div><img src="./gallery/Icons/Elements/Shadow.png" alt="Shadow"></div></td>
+				<td>500% Shadow Curse</td>
+				<td>[The Abyss]</td>
+				<td>1x Aurora Tear</td>
+				<td>5x Haunted Obsidian</td>
+			</tr>
+			<tr class="tier-5">
+				<td>Opal Ring of Scintillation</td>
+				<td class='icon-cell'><div><img src="./gallery/Rings/Elemental Rings/Opal Ring of Scintillation.png" alt="Light Signet"></div></td>
+				<td class='icon-cell'><div><img src="./gallery/Icons/Elements/Light.png" alt="Light"></div></td>
+				<td>500% Light Curse</td>
+				<td>[The Heavens]</td>
+				<td>1x Aurora Tear</td>
+				<td>5x Prismatic Opal</td>
+			</tr>
+			<tr class="tier-5">
+				<td>Amethyst Ring of Shifting Stars</td>
+				<td class='icon-cell'><div><img src="./gallery/Rings/Elemental Rings/Amethyst Ring of Shifting Stars.png" alt="Celestial Signet"></div></td>
+				<td class='icon-cell'><div><img src="./gallery/Icons/Elements/Celestial.png" alt="Celestial"></div></td>
+				<td>500% Celestial Curse</td>
+				<td>[The Star]</td>
+				<td>1x Aurora Tear</td>
+				<td>5x Spatial Amethyst</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+<div class="search-category">
+	<h3>Path Ring &lpar;Tier 6&rpar;</h3>
+	<table>
+		<thead>
+			<tr>
+				<th><div>Ring</div></th>
+				<th><div>Image</div></th>
+				<th><div>Elements</div></th>
+				<th><div>Bonus</div></th>
+				<th><div>Resonance</div></th>
+				<th><div>Skill Points</div></th>
+				<th><div>Cost 1</div></th>
+				<th><div>Cost 2</div></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr class="tier-6">
+				<td>Invoking Ring of Storms</td>
+				<td class='icon-cell'><div><img src="./gallery/Rings/Path Rings/Invoking Ring of Storms.png" alt="Invoking Ring of Storms"></div></td>
+				<td class='multi-icon-cell'><div><img src="./gallery/Icons/Elements/Water.png" alt="Water"><img src="./gallery/Icons/Elements/Lightning.png" alt="Lightning"></div></td>
+				<td>250% Hybrid Curse &lpar;Storms&rpar;</td>
+				<td>[The Requiem]</td>
+				<td>Path of Storms +10</td>
+				<td>2x Aurora Tear</td>
+				<td>5x Drowned Sapphire, 5x Silent Topaz</td>
+			</tr>
+			<tr class="tier-6">
+				<td>Primordial Ring of Frostfire</td>
+				<td class='icon-cell'><div><img src="./gallery/Rings/Path Rings/Primordial Ring of Frostfire.png" alt="Primordial Ring of Frostfire"></div></td>
+				<td class='multi-icon-cell'><div><img src="./gallery/Icons/Elements/Fire.png" alt="Fire"><img src="./gallery/Icons/Elements/Ice.png" alt="Ice"></div></td>
+				<td>250% Hybrid Curse &lpar;Frostfire&rpar;</td>
+				<td>[The Primordial]</td>
+				<td>Path of Frostfire +10</td>
+				<td>2x Aurora Tear</td>
+				<td>5x Blazing Ruby, 5x Arctic Zircon</td>
+			</tr>
+			<tr class="tier-6">
+				<td>Boundary Ring of Horizon</td>
+				<td class='icon-cell'><div><img src="./gallery/Rings/Path Rings/Boundary Ring of Horizon.png" alt="Boundary Ring of Horizon"></div></td>
+				<td class='multi-icon-cell'><div><img src="./gallery/Icons/Elements/Earth.png" alt="Earth"><img src="./gallery/Icons/Elements/Wind.png" alt="Wind"></div></td>
+				<td>250% Hybrid Curse &lpar;Horizon&rpar;</td>
+				<td>[The Heavens]</td>
+				<td>Path of Horizon +10</td>
+				<td>2x Aurora Tear</td>
+				<td>5x Ancient Agate, 5x Whispering Emerald</td>
+			</tr>
+			<tr class="tier-6">
+				<td>Hidden Ring of Eclipse</td>
+				<td class='icon-cell'><div><img src="./gallery/Rings/Path Rings/Hidden Ring of Eclipse.png" alt="Hidden Ring of Eclipse"></div></td>
+				<td class='multi-icon-cell'><div><img src="./gallery/Icons/Elements/Shadow.png" alt="Shadow"><img src="./gallery/Icons/Elements/Light.png" alt="Light"></div></td>
+				<td>250% Hybrid Curse &lpar;Eclipse&rpar;</td>
+				<td>[The Abyss]</td>
+				<td>Path of Eclipse +10</td>
+				<td>2x Aurora Tear</td>
+				<td>5x Haunted Obsidian, 5x Prismatic Opal</td>
+			</tr>
+			<tr class="tier-6">
+				<td>Cosmic Ring of Stars</td>
+				<td class='icon-cell'><div><img src="./gallery/Rings/Path Rings/Cosmic Ring of Stars.png" alt="Cosmic Ring of Stars"></div></td>
+				<td class='icon-cell'><div><img src="./gallery/Icons/Elements/Celestial.png" alt="Celestial"></div></td>
+				<td>1000% Celestial Curse</td>
+				<td>[The Celestial]</td>
+				<td>Path of Stars +10</td>
+				<td>2x Aurora Tear</td>
+				<td>10x Spatial Lapis</td>
+			</tr>
+			<tr class="tier-6">
+				<td>Orbital Ring of Solar Flux</td>
+				<td class='icon-cell'><div><img src="./gallery/Rings/Path Rings/Orbital Ring of Solar Flux.png" alt="Orbital Ring of Solar Flux"></div></td>
+				<td class='multi-icon-cell'><div><img src="./gallery/Icons/Elements/Fire.png" alt="Fire"><img src="./gallery/Icons/Elements/Wind.png" alt="Wind"><img src="./gallery/Icons/Elements/Light.png" alt="Light"></div></td>
+				<td>200% Hybrid Curse &lpar;Solar&rpar;</td>
+				<td>[The Sun]</td>
+				<td>Path of Solar Flux +10</td>
+				<td>2x Aurora Tear</td>
+				<td>5x Blazing Ruby, 5x Whispering Emerald, 5x Prismatic Opal</td>
+			</tr>
+			<tr class="tier-6">
+				<td>Orbital Ring of Lunar Tides</td>
+				<td class='icon-cell'><div><img src="./gallery/Rings/Path Rings/Orbital Ring of Lunar Tides.png" alt="Orbital Ring of Lunar Tides"></div></td>
+				<td class='multi-icon-cell'><div><img src="./gallery/Icons/Elements/Water.png" alt="Water"><img src="./gallery/Icons/Elements/Ice.png" alt="Ice"><img src="./gallery/Icons/Elements/Shadow.png" alt="Shadow"></div></td>
+				<td>200% Hybrid Curse &lpar;Lunar&rpar;</td>
+				<td>[The Moon]</td>
+				<td>Path of Lunar Tides +10</td>
+				<td>2x Aurora Tear</td>
+				<td>5x Drowned Sapphire, 5x Arctic Zircon, 5x Haunted Obsidian</td>
+			</tr>
+			<tr class="tier-6">
+				<td>Orbital Ring of Terrestria</td>
+				<td class='icon-cell'><div><img src="./gallery/Rings/Path Rings/Orbital Ring of Terrestria.png" alt="Orbital Ring of Terrestria"></div></td>
+				<td class='multi-icon-cell'><div><img src="./gallery/Icons/Elements/Fire.png" alt="Fire"><img src="./gallery/Icons/Elements/Water.png" alt="Water"><img src="./gallery/Icons/Elements/Lightning.png" alt="Lightning"><img src="./gallery/Icons/Elements/Earth.png" alt="Earth"><img src="./gallery/Icons/Elements/Wind.png" alt="Wind"><img src="./gallery/Icons/Elements/Ice.png" alt="Ice"><img src="./gallery/Icons/Elements/Shadow.png" alt="Shadow"><img src="./gallery/Icons/Elements/Light.png" alt="Light"><img src="./gallery/Icons/Elements/Celestial.png" alt="Celestial"></div></td>
+				<td>750% Singularity Curse</td>
+				<td>[The Creation]</td>
+				<td>Path of Terrestria +10</td>
+				<td>2x Aurora Tear</td>
+				<td>10x Soul Diamond</td>
+			</tr>
+			<tr class="tier-6">
+				<td>Rainbow Ring of Confluence</td>
+				<td class='icon-cell'><div><img src="./gallery/Rings/Path Rings/Rainbow Ring of Confluence.png" alt="Rainbow Ring of Confluence"></div></td>
+				<td class='multi-icon-cell'><div><img src="./gallery/Icons/Elements/Fire.png" alt="Fire"><img src="./gallery/Icons/Elements/Water.png" alt="Water"><img src="./gallery/Icons/Elements/Lightning.png" alt="Lightning"><img src="./gallery/Icons/Elements/Earth.png" alt="Earth"><img src="./gallery/Icons/Elements/Wind.png" alt="Wind"><img src="./gallery/Icons/Elements/Ice.png" alt="Ice"><img src="./gallery/Icons/Elements/Shadow.png" alt="Shadow"><img src="./gallery/Icons/Elements/Light.png" alt="Light"><img src="./gallery/Icons/Elements/Celestial.png" alt="Celestial"></div></td>
+				<td>200% Omni Curse</td>
+				<td>[The Love]</td>
+				<td>Path of Confluence +10</td>
+				<td>2x Aurora Tear</td>
+				<td>2x All Elemental Gemstone</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+<div class="search-category">
+	<h3>Fabled Ring &lpar;Tier 7&rpar;</h3>
+	<table>
+		<thead>
+			<tr>
+				<th><div>Ring</div></th>
+				<th><div>Image</div></th>
+				<th><div>Elements</div></th>
+				<th><div>Bonus</div></th>
+				<th><div>Unique Skill</div></th>
+				<th><div>Resonance</div></th>
+				<th><div>Cost 1</div></th>
+				<th><div>Cost 2</div></th>
+				<th><div>Cost 3</div></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr class="tier-7">
+				<td>Dragon's Eye Diamond</td>
+				<td class='icon-cell'><div>N/A</div></td>
+				<td class='multi-icon-cell'><div><img src="./gallery/Icons/Elements/Fire.png" alt="Fire"></div></td>
+				<td>+500% Critical Damage</td>
+				<td>Critical Rate is always 100%</td>
+				<td>[The Infinite]</td>
+				<td>3x Aurora Tear</td>
+				<td>15x Soul Diamond</td>
+				<td>N/A</td>
+			</tr>
+			<tr class="tier-7">
+				<td>Bleeding Hearts</td>
+				<td class='icon-cell'><div>N/A</div></td>
+				<td class='multi-icon-cell'><div><img src="./gallery/Icons/Elements/Earth.png" alt="Earth"><img src="./gallery/Icons/Elements/Wind.png" alt="Wind"></div></td>
+				<td>N/A</td>
+				<td>+5 Bleed Application</td>
+				<td>[The Duality]</td>
+				<td>3x Aurora Tear</td>
+				<td>5x Soul Diamond</td>
+				<td>50x Radiant Heart, 50x Chaos Heart</td>
+			</tr>
+			<tr class="tier-7">
+				<td>Gambler's Masterpiece</td>
+				<td class='icon-cell'><div>N/A</div></td>
+				<td class='multi-icon-cell'><div><img src="./gallery/Icons/Elements/Fire.png" alt="Fire"><img src="./gallery/Icons/Elements/Water.png" alt="Water"><img src="./gallery/Icons/Elements/Lightning.png" alt="Lightning"><img src="./gallery/Icons/Elements/Earth.png" alt="Earth"><img src="./gallery/Icons/Elements/Wind.png" alt="Wind"><img src="./gallery/Icons/Elements/Ice.png" alt="Ice"><img src="./gallery/Icons/Elements/Shadow.png" alt="Shadow"><img src="./gallery/Icons/Elements/Light.png" alt="Light"><img src="./gallery/Icons/Elements/Celestial.png" alt="Celestial"></div></td>
+				<td>N/A</td>
+				<td>All-In!</td>
+				<td>[The Reflection]</td>
+				<td>1x Aurora Tear</td>
+				<td>1x Soul Diamond</td>
+				<td>Success Rate: 1%</td>
+			</tr>
+			<tr class="tier-7">
+				<td>Lonely Ring of the Dark Star</td>
+				<td class='icon-cell'><div><img src="./gallery/Rings/Fabled Rings/Lonely Ring of the Dark Star.png" alt="Lonely Ring of the Dark Star"></div></td>
+				<td class='multi-icon-cell'><div><img src="./gallery/Icons/Elements/Fire.png" alt="Fire"><img src="./gallery/Icons/Elements/Lightning.png" alt="Lightning"><img src="./gallery/Icons/Elements/Earth.png" alt="Earth"><img src="./gallery/Icons/Elements/Shadow.png" alt="Shadow"><img src="./gallery/Icons/Elements/Celestial.png" alt="Celestial"></div></td>
+				<td>Dark Dream</td>
+				<td>Stygian Star</td>
+				<td>[The Void]</td>
+				<td>3x Aurora Tear</td>
+				<td>5x Soul Diamond</td>
+				<td>1x Dark Star of Shattered Dreams</td>
+			</tr>
+			<tr class="tier-7">
+				<td>Lonely Ring of the Light Star</td>
+				<td class='icon-cell'><div><img src="./gallery/Rings/Fabled Rings/Lonely Ring of the Light Star.png" alt="Lonely Ring of the Light Star"></div></td>
+				<td class='multi-icon-cell'><div><img src="./gallery/Icons/Elements/Water.png" alt="Water"><img src="./gallery/Icons/Elements/Wind.png" alt="Wind"><img src="./gallery/Icons/Elements/Ice.png" alt="Ice"><img src="./gallery/Icons/Elements/Light.png" alt="Light"><img src="./gallery/Icons/Elements/Celestial.png" alt="Celestial"></div></td>
+				<td>Glittering Dream</td>
+				<td>Heavenly Star</td>
+				<td>[The Infinite]</td>
+				<td>3x Aurora Tear</td>
+				<td>5x Soul Diamond</td>
+				<td>1x Glittering Star of Fractured Hearts</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
