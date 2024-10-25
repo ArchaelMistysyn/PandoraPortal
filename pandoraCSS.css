@@ -1963,18 +1963,21 @@ td {
 
 .inner-skill-circle .ultra, .ultra td{
 	background: linear-gradient(to right, #b87333, #cd7f32, #a97142, #804a00);
+	background-clip: text;
     -webkit-background-clip: text;
     color: transparent;
 }
 
 .inner-skill-circle .uber, .uber td{
 	background: linear-gradient(to right, #C0C0C0, #D4D4D4, #E8E8E8, #F2F2F2);
+	background-clip: text;
     -webkit-background-clip: text;
     color: transparent;
 }
 
 .inner-skill-circle .ultimate, .ultimate td{
 	background: linear-gradient(to right, #FFD700, #FFC300, #FFB300, #FFA500, #FF8C00);
+	background-clip: text;
     -webkit-background-clip: text;
     color: transparent;
 }
@@ -2181,6 +2184,7 @@ td {
 input:-webkit-autofill {
     background-color: #111 !important;
     color: #00BFFF !important;
+}
 
 input:-webkit-autofill:hover, 
 input:-webkit-autofill:focus {
