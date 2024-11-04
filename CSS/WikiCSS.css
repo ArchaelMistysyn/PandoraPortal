@@ -1,0 +1,103 @@
+.tab-menu {
+	width: 200px;
+	border: 1px solid #ccc;
+	padding: 10px;
+	background-color: #111;
+}
+.main-tab {
+	display: flex;
+	justify-content: space-between;
+	cursor: pointer;
+	padding: 10px;
+	border-bottom: 1px solid #ccc;
+	font-weight: bold;
+}
+.sub-tabs {
+	display: none;
+	padding-left: 20px;
+	list-style-type: none;
+	margin: 0;
+	padding: 5px 0;
+}
+.sub-tabs li {
+	padding: 5px 0;
+	cursor: pointer;
+}
+.arrow {
+	font-size: 12px;
+	color: red;
+}
+
+.selected {
+	font-weight: bold;
+	color: skyblue;
+}
+
+#wiki-content {
+	margin: 0 auto;
+    max-width: 70%;
+    min-width: 20%;
+	
+}
+
+#wiki-content table tbody td{
+	padding-left: 25px;
+	padding-right: 25px;
+	text-align:center;
+	height: 35px;
+	font-size: 20px;
+}
+
+#wiki-content table tbody tr{
+	padding-left: 25px;
+	padding-right: 25px;
+	text-align:center;
+	height: 35px;
+	border-top: 1px solid #111;
+}
+
+#wiki-content table thead tr th div{
+	padding-left: 5px;
+	padding-right: 5px;
+    text-wrap: nowrap;
+}
+
+.search-category h3 {
+	text-align: center;
+	border-radius: 10px;
+	background-color: #000;
+	border: 1px solid #00BFFF;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+.search-category {
+	padding-bottom:5px;
+}
+
+.filter-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+#filter-category {
+    padding: 10px;
+    border: 1px solid #9932CC;
+    border-radius: 5px;
+    color: #9932CC;
+    background-color: #111;
+}
+
+.top-gap {
+	display:block;
+	padding-bottom: 20px;
+	width:100%;
+}
+
+.bottom-gap {
+	display:block;
+	padding-bottom: 20px;
+	width:100%;
+}
