@@ -69,5 +69,27 @@ function selectSubTab(mainTab, subTabElement) {
         });
 }
 
+function filterItems() {
+    const input = document.getElementById('filter-input').value.toUpperCase();
+    const categories = document.querySelectorAll('.search-category');
+    categories.forEach(category => {
+        const categoryName = category.querySelector('h3').textContent.toUpperCase();
+        const items = category.querySelectorAll('tbody tr');
+        let categoryMatch = false;
+        items.forEach(item => {
+            const itemText = item.textContent.toUpperCase();
+            const cells = Array.from(item.getElementsByTagName('td'));
+            const cellMatch = cells.some(cell => cell.textContent.toUpperCase().indexOf(input) > -1);
+            if (cellMatch || categoryName.indexOf(input) > -1) {
+                item.style.display = '';
+                categoryMatch = true;
+            } else {
+                item.style.display = 'none';
+            }
+        });
+        category.style.display = categoryMatch ? '' : 'none';
+    });
+}
+
 buildTabMenu();
 initializeTabMenu();

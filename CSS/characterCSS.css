@@ -1,0 +1,281 @@
+#filter-form {
+    display: flex;
+    justify-content: center;
+}
+
+#content-container {
+    color: #111;
+}
+
+#detail-box {
+    display: none;
+    background-color: #111;
+}
+
+#detail-buttons {
+    display: none;
+}
+
+#char-name-section {
+    display: flex;
+    justify-content: center;
+}
+
+.exp-bar, .elemental-bar {
+    background: linear-gradient(to right, #d8d8d8, #c0c0c0, #a8a8a8);
+    display: flex;
+    height: 16px;
+	padding: 2px;
+	width: 358px;
+    border-radius: 15px;
+	margin: auto;
+}
+
+.elemental-bar .start, .exp-bar .start {
+	border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+}
+.elemental-bar .end, .exp-bar .end {
+	border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+
+.exp-fill {
+    height: 100%;
+    background-color: #4285f4;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+}
+
+.exp-empty {
+    height: 100%;
+    background-color: #111;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+
+.element-segment, .exp-bar {
+    position: relative;
+}
+
+.element-segment .tooltip {
+    display:flex;
+	justify-content: center;
+    align-items: center;
+	width: 200px;
+}
+
+#skill-points-section {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 10px;
+    padding: 10px 20px;
+	margin-top: auto;
+	color: #fff;
+}
+
+.glyph-name {
+	font-family: PandoraDiamond;
+}
+
+.star-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.skill-circle {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+	position: relative;
+	display: flex;
+    align-items: center;
+    justify-content: center;
+	background-color: #fff;
+}
+
+.inner-skill-circle {
+	width: 90%;
+	height: 90%;
+	top: 50%;
+	left: 50%;
+	position:absolute;
+	transform: translate(-50%, -50%);
+	border-radius: 50%;
+	background-color: #444;
+	color: #fff;
+	display: flex;
+	align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: bold;
+	z-indeX: 6;
+}
+
+#detail-buttons button {
+    font-size: 16px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+    background-color: #111;
+	font-weight: bold;
+    color: #00BFFF;
+    border: 1px solid #9932CC;
+	width: 100%;
+    padding: 3px;
+	width: 75px;
+	height: 75px;
+	text-decoration: none;
+	transition: background-color 0.3s, color 0.3s;
+}
+
+#detail-buttons button:hover {
+	background-color: #00BFFF;
+    color: #000;
+	font-weight: bold;
+}
+
+#detail-buttons .current-button {
+	background-color: #00BFFF;
+    color: #000;
+	font-weight: bold;
+}
+#player-table {
+    width: 600px;
+}
+
+#player-table td {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+
+/* Colours */
+.Celestial {
+    background: linear-gradient(145deg, #B399FF, #C7A6FF 50%, #D1C4FF);
+}
+.Earth {
+    background: linear-gradient(145deg, #A0522D, #D2691E 50%, #8B4513);
+}
+.Fire {
+    background: linear-gradient(145deg, #FF4500, #D72A1A 50%, #9B111E);
+}
+.Ice {
+    background: linear-gradient(145deg, #00BFFF, #55B3FF 50%, #ADD8E6);
+}
+.Light {
+    background: linear-gradient(145deg, #FFF, #FFFFF5 50%, #FFFFF0);
+}
+.Lightning {
+    background: linear-gradient(145deg, #FFD700, #FFB300 50%, #FFC300);
+}
+.Shadow {
+    background: linear-gradient(145deg, #2F2F2F, #4A4A4A 50%, #696969);
+}
+.Water {
+    background: linear-gradient(145deg, #1E90FF, #0057E7 50%, #4169E1);
+}
+.Wind {
+    background: linear-gradient(145deg, #7FFFD4, #57EFA0 50%, #228B22);
+}
+
+.eleBox-Celestial {
+    color: #9932CC;
+	border: 2px solid #9932CC;
+}
+.eleBox-Earth {
+    color: #A0522D;
+	border: 2px solid #A0522D;
+}
+.eleBox-Fire {
+    color: #FF4500;
+	border: 2px solid #FF4500;
+}
+.eleBox-Ice {
+    color: #00BFFF;
+	border: 2px solid #00BFFF;
+}
+.eleBox-Light {
+    color: #fff;
+	border: 2px solid #fff;
+}
+.eleBox-Lightning {
+    color: #FFD700;
+	border: 2px solid #FFD700;
+}
+.eleBox-Shadow {
+    color: #C0C0C0;
+	border: 2px solid #C0C0C0;
+}
+.eleBox-Water {
+    color: #1E90FF;
+	border: 2px solid #1E90FF;
+}
+.eleBox-Wind {
+    color: #7FFFD4;
+	border: 2px solid #7FFFD4;
+}
+
+.inner-skill-circle .ultra, .ultra td{
+	background: linear-gradient(to right, #b87333, #cd7f32, #a97142, #804a00);
+	background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+.inner-skill-circle .uber, .uber td{
+	background: linear-gradient(to right, #C0C0C0, #D4D4D4, #E8E8E8, #F2F2F2);
+	background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+.inner-skill-circle .ultimate, .ultimate td{
+	background: linear-gradient(to right, #FFD700, #FFC300, #FFB300, #FFA500, #FF8C00);
+	background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+.skill-circle.tier-1{
+	background-color: #028A0F;
+}
+.skill-circle.tier-2{
+	background-color: #8080FF;
+}
+.skill-circle.tier-3{
+	background-color: #9B59B6;
+}
+.skill-circle.tier-4 {
+	background-color: #007FFF;
+}
+.skill-circle.tier-5 {
+	background-color: #FFC609;
+}
+.skill-circle.tier-6{
+	background-color: #FFA6C9;
+}
+.skill-circle.tier-7{
+	background-color: #008080;
+}
+.skill-circle.tier-8 {
+	background-color: #E8E8E8;
+}
+.skill-circle.tier-9 {
+	background-color: #C20C0C;
+}	
+.skill-circle.ultra {
+	background: linear-gradient(to right, #b87333, #cd7f32, #a97142, #804a00);
+}
+.skill-circle.uber {
+	background: linear-gradient(to right, #FFD700, #FFC300, #FFB300, #FFA500, #FF8C00);
+}
+.skill-circle.ultimate {
+	background: linear-gradient(to right, #FFD700, #FFC300, #FFB300, #FFA500, #FF8C00);
+}
+.rare-skill, .command-column {
+	color: #C20C0C;
+}
