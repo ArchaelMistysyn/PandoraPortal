@@ -1,11 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
 <?php
 	session_start();
 	ini_set('display_errors', 1);
 	ini_set('display_startup_errors', 1);
 	error_reporting(E_ALL);
-
+?>
+<!DOCTYPE html>
+<html lang="en">
+<?php
 	// Inclusions
 	include_once('./bot_php/db_queries.php');
 	include_once('./bot_php/globals.php');
@@ -110,141 +111,40 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Pandora Portal - Characters</title>
-    <link rel="stylesheet" href="pandoraCSS.css?<?php echo date('l jS \of F Y h:i:s A'); ?>">
+    <link rel="stylesheet" href="CSS/generalpageCSS.css">
+	<link rel="stylesheet" href="CSS/characterCSS.css">
     <link rel="icon" type="img/ico" href="./images/favicon.ico">
 </head>
-<body>
-    <!-- Header Section -->
-    <header>
-        <div class="logo">
-			<a href="index.php">
-				<img src="./images/icon.png" alt="Website Icon">
-				<h1>Characters</h1>
-			</a>
-        </div>
-		<nav id="primary-nav">
-            <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-                <input type="text" name="search_input" placeholder="Enter Player ID/Username or Discord ID" required>
-                <button type="submit" class="input-button">Search</button>
-            </form>
-        </nav>
-        <nav id="page-nav">
-            <ul>
-				<li><a href="wiki.php">Wiki</a></li>
-                <li><a href="characters.php" class="selected">Character</a></li>
-                <li><a href="gallery.php">Gallery</a></li>
-                <li><a href="ranking.php">Ranking</a></li>
-                <li><a href="https://www.ArchDragonStore.ca" target="_blank">Store</a></li>
-            </ul>
-        </nav>
-    </header>
-    
+<body id="page-body">
+	<header id="header"></header>
+	<form id="filter-form" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+		<input type="text" name="search_input" placeholder="Enter Player ID/Username or Discord ID" required>
+		<button type="submit" class="input-button">Search</button>
+	</form>
+
     <!-- Main Content Section -->
-    <main class="no-footer">
-        <div class="content-container character-flex">
-			<div class="top-container">
-				<!-- Character Section (Top Left) -->
-				<?php 
-					if ($player_profile) {
-						echo "<div id='character-section-visible'>" . $player_main_html . "</div>";
-						echo '<div id="char-nav-buttons">';
-						echo '<button type="button" id="player-button" class="char-nav-button char-nav-hover" onclick="handleButtonClick(0)">Player</button>';
-						echo '<button type="button" id="elemental-button" class="char-nav-button char-nav-hover" onclick="handleButtonClick(1)">Element</button>';
-						echo '<button type="button" id="defense-button" class="char-nav-button char-nav-hover" onclick="handleButtonClick(2)">Defence</button>';
-						echo '<button type="button" id="details-button" class="char-nav-button char-nav-hover" onclick="handleButtonClick(3)">Details</button>';
-						echo '<button type="button" id="misc-button" class="char-nav-button char-nav-hover" onclick="handleButtonClick(4)">Misc</button>';
-						echo '<button type="button" id="reload-button" class="char-nav-button char-nav-hover" onclick="refreshPlayerData()">Reload</button>';
-						echo '</div>';
-					} else {
-						echo "<div id='character-section'><div id='character-name-section' class='center-msg'><h1>No Character Loaded</h1></div></div>";
-					}
-				?>
-				<!-- Special Equips (Top Mid/Right) -->
-				<div id="special-info">
-					<div class="equipped-misc">
-						<?php 
-							if ($player_profile) { 
-								// Pact Section
-								echo '<div class="item-slot" id="item-pact">';
-									echo display_pact($player_profile);
-								echo '</div>';
-								// Insignia Section
-								echo '<div class="item-slot" id="item-insignia">';
-									echo display_insignia($player_profile);
-								echo '</div>';
-								// Tarot Section
-								echo '<div class="item-slot" id="tarot-container">';
-									echo display_tarot($tarot_card);
-								echo '</div>';
-								echo '<div id="tarot-card">';
-									echo display_card_img($tarot_card);
-								echo '</div>';
-							}
-						?>
-					</div>    
-				</div>		
+    <main>
+        <div id="content-container">
+			<div id="detail-box"><h1>No Character Loaded</h1></div>
+			<div id="detail-buttons">
+				<button type="button" id="player-button" class="char-nav-button char-nav-hover" onclick="handleButtonClick(0)">Player</button>
+				<button type="button" id="elemental-button" class="char-nav-button char-nav-hover" onclick="handleButtonClick(1)">Element</button>
+				<button type="button" id="defense-button" class="char-nav-button char-nav-hover" onclick="handleButtonClick(2)">Defence</button>
+				<button type="button" id="details-button" class="char-nav-button char-nav-hover" onclick="handleButtonClick(3)">Details</button>
+				<button type="button" id="misc-button" class="char-nav-button char-nav-hover" onclick="handleButtonClick(4)">Misc</button>
+				<button type="button" id="reload-button" class="char-nav-button char-nav-hover" onclick="refreshPlayerData()">Reload</button>
 			</div>
-			<!-- Equipment (Bottom) -->
-			<div class="bottom-container">
-				<div class="equipped-items">
-					<?php 
-					if ($player_profile) { 
-						$item_types = ['W', 'A', 'V', 'Y', 'R', 'G', 'C'];
-						foreach ($item_types as $type) {
-							echo display_equipment($type, $equipped_items, $equipped_gems);
-						}
-					} 
-					?>
-				</div>
-			</div>
-        </div>
+			<div id=slot-buttons></div>
+		</div>
+		<div id="slot-displays">
+			<div id="slot-display-1" class="slot-display"></div>
+			<div id="slot-display-2" class="slot-display"></div>
+		</div>
     </main>
+	<script src="scripts/charDetails.js"></script>
 	<script>
-		const applicationSections = document.querySelectorAll('.detail-section.element-section');
-		const sideDetailLists = document.querySelectorAll('.side-detail-list');
+		let playerProfileExists = <?php echo $player_profile ? 'true' : 'false'; ?>;
 		let hoverEventListeners = [];
-		
-		function resetSideDetails() {
-			sideDetailLists.forEach(list => list.classList.remove('active'));
-			if (sideDetailLists.length > 0) {
-				sideDetailLists[0].classList.add('active');
-			}
-		}
-
-		applicationSections.forEach((section) => {
-			const sectionId = section.id.replace('section-', 'side-detail-');
-			section.addEventListener('mouseenter', () => {
-				resetSideDetails();
-				const targetDetail = document.getElementById(sectionId);
-				if (targetDetail) {
-					targetDetail.classList.add('active');
-				}
-			});
-		});
-		
-		function refreshPlayerData() {
-			location.reload();
-		}
-		
-		function toggleItem(type) {
-			const itemSlot = document.getElementById('item-' + type);
-			const gemSlot = document.getElementById('gem-' + type);
-			if (itemSlot.classList.contains('display-off')) {
-				itemSlot.classList.remove('display-off');
-				gemSlot.classList.add('display-off');
-			} else {
-				itemSlot.classList.add('display-off');
-				gemSlot.classList.remove('display-off');
-			}
-		}
-
-		function checkImageExists(url, callback) {
-			const img = new Image();
-			img.onload = () => callback(true);
-			img.onerror = () => callback(false);
-			img.src = url;
-		}
-		
 		const sectionContent = {
 			0: `<?php echo $player_main_html; ?>`,
 			1: `<?php echo $element_stats_html; ?>`,
@@ -253,56 +153,13 @@
 			4: `<?php echo $misc_stats_html; ?>`
 		};
 
-		function handleButtonClick(index) {
-			removeHoverLogic();
-			const buttons = document.querySelectorAll('#char-nav-buttons .char-nav-button');
-			buttons.forEach((button, i) => {
-				if (i < buttons.length - 1) {
-					button.classList.remove('current-button');
-					button.onclick = () => handleButtonClick(i);
-				}
-			});
-			buttons[index].classList.add('current-button');
-			buttons[index].onclick = null;
-			document.getElementById('character-section-visible').innerHTML = sectionContent[index];
-			if (index == 3) {
-				applyHoverLogic();
-				const elementSections = document.querySelectorAll('.detail-section.element-section');
-				const sideDetailLists = document.querySelectorAll('.side-detail-list');
-				if (elementSections.length > 0 && sideDetailLists.length > 0) {
-					elementSections[0].classList.add('active');
-					sideDetailLists[0].classList.add('side-detail-list-active');
-				}
-			}
-		}
-		
-		function applyHoverLogic() {
-			const elementSections = document.querySelectorAll('.detail-section.element-section');
-			const sideDetailLists = document.querySelectorAll('.side-detail-list');
-			elementSections.forEach((section, index) => {
-				section.addEventListener('mouseenter', () => {
-					elementSections.forEach(sec => sec.classList.remove('active'));
-					sideDetailLists.forEach(list => list.classList.remove('side-detail-list-active'));
-					section.classList.add('active');
-					if (sideDetailLists[index]) {
-						sideDetailLists[index].classList.add('side-detail-list-active');
-					}
-				});
-			});
-		}
-
-		
-		function removeHoverLogic() {
-			hoverEventListeners.forEach(({ element, handler }) => {
-				element.removeEventListener('mouseover', handler);
-			});
-			hoverEventListeners = [];
-		}
-		
-		var playerProfileExists = <?php echo $player_profile ? 'true' : 'false'; ?>;
 		if (playerProfileExists) {
+			document.getElementById('detail-buttons').style.display = "flex";
+			document.getElementById('detail-box').style.display = "flex";
+			// document.getElementById('details-box').innerHTML = sectionContent[0];
 			handleButtonClick(0);
 		}
 	</script>
+	<script src="scripts/header.js"></script>
 </body>
 </html>

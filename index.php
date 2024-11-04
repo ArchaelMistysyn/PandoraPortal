@@ -25,7 +25,7 @@
 	<link rel="stylesheet" href="CSS/mainpageCSS.css">
 	<link rel="icon" type="img/ico" href="./images/favicon.ico">
 </head>
-<body>
+<body id="page-body">
     <header>
         <div class="pandora-header">
             <a href="index.php">

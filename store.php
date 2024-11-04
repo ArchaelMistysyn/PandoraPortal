@@ -26,7 +26,7 @@
     <link rel="stylesheet" href="CSS/StoreCSS.css">
 	<link rel="icon" type="img/ico" href="./images/favicon.ico">
 </head>
-<body>
+<body id="page-body">
     <header id="header"></header>
     <div class="page-menu">
         <div class="grid-layout">

@@ -10,7 +10,7 @@ class PlayerProfile {
 
     // Player gear/stats info
     public $player_stats, $gear_points, $player_equipped;
-    public $pact, $insignia, $equipped_tarot;
+    public $player_pact, $player_insignia, $equipped_tarot;
 
     // Player health stats
     public $player_mHP, $player_cHP;
@@ -149,8 +149,8 @@ class PlayerProfile {
     }
 	
 	public function player_header() {
-		$html = '<div id="character-name-section">';
-        $html .= '<img src="./gallery/Icons/Classes/' . $this->player_class . '.png" class="class-icon"/>';
+		$html = '<div id="char-name-section">';
+        $html .= '<img src="./gallery/Icons/Classes/' . $this->player_class . '.png" class="icon-medium"/>';
 		$html .= '<h1>';
         $html .= $this->player_username . ' ';
         $html .= '<i style="color: #fff;">Lv</i><i>' . $this->player_level . '</i>';
@@ -160,44 +160,42 @@ class PlayerProfile {
 	}
 	
 	public function display_player($w_item) {
-        global $path_names, $glyph_data, $path_perks;
+		global $path_names, $glyph_data, $path_perks;	
+		if ($this->player_id == 0) {
+			return "<h1>No Character Loaded</h1>";
+		} 
+	
 		$glyph_name = null;
-        if ($this->player_id == 0) {
-            return "<div id='character-name-section' class='center-msg'><h1>No Character Loaded</h1></div>";
-        } 
-		$html = '<div id="player-info">';
-        $html .= $this->player_header();
-		// Experience, Level
-        $exp = $this->player_exp;
-        $level = $this->player_level;
-        $max_exp = $level < 100 ? 1000 * $level : 100000 + (50000 * floor($level / 100));
-        $formatted_exp = number_format($exp);
-        $formatted_max_exp = number_format($max_exp);
+		$exp = $this->player_exp;
+		$level = $this->player_level;
+		$max_exp = $level < 100 ? 1000 * $level : 100000 + (50000 * floor($level / 100));
+		$formatted_exp = number_format($exp);
+		$formatted_max_exp = number_format($max_exp);
 		$exp_percent = $exp / $max_exp;
-        $full_segments = round($exp_percent * 15);
-        $empty_segments = 15 - $full_segments;
-        $html .= '<div id="exp-section">';
-        $html .= '<div class="exp-bar"><span class="tooltip"><div class="highlight">' . number_format(round($exp_percent * 100), 1) . '%</div><div>Exp: ' . $formatted_exp . ' / ' . $formatted_max_exp . '</div></span>';
-        for ($i = 1; $i <= $full_segments; $i++) {
-            $img_num = $i < 10 ? '0' . $i : $i;
-            $html .= '<img src="./images/exp_bar/t2f_' . $img_num . '.png" class="exp-segment">';
-        }
-        for ($i = $full_segments + 1; $i <= 15; $i++) {
-            $img_num = $i < 10 ? '0' . $i : $i;
-            $html .= '<img src="./images/exp_bar/t2e_' . $img_num . '.png" class="exp-segment">';
-        }
-		// Element display
-		$html .= "</div>";
-		$html .= $this->display_elemental_breakdown($w_item);
-		$html .= "</div>";		
-        $html .= '<div id="stat-section"><div><h3 id="id-line">Player ID: ' . $this->player_id . '</h3></div>';
-        $html .= "<div><h3>Base: " . number_format($this->player_damage_min) . " - " . number_format($this->player_damage_max) . "</h3></div>";
-		$html .= "<div><h3>Attack Speed: " . number_format(round(floor($this->attack_speed * 10) / 10, 2), 2) . " / min</h3></div>";
+	
+		$html = '<div id="player-info">';
+		$html .= $this->player_header();
+		$html .= '<table id="player-table">';
+		$html .= '<tr><th colspan="2">GENERAL</th></tr>';
+		// Experience
+		$html .= '<tr><td><img src="./gallery/Icons/Misc/Lotus Coin.png" alt="Coins" class="icon-medium"/>Experience:</td><td>';
+		$html .= '<div class="exp-bar"><span class="tooltip">' . $formatted_exp . ' / ' . $formatted_max_exp . '</span>';
+		$html .= '<div class="exp-fill" style="width: ' . ($exp_percent * 100) . '%;"></div><div class="exp-empty" style="width: ' . (100 - $exp_percent * 100) . '%;"></div>';
+		$html .= '</div></td></tr>';
+		// Elemental Breakdown
+		$html .= '<tr><td><img src="./gallery/Icons/Misc/Lotus Coin.png" alt="Coins" class="icon-medium"/>Element Spread:</td><td>' . $this->display_elemental_breakdown($w_item) . '</td></tr>';
+		// Player ID
+		$html .= '<tr><td><img src="./gallery/Icons/Misc/Lotus Coin.png" alt="Coins" class="icon-medium"/>Player ID:</td><td>' . $this->player_id . '</td></tr>';
+		// Base Damage
+		$html .= '<tr><td><img src="./gallery/Icons/Misc/Lotus Coin.png" alt="Coins" class="icon-medium"/>Base Damage:</td><td>' . number_format($this->player_damage_min) . ' - ' . number_format($this->player_damage_max) . '</td></tr>';
+		// Attack Speed
+		$html .= '<tr><td><img src="./gallery/Icons/Misc/Lotus Coin.png" alt="Coins" class="icon-medium"/>Attack Speed:</td><td>' . number_format(round(floor($this->attack_speed * 10) / 10, 2), 2) . ' / min</td></tr>';
+		// Lotus Coins
 		$formatted_coin_value = number_format($this->player_coins);
-        $html .= '<div id="coin-section"><img src="./gallery/Icons/Misc/Lotus Coin.png" alt="Coins" class="coin-icon"/>';
-        $html .= '<h3>' . $formatted_coin_value . ' Lotus Coins</h3></div></div>';
-		// Skill Points
-        $html .= '<div id="skill-points-section" class="skill-points">';
+		$html .= '<tr><td><img src="./gallery/Icons/Misc/Lotus Coin.png" alt="Coins" class="icon-medium"/>Lotus Coins:</td><td> ' . $formatted_coin_value . '</td></tr>';
+		$html .= '</table>';
+		// Skill Points & Glyphs
+		$html .= '<div id="skill-points-section" class="skill-points">';
         foreach ($this->player_stats as $index => $point) {
 			$combined_point = $point + $this->gear_points[$index];
             $skill_color = '';
@@ -220,9 +218,9 @@ class PlayerProfile {
 			$html .= '<div class="' . $skill_color . '">' . $combined_point . '</div>';
 			$html .= '</div></div>';
 		}
-		$html .= "</div></div>";
-        return $html;
-	}
+		$html .= '</div></div>';
+		return $html;
+	}	
 
 	public function get_player_multipliers() {
 		global $sovereign_item_list, $element_dict;

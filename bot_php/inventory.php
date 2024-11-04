@@ -453,7 +453,7 @@
 			$star_display = '<div class="star-container">';
 			for ($i = 1; $i <= 9; $i++) {
 				if ($i <= $this->item_tier) {
-					$star_display .= '<img src="./gallery/Icons/Stars/Star' . $this->item_tier . '.png" class="star-image">';
+					$star_display .= '<img src="./gallery/Icons/Stars/Star' . $this->item_tier . '.png" class="icon-small">';
 				} else {
 					$star_display .= '<img src="./gallery/Icons/Stars/StarBlank.png" class="star-image">';
 				}
@@ -751,9 +751,9 @@
 		$star_display = '<div class="star-container">';
 		for ($i = 1; $i <= 9; $i++) {
 			if ($i <= $tier) {
-				$star_display .= '<img src="./gallery/Icons/Stars/Star' . $tier . '.png" class="star-image">';
+				$star_display .= '<img src="./gallery/Icons/Stars/Star' . $tier . '.png" class="icon-small">';
 			} else {
-				$star_display .= '<img src="./gallery/Icons/Stars/StarBlank.png" class="star-image">';
+				$star_display .= '<img src="./gallery/Icons/Stars/StarBlank.png" class="icon-small">';
 			}
 		}
 		$star_display .= '</div>';
