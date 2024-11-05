@@ -371,6 +371,55 @@ main {
 	border: 2px solid #7FFFD4;
 }
 
+.inactive-element {
+	opacity: 0.4;
+}
+
+.elemental-highlight-Wind {
+    color: #7FFFD4;
+    font-size: 20px;
+}
+
+.elemental-highlight-Earth {
+    color: #A0522D;
+    font-size: 20px;
+}
+
+.elemental-highlight-Fire {
+    color: #FF4500;
+    font-size: 20px;
+}
+
+.elemental-highlight-Ice {
+    color: #00BFFF;
+    font-size: 20px;
+}
+
+.elemental-highlight-Light {
+    color: #FFF;
+    font-size: 20px;
+}
+
+.elemental-highlight-Lightning {
+    color: #FFD700;
+    font-size: 20px;
+}
+
+.elemental-highlight-Shadow {
+    color: #C0C0C0;
+    font-size: 20px;
+}
+
+.elemental-highlight-Water {
+    color: #1E90FF;
+    font-size: 20px;
+}
+
+.elemental-highlight-Celestial {
+    color: #B399FF;
+    font-size: 20px;
+}
+
 .inner-skill-circle .ultra, .ultra td{
 	background: linear-gradient(to right, #b87333, #cd7f32, #a97142, #804a00);
 	background-clip: text;
