@@ -182,12 +182,12 @@
 					$bonus_stat_msg = "{$tier_specifier[$this->item_tier]} Application ({$this->item_bonus_stat})";
 					$final_damage = ($this->item_tier - 4) * 25;
 					$tooltip = $application_mapping[$this->item_bonus_stat];
-					$tooltip = "<span class='skill-tooltip'>{$tooltip}. Final Damage +{$final_damage}%</span>";
+					$tooltip = "<span class='tooltip'>{$tooltip}. Final Damage +{$final_damage}%</span>";
 				} else if ($this->item_tier < 5 && in_array($this->item_type, ["G", "C"])) {
 					if (isset($low_tier_skills[$this->item_bonus_stat])) {
 						$bonus_stat_msg = "{$low_tier_skills[$this->item_bonus_stat]['name']} ({$this->item_bonus_stat})";
 						$tooltip = $low_tier_skills[$this->item_bonus_stat]['description'];
-						$tooltip = "<span class='skill-tooltip'>{$tooltip}</span>";
+						$tooltip = "<span class='tooltip'>{$tooltip}</span>";
 					}
 				}
 			} else {
@@ -230,7 +230,7 @@
 				$tooltip = "<span class='skill-name'>$skill_name</span>";
 				if (isset($keyword_data[$skill_tag])) {
 					$description = $keyword_data[$skill_tag]['description'];
-					$tooltip .= "<span class='skill-tooltip'>{$description}</span>";
+					$tooltip .= "<span class='tooltip'>{$description}</span>";
 				}
 				$skill_display .= "<div class=\"skill-slot $tier_class\">$tooltip</div>";
 			}
@@ -263,7 +263,7 @@
 				if (isset($keyword_data[$skill_tag])) {
 					$skill_display .= "<div class=\"skill-slot tier-$this->item_tier\">";
 					$skill_display .= "<span class='skill-name'>$skill_name +$skill_value%</span>";
-					$skill_display .= "<span class='skill-tooltip'>{$keyword_data[$skill_tag]['description']}</span>";
+					$skill_display .= "<span class='tooltip'>{$keyword_data[$skill_tag]['description']}</span>";
 					$skill_display .= "</div>";
 				} else {
 					$skill_display .= "<div class=\"skill-slot tier-$this->item_tier\">$skill_name +$skill_value%</div>";
@@ -455,7 +455,7 @@
 				if ($i <= $this->item_tier) {
 					$star_display .= '<img src="./gallery/Icons/Stars/Star' . $this->item_tier . '.png" class="icon-small">';
 				} else {
-					$star_display .= '<img src="./gallery/Icons/Stars/StarBlank.png" class="star-image">';
+					$star_display .= '<img src="./gallery/Icons/Stars/StarBlank.png" class="icon-small">';
 				}
 			}
 			$star_display .= '</div>';
@@ -513,8 +513,8 @@
 					$element_name = $element_names[$index];
 					$tooltip = isset($tooltip_dict[$this->item_type]) ? str_replace('X', $element_name, $tooltip_dict[$this->item_type]) : "{$element_name}";
 					$element_display .= '<div class="element-icon-container"><img src="./gallery/Icons/Elements/';
-					$element_display .= $element_name . '.png" class="element-icon" alt="' . $element_name . '">';
-					$element_display .= '<span class="skill-tooltip">' . $tooltip . '</span></div>';
+					$element_display .= $element_name . '.png" class="icon-small" alt="' . $element_name . '">';
+					$element_display .= '<span class="tooltip">' . $tooltip . '</span></div>';
 				}
 			}
 			$element_display .= '</div>';
@@ -773,7 +773,7 @@
 		foreach ($elements as $index => $value) {
 			if ($value == '1' || $value == 1) {
 				$element_name = $element_names[$index];
-				$element_display .= '<img src="./gallery/Icons/Elements/' . $element_name . '.png" class="element-icon" alt="' . $element_name . '">';
+				$element_display .= '<img src="./gallery/Icons/Elements/' . $element_name . '.png" class="icon-small" alt="' . $element_name . '">';
 			}
 		}
 		$element_display .= '</div>';

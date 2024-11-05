@@ -422,7 +422,7 @@ input:focus{
 
 .exp-bar:hover .tooltip, .element-segment:hover .tooltip,
 .skill-circle:hover .tooltip, .skill-circle:hover .tooltip-lower, 
-.skill-slot:hover .skill-tooltip {
+.skill-slot:hover .tooltip, .element-icon-container:hover .tooltip{
     visibility: visible;
     opacity: 1;
 }

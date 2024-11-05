@@ -85,13 +85,6 @@
 			$type_name = isset($tag_dict[$type]) ? $tag_dict[$type] : "Unknown";
 			$html .= "Empty Slot: " . $type_name;
 		}
-		if (isset($equipped_items[$type]) && $equipped_items[$type]->item_num_sockets == 0) {
-			$html .= '<div class="bottom-button"><button type="button" class="toggle-button empty-socket" disabled>No Socket</button></div>';
-		} elseif (isset($equipped_gems[$type])) {
-			$html .= '<div class="bottom-button"><button type="button" class="toggle-button toggle-hover" onclick="toggleItem(\'' . $type . '\')">Toggle Gem</button></div>';
-		} else {
-			$html .= '<div class="bottom-button"><button type="button" class="toggle-button empty-socket" disabled>Empty Socket</button></div>';
-		}
 		$html .= '</div>';
 		// Gem Slot
 		$html .= '<div class="item-slot display-off" id="gem-' . $type . '">';
@@ -100,7 +93,6 @@
 		} else {
 			$html .= "Empty Slot: Gem";
 		}
-		$html .= '<div class="bottom-button"><button type="button" class="toggle-button toggle-hover" onclick="toggleItem(\'' . $type . '\')">Toggle Item</button></div>';
 		$html .= '</div>';
 		return $html;
 	}
@@ -136,9 +128,12 @@
 			</div>
 			<div id=slot-buttons></div>
 		</div>
-		<div id="slot-displays">
-			<div id="slot-display-1" class="slot-display"></div>
-			<div id="slot-display-2" class="slot-display"></div>
+		<div id="slot-display">
+			<?php 
+				if ($player_profile) { 
+					echo display_equipment('W', $equipped_items, $equipped_gems);
+				} 
+			?>
 		</div>
     </main>
 	<script src="scripts/charDetails.js"></script>
