@@ -514,7 +514,7 @@ class PlayerProfile {
 		foreach ($resistance_breakdown as $resistance) {
 			$index = $resistance['index'];
 			$resistance_value = $resistance['value'];
-			$temp_icon = '<img src="./gallery/Icons/Elements/' . $element_names[$index] . '.png" class="breakdown-icon" alt="' . $element_names[$index] . '">';
+			$temp_icon = '<img src="./gallery/Icons/Elements/' . $element_names[$index] . '.png" class="icon-medium" alt="' . $element_names[$index] . '">';
 			$temp_res_str = "Resistance: " . number_format(round($resistance_value)) . "%";
 			$temp .= "<div class='element-section eleBox-{$element_names[$index]}'>";
 			$temp .= "<div class='total-box' class='detail-item'>{$temp_icon}<h1 class='elemental-highlight-" . $element_names[$index] . "'>" . $temp_res_str . "</h1></div>";
@@ -575,7 +575,7 @@ class PlayerProfile {
 		});
 		$html = "<div id='player-info'>" . $this->player_header();
 		$html .= "<div style='text-align: center;'><h3>Application Details</h3></div>";
-		$html .= "<div id='detail-container'><div id='detail-box'>";
+		$html .= "<div id='detail-container'><div id='main-detail-box'>";
 		$side_html = '';
 		foreach ($appli_data as $type => $data) {
 			$appBoxClass = "appBox-" . $type;
@@ -606,7 +606,7 @@ class PlayerProfile {
 
 	private function create_element_section($z, $total_multi, $is_active, $total_contribution = 0) {
 		global $element_names;
-		$temp_icon = '<img src="./gallery/Icons/Elements/' . $element_names[$z] . '.png" class="breakdown-icon" alt="' . $element_names[$z] . '">';
+		$temp_icon = '<img src="./gallery/Icons/Elements/' . $element_names[$z] . '.png" class="icon-medium"" alt="' . $element_names[$z] . '">';
 		$temp_dmg_str = "&lpar;Mult: " . number_format(intval(round($this->elemental_mult[$z] * 100))) . "%&rpar;";
 		$temp_pen_str = "&lpar;Pen: " . number_format(intval(round($this->elemental_pen[$z] * 100))) . "%&rpar;";
 		$temp_curse_str = "&lpar;Curse: " . number_format(intval(round($this->elemental_curse[$z] * 100))) . "%&rpar;";

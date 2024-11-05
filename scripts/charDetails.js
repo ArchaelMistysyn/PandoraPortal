@@ -10,7 +10,7 @@ function checkImageExists(url, callback) {
 }
 
 function handleButtonClick(index) {
-    const buttons = document.querySelectorAll('#detail-buttons');
+    const buttons = document.querySelectorAll('#detail-buttons button');
     buttons.forEach((button, i) => {
         if (i < buttons.length - 1) {
             button.classList.remove('current-button');
