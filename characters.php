@@ -116,18 +116,18 @@
 
     <!-- Main Content Section -->
     <main>
-        <div id="content-container">
-			<div id="detail-box"><h1>No Character Loaded</h1></div>
-			<div id="detail-buttons">
-				<button type="button" id="player-button" class="char-nav-button char-nav-hover" onclick="handleButtonClick(0)">Player</button>
-				<button type="button" id="elemental-button" class="char-nav-button char-nav-hover" onclick="handleButtonClick(1)">Element</button>
-				<button type="button" id="defense-button" class="char-nav-button char-nav-hover" onclick="handleButtonClick(2)">Defence</button>
-				<button type="button" id="details-button" class="char-nav-button char-nav-hover" onclick="handleButtonClick(3)">Details</button>
-				<button type="button" id="misc-button" class="char-nav-button char-nav-hover" onclick="handleButtonClick(4)">Misc</button>
-				<button type="button" id="reload-button" class="char-nav-button char-nav-hover" onclick="refreshPlayerData()">Reload</button>
-			</div>
+      <div id="content-container">
+        <div id="detail-box"><h1>No Character Loaded</h1></div>
+        <div id="detail-buttons">
+          <button type="button" id="player-button" class="char-nav-button char-nav-hover" onclick="handleButtonClick(0)"><span class="player-button-img"></span></button>
+          <button type="button" id="elemental-button" class="char-nav-button char-nav-hover" onclick="handleButtonClick(1)"><span class="elemental-button-img"></span></button>
+          <button type="button" id="defense-button" class="char-nav-button char-nav-hover" onclick="handleButtonClick(2)"><span class="defense-button-img"></span></button>
+          <button type="button" id="details-button" class="char-nav-button char-nav-hover" onclick="handleButtonClick(3)"><span class="details-button-img"></span></button>
+          <button type="button" id="misc-button" class="char-nav-button char-nav-hover" onclick="handleButtonClick(4)"><span class="misc-button-img"></span></button>
+          <button type="button" id="reload-button" class="char-nav-button char-nav-hover" onclick="refreshPlayerData()"><span class="reload-button-img"></span></button>
+        </div>
 			<div id=slot-buttons></div>
-		</div>
+		  </div>
 		<div id="slot-display">
 			<?php 
 				if ($player_profile) { 
