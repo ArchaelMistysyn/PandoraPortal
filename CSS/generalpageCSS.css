@@ -206,7 +206,32 @@ header {
 }
 .tier-9, .tier-9 td {
 	color: #C20C0C;
-}	
+}
+
+.inner-skill-circle .ultra, .ultra td{
+	background: linear-gradient(to right, #b87333, #cd7f32, #a97142, #804a00);
+	background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+.inner-skill-circle .uber, .uber td{
+	background: linear-gradient(to right, #C0C0C0, #D4D4D4, #E8E8E8, #F2F2F2);
+	background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+.inner-skill-circle .ultimate, .ultimate td{
+	background: linear-gradient(to right, #FFD700, #FFC300, #FFB300, #FFA500, #FF8C00);
+	background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+.rare-skill, .command-column {
+	color: #C20C0C;
+}
 
 .bonus:hover {
 	background-color: #1A1F1A;

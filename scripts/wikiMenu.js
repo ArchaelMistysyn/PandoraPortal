@@ -11,10 +11,11 @@ function buildTabMenu() {
         const mainTabElement = document.createElement('div');
         mainTabElement.id = `mainTab-${mainTab}`;
         mainTabElement.classList.add('main-tab');
-        mainTabElement.innerHTML = `${mainTab} <span class="arrow">▼</span>`;
+        mainTabElement.innerHTML = `${mainTab} <span class="arrow">▲</span>`;
         const subTabsList = document.createElement('ul');
         subTabsList.id = `subTabsList-${mainTab}`;
         subTabsList.classList.add('sub-tabs');
+        subTabsList.style.display = 'block';
         subTabs.forEach(subTab => {
             const subTabElement = document.createElement('li');
             subTabElement.id = `subTab-${subTab}`;
