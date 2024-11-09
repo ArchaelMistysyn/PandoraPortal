@@ -91,7 +91,7 @@
 			"Gear": [
 				{"label": "Sovereign", "folder": "Gear", "subfolders": ["Sovereign"]},
 				{"label": "Weapons", "folder": "Weapons", "subfolders": ["Knight", "Ranger", "Mage", "Assassin", "Weaver", "Rider", "Summoner"]},
-				{"label": "Rings", "folder": "Rings", "subfolders": ["Signets", "Primordial", "Sovereign"]},
+				{"label": "Rings", "folder": "Rings", "subfolders": ["Signets", "Primordial", "Path", "Fabled", "Sovereign"]},
 				{"label": "Equipment", "folder": "Equipment", "subfolders": ["Armour", "Amulet", "Wings", "Crest", "Gem"]},
 				{"label": "Pact", "folder": "Misc", "subfolders": ["Pact"]},
 			],

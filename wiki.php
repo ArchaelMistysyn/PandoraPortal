@@ -12,11 +12,12 @@
     <!-- Header Section -->
     <header id="header"></header>
     <!-- Main Content Section -->
-    <main>
-		<div class="content-container">
-			<span class="icon">&#128269;</span>
+    <main id="wiki-flex">
+        <div id="wiki-menu">
 			<input type="text" id="filter-input" placeholder="Filter Content" oninput="filterItems()">
 			<div class="tab-menu" id="tabMenu"></div>
+        </div>
+		<div id="content-container">
             <div id="wiki-content"></div>
         </div>
     </main>

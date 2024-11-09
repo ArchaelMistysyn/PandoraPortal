@@ -151,7 +151,6 @@
 		if (playerProfileExists) {
 			document.getElementById('detail-buttons').style.display = "flex";
 			document.getElementById('detail-box').style.display = "flex";
-			// document.getElementById('details-box').innerHTML = sectionContent[0];
 			handleButtonClick(0);
 		}
 	</script>
