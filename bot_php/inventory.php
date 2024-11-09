@@ -137,11 +137,12 @@
 					$quality = "[" . $ring_category[$ring_tier] . "]";
 				}
 			}			
-			$html .= "<h1 class='item-name'>" . $name . "</h1>";
 			if (!empty($quality)) {
-				$html .= "<div class='item-name'>" . $quality . "</div>";
+				$html .= "<div class='item-name-badge'>" . $quality . "</div>";
 			}
-			$html .= "<div>Base: " . number_format($this->item_damage_min) . " - " . number_format($this->item_damage_max) . "</div>";
+			$html .= "<h1 class='item-name'>" . $name . "</h1>";
+			$html .= "<div class='style-line'></div>";
+			$html .= "<div class='item-dmg-stat'>Base: " . number_format($this->item_damage_min) . " - " . number_format($this->item_damage_max) . "</div>";
 			if (!$is_gem) {
 				$html .= '<img src="https://PandoraPortal.ca/gallery/Icons/Classes/' . $this->item_damage_type . '.png" alt="' . $this->item_damage_type . '" class="item-class-thumbnail">';
 				if ($this->item_type == 'R'){
