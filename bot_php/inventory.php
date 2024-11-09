@@ -116,10 +116,6 @@
 		
 		public function display_item($is_gem=false) {
 			global $sovereign_item_list, $ring_skill_data, $ring_category, $path_names, $gem_point_dict, $low_tier_skills;
-			$thumbnail_url = $this->get_gear_thumbnail();
-			$html = '<img src="' . $thumbnail_url . '" alt="' . $this->item_name . '" class="item-thumbnail">';
-			$html .= $this->generate_stars();
-			$html .= $this->generate_element_icons();
 			$quality = '';
 			$name = '';
 			$tooltip = '';
@@ -136,11 +132,22 @@
 					$ring_tier = $ring_skill_data[$this->item_name]['tier'];
 					$quality = "[" . $ring_category[$ring_tier] . "]";
 				}
-			}			
-			if (!empty($quality)) {
-				$html .= "<div class='item-name-badge'>" . $quality . "</div>";
 			}
+
+			$thumbnail_url = $this->get_gear_thumbnail();
+			$html = '<img src="' . $thumbnail_url . '" alt="' . $this->item_name . '" class="item-thumbnail">';
 			$html .= "<h1 class='item-name'>" . $name . "</h1>";
+			$html .= "<div class='style-line'></div>";
+			$html .= $this->generate_stars();
+			$html .= $this->generate_element_icons();
+			$html .= "<div class='style-line'></div>";
+			// Tags
+			$html .= "<div id='badge-container'>";	
+			$html .= "<div class='item-name-badge'>" . $quality . "</div>";
+			$html .= "<div class='item-id-badge'>ID: " . $this->item_id . "</div>";
+			$html .= "<div class='item-tier-badge'>Tier: " . $this->item_tier . "</div>";
+			$html .="</div>";
+			// Item Data
 			$html .= "<div class='style-line'></div>";
 			$html .= "<div class='item-dmg-stat'>Base: " . number_format($this->item_damage_min) . " - " . number_format($this->item_damage_max) . "</div>";
 			if (!$is_gem) {
@@ -463,7 +470,7 @@
 			return $star_display;
 		}
 		
-		public function get_gear_thumbnail() {
+		public function get_gear_thumbnail($encode_filename = false) {
 			global $ring_item_type, $sovereign_item_list, $tag_dict;
 			$folder = $item_tag = $this->item_base_type;
 			$sub_folder = $element_index = "";
@@ -487,7 +494,11 @@
 				}
 			}
 			$new_tag = str_replace(' ', '_', $item_tag);
-			return "https://kyleportfolio.ca/botimages/Gear_Icon/$folder/$sub_folder" . "Frame_$new_tag" . $element_index . "_" . $this->item_tier . ".png";
+			$filename = "Frame_{$new_tag}{$element_index}_{$this->item_tier}.png";
+			if ($encode_filename) {
+				$filename = urlencode($filename);
+			}
+			return "https://kyleportfolio.ca/botimages/Gear_Icon/$folder/$sub_folder$filename";
 		}
 		
 		public function generate_element_icons() {

@@ -22,9 +22,9 @@
 			$this->card_fd = $tarot_fd[$num_stars];
 			$this->path_points = $tarot_point_values[$num_stars];
 			if ($card_qty == 0) {
-				$this->card_image_link = "https://www.KylePortfolio.ca/botimages/tarot/" . $card_numeral . "/" . $card_numeral . "_" . $num_stars. ".png";
-			} else {
 				$this->card_image_link = "./gallery/Tarot/Paragon/Cardback.webp";
+			} else {
+				$this->card_image_link = "https://www.KylePortfolio.ca/botimages/tarot/" . $card_numeral . "/" . $card_numeral . "_" . $num_stars. ".png";
 			}
 			$this->essence_link = "https://www.KylePortfolio.ca/botimages/NonGear_Icon/Essence/Frame_Essence_" . $this->num_stars . ".png";
 		}
@@ -104,10 +104,11 @@
 	
 	function display_tarot($tarot_card) {
 		global $card_variant, $path_names;
+		$html = "<div class='item-slot' id='item-Tarot'>";
 		if (!$tarot_card) {
-			return '';
+			return $html . "</div>";
 		}
-		$html = "<img class='item-thumbnail' src='" . $tarot_card->essence_link . "'>";
+		$html .= "<img class='item-thumbnail' src='" . $tarot_card->essence_link . "'>";
 		$html .= generate_stars($tarot_card->num_stars);
 		$html .= '<h1 class="item-name">' . $tarot_card->card_numeral . ' - ' . $tarot_card->card_name . '</h1>';
 		$html .= '<div class="item-name">' . '[' . $card_variant[$tarot_card->num_stars] . ']' . '</div>';
@@ -123,18 +124,11 @@
 		}
 		$tarot_skills = $tarot_card->display_tarot_skills();
 		$html .= '<div id="tarot-skills">' . $tarot_skills . '</div>';
+		$html .= '</div>';
+		$html .= "<div id='image-tarot' style=\"background-image: url('" . $tarot_card->card_image_link . "');\"></div>";
 		return $html;
 	}
-	
-	function display_card_img($tarot_card) {
-		if (!$tarot_card || $tarot_card->card_numeral == '') {
-			echo '<img src="./gallery/Tarot/Paragon/Cardback.webp" alt="Tarot Card" class="tarot-image">';
-		} else {
-			echo '<img src="https://www.KylePortfolio.ca/botimages/tarot/' . $tarot_card->card_numeral . '/' . $tarot_card->card_numeral . '_' . $tarot_card->num_stars . '.png" alt="Tarot Card" class="tarot-image"
-			onerror="this.onerror=null; this.src=\'./gallery/Tarot/Paragon/Cardback.webp\';">';
-		}
-	}
-	
+
 	function roman_to_number($roman) {
 		$map = ['M' => 1000, 'CM' => 900, 'D' => 500, 'CD' => 400, 'C' => 100, 'XC' => 90, 'L' => 50, 'XL' => 40, 'X' => 10, 'IX' => 9, 'V' => 5, 'IV' => 4, 'I' => 1];
 		$result = 0;
