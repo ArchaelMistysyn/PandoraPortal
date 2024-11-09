@@ -4,425 +4,437 @@ Text (Gold): #FFC107
 */
 
 @font-face {
-    font-family: 'PandoraDiamond';
-    src: url('../font/PandoraDiamond/PandoraDiamond.woff2') format('woff2'),
-         url('../font/PandoraDiamond/PandoraDiamond.woff') format('woff');
+  font-family: "PandoraDiamond";
+  src: url("../font/PandoraDiamond/PandoraDiamond.woff2") format("woff2"),
+    url("../font/PandoraDiamond/PandoraDiamond.woff") format("woff");
 }
 
 ::-webkit-scrollbar {
-    width: 12px;
+  width: 12px;
 }
 
 ::-webkit-scrollbar-track {
-    background: #111;
-    border-radius: 10px;
+  background: #111;
+  border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #9932CC;
-    border-radius: 10px;
-    border: 3px solid #111;
+  background: #9932cc;
+  border-radius: 10px;
+  border: 3px solid #111;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: #00BFFF;
+  background: #00bfff;
 }
 
 html {
-    scrollbar-width: thin;
-    scrollbar-color: #9932CC #111;
-	background-color: #111;
+  scrollbar-width: thin;
+  scrollbar-color: #9932cc #111;
+  background-color: #111;
 }
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: PandoraDiamond;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: PandoraDiamond;
 }
 
 a {
-    color: white;
-    text-decoration: none;
+  color: white;
+  text-decoration: none;
 }
 
 body {
-    height: 100vh;
-    background-color: #111;
-    background-image: url("https://www.PandoraPortal.ca/images/spatialBG.webp");
-    background-size: 100% 100%;
+  height: 100vh;
+  background-color: #111;
+  background-image: url("https://www.PandoraPortal.ca/images/spatialBG.webp");
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 header {
-    background-color: #111;
-    max-height: 100px;
-    padding: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-direction: row;
-    width: 100%;
-    z-index: 1000;
+  background-color: #111;
+  max-height: 100px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+  width: 100%;
+  z-index: 1000;
 }
 
-.header-left, .header-right {
-    width: 300px;
+.header-left,
+.header-right {
+  width: 300px;
 }
 
 .header-left a {
-    display: flex;
-    width: 100%;
-    height: 100%;
-    text-decoration: none;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
 }
 
 .header-left a img {
-    max-width: 300px;
-    max-height: 80px;
+  max-width: 300px;
+  max-height: 80px;
 }
 
 .header-middle {
-    gap: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  gap: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .header-middle a {
-    font-family: PandoraDiamond;
-    font-size: 1.2rem;
-    height: 45px;
-    width: 110px;
-    text-align: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-    transition: color 0.3s;
-    border: 1px solid white;
-    text-shadow: 1px 1px black;
+  font-family: PandoraDiamond;
+  font-size: 1.2rem;
+  height: 45px;
+  width: 110px;
+  text-align: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  transition: color 0.3s;
+  border: 1px solid white;
+  text-shadow: 1px 1px black;
 }
 
 .header-middle a span {
-    background-color: rgba(0, 0, 0, 0.3);
-    width: 100%;
-    height: 100%;
-    padding: 10px;
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;  
+  background-color: rgba(0, 0, 0, 0.3);
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .header-right img {
-    width: 40px;
-    height: 40px;
+  width: 40px;
+  height: 40px;
 }
 
 .page-menu {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: calc(100vh - 100px);
-    width: 100%;
-    overflow-y: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 100px);
+  width: 100%;
+  overflow-y: auto;
 }
 
 .button-green {
-    background-image: url('../images/Button/Button_Emerald.webp');
+  background-image: url("../images/Button/Button_Emerald.webp");
 }
 .button-gold {
-    background-image: url('../images/Button/Button_Gold.webp');
+  background-image: url("../images/Button/Button_Gold.webp");
 }
 .button-amethyst {
-    background-image: url('../images/Button/Button_Amethyst.webp');
+  background-image: url("../images/Button/Button_Amethyst.webp");
 }
 .button-azure {
-    background-image: url('../images/Button/Button_Azure.webp');
+  background-image: url("../images/Button/Button_Azure.webp");
 }
 .button-ruby {
-    background-image: url('../images/Button/Button_Ruby.webp');
+  background-image: url("../images/Button/Button_Ruby.webp");
 }
 .button-pink {
-    background-image: url('../images/Button/Button_Pink.webp');
+  background-image: url("../images/Button/Button_Pink.webp");
 }
 
 .button-green:hover span {
-    background-color: rgba(2, 165, 2, 0.3);
+  background-color: rgba(2, 165, 2, 0.3);
 }
 .button-gold:hover span {
-    background-color: rgba(255, 193, 7, 0.3);
+  background-color: rgba(255, 193, 7, 0.3);
 }
 .button-amethyst:hover span {
-    background-color: rgba(120, 10, 195, 0.3);
+  background-color: rgba(120, 10, 195, 0.3);
 }
 .button-azure:hover span {
-    background-color: rgba(0, 123, 255, 0.3);
+  background-color: rgba(0, 123, 255, 0.3);
 }
 .button-ruby:hover span {
-    background-color: rgba(255, 0, 0, 0.3);
+  background-color: rgba(255, 0, 0, 0.3);
 }
 .button-pink:hover span {
-    background-color: rgba(255, 20, 147, 0.3);
+  background-color: rgba(255, 20, 147, 0.3);
 }
 
 .header-right {
-    height: 53px;
-    display: flex;
-    justify-content: center;
+  height: 53px;
+  display: flex;
+  justify-content: center;
 }
 
-.header-right a{
-    display: block;
-    width: 70px;
-    height: 53px;
-    background-image: url('../images/Discord/discord-mark-blue.webp');
-    background-size: cover;
-    background-position: center;
+.header-right a {
+  display: block;
+  width: 70px;
+  height: 53px;
+  background-image: url("../images/Discord/discord-mark-blue.webp");
+  background-size: cover;
+  background-position: center;
 }
-.header-right a:hover{
-    background-image: url('../images/Discord/discord-mark-white.webp');
+.header-right a:hover {
+  background-image: url("../images/Discord/discord-mark-white.webp");
 }
 
-.tier-1, .tier-1 td {
-	color: #028A0F;
+.tier-1,
+.tier-1 td {
+  color: #028a0f;
 }
-.tier-2, .tier-2 td {
-	color: #8080FF;
+.tier-2,
+.tier-2 td {
+  color: #8080ff;
 }
-.tier-3, .tier-3 td {
-	color: #9B59B6;
+.tier-3,
+.tier-3 td {
+  color: #9b59b6;
 }
-.tier-4, .tier-4 td {
-	color: #007FFF;
+.tier-4,
+.tier-4 td {
+  color: #007fff;
 }
-.tier-5, .tier-5 td {
-	color: #FFC609;
+.tier-5,
+.tier-5 td {
+  color: #ffc609;
 }
-.tier-6, .tier-6 td {
-	color: #FFA6C9;
+.tier-6,
+.tier-6 td {
+  color: #ffa6c9;
 }
-.tier-7, .tier-7 td {
-	color: #008080;
+.tier-7,
+.tier-7 td {
+  color: #008080;
 }
-.tier-8, .tier-8 td {
-	color: #E8E8E8;
+.tier-8,
+.tier-8 td {
+  color: #e8e8e8;
 }
-.tier-9, .tier-9 td {
-	color: #C20C0C;
-}	
+.tier-9,
+.tier-9 td {
+  color: #c20c0c;
+}
 
 .bonus:hover {
-	background-color: #1A1F1A;
+  background-color: #1a1f1a;
 }
 .penalty:hover {
-	background-color: #211A1A;
+  background-color: #211a1a;
 }
-
 
 /* Tables */
 .rank-table {
-    margin-top: 20px;
+  margin-top: 20px;
 }
 
 table {
-    width: 100%;
-    border-collapse: collapse;
-    text-align: left;
-	font-family: PandoraDiamond;
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-family: PandoraDiamond;
 }
 
 th {
-    padding: 5px;
-	background-color: #000;
-	text-align: center;
+  padding: 5px;
+  background-color: #000;
+  text-align: center;
 }
 
 th div {
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-    color: #FFC107;
-	height: 40px;
-    font-size: 1.5rem;
-	border-bottom: 3px solid #FFC107;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  color: #ffc107;
+  height: 40px;
+  font-size: 1.5rem;
+  border-bottom: 3px solid #ffc107;
 }
 
-thead tr{
-	height: 30px;
+thead tr {
+  height: 30px;
 }
 
 tr {
-	padding: 0;
-    border-bottom: 1px solid #ddd;
-    background-color: #1e1e1e;
-	font-size: 24px;
-	height: 70px;
-	border-bottom: none; 
+  padding: 0;
+  border-bottom: 1px solid #ddd;
+  background-color: #1e1e1e;
+  font-size: 24px;
+  height: 70px;
+  border-bottom: none;
 }
 
 tr:hover {
-    background-color: #2e2e2e;
+  background-color: #2e2e2e;
 }
 
 td {
-	text-align: center;
-	padding: 0;
-	height: 70px;
+  text-align: center;
+  padding: 0;
+  height: 70px;
 }
 
 .button-cell {
-    align-items: center;
-	justify-content: center;
-	text-align: center;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 
 .button-cell div {
-	display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
 }
 
-.icon-cell div{
-	height: 70px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.icon-cell div {
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.icon-cell div img{
-	height: 64px;
+.icon-cell div img {
+  height: 64px;
 }
 
-
-.multi-icon-cell div{
-	height: 40px;
-    display: flex;
-	gap: 2px;
-    align-items: center;
-    justify-content: center;
+.multi-icon-cell div {
+  height: 40px;
+  display: flex;
+  gap: 2px;
+  align-items: center;
+  justify-content: center;
 }
 
-.multi-icon-cell div img{
-	height: 36px;
+.multi-icon-cell div img {
+  height: 36px;
 }
-
 
 .highlight-row {
-    background-color: #2e2e2e;
-    font-weight: bold;
+  background-color: #2e2e2e;
+  font-weight: bold;
 }
 
 /* Inputs */
 input[type="text"] {
-    background-color: #111;
-    color: #00BFFF;
-    border: 1px solid #9932CC;
-    margin-right: 10px;
-    padding: 10px;
-    border-radius: 5px;
-    width: 300px;
+  background-color: #111;
+  color: #00bfff;
+  border: 1px solid #9932cc;
+  margin-right: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  width: 300px;
 }
 
 .input-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    background-color: #111;
-    font-weight: bold;
-    color: #00BFFF;
-    border: 1px solid #9932CC;
-    margin: 0 5px;
-    width: 110px;
-    padding: 10px;
-    border-radius: 5px;
-    height: 40px;
-    text-decoration: none;
-    transition: background-color 0.3s, color 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background-color: #111;
+  font-weight: bold;
+  color: #00bfff;
+  border: 1px solid #9932cc;
+  margin: 0 5px;
+  width: 110px;
+  padding: 10px;
+  border-radius: 5px;
+  height: 40px;
+  text-decoration: none;
+  transition: background-color 0.3s, color 0.3s;
 }
 
 .input-button:hover {
-    background-color: #00BFFF;
-    color: #000;
-    font-weight: bold;
-    cursor: pointer;
+  background-color: #00bfff;
+  color: #000;
+  font-weight: bold;
+  cursor: pointer;
 }
 
 .input-button.active {
-    background-color: #00BFFF;
-    color: #000;
-    font-weight: bold;
+  background-color: #00bfff;
+  color: #000;
+  font-weight: bold;
 }
 
 input::placeholder {
-	color: #9370DB;
+  color: #9370db;
 }
 
-input:focus{
-	border-color: #00BFFF;
-	outline: none;
+input:focus {
+  border-color: #00bfff;
+  outline: none;
 }
 
 .button-disabled:hover {
-	cursor: not-allowed;
+  cursor: not-allowed;
 }
 
 /* General icon sizing */
 .icon-small {
-    width: 32px;
-    height: 32px;
+  width: 32px;
+  height: 32px;
 }
 .icon-medium {
-    width: 48px;
-    height: 48px;
+  width: 48px;
+  height: 48px;
 }
 .icon-large {
-    width: 64px;
-    height: 64px;
+  width: 64px;
+  height: 64px;
 }
 .icon-Xlarge {
-    width: 106px;
-    height: 106px;
+  width: 106px;
+  height: 106px;
 }
 .tooltip-icon {
-	width: 24px;
-    height: 24px;
-    margin: 0 10px;
+  width: 24px;
+  height: 24px;
+  margin: 0 10px;
 }
 
 /* Tooltips */
-.tooltip, .tooltip-lower {
-    visibility: hidden;
-    background-color: #000;
-    color: #00BFFF;
-	border: 2px solid #00BFFF;
-    text-align: center;
-    padding: 5px 10px;
-    border-radius: 5px;
-	margin-bottom: 10px;
-    position: absolute;
-    z-index: 5;
-    opacity: 0;
-    transition: opacity 0.4s ease-in-out;
-    font-size: 1.2rem;
+.tooltip,
+.tooltip-lower {
+  visibility: hidden;
+  background-color: #000;
+  color: #00bfff;
+  border: 2px solid #00bfff;
+  text-align: center;
+  padding: 5px 10px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  position: absolute;
+  z-index: 5;
+  opacity: 0;
+  transition: opacity 0.4s ease-in-out;
+  font-size: 1.2rem;
 }
 
 .tooltip {
-    width: 175px;
-    bottom: 100%;
-    left: 50%;
-    transform: translateX(-50%);
+  width: 175px;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .tooltip-lower {
-    width: 300px;
-    line-height: 1.3;
-    top: 125%;
-    left: 50%;
-    transform: translateX(-50%);
+  width: 300px;
+  line-height: 1.3;
+  top: 125%;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
-.exp-bar:hover .tooltip, .element-segment:hover .tooltip,
-.skill-circle:hover .tooltip, .skill-circle:hover .tooltip-lower, 
-.skill-slot:hover .tooltip, .element-icon-container:hover .tooltip{
-    visibility: visible;
-    opacity: 1;
+.exp-bar:hover .tooltip,
+.element-segment:hover .tooltip,
+.skill-circle:hover .tooltip,
+.skill-circle:hover .tooltip-lower,
+.skill-slot:hover .tooltip,
+.element-icon-container:hover .tooltip {
+  visibility: visible;
+  opacity: 1;
 }

@@ -14,12 +14,14 @@
   --bg-gradient-6-inactive: #7d571c;
   --bg-gradient-dark: linear-gradient(#363636, black);
 
-  --border-primary-light: 2px solid rgba(255, 255, 255, 0.2);
+  --border-primary-light: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 main {
-  display: flex;
-  justify-content: space-evenly;
+  display: grid;
+  justify-content: center;
+  grid-template-columns: 900px 700px;
+  padding: 0 4rem;
 }
 
 #filter-form {
@@ -28,17 +30,41 @@ main {
   margin-top: 1.75rem;
 }
 
+#filter-form input {
+  width: 400px;
+  margin: 0;
+  border-radius: 0;
+  border: var(--border-primary-light);
+  color: white;
+}
+#filter-form .input-button {
+  margin: 0;
+  border-radius: 0;
+  margin-left: -1px;
+  background: var(--bg-gradient-primary);
+  color: white;
+  transition: all 0.3s;
+  border: var(--border-primary-light);
+}
+#filter-form .input-button:hover {
+  filter: brightness(0.9);
+  transition: all 0.3s;
+}
+
 #content-container {
-  color: #111;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr 400px;
   margin: 5rem 0;
+}
+
+#character-box-container {
+  grid-column: 1 / 2;
 }
 
 #detail-box {
   display: none;
   background-color: #111;
-  width: 800px;
+  width: 720px;
   justify-content: center;
   align-items: center;
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -52,7 +78,7 @@ main {
 
 #detail-buttons {
   display: none;
-  margin-top: 2rem;
+  margin-top: 1rem;
   justify-content: space-between;
   align-items: center;
 }
@@ -85,6 +111,7 @@ main {
   color: #000;
   font-weight: bold;
   transition: all 0.3s;
+  border: 1px solid white;
 }
 
 .player-button-img {
@@ -250,7 +277,7 @@ main {
   display: flex;
   height: 16px;
   padding: 2px;
-  width: 358px;
+  width: 320px;
   border-radius: 15px;
   margin: auto;
 }
@@ -302,12 +329,6 @@ main {
 
 .glyph-name {
   font-family: PandoraDiamond;
-}
-
-.star-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .skill-circle {
@@ -419,6 +440,44 @@ main {
 }
 
 /* Slots */
+#slot-buttons-container {
+  display: none;
+  justify-content: start;
+  align-items: center;
+  flex-direction: column;
+  grid-column: 2 / 3;
+  width: 20%;
+  gap: 16px;
+}
+
+.item-slot-button {
+  background: var(--bg-gradient-secondary);
+  border: none;
+  width: 52px;
+  height: 52px;
+  cursor: pointer;
+  transition: all 0.3s;
+  padding: 6px;
+}
+.item-slot-button:hover {
+  border: 1px solid white;
+  filter: brightness(1.2);
+  transition: all 0.3s;
+}
+.item-slot-button:active {
+  border: 1px solid white;
+  filter: brightness(1.2);
+  transition: all 0.3s;
+}
+
+.item-slot-icon {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-image: url(/images/Icons/item_placeholder_106px.png);
+  background-size: cover;
+}
+
 #slot-display {
   display: flex;
   justify-content: center;
@@ -429,13 +488,30 @@ main {
   color: #00bfff;
   font-size: 16px;
   line-height: 1.3;
-  text-shadow: 1px 1px 0 #9932cc;
+  /* text-shadow: 1px 1px 0 #9932cc; */
   font-family: PandoraDiamond;
+  text-align: left;
+  width: 80%;
+  margin: 0 auto;
+}
+.item-name-badge {
+  background: #00bfff;
+  color: black;
+  font-size: 16px;
+  /* text-shadow: 1px 1px 0 #9932cc; */
+  font-family: PandoraDiamond;
+  text-align: left;
+  width: 30%;
+  padding: 4px;
+  margin: 0 0 8px 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .item-thumbnail {
-  width: 106px;
-  height: 106px;
+  width: 72px;
+  height: 72px;
   margin: 0 auto;
 }
 
@@ -446,14 +522,15 @@ main {
   min-height: 465px;
   max-height: 465px;
   background-color: #111;
-  border: 1px solid #9932cc;
+  border: 1px solid white;
   padding: 0px;
   padding-top: 10px;
   font-size: 14px;
   text-align: center;
   display: flex;
   flex-direction: column;
-  color: #00bfff;
+  color: white;
+  margin-right: 1rem;
 }
 
 .item-class-thumbnail {
@@ -469,8 +546,7 @@ main {
   align-items: center;
   justify-content: center;
   height: 32px;
-  margin-top: 4px;
-  margin-bottom: 2px;
+  margin: 0 0 0.5rem 0;
 }
 
 .star-container {
@@ -478,14 +554,33 @@ main {
   align-items: center;
   justify-content: center;
   height: 32px;
-  margin-top: 0px;
+  margin: 0.5rem 0;
+  gap: 4px;
+}
+.star-container img {
+  width: 18px;
+  height: 18px;
 }
 
 .style-line {
   width: 80%;
-  margin: 2px auto;
+  margin: 8px auto;
   height: 1px;
-  background-color: #00bfff;
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+.item-dmg-stat,
+.stat-message {
+  color: white;
+  text-align: left;
+  width: 80%;
+  margin: 0.25rem auto;
+}
+
+.skill-slot {
+  text-align: left;
+  width: 80%;
+  margin: 0.3rem auto;
 }
 
 /* Colours */
