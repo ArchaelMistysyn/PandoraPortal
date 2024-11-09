@@ -500,11 +500,11 @@ class PlayerProfile {
 		return $html;
 	}
 	
-	public function display_defences() {
+	public function display_resistances() {
 		global $element_names;
 		$html = "<div id='player-info'>{$this->player_header()}";
-    $html .= '<div id="player-box-content">';
-    $html .= '<div class="player-table-title"><span>Resistances</span></div>';
+		$html .= '<div id="player-box-content">';
+    	$html .= '<div class="player-table-title"><span>Resistances</span></div>';
 		$resistance_breakdown = [];
 		$total_resistance = 0;
 		for ($x = 0; $x < 9; $x++) {
@@ -529,56 +529,35 @@ class PlayerProfile {
 			$temp .= "</div>";
 		}
 		$html .= "<div id='resistance-box'>{$temp}</div>";
-    $html .= '<div class="player-table-title"><span>Defences</span></div>';
-		$html .= "<div id='defensive-stats'>";
-		$html .= "<div class='defense-section player-table-stat'>
-      <div class='stat-section-left'>
-        <img src='/images/Icons/diamonds-four-fill.png' alt='stat icon' class='icon-small stat-icon'/>
-        <h3>HP Regen: </h3>
-      </div>
-      <div class='stat-section-right'>
-        <p> ". number_format(round($this->hp_regen * $this->player_mHP)) . "</p>
-      </div>
-    </div>";
-		$html .= "<div class='defense-section player-table-stat'>
-      <div class='stat-section-left'>
-        <img src='/images/Icons/diamonds-four-fill.png' alt='stat icon' class='icon-small stat-icon'/>
-        <h3>Recovery: </h3>
-      </div>
-      <div class='stat-section-right'>
-        <p> ". number_format($this->recovery) . "</p>
-      </div>
-    </div>";
-		$html .= "<div class='defense-section player-table-stat'>
-      <div class='stat-section-left'>
-        <img src='/images/Icons/diamonds-four-fill.png' alt='stat icon' class='icon-small stat-icon'/>
-        <h3>Damage Mitigation: </h3>
-      </div>
-      <div class='stat-section-right'>
-        <p> ". number_format($this->damage_mitigation, 1) . "</p>
-      </div>
-    </div>";
-		$html .= "<div class='defense-section player-table-stat'>
-      <div class='stat-section-left'>
-        <img src='/images/Icons/diamonds-four-fill.png' alt='stat icon' class='icon-small stat-icon'/>
-        <h3>Block Rate: </h3>
-      </div>
-      <div class='stat-section-right'>
-        <p> ". number_format(round($this->block * 100), 1) . "</p>
-      </div>
-    </div>";
-		$html .= "<div class='defense-section player-table-stat'>
-      <div class='stat-section-left'>
-        <img src='/images/Icons/diamonds-four-fill.png' alt='stat icon' class='icon-small stat-icon'/>
-        <h3>Dodge Rate: </h3>
-      </div>
-      <div class='stat-section-right'>
-        <p> ". number_format(round($this->dodge * 100), 1) . "</p>
-      </div>
-    </div>";
-		$html .= "</div></div></div>";
+		$html .= "</div></div>";
 		return $html;
 	}
+
+	public function display_defences() {
+		$html = '<div class="player-table-title"><span>Defences</span></div>';
+		$html .= "<div id='defensive-stats'>";
+		$stats = [
+			['label' => 'HP Regen', 'value' => number_format(round($this->hp_regen * $this->player_mHP))],
+			['label' => 'Recovery', 'value' => number_format($this->recovery)],
+			['label' => 'Damage Mitigation', 'value' => number_format($this->damage_mitigation, 1)],
+			['label' => 'Block Rate', 'value' => number_format(round($this->block * 100), 1)],
+			['label' => 'Dodge Rate', 'value' => number_format(round($this->dodge * 100), 1)],
+		];
+		foreach ($stats as $stat) {
+			$html .= "<div class='defense-section player-table-stat'>";
+			$html .= "  <div class='stat-section-left'>";
+			$html .= "    <img src='/images/Icons/diamonds-four-fill.png' alt='stat icon' class='icon-small stat-icon'/>";
+			$html .= "    <h3>{$stat['label']}: </h3>";
+			$html .= "  </div>";
+			$html .= "  <div class='stat-section-right'>";
+			$html .= "    <p>{$stat['value']}</p>";
+			$html .= "  </div>";
+			$html .= "</div>";
+		}
+		$html .= "</div>";
+		return $html;
+	}
+	
 	
 	public function display_details() {
 		$appli_data = [
@@ -624,7 +603,7 @@ class PlayerProfile {
 		});
 		$html = "<div id='player-info'>" . $this->player_header();
     $html .= '<div id="player-box-content">';
-    $html .= '<div class="player-table-title"><span>Affliction Details</span></div>';
+    $html .= '<div class="player-table-title"><span>Application Details</span></div>';
 		$html .= "<div id='detail-container'><div id='main-detail-box'>";
 		$side_html = '';
 		foreach ($appli_data as $type => $data) {
@@ -863,7 +842,6 @@ function get_player_by_id($search_input, $check_method="player") {
 		$player_profile->equipped_tarot = $data['player_tarot'];
 		return $player_profile;
 	} else {
-		echo "Player not found.";
 		return null;
 	}
 }

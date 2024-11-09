@@ -1,5 +1,18 @@
 <?php
 
+	$slot_types = [
+		'W' => 'Weapon', 
+		'A' => 'Armor', 
+		'V' => 'Greaves', 
+		'Y' => 'Amulet', 
+		'R' => 'Ring', 
+		'G' => 'Wings', 
+		'C' => 'Crest', 
+		'Pact' => 'Pact', 
+		'Insignia' => 'Insignia', 
+		'Tarot' => 'Tarot'
+	];
+
 	$element_dict = [
 		'Fire' => [0], 
 		'Water' => [1], 

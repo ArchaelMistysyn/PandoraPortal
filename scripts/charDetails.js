@@ -21,3 +21,37 @@ function handleButtonClick(index) {
     buttons[index].onclick = null;
     document.getElementById('detail-box').innerHTML = sectionContent[index];
 }
+
+function showEquipmentSlot(slotId) {
+    const currentButton = document.getElementById(`item-slot-${slotId}`);
+    const itemSlot = document.getElementById(`item-${slotId}`);
+    const gemSlot = document.getElementById(`gem-${slotId}`);
+    const tarotImage = document.getElementById(`image-tarot`);
+
+    document.querySelectorAll('.item-slot-button').forEach(button => {
+        button.classList.remove('item-slot-button-active');
+        const buttonSlotId = button.id.replace('item-slot-', '');
+        button.onclick = () => showEquipmentSlot(buttonSlotId);
+    });
+    document.querySelectorAll('.item-slot').forEach(slot => {
+        slot.style.display = 'none';
+    });
+
+    currentButton.classList.add('item-slot-button-active');
+    currentButton.onclick = null;
+    
+    if (itemSlot) {
+        itemSlot.style.display = 'flex';
+    }
+    if (gemSlot) {
+        gemSlot.style.display = 'flex';
+    }
+    if (tarotImage) {
+        if (slotId == "Tarot") { 
+            tarotImage.style.display = 'flex';
+        } else {
+            tarotImage.style.display = 'none';
+        }
+    }
+}
+

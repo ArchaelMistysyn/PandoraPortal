@@ -34,11 +34,12 @@
 	
 	function display_insignia($player_profile) {
 		global $element_names, $insignia_prefix;
+		$output = "<div class='item-slot' id='item-Insignia'>";	
 		if (empty($player_profile->player_insignia)) {
-			return "Empty Slot: Insignia";
+			return $output . "Empty Slot: Insignia</div>";
 		}
-		$insignia = new Insignia($player_profile);		
-		$output = "<img class='item-thumbnail' src='" . $insignia->insignia_link . "'>";
+		$insignia = new Insignia($player_profile);	
+		$output .= "<img class='item-thumbnail' src='" . $insignia->insignia_link . "'>";
 		$output .= generate_stars($insignia->insignia_stars);
 		$output .= generate_element_icons($insignia->element_list);
 		$output .= "<h1 class='item-name'>{$insignia->insignia_name}</h1>";
@@ -65,6 +66,7 @@
 				}
 			}
 		}
+		$output .= "</div>";
 		return $output;
 	}
 	
