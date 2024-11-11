@@ -8,18 +8,18 @@
   --brand-color-5: #ffc107;
   --brand-color-6: #da9932;
 
-  --bg-gradient-primary: linear-gradient(#110eb8, #1c117e, #215a8a);
-  --bg-gradient-secondary: linear-gradient(#333333, #1a1a1a);
+  --bg-gradient-primary: linear-gradient(#110eb8, #1c117e, #09086b);
+  --bg-gradient-secondary: linear-gradient(#1e1e1e, #111111);
   --bg-gradient-tertiary: linear-gradient(#da9932, #ae7a28);
-  
-  --bg-gradient-dark: linear-gradient(#363636, black);
+
+  --bg-gradient-dark: linear-gradient(#2f2f2f, black);
   --border-primary-light: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 main {
   display: grid;
   justify-content: center;
-  grid-template-columns: 900px 700px;
+  grid-template-columns: 900px 900px;
   padding: 0 4rem;
 }
 
@@ -52,22 +52,25 @@ main {
 
 #content-container {
   display: grid;
-  grid-template-columns: 1fr 400px;
+  grid-template-columns: 124px 1fr;
+  grid-template-rows: 684px 280px;
   margin: 5rem 0;
 }
 
 #character-box-container {
-  grid-column: 1 / 2;
+  grid-column: 2 / 3;
 }
 
 #detail-box {
-  display: flex;
+  display: none;
   background-color: #111;
-  width: 720px;
-  height: 650px;
+  /* width: 720px; */
+  height: 100%;
   justify-content: center;
   align-items: center;
   border: 1px solid rgba(255, 255, 255, 0.1);
+  /* overflow-y: scroll;
+  overflow-x: hidden; */
 }
 
 /* 
@@ -78,9 +81,9 @@ main {
 
 #detail-buttons {
   display: none;
-  margin-top: 1rem;
-  justify-content: space-between;
-  align-items: center;
+  justify-content: start;
+  align-items: start;
+  flex-direction: column;
 }
 
 #detail-buttons button {
@@ -93,8 +96,8 @@ main {
   color: white;
   border: none;
   width: 100%;
-  width: 6.5rem;
-  height: 6.5rem;
+  width: 104px;
+  height: 104px;
   transition: all 0.3s;
   cursor: pointer;
   padding: 1.25rem;
@@ -114,7 +117,6 @@ main {
   transition: all 0.3s;
   border: 1px solid white;
 }
-
 
 .player-button-img {
   width: 100%;
@@ -161,6 +163,7 @@ main {
 
 #player-info {
   width: 100%;
+  height: 100%;
 }
 
 #player-box-content {
@@ -179,7 +182,7 @@ main {
 
 #player-table {
   color: white;
-  margin-bottom: 1rem;
+  margin-bottom: 3rem;
 }
 
 .player-table-title {
@@ -208,7 +211,7 @@ main {
   justify-content: start;
   align-items: center;
   padding: 0 12px;
-  height: 64px;
+  height: 48px;
   font-size: 18px;
 }
 
@@ -421,7 +424,7 @@ main {
   position: absolute;
   right: 35px;
   top: 332px;
-  display: block;
+  display: none;
   border: 2px solid #a10b0b;
   color: #a10b0b;
   font-size: 20px;
@@ -444,19 +447,22 @@ main {
 /* Slots */
 #slot-buttons-container {
   display: none;
-  justify-content: start;
-  align-items: center;
-  flex-direction: column;
+  justify-content: space-between;
+  align-items: start;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1rem;
   grid-column: 2 / 3;
-  width: 20%;
-  gap: 16px;
+  grid-row: 2 / 3;
+  width: 100%;
 }
 
 .item-slot-button {
   background: var(--bg-gradient-secondary);
   border: none;
-  width: 64px;
-  height: 64px;
+  width: 132px;
+  height: 132px;
   cursor: pointer;
   transition: all 0.3s;
   padding: 6px;
@@ -503,7 +509,9 @@ main {
   justify-content: flex-start;
 }
 
-.item-name-badge, .item-id-badge, .item-tier-badge {
+.item-name-badge,
+.item-id-badge,
+.item-tier-badge {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -718,22 +726,22 @@ main {
   border: 2px solid #1e90ff;
 }
 .eleBox-Wind {
-    color: #7FFFD4;
-	border: 2px solid #7FFFD4;
+  color: #7fffd4;
+  border: 2px solid #7fffd4;
 }
 
 .inactive-element {
-	opacity: 0.4;
+  opacity: 0.4;
 }
 
 .elemental-highlight-Wind {
-    color: #7FFFD4;
-    font-size: 20px;
+  color: #7fffd4;
+  font-size: 20px;
 }
 
 .elemental-highlight-Earth {
-    color: #A0522D;
-    font-size: 20px;
+  color: #a0522d;
+  font-size: 20px;
 }
 
 .inner-skill-circle .uber,
@@ -744,18 +752,18 @@ main {
   color: transparent;
 }
 .elemental-highlight-Fire {
-    color: #FF4500;
-    font-size: 20px;
+  color: #ff4500;
+  font-size: 20px;
 }
 
 .elemental-highlight-Ice {
-    color: #00BFFF;
-    font-size: 20px;
+  color: #00bfff;
+  font-size: 20px;
 }
 
 .elemental-highlight-Light {
-    color: #FFF;
-    font-size: 20px;
+  color: #fff;
+  font-size: 20px;
 }
 
 .inner-skill-circle .ultimate,
@@ -774,23 +782,23 @@ main {
 }
 
 .elemental-highlight-Lightning {
-    color: #FFD700;
-    font-size: 20px;
+  color: #ffd700;
+  font-size: 20px;
 }
 
 .elemental-highlight-Shadow {
-    color: #C0C0C0;
-    font-size: 20px;
+  color: #c0c0c0;
+  font-size: 20px;
 }
 
 .elemental-highlight-Water {
-    color: #1E90FF;
-    font-size: 20px;
+  color: #1e90ff;
+  font-size: 20px;
 }
 
 .elemental-highlight-Celestial {
-    color: #B399FF;
-    font-size: 20px;
+  color: #b399ff;
+  font-size: 20px;
 }
 
 .skill-circle.tier-1 {

@@ -118,38 +118,38 @@
 
     <!-- Main Content Section -->
     <main>
-      	<div id="content-container">
-			<div id="character-box-container">
-				<div id="detail-box"><h1><?php echo $error === '' ? "No Character Loaded" : $error; ?></h1></div>
-				<div id="detail-buttons">
-					<button type="button" id="player-button" class="char-nav-button char-nav-hover" onclick="handleButtonClick(0)"><span class="player-button-img"></span></button>
-					<button type="button" id="elemental-button" class="char-nav-button char-nav-hover" onclick="handleButtonClick(1)"><span class="elemental-button-img"></span></button>
-					<button type="button" id="resist-button" class="char-nav-button char-nav-hover" onclick="handleButtonClick(2)"><span class="defense-button-img"></span></button>
-					<button type="button" id="defense-button" class="char-nav-button char-nav-hover" onclick="handleButtonClick(3)"><span class="defense-button-img"></span></button>
-					<button type="button" id="details-button" class="char-nav-button char-nav-hover" onclick="handleButtonClick(4)"><span class="details-button-img"></span></button>
-					<button type="button" id="misc-button" class="char-nav-button char-nav-hover" onclick="handleButtonClick(5)"><span class="misc-button-img"></span></button>
-					<button type="button" id="reload-button" class="char-nav-button char-nav-hover" onclick="refreshPlayerData()"><span class="reload-button-img"></span></button>
-				</div>
-			</div>
-			<div id="slot-buttons-container">
-				<?php
-					foreach ($slot_types as $slot_id => $type) {
-						if ($slot_id === 'Pact' && !empty($player_profile->player_pact)) {
-							$icon_path = (new Pact($player_profile))->pact_link;
-						} elseif ($slot_id === 'Insignia' && !empty($player_profile->player_insignia)) {
-							$icon_path = (new Insignia($player_profile))->insignia_link;
-						} elseif ($slot_id === 'Tarot' && !empty($player_profile->equipped_tarot)) {
-							$icon_path = (get_tarot_by_id($player_profile, $resonance))->essence_link;
-						} else {
-							$icon_path = isset($equipped_items[$slot_id]) ? $equipped_items[$slot_id]->get_gear_thumbnail($encode_filename = true) : '';
-						}						
-						$background_style = $icon_path ? "background-image: url(\"$icon_path\");" : '';
-						echo "<button type='button' id='item-slot-{$slot_id}' class='item-slot-button' onclick='showEquipmentSlot(\"{$slot_id}\")'>
-								<span class='item-slot-icon' style='{$background_style}'></span></button>";
-					}
-				?>
-			</div>
-		</div>
+      <div id="content-container">
+        <div id="detail-buttons">
+            <button type="button" id="player-button" class="char-nav-button char-nav-hover" onclick="handleButtonClick(0)"><span class="player-button-img"></span></button>
+            <button type="button" id="elemental-button" class="char-nav-button char-nav-hover" onclick="handleButtonClick(1)"><span class="elemental-button-img"></span></button>
+            <button type="button" id="resist-button" class="char-nav-button char-nav-hover" onclick="handleButtonClick(2)"><span class="defense-button-img"></span></button>
+            <button type="button" id="defense-button" class="char-nav-button char-nav-hover" onclick="handleButtonClick(3)"><span class="defense-button-img"></span></button>
+            <button type="button" id="details-button" class="char-nav-button char-nav-hover" onclick="handleButtonClick(4)"><span class="details-button-img"></span></button>
+            <button type="button" id="misc-button" class="char-nav-button char-nav-hover" onclick="handleButtonClick(5)"><span class="misc-button-img"></span></button>
+            <button type="button" id="reload-button" class="char-nav-button char-nav-hover" onclick="refreshPlayerData()"><span class="reload-button-img"></span></button>
+        </div>
+        <div id="character-box-container">
+          <div id="detail-box"><h1><?php echo $error === '' ? "No Character Loaded" : $error; ?></h1></div>
+        </div>
+        <div id="slot-buttons-container">
+          <?php
+            foreach ($slot_types as $slot_id => $type) {
+              if ($slot_id === 'Pact' && !empty($player_profile->player_pact)) {
+                $icon_path = (new Pact($player_profile))->pact_link;
+              } elseif ($slot_id === 'Insignia' && !empty($player_profile->player_insignia)) {
+                $icon_path = (new Insignia($player_profile))->insignia_link;
+              } elseif ($slot_id === 'Tarot' && !empty($player_profile->equipped_tarot)) {
+                $icon_path = (get_tarot_by_id($player_profile, $resonance))->essence_link;
+              } else {
+                $icon_path = isset($equipped_items[$slot_id]) ? $equipped_items[$slot_id]->get_gear_thumbnail($encode_filename = true) : '';
+              }						
+              $background_style = $icon_path ? "background-image: url(\"$icon_path\");" : '';
+              echo "<button type='button' id='item-slot-{$slot_id}' class='item-slot-button' onclick='showEquipmentSlot(\"{$slot_id}\")'>
+                  <span class='item-slot-icon' style='{$background_style}'></span></button>";
+            }
+          ?>
+        </div>
+		  </div>
 		<div id="slot-display">
 			<?php 
 				if ($player_profile) { 
@@ -183,6 +183,7 @@
 
 		if (playerProfileExists) {
 			document.getElementById('detail-buttons').style.display = "flex";
+			document.getElementById('detail-box').style.display = "flex";
 			document.getElementById('slot-buttons-container').style.display = "flex";
 			handleButtonClick(0);
 			showEquipmentSlot("W");
