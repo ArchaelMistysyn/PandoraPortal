@@ -456,6 +456,7 @@ input:focus {
 .skill-circle:hover .glyph-tooltip,
 .skill-circle:hover .glyph-tooltip-lower,
 .skill-slot:hover .tooltip,
+.stat-message:hover .tooltip,
 .element-icon-container:hover .tooltip {
   visibility: visible;
   opacity: 1;
