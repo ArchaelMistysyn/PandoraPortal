@@ -149,15 +149,22 @@ class PlayerProfile {
     }
 	
 	public function player_header() {
-		$html = '<div id="char-name-section">';
-        $html .= '<img src="./gallery/Icons/Classes/' . $this->player_class . '.png" class="icon-medium character-icon"/>';
-		$html .= '<h1 class="char-name">';
-        $html .= $this->player_username . ' ';
-        $html .= '-' . ' ';
-        $html .= '<i style="color: #fff; display: inline;">Lv</i><i>' . $this->player_level . '</i>';
-        $html .= ' -' . ' ';
-        $html .= '<div class="class-text" style="display: inline;"> ' . $this->player_class . '</div>';
-        $html .= '</h1></div>';
+		// Add the search bar container
+		$html = '<div id="search-bar-section" class="highlight-text" style="display: none;">';
+		$html .= '<button class="toggle-search" onclick="toggleSearchBar()"><span class="toggle-search-image"></span></button>';
+		$html .= '<form id="filter-form" method="post" action="' . htmlspecialchars($_SERVER["PHP_SELF"]) . '">';
+		$html .= '<input type="text" name="search_input" placeholder="Enter Player ID/Username or Discord ID" required>';
+		$html .= '<button type="submit" class="input-button">Search</button>';
+		$html .= '</form></div>';
+		// Character Name
+		$html .= '<div id="char-name-section" class="highlight-text">';
+		$html .= '<button class="toggle-search" onclick="toggleSearchBar()"><span class="toggle-search-image"></span></button>';
+		$html .= '<div class="char-name">';
+		$html .= '<div class="char-align"><img src="./gallery/Icons/Classes/' . $this->player_class . '.png" class="icon-medium character-icon"/></div>';
+		$html .= '<div class="char-align">' . $this->player_username . '</div>';
+		$html .= '<div class="char-align"><i>Lv' . $this->player_level . '</i></div>';
+		$html .= '<div class="char-align">' . $this->player_class . '</div>';
+		$html .= '</div></div>';
 		return $html;
 	}
 	
@@ -182,7 +189,7 @@ class PlayerProfile {
 		$html .= '<tr class="player-table-title"><th colspan="2">GENERAL STATS</th></tr>';
 		// Experience
 		$html .= '<tr class="player-table-stat"><td><img src="/images/Icons/diamonds-four-fill.png" alt="stat icon" class="icon-small stat-icon"/>Experience:</td><td>';
-		$html .= '<div class="exp-bar"><span class="tooltip">' . $formatted_exp . ' / ' . $formatted_max_exp . '</span>';
+		$html .= '<div class="exp-bar"><span class="tooltip">EXP: ' . $formatted_exp . ' / ' . $formatted_max_exp . '</span>';
 		$html .= '<div class="exp-fill" style="width: ' . ($exp_percent * 100) . '%;"></div><div class="exp-empty" style="width: ' . (100 - $exp_percent * 100) . '%;"></div>';
 		$html .= '</div></td></tr>';
 		// Elemental Breakdown
@@ -193,6 +200,9 @@ class PlayerProfile {
 		$html .= '<tr class="player-table-stat"><td><img src="/images/Icons/diamonds-four-fill.png" alt="stat icon" class="icon-small stat-icon"/>Base Damage:</td><td>' . number_format($this->player_damage_min) . ' - ' . number_format($this->player_damage_max) . '</td></tr>';
 		// Attack Speed
 		$html .= '<tr class="player-table-stat"><td><img src="/images/Icons/diamonds-four-fill.png" alt="stat icon" class="icon-small stat-icon"/>Attack Speed:</td><td>' . number_format(round(floor($this->attack_speed * 10) / 10, 2), 2) . ' / min</td></tr>';
+		// Oath
+		$oath = "Eleuia's Oath";
+		$html .= '<tr class="player-table-stat"><td><img src="/images/Icons/diamonds-four-fill.png" alt="stat icon" class="icon-small stat-icon"/>Oath [Add Later]:</td><td>' . $oath . '</td></tr>';
 		// Lotus Coins
 		$formatted_coin_value = number_format($this->player_coins);
 		$html .= '<tr class="player-table-stat"><td><img src="./gallery/Icons/Misc/Lotus Coin.png" alt="Coins" class="icon-small stat-icon"/>Lotus Coins:</td><td> ' . $formatted_coin_value . '</td></tr>';
@@ -215,9 +225,9 @@ class PlayerProfile {
 			}
 			$html .= '<div class="skill-circle' . $skill_color . '">';
 			$html .= '<div class="inner-skill-circle">';
-			$html .= '<span class="tooltip">' . $title . '</span>';
+			$html .= '<span class="glyph-tooltip highlight-text">' . $title . '</span>';
 			if ($glyph_name) {
-        $html .= display_glyph($path_names[$index], $combined_point, $skill_color, $tier); 
+        		$html .= display_glyph($path_names[$index], $combined_point, $skill_color, $tier); 
 			}
 			$html .= '<div class="' . $skill_color . '">' . $combined_point . '</div>';
 			$html .= '</div></div>';
@@ -534,30 +544,30 @@ class PlayerProfile {
 	}
 
 	public function display_defences() {
-    $html = $this->player_header();
+    	$html = $this->player_header();
 		$html .= '<div id="player-box-content">';
-    $html .= '<div class="player-table-title"><span>Defences</span></div>';
-    $html .= "<div id='defensive-stats'>";
-    $stats = [
-      ['label' => 'HP Regen', 'value' => number_format(round($this->hp_regen * $this->player_mHP))],
-      ['label' => 'Recovery', 'value' => number_format($this->recovery)],
-      ['label' => 'Damage Mitigation', 'value' => number_format($this->damage_mitigation, 1)],
-      ['label' => 'Block Rate', 'value' => number_format(round($this->block * 100), 1)],
-      ['label' => 'Dodge Rate', 'value' => number_format(round($this->dodge * 100), 1)],
-    ];
-    foreach ($stats as $stat) {
-      $html .= "<div class='defense-section player-table-stat'>";
-      $html .= "  <div class='stat-section-left'>";
-      $html .= "    <img src='/images/Icons/diamonds-four-fill.png' alt='stat icon' class='icon-small stat-icon'/>";
-      $html .= "    <h3>{$stat['label']}: </h3>";
-      $html .= "  </div>";
-      $html .= "  <div class='stat-section-right'>";
-      $html .= "    <p>{$stat['value']}</p>";
-      $html .= "  </div>";
-      $html .= "</div>";
-    }
+		$html .= '<div class="player-table-title"><span>Defences</span></div>';
+		$html .= "<div id='defensive-stats'>";
+		$stats = [
+		['label' => 'HP Regen', 'value' => number_format(round($this->hp_regen * $this->player_mHP))],
+		['label' => 'Recovery', 'value' => number_format($this->recovery)],
+		['label' => 'Damage Mitigation', 'value' => number_format($this->damage_mitigation, 1)],
+		['label' => 'Block Rate', 'value' => number_format(round($this->block * 100), 1)],
+		['label' => 'Dodge Rate', 'value' => number_format(round($this->dodge * 100), 1)],
+		];
+		foreach ($stats as $stat) {
+			$html .= "<div class='defense-section player-table-stat'>";
+			$html .= "  <div class='stat-section-left'>";
+			$html .= "    <img src='/images/Icons/diamonds-four-fill.png' alt='stat icon' class='icon-small stat-icon'/>";
+			$html .= "    <h3>{$stat['label']}: </h3>";
+			$html .= "  </div>";
+			$html .= "  <div class='stat-section-right'>";
+			$html .= "    <p>{$stat['value']}</p>";
+			$html .= "  </div>";
+			$html .= "</div>";
+		}
 		$html .= "</div></div>";
-    $html = "<div id='player-info'>{$html}</div>";
+    	$html = "<div id='player-info'>{$html}</div>";
 		return $html;
 	}
 	
@@ -599,43 +609,70 @@ class PlayerProfile {
 			'Mana' => [
 				["tag" => "Mana Mult", "value" => show_num($this->mana_mult)],
 				["tag" => "Mana Limit", "value" => $this->mana_limit],
-			],
+			]
 		];
+		
+		// Bloom exception, because it's not an application
+		$bloom_is_active = $this->trigger_rate["Bloom"] > 0;
+		$bloom_html = "<div id='section-bloom' class='detail-section appBox-Bloom" . ($bloom_is_active ? "" : " inactive-element") . "'>";
+			$bloom_html .= "<div><h1 class='appli-highlight-Bloom'>Bloom: N/A</h1></div>";
+		$bloom_html .= "</div>";
+		$bloom_side_html = "<div id='side-box-bloom' class='side-detail-list appli-highlight-Bloom appBox-Bloom'>";
+			$bloom_side_html .= "<div class='detail-item'>Bloom Damage: " . number_format(show_num($this->bloom_mult)) . "%</div>";
+			$bloom_side_html .= "<div class='detail-item'>Bloom Rate: " . number_format(show_num($this->trigger_rate["Bloom"])) . "%</div>";
+		$bloom_side_html .= "</div>";
+
 		uksort($appli_data, function($a, $b) {
 			return $this->appli[$b] <=> $this->appli[$a];
 		});
-		$html = "<div id='player-info'>" . $this->player_header();
-    $html .= '<div id="player-box-content">';
-    $html .= '<div class="player-table-title"><span>Application Details</span></div>';
-		$html .= "<div id='detail-container'><div id='main-detail-box'>";
-		$side_html = '';
-		foreach ($appli_data as $type => $data) {
-			$appBoxClass = "appBox-" . $type;
-			$is_active = $type === 'Elemental' || ($type === "Critical" && $this->trigger_rate["Critical"] > $this->trigger_rate["Fractal"]);
-			$is_active = $is_active || $this->appli[$type] > 0;
-			$class_modifier = $is_active ? "" : " inactive-element";
-			$highlight_class = "appli-highlight-" . $type;
-			$section_id = "section-" . strtolower($type);
-			$side_detail_id = "side-detail-" . strtolower($type);
-			$html .= "<div id='{$section_id}' class='detail-section element-section {$appBoxClass}{$class_modifier}'>";
-			$html .= "<div><h1 class='{$highlight_class}'>{$type}:</h1></div>";
-			$html .= "<div><h1 class='{$highlight_class}'>{$this->appli[$type]}</h1></div></div>";
-			$side_html .= "<div class='side-detail-list {$highlight_class} {$appBoxClass}'>";
-			foreach ($data as $item) {
-				$tag = $item['tag'];
-				$value = $item['value'];
-				$value = $tag == "Flat Damage" && $this->appli["Life"] == 0 ? 0 : $value;
-				$no_percentage_tags = ["Capacity", "Flat Damage", "Mana Limit", "Synchronize"];
-				$extension = (!in_array($tag, $no_percentage_tags) && $tag !== "") ? "%" : "";
-				$formatted_value = is_numeric($value) ? ": " . number_format($value) : $value;
-				$side_html .= "<div class='detail-item'>{$tag}" . $formatted_value . "{$extension}</div>";
-			}
-			$side_html .= "</div>";
-		}
-		$html .= "</div><div id='side-detail-box'>
-      <div class='side-detail-list-active appli-highlight-Ultimate appBox-Ultimate'>{$tag}" . $formatted_value . "{$extension}</div>
-      {$side_html}
-    </div></div></div></div>";
+	
+		$html = "<div id='player-info'>" . $this->player_header() . "<div id='player-box-content'>";
+			$html .= "<div class='player-table-title'><span>Application/Trigger Details</span></div>";
+			$html .= "<div id='detail-container'>";
+				$html .= "<div id='main-detail-box'>";
+					$side_html = '';
+					$bloom_inserted = false;
+					$first_active_set = false;
+					foreach ($appli_data as $type => $data) {
+						$appBoxClass = "appBox-" . $type;
+						$is_active = $type === 'Elemental' || ($type === "Critical" && $this->trigger_rate["Critical"] > $this->trigger_rate["Fractal"]);
+						$is_active = $is_active || $this->appli[$type] > 0;
+						$class_modifier = $is_active ? "" : " inactive-element";
+						$highlight_class = "appli-highlight-" . $type;
+						$section_id = "section-" . strtolower($type);
+						$side_detail_id = "side-detail-" . strtolower($type);
+						$box_class = "side-detail-list";
+						// Bloom exception insertion
+						if ($bloom_is_active && !$is_active && !$bloom_inserted) {
+							$html .= $bloom_html;
+							$side_html .= $bloom_side_html;
+							$bloom_inserted = true;
+						}
+
+						$html .= "<div id='{$section_id}' class='detail-section {$appBoxClass}{$class_modifier}'>";
+							$html .= "<div><h1 class='{$highlight_class}'>{$type}: {$this->appli[$type]}</h1></div>";
+						$html .= "</div>";
+						
+						if ($is_active && !$first_active_set) {
+							$box_class = "side-detail-list-active";
+							$first_active_set = true;
+						}
+						$side_html .= "<div id='side-box-" . strtolower($type) . "' class='{$box_class} {$highlight_class} {$appBoxClass}'>";
+						foreach ($data as $item) {
+							$tag = $item['tag'];
+							$value = $item['value'];
+							$value = $tag == "Flat Damage" && $this->appli["Life"] == 0 ? 0 : $value;
+							$no_percentage_tags = ["Capacity", "Flat Damage", "Mana Limit", "Synchronize"];
+							$extension = (!in_array($tag, $no_percentage_tags) && $tag !== "") ? "%" : "";
+							$formatted_value = is_numeric($value) ? ": " . number_format($value) : $value;
+							$side_html .= "<div class='detail-item'>{$tag}" . $formatted_value . "{$extension}</div>";
+						}
+						$side_html .= "</div>";
+					}
+				$html .= "</div>";
+				$html .= "<div id='side-detail-box'>" . $side_html . "</div>";
+			$html .= "</div>";
+		$html .= "</div></div>";
 		return $html;
 	}
 
@@ -661,80 +698,51 @@ class PlayerProfile {
 	
 	public function display_misc_stats() {
 		global $boss_list;
-		$html = "<div id='player-info'>" . $this->player_header();
-    $html .= '<div id="player-box-content">';
-    $html .= '<div class="player-table-title"><span>Misc. Stats</span></div>';
-		$html .= "<div id='stat-section'>";
-		$banes_sliced = array_slice($this->banes, 0, -1);
-		foreach ($banes_sliced as $idh => $bane_value) {
-			$html .= $idh < 5 ? "<div class='player-table-stat'>
-        <div class='stat-section-left'>
-          <img src='/images/Icons/diamonds-four-fill.png' alt='stat icon' class='icon-small stat-icon'/>
-          <h3>{$boss_list[$idh]} Bane: </h3>
-        </div>
-        <div class='stat-section-right'>
-          <p> ". show_num($bane_value) . "%</p>
-        </div>
-      </div>" : "<div class='player-table-stat'>
-          <div class='stat-section-left'>
-            <img src='/images/Icons/diamonds-four-fill.png' alt='stat icon' class='icon-small stat-icon'/>
-            <h3>Human Bane: </h3>
-          </div>
-          <div class='stat-section-right'>
-            <p> ". show_num($bane_value) . "%</p>
-          </div>
-        </div>";
-		}
-		$html .= "<div class='player-table-stat'>
-      <div class='stat-section-left'>
-        <img src='/images/Icons/diamonds-four-fill.png' alt='stat icon' class='icon-small stat-icon'/>
-        <h3>Bloom Damage: </h3>
-      </div>
-      <div class='stat-section-right'>
-        <p> ". number_format(show_num($this->bloom_mult)) . "%</p>
-      </div>
-    </div>";
-		$html .= "<div class='player-table-stat'>
-      <div class='stat-section-left'>
-        <img src='/images/Icons/diamonds-four-fill.png' alt='stat icon' class='icon-small stat-icon'/>
-        <h3>Bloom Rate: </h3>
-      </div>
-      <div class='stat-section-right'>
-        <p> ". number_format(show_num($this->trigger_rate['Bloom'])) . "%</p>
-      </div>
-    </div>";
-		$html .= "<div class='player-table-stat'>
-    <div class='stat-section-left'>
-        <img src='/images/Icons/diamonds-four-fill.png' alt='stat icon' class='icon-small stat-icon'/>
-        <h3 class='unconditional'>Class Mastery: </h3>
-      </div>
-      <div class='stat-section-right'>
-        <p> ". number_format(show_num($this->class_multiplier)) . "% </p>
-        <p> [Total: ". number_format(show_num($this->total_class_mult)) . "%]</p>
-      </div>
-    </div>";
-		$html .= "<div class='player-table-stat'>
-    <div class='stat-section-left'>
-        <img src='/images/Icons/diamonds-four-fill.png' alt='stat icon' class='icon-small stat-icon'/>
-        <h3 class='unconditional'>Final Damage: </h3>
-      </div>
-      <div class='stat-section-right'>
-        <p> ". number_format(show_num($this->final_damage)) . "%</p>
-      </div>
-    </div>";
-		$html .= "<div class='player-table-stat'>
-      <div class='stat-section-left'>
-        <img src='/images/Icons/diamonds-four-fill.png' alt='stat icon' class='icon-small stat-icon'/>
-        <h3>Defence Penetration: </h3>
-      </div>
-      <div class='stat-section-right'>
-        <p> ". number_format(show_num($this->defence_pen)) . "%</p>
-      </div>
-    </div>";
-		$unconditional_damage_bonus = number_format(((1 + $this->total_class_mult) * (1 + $this->final_damage) - 1), 2) . "X";
-		$html .= "<div id='float-box'><h3 class='unconditional'>Unconditional</h3><h3 class='unconditional enhance-text'>+{$unconditional_damage_bonus}</h3></div></div></div></div>";
+		$html = "<div id='player-info'>" . $this->player_header() . "<div id='player-box-content'>";
+			$html .= "<div class='player-table-title'><span>Misc. Stats</span></div>";
+			$html .= "<div id='stat-section'>";
+				// Banes
+				$banes_sliced = array_slice($this->banes, 0, -1);
+				foreach ($banes_sliced as $idh => $bane_value) {
+					if ($idh < 5) {
+						$html .= "<div class='player-table-stat'>";
+							$html .= "<div class='stat-section-left'><img src='/images/Icons/diamonds-four-fill.png' alt='stat icon' class='icon-small stat-icon'/><h3>{$boss_list[$idh]} Bane: </h3></div>";
+							$html .= "<div class='stat-section-right'><p>" . show_num($bane_value) . "%</p></div>";
+						$html .= "</div>";
+					} else {
+						$html .= "<div class='player-table-stat'>";
+							$html .= "<div class='stat-section-left'><img src='/images/Icons/diamonds-four-fill.png' alt='stat icon' class='icon-small stat-icon'/><h3>Human Bane: </h3></div>";
+							$html .= "<div class='stat-section-right'><p>" . show_num($bane_value) . "%</p></div>";
+						$html .= "</div>";
+					}
+				}
+				// Class Mastery
+				$html .= "<div class='player-table-stat'>";
+					$html .= "<div class='stat-section-left'><img src='/images/Icons/diamonds-four-fill.png' alt='stat icon' class='icon-small stat-icon'/><h3 class='unconditional'>Class Mastery Rate: </h3></div>";
+					$html .= "<div class='stat-section-right'><p>" . number_format(show_num($this->class_multiplier)) . "%</p></div>";
+				$html .= "</div>";
+				// Class Mastery
+				$html .= "<div class='player-table-stat'>";
+					$html .= "<div class='stat-section-left'><img src='/images/Icons/diamonds-four-fill.png' alt='stat icon' class='icon-small stat-icon'/><h3 class='unconditional'>Class Mastery Total: </h3></div>";
+					$html .= "<div class='stat-section-right'><p>" . number_format(show_num($this->total_class_mult)) . "%</p></div>";
+				$html .= "</div>";
+				// Final Damage
+				$html .= "<div class='player-table-stat'>";
+					$html .= "<div class='stat-section-left'><img src='/images/Icons/diamonds-four-fill.png' alt='stat icon' class='icon-small stat-icon'/><h3 class='unconditional'>Final Damage: </h3></div>";
+					$html .= "<div class='stat-section-right'><p>" . number_format(show_num($this->final_damage)) . "%</p></div>";
+				$html .= "</div>";
+				// Defence Penetration
+				$html .= "<div class='player-table-stat'>";
+					$html .= "<div class='stat-section-left'><img src='/images/Icons/diamonds-four-fill.png' alt='stat icon' class='icon-small stat-icon'/><h3 class='unconditional'>Defence Penetration: </h3></div>";
+					$html .= "<div class='stat-section-right'><p>" . number_format(show_num($this->defence_pen)) . "%</p></div>";
+				$html .= "</div>";
+			$html .= "</div>";
+		$html .= "</div></div>";
+
 		return $html;
 	}
+	
+	
 	
 	public function display_elemental_breakdown($e_weapon) {
 		global $element_names;

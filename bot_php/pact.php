@@ -28,10 +28,17 @@
 		global $skill_data;
 		$pact = new Pact($player_profile);
 		$pact_output .= "<img class='item-thumbnail' src='" . $pact->pact_link . "'/>";
+		$pact_output .= "<h1 class='item-name highlight-text'>" . $pact->demon_name . " Pact</h1>";
+		$pact_output .= "<div class='style-line'></div>";
 		$pact_output .= "<div>" . $pact->pact_stars . "</div>";
-		$pact_output .= "<h1 class='item-name'>" . $pact->demon_name . " Pact</h1>";
-		$pact_output .= "<div class='item-name'>[" . $pact->pact_variant . "]</div>";
-		$pact_output .= "<div>- - -</div><div>- - -</div>";
+		$pact_output .= '<div class="element-icons"></div>';
+		$pact_output .= "<div class='style-line'></div>";
+		$pact_output .= "<div class='badge-container'>";
+		$pact_output .= "<div class='item-id-badge'>[" . $pact->pact_variant . "]</div>";
+		$pact_output .= "<div class='item-tier-badge'>Tier: " . $pact->pact_tier . "</div>";
+		$pact_output .= "</div>";
+		$pact_output .= "<div class='style-line'></div>";
+		$pact_output .= "<div class='stat-message'>- - -</div><div class='stat-message'>- - -</div>";
 		$pact_output .= "<div class='style-line'></div>";
 		$pact_output .= "<div class='bonus skill-slot tier-" . $pact->pact_tier . "'>" . $pact->bonus1 . "</div>";
 		$pact_output .= "<div class='bonus skill-slot tier-" . $pact->pact_tier . "'>" . $pact->bonus2 . "</div>";
@@ -44,6 +51,7 @@
 			$pact_output .= "<div class='skill-slot tier-" . $pact->pact_tier . "'>" . "$skill_name +$skill_value%" . "</div>";
 		}
 		$pact_output .= "</div>";
+		$pact_output .= "<div class='item-slot-void' id='void-pact'></div>";
 		return $pact_output;
 	}
 	

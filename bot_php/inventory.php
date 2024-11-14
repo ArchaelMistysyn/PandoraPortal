@@ -136,13 +136,13 @@
 
 			$thumbnail_url = $this->get_gear_thumbnail();
 			$html = '<img src="' . $thumbnail_url . '" alt="' . $this->item_name . '" class="item-thumbnail">';
-			$html .= "<h1 class='item-name'>" . $name . "</h1>";
+			$html .= "<h1 class='item-name highlight-text'>" . $name . "</h1>";
 			$html .= "<div class='style-line'></div>";
 			$html .= $this->generate_stars();
 			$html .= $this->generate_element_icons();
 			$html .= "<div class='style-line'></div>";
 			// Tags
-			$html .= "<div id='badge-container'>";	
+			$html .= "<div class='badge-container'>";	
 			$html .= "<div class='item-name-badge'>" . $quality . "</div>";
 			$html .= "<div class='item-id-badge'>ID: " . $this->item_id . "</div>";
 			$html .= "<div class='item-tier-badge'>Tier: " . $this->item_tier . "</div>";
