@@ -265,6 +265,7 @@ th {
   padding: 5px;
   background-color: #000;
   text-align: center;
+  font-weight: normal;
 }
 
 th div {
@@ -420,12 +421,12 @@ input:focus {
 }
 
 /* Tooltips */
-.tooltip,
-.tooltip-lower {
+.tooltip, .tooltip-lower,
+.glyph-tooltip, .glyph-tooltip-lower {
   visibility: hidden;
   background-color: #000;
-  color: #00bfff;
-  border: 2px solid #00bfff;
+  color: white;
+  border: 2px solid white;
   text-align: center;
   padding: 5px 10px;
   border-radius: 5px;
@@ -434,28 +435,26 @@ input:focus {
   z-index: 5;
   opacity: 0;
   transition: opacity 0.4s ease-in-out;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
+  transform: translateX(-50%);
+  left: 50%;
 }
 
 .tooltip {
-  width: 175px;
-  bottom: 100%;
-  left: 50%;
-  transform: translateX(-50%);
+  width: 300px;
+  bottom: 100%;  
 }
 
 .tooltip-lower {
   width: 300px;
   line-height: 1.3;
   top: 125%;
-  left: 50%;
-  transform: translateX(-50%);
 }
 
 .exp-bar:hover .tooltip,
 .element-segment:hover .tooltip,
-.skill-circle:hover .tooltip,
-.skill-circle:hover .tooltip-lower,
+.skill-circle:hover .glyph-tooltip,
+.skill-circle:hover .glyph-tooltip-lower,
 .skill-slot:hover .tooltip,
 .element-icon-container:hover .tooltip {
   visibility: visible;

@@ -288,7 +288,7 @@
     "tier": 8,
     "skills": [
       {"name": "Calamity Spiral", "description": "99% chance for Non-Bloom hits to trigger Calamity", "attr_name": "spec_conv", "value": 90, "index": "Calamity"},
-      {"name": "999% Hybrid Curse (Chaos)", "attr_name": "elemental_curse", "value": 999, "index": [0, 2, 3, 6]}
+      {"name": "Hybrid Curse (Chaos)", "attr_name": "elemental_curse", "value": 999, "index": [0, 2, 3, 6]}
     ],
     "resonance": "Random",
     "element": [0, 2, 3, 6]
@@ -297,7 +297,7 @@
     "tier": 8,
     "skills": [
       {"name": "Calamity Spiral", "description": "99% chance for Non-Bloom hits to trigger Calamity", "attr_name": "spec_conv", "value": 90, "index": "Calamity"},
-      {"name": "999% Hybrid Curse (Holy)", "attr_name": "elemental_curse", "value": 999, "index": [1, 4, 5, 7]}
+      {"name": "Hybrid Curse (Holy)", "attr_name": "elemental_curse", "value": 999, "index": [1, 4, 5, 7]}
     ],
     "resonance": "Random",
     "element": [1, 4, 5, 7]

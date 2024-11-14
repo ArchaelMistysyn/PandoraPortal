@@ -164,7 +164,9 @@ function display_glyph($path_type, $total_points, $skill_color, $tier) {
     $path_bonuses = $path_perks[$path_type];
     $bonus = $current_data[0][1] * $tier;
     $glyph_name = "Glyph of " . $path_type;
-    $description = "<div>" . generate_stars(min(9, $tier)) . "</div>";
+    $description = "<div class='style-line'></div>";
+    $description .= "<div>" . generate_stars(min(9, $tier)) . "</div>";
+    $description .= "<div class='style-line'></div>";
     foreach ($path_bonuses as $modifier) {
         if (stripos($modifier[0], 'Resistance') !== false) {
             $total_value = number_format($modifier[1] * $total_points, 1);
@@ -185,9 +187,12 @@ function display_glyph($path_type, $total_points, $skill_color, $tier) {
             }
         }
     }
-    return "<div class='tooltip-lower" . $skill_color . "-border'><div class = " . $skill_color . ">
-                <div class='glyph-name'><h3>" . $glyph_name . "</h3></div>
-                <div class='glyph-description'>" . $description . "</div>
-            </div></div>";
+    $glyph_display = "<div class='glyph-tooltip-lower" . $skill_color . "-border'><div class='" . $skill_color . "'>";
+    $glyph_display .= "<div class='glyph-name' data-text='" . $glyph_name . "'><h3>" . $glyph_name . "</h3></div>";
+    $glyph_display .= "<div class='glyph-description'>" . $description . "</div>";
+    $glyph_display .= "</div></div>";
+
+    return $glyph_display;
+
 }
 ?>
