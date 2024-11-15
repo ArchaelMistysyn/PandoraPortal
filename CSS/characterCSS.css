@@ -63,12 +63,12 @@ main {
   display: flex;
   justify-content: flex-start;
   gap: 40px;
-  width: 850px;
+  width: 950px;
   margin: 70px 0;
 }
 
 #character-box-container {
-  width: 750px;
+  width: 900px;
   height: 651px;
 }
 
@@ -142,6 +142,12 @@ main {
   width: 100%;
   height: 100%;
   background-image: url(/images/Icons/dna-fill.png);
+  background-size: cover;
+}
+.resist-button-img {
+  width: 100%;
+  height: 100%;
+  background-image: url(/images/Icons/snowflake-fill.png);
   background-size: cover;
 }
 .defense-button-img {
@@ -240,7 +246,7 @@ main {
   width: 50%;
 }
 .player-table-stat td:last-of-type {
-  color: var(--brand-color-5);;
+  color: var(--brand-color-5);
 }
 .stat-section-left {
   display: flex;
@@ -291,7 +297,8 @@ main {
   background-size: cover;
 }
 
-#char-name-section, #search-bar-section {
+#char-name-section,
+#search-bar-section {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -299,14 +306,15 @@ main {
   padding: 10px 0;
   height: 60px;
 }
-#char-name-section::before, #search-bar-section::before {
+#char-name-section::before,
+#search-bar-section::before {
   content: "";
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url('../gallery/Displays/Banners/Abyss.webp');
+  background-image: url("../gallery/Displays/Banners/Abyss.webp");
   background-size: 120%;
   opacity: 0.15;
 }
@@ -318,6 +326,7 @@ main {
   width: 100%;
   font-size: 2.4rem;
   opacity: 1;
+  z-index: 3;
 }
 
 .char-name .char-align {
@@ -392,7 +401,7 @@ main {
   padding-bottom: 20px;
 }
 
-.glyph-tooltip-lower .star-container{
+.glyph-tooltip-lower .star-container {
   padding-right: 10px;
 }
 
@@ -482,6 +491,10 @@ main {
   height: 100%;
 }
 
+.app-item .stat-section-right {
+  color: unset;
+}
+
 #stat-section {
   color: white;
 }
@@ -563,6 +576,16 @@ main {
   background-size: cover;
 }
 
+.item-slot-icon-empty {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  color: white;
+  font-size: 1.5rem;
+}
+
 #slot-display {
   display: flex;
   justify-content: flex-end;
@@ -585,8 +608,11 @@ main {
   padding: 0 25px 0 25px;
 }
 
-.item-name-badge, .item-id-badge, .item-tier-badge,
-.inactive-badge, .active-badge {
+.item-name-badge,
+.item-id-badge,
+.item-tier-badge,
+.inactive-badge,
+.active-badge {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -627,7 +653,7 @@ main {
   justify-content: flex-start;
 }
 
-#image-tarot-bg{
+#image-tarot-bg {
   display: block;
   border: none;
   min-width: 398px;
@@ -710,7 +736,8 @@ main {
   background-color: rgba(255, 255, 255, 0.15);
 }
 
-.item-dmg-stat, .stat-message {
+.item-dmg-stat,
+.stat-message {
   color: white;
   text-align: left;
   width: 100%;
@@ -722,7 +749,6 @@ main {
   text-align: center;
   width: 100%;
   padding: 0.3rem 0 0.3rem 10%;
-
 }
 
 .skill-slot {
@@ -730,10 +756,9 @@ main {
   text-align: left;
   width: 100%;
   padding: 0.3rem 0 0.3rem 10%;
-
 }
 
-.skill-slot:hover{
+.skill-slot:hover {
   background: var(--bg-gradient-secondary);
 }
 
@@ -778,7 +803,7 @@ main {
 
 .element-section {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(4, 1fr) 0.4fr;
   justify-content: space-between;
   align-items: center;
   /* border-radius: 10px; */
@@ -790,10 +815,33 @@ main {
   font-size: 1rem;
 }
 
+.element-section h1:first-of-type,
+.element-section h2:last-of-type {
+  font-size: 1.3rem;
+}
+
 .detail-section {
+  position: relative;
   height: 100%;
   padding: 4px 8px;
   margin-bottom: 12px;
+}
+.detail-section::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  border: 10px solid currentColor;
+  border-right: 10px solid transparent;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  right: -30px;
+  top: 6px;
+  opacity: 0;
+}
+
+.detail-section.focused-element::after {
+  opacity: 1;
 }
 
 .total-box {
@@ -849,11 +897,13 @@ main {
 }
 
 .elemental-highlight-Wind {
+  text-align: right;
   color: #7fffd4;
   font-size: 20px;
 }
 
 .elemental-highlight-Earth {
+  text-align: right;
   color: #a0522d;
   font-size: 20px;
 }
@@ -866,16 +916,19 @@ main {
   color: transparent;
 }
 .elemental-highlight-Fire {
+  text-align: right;
   color: #ff4500;
   font-size: 20px;
 }
 
 .elemental-highlight-Ice {
+  text-align: right;
   color: #00bfff;
   font-size: 20px;
 }
 
 .elemental-highlight-Light {
+  text-align: right;
   color: #fff;
   font-size: 20px;
 }
@@ -896,21 +949,25 @@ main {
 }
 
 .elemental-highlight-Lightning {
+  text-align: right;
   color: #ffd700;
   font-size: 20px;
 }
 
 .elemental-highlight-Shadow {
+  text-align: right;
   color: #c0c0c0;
   font-size: 20px;
 }
 
 .elemental-highlight-Water {
+  text-align: right;
   color: #1e90ff;
   font-size: 20px;
 }
 
 .elemental-highlight-Celestial {
+  text-align: right;
   color: #b399ff;
   font-size: 20px;
 }
@@ -1016,8 +1073,8 @@ main {
 }
 
 .appBox-Bloom {
-  color: #228B22;
-  border: 2px solid #228B22;
+  color: #228b22;
+  border: 2px solid #228b22;
 }
 
 .appli-highlight-Elemental {
@@ -1056,7 +1113,7 @@ main {
 }
 
 .appli-highlight-Bloom {
-  color: #228B22; /* Green */
+  color: #228b22; /* Green */
   font-size: 20px;
 }
 

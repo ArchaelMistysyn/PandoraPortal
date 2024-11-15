@@ -119,7 +119,7 @@
 				<div id="detail-buttons">
 					<button type="button" id="player-button" class="char-nav-button char-nav-hover" onclick="handleButtonClick(0)"><span class="player-button-img"></span></button>
 					<button type="button" id="elemental-button" class="char-nav-button char-nav-hover" onclick="handleButtonClick(1)"><span class="elemental-button-img"></span></button>
-					<button type="button" id="resist-button" class="char-nav-button char-nav-hover" onclick="handleButtonClick(2)"><span class="defense-button-img"></span></button>
+					<button type="button" id="resist-button" class="char-nav-button char-nav-hover" onclick="handleButtonClick(2)"><span class="resist-button-img"></span></button>
 					<button type="button" id="defense-button" class="char-nav-button char-nav-hover" onclick="handleButtonClick(3)"><span class="defense-button-img"></span></button>
 					<button type="button" id="details-button" class="char-nav-button char-nav-hover" onclick="handleButtonClick(4)"><span class="details-button-img"></span></button>
 					<button type="button" id="misc-button" class="char-nav-button char-nav-hover" onclick="handleButtonClick(5)"><span class="misc-button-img"></span></button>
@@ -168,8 +168,10 @@
 					$icon_path = isset($equipped_items[$slot_id]) ? $equipped_items[$slot_id]->get_gear_thumbnail($encode_filename = true) : '';
 				}						
 				$background_style = $icon_path ? "background-image: url(\"$icon_path\");" : '';
-				echo "<button type='button' id='item-slot-{$slot_id}' class='item-slot-button' onclick='showEquipmentSlot(\"{$slot_id}\")'>
-					<span class='item-slot-icon' style='{$background_style}'></span></button>";
+        $slot_condition = !empty($icon_path);
+        $class_name = $slot_condition ? 'item-slot-icon' : 'item-slot-icon-empty';
+        $inner_text = $slot_condition ? '' : 'Empty';
+				echo "<button type='button' id='item-slot-{$slot_id}' class='item-slot-button' onclick='showEquipmentSlot(\"{$slot_id}\")'><span class='{$class_name}' style='{$background_style}'>{$inner_text}</span></button>";
 				}
 			?>
 		</div></div>
