@@ -618,8 +618,14 @@ class PlayerProfile {
 			$bloom_html .= "<div><h1 class='appli-highlight-Bloom'>Bloom: N/A</h1></div>";
 		$bloom_html .= "</div>";
 		$bloom_side_html = "<div id='side-box-bloom' class='side-detail-list appli-highlight-Bloom appBox-Bloom'>";
-			$bloom_side_html .= "<div class='detail-item'>Bloom Damage: " . number_format(show_num($this->bloom_mult)) . "%</div>";
-			$bloom_side_html .= "<div class='detail-item'>Bloom Rate: " . number_format(show_num($this->trigger_rate["Bloom"])) . "%</div>";
+			$bloom_side_html .= "<div class='detail-item app-item player-table-stat'>
+        <div class='stat-section-left'>Bloom Damage:</div>
+        <div class='stat-section-right'>" . number_format(show_num($this->bloom_mult)) . "%</div>
+       </div>";
+			$bloom_side_html .= "<div class='detail-item app-item player-table-stat'>
+        <div class='stat-section-left'>Bloom Rate:</div>
+        <div class='stat-section-right'>" . number_format(show_num($this->trigger_rate["Bloom"])) . "%</div>
+      </div>";
 		$bloom_side_html .= "</div>";
 
 		uksort($appli_data, function($a, $b) {
@@ -664,8 +670,11 @@ class PlayerProfile {
 							$value = $tag == "Flat Damage" && $this->appli["Life"] == 0 ? 0 : $value;
 							$no_percentage_tags = ["Capacity", "Flat Damage", "Mana Limit", "Synchronize"];
 							$extension = (!in_array($tag, $no_percentage_tags) && $tag !== "") ? "%" : "";
-							$formatted_value = is_numeric($value) ? ": " . number_format($value) : $value;
-							$side_html .= "<div class='detail-item'>{$tag}" . $formatted_value . "{$extension}</div>";
+							$formatted_value = is_numeric($value) ? "" . number_format($value) : $value;
+							$side_html .= "<div class='detail-item app-item player-table-stat'>
+                <div class='stat-section-left'>{$tag}: </div>
+                <div class='stat-section-right'>" . $formatted_value . "{$extension}</div>
+              </div>";
 						}
 						$side_html .= "</div>";
 					}
