@@ -284,6 +284,7 @@ main {
   border: none;
   cursor: pointer;
   transition: all 0.3s;
+  z-index: 10;
 }
 
 .toggle-search:hover {
@@ -317,6 +318,7 @@ main {
   background-image: url("../gallery/Displays/Banners/Abyss.webp");
   background-size: 120%;
   opacity: 0.15;
+  z-index: 0;
 }
 
 .char-name {
