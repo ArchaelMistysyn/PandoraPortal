@@ -576,39 +576,39 @@ class PlayerProfile {
 		$appli_data = [
 			'Elemental' => [
 				["tag" => "Capacity", "value" => $this->elemental_capacity],
-				["tag" => "Fractal Crit", "value" => $this->trigger_rate["Fractal"]],
+				["tag" => "Fractal Crit", "value" => $this->trigger_rate["Fractal"]]
 			],
 			'Critical' => [
-				["tag" => "Rate", "value" => $this->trigger_rate["Critical"]],
-				["tag" => "Mult", "value" => show_num($this->critical_mult)],
-				["tag" => "Pen", "value" => show_num($this->critical_pen)],
-				["tag" => "Omega Crit", "value" => $this->trigger_rate["Omega"]],
+				["tag" => "Critical Rate", "value" => $this->trigger_rate["Critical"]],
+				["tag" => "Critical Multiplier", "value" => show_num($this->critical_mult)],
+				["tag" => "Critical Penetration", "value" => show_num($this->critical_pen)],
+				["tag" => "Omega Critical Rate", "value" => $this->trigger_rate["Omega"]]
 			],
 			'Combo' => [
-				["tag" => "Mult", "value" => show_num($this->combo_mult)],
-				["tag" => "Pen", "value" => show_num($this->combo_pen)],
-				["tag" => "Synchronize", "value" => $this->trigger_rate["Combo"]],
+				["tag" => "Combo Multiplier", "value" => show_num($this->combo_mult)],
+				["tag" => "Combo Penetration", "value" => show_num($this->combo_pen)],
+				["tag" => "Synchronize", "value" => $this->trigger_rate["Combo"]]
 			],
 			'Ultimate' => [
-				["tag" => "Mult", "value" => show_num($this->ultimate_mult)],
-				["tag" => "Pen", "value" => show_num($this->ultimate_pen)],
+				["tag" => "Ultimate Multiplier", "value" => show_num($this->ultimate_mult)],
+				["tag" => "Ultimate Penetration", "value" => show_num($this->ultimate_pen)]
 			],
 			'Bleed' => [
-				["tag" => "Mult", "value" => show_num($this->bleed_mult)],
-				["tag" => "Pen", "value" => show_num($this->bleed_pen)],
-				["tag" => "Hyperbleed", "value" => $this->trigger_rate["Hyperbleed"]],
+				["tag" => "Bleed Multiplier", "value" => show_num($this->bleed_mult)],
+				["tag" => "Bleed Penetration", "value" => show_num($this->bleed_pen)],
+				["tag" => "Hyperbleed Rate", "value" => $this->trigger_rate["Hyperbleed"]]
 			],
 			'Temporal' => [
-				["tag" => "Time Shatter", "value" => show_num($this->temporal_mult)],
-				["tag" => "Time Lock", "value" => $this->trigger_rate["Temporal"]],
+				["tag" => "Time Lock Rate", "value" => $this->trigger_rate["Temporal"]],
+				["tag" => "Time Shatter Multiplier", "value" => show_num($this->temporal_mult)]
 			],
 			'Life' => [
-				["tag" => "Health Mult", "value" => show_num($this->hp_multiplier)],
-				["tag" => "Flat Damage", "value" => $this->player_mHP * 5],
+				["tag" => "Health Multiplier", "value" => show_num($this->hp_multiplier)],
+				["tag" => "Flat Damage Bonus", "value" => $this->player_mHP * 5]
 			],
 			'Mana' => [
-				["tag" => "Mana Mult", "value" => show_num($this->mana_mult)],
-				["tag" => "Mana Limit", "value" => $this->mana_limit],
+				["tag" => "Mana Multiplier", "value" => show_num($this->mana_mult)],
+				["tag" => "Mana Limit", "value" => $this->mana_limit]
 			]
 		];
 		

@@ -1,7 +1,21 @@
-/*
-COLOURS
-Text (Gold): #FFC107
-*/
+/* CSS Variables */
+/* Modify and reuse throughout stylesheet */
+:root {
+  --brand-color-primary: #007bff;
+  --brand-color-secondary: #780ac3;
+  --brand-color-3: #ff0000;
+  --brand-color-4: #ff1493;
+  --brand-color-5: #ffc107;
+  --brand-color-6: #da9932;
+
+  --bg-gradient-primary: linear-gradient(#110eb8, #1c117e, #09086b);
+  --bg-gradient-secondary: linear-gradient(#1e1e1e, #111111);
+  --bg-gradient-tertiary: linear-gradient(#da9932, #ae7a28);
+
+  --bg-gradient-dark: linear-gradient(#2f2f2f, black);
+  --border-primary-light: 1px solid rgba(255, 255, 255, 0.15);
+}
+
 
 @font-face {
   font-family: "PandoraDiamond";
@@ -39,6 +53,18 @@ html {
   padding: 0;
   box-sizing: border-box;
   font-family: PandoraDiamond;
+}
+
+.unselectable {
+  -moz-user-select: -moz-none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+
+h1, h2, h3 {
+  font-weight: normal;
 }
 
 a {
@@ -339,7 +365,6 @@ td {
 
 .highlight-row {
   background-color: #2e2e2e;
-  font-weight: bold;
 }
 
 /* Inputs */
@@ -359,7 +384,6 @@ input[type="text"] {
   justify-content: center;
   text-align: center;
   background-color: #111;
-  font-weight: bold;
   color: #00bfff;
   border: 1px solid #9932cc;
   margin: 0 5px;
@@ -374,14 +398,12 @@ input[type="text"] {
 .input-button:hover {
   background-color: #00bfff;
   color: #000;
-  font-weight: bold;
   cursor: pointer;
 }
 
 .input-button.active {
   background-color: #00bfff;
   color: #000;
-  font-weight: bold;
 }
 
 input::placeholder {
@@ -453,6 +475,8 @@ input:focus {
 
 .exp-bar:hover .tooltip,
 .element-segment:hover .tooltip,
+.element-segment:hover .tooltip::after,
+.exp-bar:hover .tooltip::after,
 .skill-circle:hover .glyph-tooltip,
 .skill-circle:hover .glyph-tooltip-lower,
 .skill-slot:hover .tooltip,
@@ -460,4 +484,9 @@ input:focus {
 .element-icon-container:hover .tooltip {
   visibility: visible;
   opacity: 1;
+}
+
+.highlight-text {
+  color: var(--brand-color-primary);
+  text-shadow: 2px 2px var(--brand-color-secondary);
 }
