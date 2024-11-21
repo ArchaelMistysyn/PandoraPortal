@@ -1,29 +1,51 @@
+/* CSS Variables */
+/* Modify and reuse throughout stylesheet */
+:root {
+	--brand-color-primary: #007bff;
+	--brand-color-secondary: #780ac3;
+	--brand-color-3: #ff0000;
+	--brand-color-4: #ff1493;
+	--brand-color-5: #ffc107;
+	--brand-color-6: #da9932;
+  
+	--bg-gradient-primary: linear-gradient(#110eb8, #1c117e, #09086b);
+	--bg-gradient-secondary: linear-gradient(#1e1e1e, #111111);
+	--bg-gradient-tertiary: linear-gradient(#da9932, #ae7a28);
+  
+	--bg-gradient-dark: linear-gradient(#2f2f2f, black);
+	--border-primary-light: 1px solid rgba(255, 255, 255, 0.15);
+  }
+
 #wiki-flex {
 	display: flex;
-	justify-content: flex-start;
-	gap: 20px;
+	height: calc(100vh - 100px);
+	width: 100%;
+	justify-content: center;
+	overflow-y: auto;
 }
 
 #wiki-menu {
-	flex: 0 0 300px;
-    display: flex;
+	position: fixed;
+	display: flex;
+	flex: 1;
+	left: 100px;
+	width: 350px;
     flex-direction: column;
     align-items: center;
-    padding: 10px;
 	margin: 10px;
 	background-color: #111;
-    border: 2px solid #ccc;
+    border: 2px solid white;
 	border-radius: 15px;
+	padding-top: 10px;
+	padding-bottom: 10px;
 }
 
 #content-container {
+	position: relative;
+	display: flex;
 	padding-top: 10px;
-	padding-right: 340px;
-    display: flex;
-	flex: 1;
 	justify-content: center;
-	overflow-y: auto;
-	height: calc(100vh - 100px);
+	height: 100%;
 }
 
 #wiki-content {
@@ -34,73 +56,129 @@
 /* Tab Menu */
 .tab-menu {
 	width: 100%;
-	padding: 10px;
 	color: white;
 }
 .main-tab {
+	position: relative;
 	display: flex;
 	justify-content: space-between;
+	align-items: center;
 	cursor: pointer;
-	padding: 10px;
+	padding: 5px;
+	padding-left: 10px;
 	border-bottom: 1px solid #ccc;
-	font-size: 1.4rem;
+	font-size: 1.6rem;
+}
+.main-tab::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-size: 120%;
+	opacity: 0.15;
+	z-index: 0;
+}
+#mainTab-Main::before {
+	background-image: url("../gallery/Displays/Banners/Abyss.webp");
+}
+#mainTab-Gear::before {
+	background-image: url("../gallery/Displays/Banners/Abyss.webp");
+}
+#mainTab-Explore::before {
+	background-image: url("../gallery/Displays/Banners/Abyss.webp");
+}
+#mainTab-Build::before {
+	background-image: url("../gallery/Displays/Banners/Abyss.webp");
 }
 .sub-tabs {
 	display: none;
-	padding-left: 20px;
 	list-style-type: none;
 	margin: 0;
-	padding: 5px 0;
+	width: 100%;
 	font-size: 1.2rem;
 }
 .sub-tabs li {
 	padding: 5px 0;
+	padding-left: 20px;
 	cursor: pointer;
 }
+.sub-tabs li:hover{
+	background: var(--bg-gradient-secondary);
+}
+
 .arrow {
-	font-size: 12px;
-	color: red;
+	font-size: 30px;
+	color: var(--brand-color-primary);
 }
 
 .selected {
-	font-weight: bold;
-	color: skyblue;
+	color: var(--brand-color-5);
+	background: var(--bg-gradient-dark);
 }
 
 /* Wiki Tables */
-#wiki-content table tbody td{
+.search-category {
+	background-color: #111;
+	padding: 8px;
+	margin-bottom: 5px;
+}
+.search-category h3 {
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+	background-image: var(--bg-gradient-dark);
+    border: var(--border-primary-light);
+    background-clip: content-box;
+	width: 100%;
+	font-size: 1.6rem;
+	height: 40px;
+}
+
+.wiki-table tbody td{
 	padding-left: 25px;
 	padding-right: 25px;
 	text-align:center;
 	height: 35px;
 	font-size: 20px;
 }
-
-#wiki-content table tbody tr{
+.wiki-table tbody tr{
 	padding-left: 25px;
 	padding-right: 25px;
 	text-align:center;
 	height: 35px;
 	border-top: 1px solid #111;
 }
-
-#wiki-content table thead tr th div{
-	padding-left: 5px;
-	padding-right: 5px;
-    text-wrap: nowrap;
+.wiki-table tbody tr:nth-child(even) {
+	background: #111;
+}
+.wiki-table tbody tr:nth-child(odd) {
+	background: #1b1a18;
 }
 
-.search-category h3 {
-	text-align: center;
-	border-radius: 10px;
-	background-color: #000;
-	border: 1px solid #00BFFF;
-	margin-top: 5px;
-	margin-bottom: 5px;
+.wiki-header, .wiki-header tr, .wiki-header tr th {
+	background-color: transparent;
+}
+.wiki-header tr th:first-child{
+	padding-left: 0;
+}
+.wiki-header tr th:last-child{
+	padding-right: 0;
 }
 
-.search-category {
-	padding-bottom:5px;
+.wiki-header tr th div{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+    background-image: var(--bg-gradient-dark);
+    border: var(--border-primary-light);
+    background-clip: content-box;
+    height: 3rem;
+    margin-bottom: 0;
+    color: white;
+    font-size: 20px;
+    text-shadow: 2px 2px var(--brand-color-secondary);
 }
 
 .filter-section {
@@ -110,22 +188,10 @@
     margin-bottom: 20px;
 }
 
-#filter-category {
+#filter-input {
     padding: 10px;
-    border: 1px solid #9932CC;
     border-radius: 5px;
-    color: #9932CC;
-    background-color: #111;
-}
-
-.top-gap {
-	display:block;
-	padding-bottom: 20px;
-	width:100%;
-}
-
-.bottom-gap {
-	display:block;
-	padding-bottom: 20px;
-	width:100%;
+	color: white;
+	margin: 10px;
+	margin-bottom: 20px;
 }

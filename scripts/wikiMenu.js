@@ -11,7 +11,9 @@ function buildTabMenu() {
         const mainTabElement = document.createElement('div');
         mainTabElement.id = `mainTab-${mainTab}`;
         mainTabElement.classList.add('main-tab');
-        mainTabElement.innerHTML = `${mainTab} <span class="arrow">▲</span>`;
+        mainTabElement.classList.add('highlight-text');
+        mainTabElement.classList.add('unselectable');
+        mainTabElement.innerHTML = `${mainTab} <span class="arrow unselectable">▲</span>`;
         const subTabsList = document.createElement('ul');
         subTabsList.id = `subTabsList-${mainTab}`;
         subTabsList.classList.add('sub-tabs');
