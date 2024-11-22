@@ -12,13 +12,15 @@
     <!-- Header Section -->
     <header id="header"></header>
     <!-- Main Content Section -->
-    <main id="wiki-flex">
-        <div id="wiki-menu">
-            <input type="text" id="filter-input" placeholder="Filter Content" oninput="filterItems()">
-            <div class="tab-menu" id="tabMenu"></div>
-        </div>
-        <div id="content-container">
-            <div id="wiki-content"></div>
+    <main id="wiki">
+        <div id="wiki-main-container">
+          <div id="wiki-menu">
+              <input type="text" id="filter-input" placeholder="Filter Content" oninput="filterItems()">
+              <div class="tab-menu" id="tabMenu"></div>
+          </div>
+          <div id="wiki-content-container">
+              <div id="wiki-content"></div>
+          </div>
         </div>
     </main>
 	<script src="scripts/header.js"></script>

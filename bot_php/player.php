@@ -151,7 +151,7 @@ class PlayerProfile {
 	public function player_header() {
 		// Add the search bar container
 		$html = '<div id="search-bar-section" class="highlight-text" style="display: none;">';
-		$html .= '<button class="toggle-search" onclick="toggleSearchBar()"><span class="toggle-search-image"></span></button>';
+		$html .= '<button class="toggle-search" onclick="toggleSearchBar()"><span class="toggle-search-image search-char-active"></span></button>';
 		$html .= '<form id="filter-form" method="post" action="' . htmlspecialchars($_SERVER["PHP_SELF"]) . '">';
 		$html .= '<input type="text" name="search_input" placeholder="Enter Player ID/Username or Discord ID" required>';
 		$html .= '<button type="submit" class="input-button">Search</button>';
