@@ -160,7 +160,7 @@ class PlayerProfile {
 		$html .= '<div id="char-name-section" class="highlight-text">';
 		$html .= '<button class="toggle-search" onclick="toggleSearchBar()"><span class="toggle-search-image"></span></button>';
 		$html .= '<div class="char-name">';
-		$html .= '<div class="char-align"><img src="./gallery/Icons/Classes/' . $this->player_class . '.png" class="icon-medium character-icon"/></div>';
+		$html .= '<div class="char-align"><img src="./gallery/Icons/Classes/' . $this->player_class . '.webp" class="icon-medium character-icon"/></div>';
 		$html .= '<div class="char-align">' . $this->player_username . '</div>';
 		$html .= '<div class="char-align"><i>Lv' . $this->player_level . '</i></div>';
 		$html .= '<div class="char-align">' . $this->player_class . '</div>';
@@ -205,7 +205,7 @@ class PlayerProfile {
 		$html .= '<tr class="player-table-stat"><td><img src="/images/Icons/diamonds-four-fill.png" alt="stat icon" class="icon-small stat-icon"/>Oath [Add Later]:</td><td>' . $oath . '</td></tr>';
 		// Lotus Coins
 		$formatted_coin_value = number_format($this->player_coins);
-		$html .= '<tr class="player-table-stat"><td><img src="./gallery/Icons/Misc/Lotus Coin.png" alt="Coins" class="icon-small stat-icon"/>Lotus Coins:</td><td> ' . $formatted_coin_value . '</td></tr>';
+		$html .= '<tr class="player-table-stat"><td><img src="./gallery/Icons/Misc/Lotus Coin.webp" alt="Coins" class="icon-small stat-icon"/>Lotus Coins:</td><td> ' . $formatted_coin_value . '</td></tr>';
 		$html .= '</table>';
 		// Skill Points & Glyphs
     $html .= '<div class="player-table-title"><p>GLYPHS</p></div>';
@@ -532,7 +532,7 @@ class PlayerProfile {
 		foreach ($resistance_breakdown as $resistance) {
 			$index = $resistance['index'];
 			$resistance_value = $resistance['value'];
-			$temp_icon = '<img src="./gallery/Icons/Elements/' . $element_names[$index] . '.png" class="icon-small" alt="' . $element_names[$index] . '">';
+			$temp_icon = '<img src="./gallery/Icons/Elements/' . $element_names[$index] . '.webp" class="icon-small" alt="' . $element_names[$index] . '">';
 			$temp_res_str = "Resistance: " . number_format(round($resistance_value)) . "%";
 			$temp .= "<div class='element-section eleBox-{$element_names[$index]}'>";
 			$temp .= "<div class='total-box' class='detail-item'>{$temp_icon}<h1 class='elemental-highlight-" . $element_names[$index] . "'>" . $temp_res_str . "</h1></div>";
@@ -687,7 +687,7 @@ class PlayerProfile {
 
 	private function create_element_section($z, $total_multi, $is_active, $total_contribution = 0) {
 		global $element_names;
-		$temp_icon = '<img src="./gallery/Icons/Elements/' . $element_names[$z] . '.png" class="icon-small"" alt="' . $element_names[$z] . '">';
+		$temp_icon = '<img src="./gallery/Icons/Elements/' . $element_names[$z] . '.webp" class="icon-small"" alt="' . $element_names[$z] . '">';
 		$temp_dmg_str = "&lpar;Mult: " . number_format(intval(round($this->elemental_mult[$z] * 100))) . "%&rpar;";
 		$temp_pen_str = "&lpar;Pen: " . number_format(intval(round($this->elemental_pen[$z] * 100))) . "%&rpar;";
 		$temp_curse_str = "&lpar;Curse: " . number_format(intval(round($this->elemental_curse[$z] * 100))) . "%&rpar;";
@@ -762,7 +762,7 @@ class PlayerProfile {
 			$used_multipliers = [];
 			foreach ($temp_element_list as $i => $is_used) {
 				if ($is_used) {
-					$element_icon = '<img src="./gallery/Icons/Elements/' . $element_names[$i] . '.png" class="tooltip-icon" alt="' . $element_names[$i] . '">';
+					$element_icon = '<img src="./gallery/Icons/Elements/' . $element_names[$i] . '.webp" class="tooltip-icon" alt="' . $element_names[$i] . '">';
 					$used_elements[] = [
 						'icon' => $element_icon,
 						'name' => $element_names[$i],
