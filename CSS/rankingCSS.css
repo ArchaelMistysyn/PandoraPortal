@@ -1,0 +1,23 @@
+#leaderboard-container {
+    display: flex;
+    justify-content: center;
+    overflow-y: auto;
+}
+
+.rank-table {
+    margin-top: 10px;
+    max-width: 1600px;
+    color: white;
+}
+
+.rank-table h3 {
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+	background-image: var(--bg-gradient-dark);
+    border: var(--border-primary-light);
+    background-clip: content-box;
+	width: 100%;
+	font-size: 1.6rem;
+	height: 40px;
+}

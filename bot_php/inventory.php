@@ -151,7 +151,7 @@
 			$html .= "<div class='style-line'></div>";
 			$html .= "<div class='item-dmg-stat'>Base: " . number_format($this->item_damage_min) . " - " . number_format($this->item_damage_max) . "</div>";
 			if (!$is_gem) {
-				$html .= '<img src="https://PandoraPortal.ca/gallery/Icons/Classes/' . $this->item_damage_type . '.png" alt="' . $this->item_damage_type . '" class="item-class-thumbnail">';
+				$html .= '<img src="https://PandoraPortal.ca/gallery/Icons/Classes/' . $this->item_damage_type . '.webp" alt="' . $this->item_damage_type . '" class="item-class-thumbnail">';
 				if ($this->item_type == 'R'){
 					$bonus_stat_msg = '- - -';
 				}
@@ -461,9 +461,9 @@
 			$star_display = '<div class="star-container">';
 			for ($i = 1; $i <= 9; $i++) {
 				if ($i <= $this->item_tier) {
-					$star_display .= '<img src="./gallery/Icons/Stars/Star' . $this->item_tier . '.png" class="icon-small">';
+					$star_display .= '<img src="./gallery/Icons/Stars/Star' . $this->item_tier . '.webp" class="icon-small">';
 				} else {
-					$star_display .= '<img src="./gallery/Icons/Stars/StarBlank.png" class="icon-small">';
+					$star_display .= '<img src="./gallery/Icons/Stars/StarBlank.webp" class="icon-small">';
 				}
 			}
 			$star_display .= '</div>';
@@ -525,7 +525,7 @@
 					$element_name = $element_names[$index];
 					$tooltip = isset($tooltip_dict[$this->item_type]) ? str_replace('X', $element_name, $tooltip_dict[$this->item_type]) : "{$element_name}";
 					$element_display .= '<div class="element-icon-container"><img src="./gallery/Icons/Elements/';
-					$element_display .= $element_name . '.png" class="icon-small" alt="' . $element_name . '">';
+					$element_display .= $element_name . '.webp" class="icon-small" alt="' . $element_name . '">';
 					$element_display .= '<span class="tooltip">' . $tooltip . '</span></div>';
 				}
 			}
@@ -763,9 +763,9 @@
 		$star_display = '<div class="star-container">';
 		for ($i = 1; $i <= 9; $i++) {
 			if ($i <= $tier) {
-				$star_display .= '<img src="./gallery/Icons/Stars/Star' . $tier . '.png" class="icon-small">';
+				$star_display .= '<img src="./gallery/Icons/Stars/Star' . $tier . '.webp" class="icon-small">';
 			} else {
-				$star_display .= '<img src="./gallery/Icons/Stars/StarBlank.png" class="icon-small">';
+				$star_display .= '<img src="./gallery/Icons/Stars/StarBlank.webp" class="icon-small">';
 			}
 		}
 		$star_display .= '</div>';
@@ -785,7 +785,7 @@
 		foreach ($elements as $index => $value) {
 			if ($value == '1' || $value == 1) {
 				$element_name = $element_names[$index];
-				$element_display .= '<img src="./gallery/Icons/Elements/' . $element_name . '.png" class="icon-small" alt="' . $element_name . '">';
+				$element_display .= '<img src="./gallery/Icons/Elements/' . $element_name . '.webp" class="icon-small" alt="' . $element_name . '">';
 			}
 		}
 		$element_display .= '</div>';
