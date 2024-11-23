@@ -166,32 +166,42 @@ const colorButtons = document.querySelectorAll('.color-button');
         }        
 		
 		function loadImages(folder, subfolder) {
-            const paths = flattenSubfolderPaths(folder, subfolder);
-            const previewBox = document.getElementById('preview-box');
-            previewBox.innerHTML = '';
-            paths.forEach(path => {
-                fetch(`./bot_php/gallery_data.php?action=getImages&path=${encodeURIComponent(path)}`)
-                    .then(response => response.json())
-                    .then(data => {
-                        const imagesArray = Object.values(data.images)
-                            .filter(image => {
-                                const isFolder = !image.includes('.');
-                                const isIgnored = ignoredFolders.some(ignored => image.includes(ignored));
-                                return !isFolder && !isIgnored;
-                            });
-                        imagesArray.forEach(image => {
-                            const img = new Image();
-                            img.src = `./gallery/${path}/${encodeURIComponent(image)}`;
-                            img.dataset.imageName = image;
-                            appendImage(previewBox, img);
-                        });
-                        if (imagesArray.length > 0) {
-                            displayFullSizeImage(imagesArray[0].src);
-                        }
-                    })
-                    .catch(error => console.error(`Error loading images for path: ${path}`, error));
-            });
-        }
+			const paths = flattenSubfolderPaths(folder, subfolder);
+			const previewBox = document.getElementById('preview-box');
+			previewBox.innerHTML = '';
+			let firstImageSrc = null;
+			paths.forEach((path, index) => {
+				fetch(`./bot_php/gallery_data.php?action=getImages&path=${encodeURIComponent(path)}`)
+					.then(response => response.json())
+					.then(data => {
+						const imagesArray = Object.values(data.images)
+							.filter(image => {
+								const isFolder = !image.includes('.');
+								const isIgnored = ignoredFolders.some(ignored => image.includes(ignored));
+								return !isFolder && !isIgnored;
+							});
+						imagesArray.forEach((image, imgIndex) => {
+							const img = new Image();
+							img.src = `./gallery/${path}/${encodeURIComponent(image)}`;
+							img.dataset.imageName = image;
+							appendImage(previewBox, img);
+							if (!firstImageSrc && index === 0 && imgIndex === 0) {
+								firstImageSrc = img.src;
+							}
+						});
+						if (firstImageSrc) {
+							displayFullSizeImage(firstImageSrc);
+							const firstImageElement = previewBox.querySelector(`img[src="${firstImageSrc}"]`);
+							if (firstImageElement) {
+								firstImageElement.classList.add('selected-preview');
+							}
+						}
+					})
+					.catch(error => console.error(`Error loading images for path: ${path}`, error));
+			});
+		}
+		
+		
 
 		function lazyLoadImage(img, src) {
 			const observer = new IntersectionObserver((entries, observer) => {
@@ -240,10 +250,12 @@ const colorButtons = document.querySelectorAll('.color-button');
 			img.src = src;
 			currentImageSrc = src;
 			fullImageDisplay.appendChild(img);
-			document.querySelectorAll('.gallery-image').forEach(image => {
-				image.classList.remove('selected-preview');
-				if (image.dataset.src === src) {
+			const previewImages = document.querySelectorAll('.gallery-image');
+			previewImages.forEach(image => {
+				if (image.src === src) {
 					image.classList.add('selected-preview');
+				} else {
+					image.classList.remove('selected-preview');
 				}
 			});
 			img.onload = () => {

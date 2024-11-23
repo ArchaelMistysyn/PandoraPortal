@@ -151,7 +151,7 @@
 			$html .= "<div class='style-line'></div>";
 			$html .= "<div class='item-dmg-stat'>Base: " . number_format($this->item_damage_min) . " - " . number_format($this->item_damage_max) . "</div>";
 			if (!$is_gem) {
-				$html .= '<img src="https://PandoraPortal.ca/gallery/Icons/Classes/' . $this->item_damage_type . '.webp" alt="' . $this->item_damage_type . '" class="item-class-thumbnail">';
+				$html .= '<img src="../gallery/Icons/Classes/' . $this->item_damage_type . '.webp" alt="' . $this->item_damage_type . '" class="item-class-thumbnail">';
 				if ($this->item_type == 'R'){
 					$bonus_stat_msg = '- - -';
 				}
