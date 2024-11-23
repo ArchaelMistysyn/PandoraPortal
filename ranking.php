@@ -59,8 +59,8 @@
 
 	function display_leaderboard_table($leaderboard_data, $leaderboard_type, $rank_column, $value_column, $player_id) {
 		$type_label = $leaderboard_type == 'dps' ? 'DPS' : 'Damage';
-		echo "<div class='rank-table'>";
-		echo "<table><thead><tr>";
+		echo "<div class='table-box rank-table'><h3 class='highlight-text'>$type_label Leaderboard</h3>";
+		echo "<table class='style-table'><thead class='style-header'><tr>";
 		echo "<th><div>Ranking</div></th>";
 		echo "<th><div>Username</div></th>";
 		echo "<th><div>Player ID</div></th>";
@@ -79,13 +79,13 @@
 			$scaled_value = number_conversion($data[$value_column]);
 			if ($player_rank == 1) {
 				echo "<tr class='{$highlight_class} ultimate'>";
-				echo "<td class='icon-cell'><div><img src='https://kyleportfolio.ca/botimages/roleicon/exclusiveflare.png' class='rank-icon-1' alt='Rank 1 Icon'/></div></td>";
+				echo "<td class='icon-cell-big'><div><img src='https://kyleportfolio.ca/botimages/roleicon/exclusiveflare.png' class='rank-icon-1' alt='Rank 1 Icon'/></div></td>";
 			} else if ($player_rank == 2) {
 				echo "<tr class='{$highlight_class} uber'>";
-				echo "<td class='icon-cell'><div><img src='https://kyleportfolio.ca/botimages/roleicon/echelon3.png' class='rank-icon-2' alt='Rank 2 Icon'/></div></td>";
+				echo "<td class='icon-cell-big'><div><img src='https://kyleportfolio.ca/botimages/roleicon/echelon3.png' class='rank-icon-2' alt='Rank 2 Icon'/></div></td>";
 			} else if ($player_rank == 3) {
 				echo "<tr class='{$highlight_class} ultra'>";
-				echo "<td class='icon-cell'><div><img src='https://kyleportfolio.ca/botimages/roleicon/echelon1.png' class='rank-icon-3' alt='Rank 3 Icon'/></div></td>";
+				echo "<td class='icon-cell-big'><div><img src='https://kyleportfolio.ca/botimages/roleicon/echelon1.png' class='rank-icon-3' alt='Rank 3 Icon'/></div></td>";
 			} else {
 				echo "<tr class='{$highlight_class}'>";
 				echo "<td>{$player_rank}</td>";
@@ -93,7 +93,7 @@
 			echo "<td>{$data['player_username']}</td>";
 			echo "<td>{$data['player_id']}</td>";
 			echo "<td>{$data['player_level']}</td>";
-			echo "<td class='icon-cell'><div><img src='./gallery/Icons/Classes/{$data['player_class']}.png' class='class-icon'/></div></td>";
+			echo "<td class='icon-cell-big'><div><img src='./gallery/Icons/Classes/{$data['player_class']}.webp'/></div></td>";
 			echo "<td>$scaled_value</td>";
 			echo "<td>$formatted_value</td>";
 			echo "<td class='button-cell'>
@@ -112,44 +112,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Pandora Portal - Leaderboards</title>
-    <link rel="stylesheet" href="pandoraCSS.css?<?php echo date('l jS \of F Y h:i:s A'); ?>">
+    <link rel="stylesheet" href="CSS/generalpageCSS.css">
+    <link rel="stylesheet" href="CSS/RankingCSS.css">
     <link rel="icon" type="img/ico" href="./images/favicon.ico">
 </head>
 <body>
-    <!-- Header Section -->
-    <header>
-        <div class="logo">
-			<a href="index.php">
-				<img src="./images/icon.png" alt="Website Icon">
-				<h1>Leaderboards</h1>
-			</a>
-        </div>
-		<nav id="primary-nav">
-            <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-				<button type="submit" name="leaderboard_type" value="dps" class="<?php echo $leaderboard_type == 'dps' ? 'active' : ''; ?> input-button">DPS Leaderboard</button>
-				<button type="submit" name="leaderboard_type" value="damage" class="<?php echo $leaderboard_type == 'damage' ? 'active' : ''; ?> input-button">Damage Leaderboard</button>
-				<input type="text" name="search_input" placeholder="Enter Player ID/Username or Discord ID">
-                <button type="submit" class="input-button">Search</button>
-            </form>
-        </nav>
-        <nav id="page-nav">
-            <ul>
-				<li><a href="wiki.php">Wiki</a></li>
-                <li><a href="characters.php">Character</a></li>
-                <li><a href="gallery.php">Gallery</a></li>
-                <li><a href="ranking.php" class="selected">Ranking</a></li>
-                <li><a href="https://www.ArchDragonStore.ca" target="_blank">Store</a></li>
-            </ul>
-        </nav>
-    </header>
-    
-    <!-- Main Content Section -->
-    <main  class="no-footer">
-		<div class="content-container">
-			<div class="leaderboard-container">
-				<?php display_leaderboard_table($leaderboard_data, $leaderboard_type, $rank_column, $value_column, $player_id); ?>
-			</div>
+    <header id="header"></header>
+    <main>
+		<div id="leaderboard-container">
+			<?php display_leaderboard_table($leaderboard_data, $leaderboard_type, $rank_column, $value_column, $player_id); ?>
 		</div>
     </main>
+	<script src="scripts/header.js"></script>
 </body>
 </html>
