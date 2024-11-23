@@ -116,10 +116,6 @@
 		
 		public function display_item($is_gem=false) {
 			global $sovereign_item_list, $ring_skill_data, $ring_category, $path_names, $gem_point_dict, $low_tier_skills;
-			$thumbnail_url = $this->get_gear_thumbnail();
-			$html = '<img src="' . $thumbnail_url . '" alt="' . $this->item_name . '" class="item-thumbnail">';
-			$html .= $this->generate_stars();
-			$html .= $this->generate_element_icons();
 			$quality = '';
 			$name = '';
 			$tooltip = '';
@@ -136,14 +132,26 @@
 					$ring_tier = $ring_skill_data[$this->item_name]['tier'];
 					$quality = "[" . $ring_category[$ring_tier] . "]";
 				}
-			}			
-			$html .= "<h1 class='item-name'>" . $name . "</h1>";
-			if (!empty($quality)) {
-				$html .= "<div class='item-name'>" . $quality . "</div>";
 			}
-			$html .= "<div>Base: " . number_format($this->item_damage_min) . " - " . number_format($this->item_damage_max) . "</div>";
+
+			$thumbnail_url = $this->get_gear_thumbnail();
+			$html = '<img src="' . $thumbnail_url . '" alt="' . $this->item_name . '" class="item-thumbnail">';
+			$html .= "<h1 class='item-name highlight-text'>" . $name . "</h1>";
+			$html .= "<div class='style-line'></div>";
+			$html .= $this->generate_stars();
+			$html .= $this->generate_element_icons();
+			$html .= "<div class='style-line'></div>";
+			// Tags
+			$html .= "<div class='badge-container'>";	
+			$html .= "<div class='item-name-badge'>" . $quality . "</div>";
+			$html .= "<div class='item-id-badge'>ID: " . $this->item_id . "</div>";
+			$html .= "<div class='item-tier-badge'>Tier: " . $this->item_tier . "</div>";
+			$html .="</div>";
+			// Item Data
+			$html .= "<div class='style-line'></div>";
+			$html .= "<div class='item-dmg-stat'>Base: " . number_format($this->item_damage_min) . " - " . number_format($this->item_damage_max) . "</div>";
 			if (!$is_gem) {
-				$html .= '<img src="https://PandoraPortal.ca/gallery/Icons/Classes/' . $this->item_damage_type . '.png" alt="' . $this->item_damage_type . '" class="item-class-thumbnail">';
+				$html .= '<img src="../gallery/Icons/Classes/' . $this->item_damage_type . '.webp" alt="' . $this->item_damage_type . '" class="item-class-thumbnail">';
 				if ($this->item_type == 'R'){
 					$bonus_stat_msg = '- - -';
 				}
@@ -182,12 +190,12 @@
 					$bonus_stat_msg = "{$tier_specifier[$this->item_tier]} Application ({$this->item_bonus_stat})";
 					$final_damage = ($this->item_tier - 4) * 25;
 					$tooltip = $application_mapping[$this->item_bonus_stat];
-					$tooltip = "<span class='skill-tooltip'>{$tooltip}. Final Damage +{$final_damage}%</span>";
+					$tooltip = "<span class='tooltip'>{$tooltip}. Final Damage +{$final_damage}%</span>";
 				} else if ($this->item_tier < 5 && in_array($this->item_type, ["G", "C"])) {
 					if (isset($low_tier_skills[$this->item_bonus_stat])) {
 						$bonus_stat_msg = "{$low_tier_skills[$this->item_bonus_stat]['name']} ({$this->item_bonus_stat})";
 						$tooltip = $low_tier_skills[$this->item_bonus_stat]['description'];
-						$tooltip = "<span class='skill-tooltip'>{$tooltip}</span>";
+						$tooltip = "<span class='tooltip'>{$tooltip}</span>";
 					}
 				}
 			} else {
@@ -230,7 +238,7 @@
 				$tooltip = "<span class='skill-name'>$skill_name</span>";
 				if (isset($keyword_data[$skill_tag])) {
 					$description = $keyword_data[$skill_tag]['description'];
-					$tooltip .= "<span class='skill-tooltip'>{$description}</span>";
+					$tooltip .= "<span class='tooltip'>{$description}</span>";
 				}
 				$skill_display .= "<div class=\"skill-slot $tier_class\">$tooltip</div>";
 			}
@@ -263,7 +271,7 @@
 				if (isset($keyword_data[$skill_tag])) {
 					$skill_display .= "<div class=\"skill-slot tier-$this->item_tier\">";
 					$skill_display .= "<span class='skill-name'>$skill_name +$skill_value%</span>";
-					$skill_display .= "<span class='skill-tooltip'>{$keyword_data[$skill_tag]['description']}</span>";
+					$skill_display .= "<span class='tooltip'>{$keyword_data[$skill_tag]['description']}</span>";
 					$skill_display .= "</div>";
 				} else {
 					$skill_display .= "<div class=\"skill-slot tier-$this->item_tier\">$skill_name +$skill_value%</div>";
@@ -453,16 +461,16 @@
 			$star_display = '<div class="star-container">';
 			for ($i = 1; $i <= 9; $i++) {
 				if ($i <= $this->item_tier) {
-					$star_display .= '<img src="./gallery/Icons/Stars/Star' . $this->item_tier . '.png" class="star-image">';
+					$star_display .= '<img src="./gallery/Icons/Stars/Star' . $this->item_tier . '.webp" class="icon-small">';
 				} else {
-					$star_display .= '<img src="./gallery/Icons/Stars/StarBlank.png" class="star-image">';
+					$star_display .= '<img src="./gallery/Icons/Stars/StarBlank.webp" class="icon-small">';
 				}
 			}
 			$star_display .= '</div>';
 			return $star_display;
 		}
 		
-		public function get_gear_thumbnail() {
+		public function get_gear_thumbnail($encode_filename = false) {
 			global $ring_item_type, $sovereign_item_list, $tag_dict;
 			$folder = $item_tag = $this->item_base_type;
 			$sub_folder = $element_index = "";
@@ -486,7 +494,11 @@
 				}
 			}
 			$new_tag = str_replace(' ', '_', $item_tag);
-			return "https://kyleportfolio.ca/botimages/Gear_Icon/$folder/$sub_folder" . "Frame_$new_tag" . $element_index . "_" . $this->item_tier . ".png";
+			$filename = "Frame_{$new_tag}{$element_index}_{$this->item_tier}.png";
+			if ($encode_filename) {
+				$filename = urlencode($filename);
+			}
+			return "https://kyleportfolio.ca/botimages/Gear_Icon/$folder/$sub_folder$filename";
 		}
 		
 		public function generate_element_icons() {
@@ -513,8 +525,8 @@
 					$element_name = $element_names[$index];
 					$tooltip = isset($tooltip_dict[$this->item_type]) ? str_replace('X', $element_name, $tooltip_dict[$this->item_type]) : "{$element_name}";
 					$element_display .= '<div class="element-icon-container"><img src="./gallery/Icons/Elements/';
-					$element_display .= $element_name . '.png" class="element-icon" alt="' . $element_name . '">';
-					$element_display .= '<span class="skill-tooltip">' . $tooltip . '</span></div>';
+					$element_display .= $element_name . '.webp" class="icon-small" alt="' . $element_name . '">';
+					$element_display .= '<span class="tooltip">' . $tooltip . '</span></div>';
 				}
 			}
 			$element_display .= '</div>';
@@ -751,9 +763,9 @@
 		$star_display = '<div class="star-container">';
 		for ($i = 1; $i <= 9; $i++) {
 			if ($i <= $tier) {
-				$star_display .= '<img src="./gallery/Icons/Stars/Star' . $tier . '.png" class="star-image">';
+				$star_display .= '<img src="./gallery/Icons/Stars/Star' . $tier . '.webp" class="icon-small">';
 			} else {
-				$star_display .= '<img src="./gallery/Icons/Stars/StarBlank.png" class="star-image">';
+				$star_display .= '<img src="./gallery/Icons/Stars/StarBlank.webp" class="icon-small">';
 			}
 		}
 		$star_display .= '</div>';
@@ -773,7 +785,7 @@
 		foreach ($elements as $index => $value) {
 			if ($value == '1' || $value == 1) {
 				$element_name = $element_names[$index];
-				$element_display .= '<img src="./gallery/Icons/Elements/' . $element_name . '.png" class="element-icon" alt="' . $element_name . '">';
+				$element_display .= '<img src="./gallery/Icons/Elements/' . $element_name . '.webp" class="icon-small" alt="' . $element_name . '">';
 			}
 		}
 		$element_display .= '</div>';

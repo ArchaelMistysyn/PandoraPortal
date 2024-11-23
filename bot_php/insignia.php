@@ -34,20 +34,28 @@
 	
 	function display_insignia($player_profile) {
 		global $element_names, $insignia_prefix;
+		$output = "<div class='item-slot' id='item-Insignia'>";	
 		if (empty($player_profile->player_insignia)) {
-			return "Empty Slot: Insignia";
+			return $output . "Empty Slot: Insignia</div>";
 		}
-		$insignia = new Insignia($player_profile);		
-		$output = "<img class='item-thumbnail' src='" . $insignia->insignia_link . "'>";
+		$insignia = new Insignia($player_profile);	
+		$output .= "<img class='item-thumbnail' src='" . $insignia->insignia_link . "'>";
+		$output .= "<h1 class='item-name highlight-text'>{$insignia->insignia_name}</h1>";
+		$output .= "<div class='style-line'></div>";
 		$output .= generate_stars($insignia->insignia_stars);
-		$output .= generate_element_icons($insignia->element_list);
-		$output .= "<h1 class='item-name'>{$insignia->insignia_name}</h1>";
-		$output .= "<div class='item-name'>[{$insignia_prefix[$insignia->insignia_stars]}]</div>";
+		$output .= generate_element_icons($insignia->element_list);		
+		$output .= "<div class='style-line'></div>";
+		$output .= "<div class='badge-container'>";
+		$output .= "<div class='item-id-badge'>[{$insignia_prefix[$insignia->insignia_stars]}]</div>";
+		$output .= "<div class='item-tier-badge'>Tier: {$insignia->insignia_stars}</div>";
+		$output .= "</div>";
 		$formatted_hp = number_format($insignia->hp_bonus);
 		$formatted_fd = number_format($insignia->final_damage);
 		$formatted_as = number_format($insignia->attack_speed);
 		$formatted_damage = number_format($insignia->insignia_damage);
-		$output .= "<div>Base: {$formatted_damage} - {$formatted_damage}</div>";
+		$output .= "<div class='style-line'></div>";
+		$output .= "<div class='stat-message'>Base: {$formatted_damage} - {$formatted_damage}</div>";
+		$output .= "<div class='stat-message'>- - -</div>";
 		$output .= "<div class='style-line'></div>";
 		$output .= "<div class='skill-slot tier-" . $insignia->insignia_stars . "'>Luck Bonus: +{$insignia->luck_bonus}</div>";
 		$output .= "<div class='skill-slot tier-" . $insignia->insignia_stars . "'>HP Bonus: +{$formatted_hp}</div>";
@@ -65,6 +73,8 @@
 				}
 			}
 		}
+		$output .= "</div>";
+		$output .= "<div class='item-slot-void' id='void-insignia'></div>";
 		return $output;
 	}
 	

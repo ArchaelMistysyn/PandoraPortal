@@ -1,5 +1,4 @@
 <?php
-
 include('./nonpublic/db_credentials.php');
 
 function run_query($query) {
@@ -15,5 +14,4 @@ function run_query($query) {
     $conn->close();
     return $data;
 }
-
 ?>

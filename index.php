@@ -21,13 +21,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pandora Portal</title>
-    <link rel="stylesheet" href="mainpageCSS.css">
+    <link rel="stylesheet" href="CSS/generalpageCSS.css">
+	<link rel="stylesheet" href="CSS/mainpageCSS.css">
 	<link rel="icon" type="img/ico" href="./images/favicon.ico">
 </head>
-<body>
+<body id="page-body">
     <header>
         <div class="pandora-header">
-            <a href="index.html">
+            <a href="index.php">
                 <img src="./images/PandoraHeader.webp" alt="Page Header">
             </a>
         </div>
@@ -58,7 +59,8 @@
 				</div>
 				<span class="hover-span hover-span-pink">Rankings</span>
 			</a>
-			<a href="https://www.ArchDragonStore.ca" target="_blank" class="card" style="background-image: url('./gallery/Displays/Banners/Treasure Trove.webp');">
+			<!-- "https://www.ArchDragonStore.ca" -->
+			<a href="store.php" class="card" style="background-image: url('./gallery/Displays/Banners/Treasure Trove.webp');">
 				<div class="overlay overlay-orange">
 					<span>Store</span>
 				</div>
@@ -68,42 +70,12 @@
 		</div>
 	</div>
     <footer>
-		<a href="https://discord.gg/WXWJw9QYzZ" target="_blank" class="discord-button">Discord</a>
+		<a href="https://discord.gg/WXWJw9QYzZ" target="_blank" class="discord-button"></a>
         <p>&copy; 2024 Pandora Portal. All rights reserved.</p>
     </footer>
 	<script>
-        const imageCycler = document.getElementById('image-cycler');
-		let allFiles = <?php echo json_encode($allImageFiles); ?>;
-		allFiles = allFiles.filter(file => !file.toLowerCase().includes('cardback'));
-        let previousImage = null;
-
-        function setImageCycler() {
-            let availableFiles = allFiles.filter(file => file !== previousImage);
-            const randomImage = getRandomImage(availableFiles);
-            imageCycler.style.backgroundImage = `url("${randomImage}")`;
-            previousImage = randomImage;
-            // Assign store links
-            const imageNameWithExtension = randomImage.split('/').pop();
-            let imageName = decodeURIComponent(imageNameWithExtension.replace(/\.[^/.]+$/, ""));
-            if (imageName.toLowerCase().indexOf('dragon') !== -1) {
-				imageCycler.classList.remove('portrait');
-				let productName = imageName.replace(/ /g, '-').toLowerCase();
-				const storelink = "https://archdragonstore.ca/products/" + productName;
-				imageCycler.innerHTML = "<a id='tarot-link' href='" + storelink + "' target='_blank' style='display:block; width:100%; height:100%;'></a>";
-			} else {
-				imageCycler.classList.add('portrait');
-				let productName = imageName.split(' - ').pop().replace(/ /g, '-').replace(/,/g, '').toLowerCase();
-				const storelink = "https://archdragonstore.ca/products/framed-poster-" + productName;
-				imageCycler.innerHTML = "<a id='tarot-link' href='" + storelink + "' target='_blank' style='display:block; width:100%; height:100%;'></a>";
-			}
-		}
-
-        function getRandomImage(files) {
-            return files[Math.floor(Math.random() * files.length)];
-        }
-
-        setImageCycler();
-        setInterval(setImageCycler, 5000);
+        const allFiles = <?php echo json_encode($allImageFiles); ?>;
     </script>
+    <script src="scripts/cycler.js"></script>
 </body>
 </html>

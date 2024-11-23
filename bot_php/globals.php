@@ -1,5 +1,18 @@
 <?php
 
+	$slot_types = [
+		'W' => 'Weapon', 
+		'A' => 'Armor', 
+		'V' => 'Greaves', 
+		'Y' => 'Amulet', 
+		'R' => 'Ring', 
+		'G' => 'Wings', 
+		'C' => 'Crest', 
+		'Pact' => 'Pact', 
+		'Insignia' => 'Insignia', 
+		'Tarot' => 'Tarot'
+	];
+
 	$element_dict = [
 		'Fire' => [0], 
 		'Water' => [1], 
@@ -315,4 +328,11 @@
 		"Bathyal, Enigmatic Chasm Bauble" => ["Critical", "Fractal", "Temporal", "Hyperbleed", "Combo", "Bloom"],
 		"Pandora's Universe Hammer" => array_merge($element_names, array_slice($path_names, 0, -4), ["Omni"])
 	];
+
+	// Artist Data List
+	$artist_numerals = [
+		"Daerun" => ["III", "VI", "XIV"],
+		"Heng Ming Chiun" => ["XV"],
+		"Alina Arkhipova" => []
+	];	
 ?>
