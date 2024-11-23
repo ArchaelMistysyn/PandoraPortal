@@ -46,7 +46,9 @@
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-auto-rows: 140px;
-    gap: 5px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    gap: 15px;
     overflow-y: auto;
     padding: 0;    
 }
@@ -118,6 +120,8 @@
 	justify-content: center;
     align-items: center;
 	height: 70px;
+    padding: 10px;
+    border-bottom: 2px solid white;
 }
 
 .sf-menu {
@@ -130,7 +134,7 @@
 .sf-menu li {
     position: relative;
     display: inline-block;
-    width: 100px;
+    width: 80px;
     text-align: center;
 }
 
@@ -149,10 +153,10 @@
 
 .sf-menu li ul {
     position: absolute;
-    background-color: #111;
+    background: var(--bg-gradient-dark);
     top: 100%;
     left: 0;
-    width: 100px;
+    width: 80px;
     display: none;
     opacity: 0;
     transform: translateY(-10px);
