@@ -1,0 +1,11 @@
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/kylep910/pandoraportal.ca
+    - /bin/mkdir -p $DEPLOYPATH/CSS
+    - /bin/mkdir -p $DEPLOYPATH/scripts
+    - /bin/mkdir -p $DEPLOYPATH/images
+    - /bin/cp -R CSS/* $DEPLOYPATH/CSS/
+    - /bin/cp -R scripts/* $DEPLOYPATH/scripts/
+    - /bin/cp -R images/* $DEPLOYPATH/images/
+    - /bin/cp -R *.php $DEPLOYPATH/
+    - /bin/cp -R *.html $DEPLOYPATH/
