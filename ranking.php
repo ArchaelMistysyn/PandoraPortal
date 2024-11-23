@@ -113,7 +113,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Pandora Portal - Leaderboards</title>
     <link rel="stylesheet" href="CSS/generalpageCSS.css">
-    <link rel="stylesheet" href="CSS/RankingCSS.css">
+    <link rel="stylesheet" href="CSS/rankingCSS.css">
     <link rel="icon" type="img/ico" href="./images/favicon.ico">
 </head>
 <body>
