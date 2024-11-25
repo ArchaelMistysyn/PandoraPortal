@@ -60,7 +60,7 @@
 				<span class="hover-span hover-span-pink">Rankings</span>
 			</a>
 			<!-- "https://www.ArchDragonStore.ca" -->
-			<a href="store.php" class="card" style="background-image: url('./gallery/Displays/Banners/Treasure Trove.webp');">
+			<a href="https://www.archdragonstore.ca" target="_blank" class="card" style="background-image: url('./gallery/Displays/Banners/Treasure Trove.webp');">
 				<div class="overlay overlay-orange">
 					<span>Store</span>
 				</div>

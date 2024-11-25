@@ -31,14 +31,14 @@
 #wiki-menu {
   position: sticky;
   display: flex;
-  top: 0;
+  top: 10px;
   width: 300px;
   flex-direction: column;
   align-items: center;
   margin: 10px;
+  margin-top: 0px;
   background-color: #111;
   border: 2px solid white;
-  /* border-radius: 15px; */
   padding-top: 10px;
   padding-bottom: 10px;
 }
@@ -46,14 +46,15 @@
 #wiki-content-container {
   position: relative;
   display: flex;
-  padding-top: 10px;
   justify-content: center;
+  margin-top: 10px;
   height: 100%;
   max-width: 70%;
 }
 
 #wiki-content {
   margin: 0 auto;
+  width: 1200px;
   max-width: 1200px;
 }
 
@@ -80,7 +81,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-size: 120%;
+  background-size: 100%;
   opacity: 0.15;
   z-index: 0;
 }
@@ -89,16 +90,16 @@
   z-index: 4;
 }
 #mainTab-Main::before {
-  background-image: url("../gallery/Displays/Banners/Abyss.webp");
+  background-image: url("../images/Button/Button_Emerald.webp");
 }
 #mainTab-Gear::before {
-  background-image: url("../gallery/Displays/Banners/Abyss.webp");
+  background-image: url("../images/Button/Button_Amethyst.webp");
 }
 #mainTab-Explore::before {
-  background-image: url("../gallery/Displays/Banners/Abyss.webp");
+  background-image: url("../images/Button/Button_Ruby.webp");
 }
 #mainTab-Build::before {
-  background-image: url("../gallery/Displays/Banners/Abyss.webp");
+  background-image: url("../images/Button/Button_Azure.webp");
 }
 .sub-tabs {
   display: none;
