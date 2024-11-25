@@ -91,6 +91,10 @@ header {
   z-index: 1000;
 }
 
+.size-lock-main {
+  height: calc(100vh - 100px);
+}
+
 .header-left,
 .header-right {
   width: 300px;
