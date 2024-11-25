@@ -1195,7 +1195,7 @@ main {
 /* Downscaling */
 @media screen and (max-height: 1100px) {
   #content-container, #slot-display {
-      padding-top: 10px;
-      padding-bottom: 10px;
+      margin-top: 10px;
+      margin-bottom: 10px;
   }
 }
