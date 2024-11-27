@@ -1193,9 +1193,16 @@ main {
 
 
 /* Downscaling */
+@media screen and (max-height: 1300px) {
+  .glyph-tooltip-lower {
+    top: auto;
+    transform: translate(-50%, -40px);
+    bottom: 100%;
+  }
+}
 @media screen and (max-height: 1100px) {
   #content-container, #slot-display {
-      margin-top: 10px;
-      margin-bottom: 10px;
+      margin-top: 5px;
+      margin-bottom: 5px;
   }
 }

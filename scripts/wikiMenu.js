@@ -11,6 +11,7 @@ const segments = {
     "Manifest",
   ],
   Build: ["Classes", "Paths", "Application", "Item Rolls"],
+  Misc: ["Credits"]
 };
 
 function buildTabMenu() {
