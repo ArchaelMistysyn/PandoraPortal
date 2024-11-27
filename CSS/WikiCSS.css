@@ -101,6 +101,9 @@
 #mainTab-Build::before {
   background-image: url("../images/Button/Button_Azure.webp");
 }
+#mainTab-Misc::before {
+  background-image: url("../images/Button/Button_Pink.webp");
+}
 .sub-tabs {
   display: none;
   list-style-type: none;
