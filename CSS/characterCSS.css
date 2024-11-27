@@ -1199,6 +1199,10 @@ main {
     transform: translate(-50%, -40px);
     bottom: 100%;
   }
+  .item-slot-button{
+    width: 106px;
+    height: 106px;
+  }
 }
 @media screen and (max-height: 1100px) {
   #content-container, #slot-display {
