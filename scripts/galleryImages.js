@@ -1,4 +1,4 @@
-const colorButtons = document.querySelectorAll('.color-button');
+		const colorButtons = document.querySelectorAll('.color-button');
 		const fullImageDisplay = document.getElementById('fullsize-image');
 		const expandButton = document.getElementById('expand-button');
 		let currentImageSrc = '';

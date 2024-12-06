@@ -77,19 +77,19 @@
 			$highlight_class = ($data['player_id'] == $player_id) ? 'highlight-row' : '';
 			$formatted_value = number_format($data[$value_column]);
 			$scaled_value = number_conversion($data[$value_column]);
-			if ($player_rank == 1) {
-				echo "<tr class='{$highlight_class} ultimate'>";
-				echo "<td class='icon-cell-big'><div><img src='https://kyleportfolio.ca/botimages/roleicon/exclusiveflare.png' class='rank-icon-1' alt='Rank 1 Icon'/></div></td>";
-			} else if ($player_rank == 2) {
-				echo "<tr class='{$highlight_class} uber'>";
-				echo "<td class='icon-cell-big'><div><img src='https://kyleportfolio.ca/botimages/roleicon/echelon3.png' class='rank-icon-2' alt='Rank 2 Icon'/></div></td>";
-			} else if ($player_rank == 3) {
-				echo "<tr class='{$highlight_class} ultra'>";
-				echo "<td class='icon-cell-big'><div><img src='https://kyleportfolio.ca/botimages/roleicon/echelon1.png' class='rank-icon-3' alt='Rank 3 Icon'/></div></td>";
+			$rank_data = [
+				1 => ['class' => 'ultimate', 'icon' => 'rank_1.png', 'alt' => 'Rank 1 Icon'],
+				2 => ['class' => 'uber', 'icon' => 'rank_2.png', 'alt' => 'Rank 2 Icon'],
+				3 => ['class' => 'ultra', 'icon' => 'rank_3.png', 'alt' => 'Rank 3 Icon']
+			];
+			if (isset($rank_data[$player_rank])) {
+				$rank_info = $rank_data[$player_rank];
+				echo "<tr class='{$highlight_class} {$rank_info['class']}'>";
+				echo "<td class='icon-cell-big'><div><img src='./images/Icons/{$rank_info['icon']}' class='rank-icon-{$player_rank}' alt='{$rank_info['alt']}'/></div></td>";
 			} else {
 				echo "<tr class='{$highlight_class}'>";
 				echo "<td>{$player_rank}</td>";
-			}
+			}			
 			echo "<td>{$data['player_username']}</td>";
 			echo "<td>{$data['player_id']}</td>";
 			echo "<td>{$data['player_level']}</td>";

@@ -14,16 +14,26 @@
     <!-- Main Content Section -->
     <main id="wiki">
         <div id="wiki-main-container">
-          <div id="wiki-menu">
+          <div id="tab-menu">
               <input type="text" id="filter-input" placeholder="Filter Content" oninput="filterItems()">
               <div class="tab-menu" id="tabMenu"></div>
           </div>
           <div id="wiki-content-container">
-              <div id="wiki-content"></div>
+              <div id="tab-content"></div>
           </div>
         </div>
     </main>
+    <script>
+        const subcontentFolder = "wiki";
+        const segments = {
+            Main: ["Items", "Commands", "Droprates", "Elements", "Infuse"],
+            Gear: ["Rings", "Misc Gear", "Tarot", "Sovereign", "Crafting", "Details"],
+            Explore: ["Maps", "Map Rooms", "Rewards", "Select Pools", "Automapper", "Manifest"],
+            Build: ["Classes", "Paths", "Application", "Item Rolls"],
+            Misc: ["Credits"]
+        };
+    </script>
 	<script src="scripts/header.js"></script>
-	<script src="scripts/wikiMenu.js"></script>
+	<script src="scripts/tabMenu.js"></script>
 </body>
 </html>
