@@ -1,62 +1,172 @@
 :root {
-    --brand-color-primary: #007bff;
-    --brand-color-secondary: #780ac3;
-    --brand-color-3: #ff0000;
-    --brand-color-4: #ff1493;
-    --brand-color-5: #ffc107;
-    --brand-color-6: #da9932;
-  
-    --bg-gradient-primary: linear-gradient(#110eb8, #1c117e, #09086b);
-    --bg-gradient-secondary: linear-gradient(#1e1e1e, #111111);
-    --bg-gradient-tertiary: linear-gradient(#da9932, #ae7a28);
-  
-    --bg-gradient-dark: linear-gradient(#2f2f2f, black);
-    --border-primary-light: 1px solid rgba(255, 255, 255, 0.15);
+  --brand-color-primary: #007bff;
+  --brand-color-secondary: #780ac3;
+  --brand-color-3: #ff0000;
+  --brand-color-4: #ff1493;
+  --brand-color-5: #ffc107;
+  --brand-color-6: #da9932;
+
+  --bg-gradient-primary: linear-gradient(#110eb8, #1c117e, #09086b);
+  --bg-gradient-secondary: linear-gradient(#1e1e1e, #111111);
+  --bg-gradient-tertiary: linear-gradient(#da9932, #ae7a28);
+
+  --bg-gradient-dark: linear-gradient(#2f2f2f, black);
+  --border-primary-light: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 #gallery {
-    height: calc(100vh - 100px);
-    width: 100%;
-    overflow-y: auto;
+  height: calc(100vh - 100px);
+  width: 100%;
+  overflow-y: auto;
 }
 #gallery-main-container {
-    display: flex;
-    width: 100%;
-    justify-content: center;
-    align-items: flex-start;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: flex-start;
 
-    height: 100%; /* TEMPORARY */
+  height: 100%; /* TEMPORARY */
 }
 
 #gallery-content-container {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    margin-top: 10px;
-    height: 100%;
-    max-width: 70%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  height: 100%;
+  max-width: 70%;
 }
 
-#tab-content{
-    background-color: #111;
-    border: red;
-    height: 100%;
+#tab-content {
+  background-color: #111;
+  border: red;
+  height: 100%;
 }
 
-img { /* Temporary shrink. Replace as needed*/
-    width: 300px;
-    height: 200px;
+.search-category img {
+  /* Temporary shrink. Replace as needed*/
+  width: 300px;
+  height: 200px;
 }
 
 #mainTab-Bosses::before {
-    background-image: url("../images/Button/Button_Emerald.webp");
+  background-image: url("../images/Button/Button_Emerald.webp");
 }
 #mainTab-Displays::before {
-    background-image: url("../images/Button/Button_Amethyst.webp");
+  background-image: url("../images/Button/Button_Amethyst.webp");
 }
 #mainTab-Gear::before {
-    background-image: url("../images/Button/Button_Ruby.webp");
+  background-image: url("../images/Button/Button_Ruby.webp");
 }
 #mainTab-Icons::before {
-    background-image: url("../images/Button/Button_Azure.webp");
+  background-image: url("../images/Button/Button_Azure.webp");
+}
+
+/* Lightbox + Carousel*/
+.lightbox {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.lightbox.hidden {
+  display: none;
+}
+
+.lightbox-main-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: nowrap;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 30px;
+  color: white;
+  cursor: pointer;
+}
+
+#lightbox-image {
+  max-width: 90%;
+  max-height: 924px;
+  min-height: 720px;
+}
+
+.carousel-container {
+  display: flex;
+  align-items: center;
+  position: relative;
+  margin-top: 10px;
+}
+
+.carousel {
+  display: flex;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  width: 80%;
+  max-width: 80dvw;
+  padding: 10px 0;
+  margin: 0 auto;
+  gap: 10px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.carousel::-webkit-scrollbar {
+  display: none;
+}
+
+.carousel img {
+  cursor: pointer;
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border: 2px solid transparent;
+  transition: border-color 0.3s ease;
+  border-color: white;
+}
+
+.carousel img.active {
+  border-color: var(--brand-color-secondary);
+}
+
+.carousel-control {
+  background: rgba(0, 0, 0, 0);
+  color: #fff;
+  border: none;
+  font-size: 24px;
+  padding: 0;
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+}
+
+#carousel-prev {
+  left: 0;
+  margin-right: 16px;
+}
+#carousel-prev img {
+  width: 32px;
+  height: 32px;
+}
+
+#carousel-next {
+  right: 0;
+}
+#carousel-next img {
+  width: 32px;
+  height: 32px;
 }
