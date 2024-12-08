@@ -124,5 +124,6 @@
 		</div>
     </main>
 	<script src="scripts/header.js"></script>
+	<script src="scripts/screensizeWarning.js"></script>
 </body>
 </html>

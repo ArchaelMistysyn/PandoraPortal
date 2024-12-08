@@ -62,47 +62,7 @@
   background-image: url("../images/Button/Button_Azure.webp");
 }
 
-/* Lightbox + Carousel*/
-.lightbox {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.8);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-}
-
-.lightbox.hidden {
-  display: none;
-}
-
-.lightbox-main-content {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: nowrap;
-}
-
-.lightbox-close {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  font-size: 30px;
-  color: white;
-  cursor: pointer;
-}
-
-#lightbox-image {
-  max-width: 90%;
-  max-height: 924px;
-  min-height: 720px;
-}
-
+/* Carousel */
 .carousel-container {
   display: flex;
   align-items: center;

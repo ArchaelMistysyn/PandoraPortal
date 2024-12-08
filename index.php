@@ -77,5 +77,6 @@
         const allFiles = <?php echo json_encode($allImageFiles); ?>;
     </script>
     <script src="scripts/cycler.js"></script>
+	<script src="scripts/screensizeWarning.js"></script>
 </body>
 </html>

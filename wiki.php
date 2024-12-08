@@ -35,5 +35,6 @@
     </script>
 	<script src="scripts/header.js"></script>
 	<script src="scripts/tabMenu.js"></script>
+    <script src="scripts/screensizeWarning.js"></script>
 </body>
 </html>

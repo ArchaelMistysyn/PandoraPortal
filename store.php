@@ -72,4 +72,5 @@
     <script src="scripts/header.js"></script>
     <script src="scripts/store.js"></script>
     <script src="scripts/cycler.js"></script>
+    <script src="scripts/screensizeWarning.js"></script>
 </body>
