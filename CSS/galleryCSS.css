@@ -14,17 +14,11 @@
   --border-primary-light: 1px solid rgba(255, 255, 255, 0.15);
 }
 
-#gallery {
-  height: calc(100vh - 100px);
-  width: 100%;
-  overflow-y: auto;
-}
 #gallery-main-container {
   display: flex;
   width: 100%;
   justify-content: center;
   align-items: flex-start;
-
   height: 100%; /* TEMPORARY */
 }
 

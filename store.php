@@ -28,44 +28,45 @@
 </head>
 <body id="page-body">
     <header id="header"></header>
-    <div class="page-menu">
-        <div class="grid-layout">
-            <a onclick="loadCategory('Shirts')" class="card" style="background-image: url('./gallery/Displays/Banners/Pandora Awoken.webp');">
-                <div class="overlay overlay-purple">
-                    <span>Shirts</span>
-                </div>
-                <span class="hover-span hover-span-amethyst">Shirts</span>
-            </a>
-            <a onclick="loadCategory('Posters')" class="card" style="background-image: url('./gallery/Displays/Banners/Dragon\'s Spire.webp');">
-                <div class="overlay overlay-red">
-                    <span>Posters</span>
-                </div>
-                <span class="hover-span hover-span-ruby">Posters</span>
-            </a>
-            <a onclick="loadCategory('Mousepads')" class="card" style="background-image: url('./gallery/Displays/Banners/Butterfae Sanctuary.webp');">
-                <div class="overlay overlay-blue">
-                    <span>Mousepads</span>
-                </div>
-                <span class="hover-span hover-span-azure">Mousepads</span>
-            </a>
-            <a onclick="loadCategory('Gift Cards')" class="card" style="background-image: url('./gallery/Displays/Banners/Abyss.webp');">
-                <div class="overlay overlay-pink">
-                    <span>Gift Cards</span>
-                </div>
-                <span class="hover-span hover-span-pink">Gift Cards</span>
-            </a>
-            <a onclick="loadCategory('Other')" class="card" style="background-image: url('./gallery/Displays/Banners/Treasure Trove.webp');">
-                <div class="overlay overlay-orange">
-                    <span>Other</span>
-                </div>
-                <span class="hover-span hover-span-gold">Other</span>
-            </a>
-            <div id="image-cycler" class="card"></div>
+    <main id="store-main">
+        <div class="page-menu">
+            <div class="grid-layout">
+                <a onclick="loadCategory('Shirts')" class="card" style="background-image: url('./gallery/Displays/Banners/Pandora Awoken.webp');">
+                    <div class="overlay overlay-purple">
+                        <span>Shirts</span>
+                    </div>
+                    <span class="hover-span hover-span-amethyst">Shirts</span>
+                </a>
+                <a onclick="loadCategory('Posters')" class="card" style="background-image: url('./gallery/Displays/Banners/Dragon\'s Spire.webp');">
+                    <div class="overlay overlay-red">
+                        <span>Posters</span>
+                    </div>
+                    <span class="hover-span hover-span-ruby">Posters</span>
+                </a>
+                <a onclick="loadCategory('Mousepads')" class="card" style="background-image: url('./gallery/Displays/Banners/Butterfae Sanctuary.webp');">
+                    <div class="overlay overlay-blue">
+                        <span>Mousepads</span>
+                    </div>
+                    <span class="hover-span hover-span-azure">Mousepads</span>
+                </a>
+                <a onclick="loadCategory('Gift Cards')" class="card" style="background-image: url('./gallery/Displays/Banners/Abyss.webp');">
+                    <div class="overlay overlay-pink">
+                        <span>Gift Cards</span>
+                    </div>
+                    <span class="hover-span hover-span-pink">Gift Cards</span>
+                </a>
+                <a onclick="loadCategory('Other')" class="card" style="background-image: url('./gallery/Displays/Banners/Treasure Trove.webp');">
+                    <div class="overlay overlay-orange">
+                        <span>Other</span>
+                    </div>
+                    <span class="hover-span hover-span-gold">Other</span>
+                </a>
+                <div id="image-cycler" class="card"></div>
+            </div>
         </div>
-	</div>
-    <div id="backdrop" class="backdrop" onclick="closeBackdrop()"></div>
-    <div id="content-display" class="content-display"></div>
-
+        <div id="backdrop" class="backdrop" onclick="closeBackdrop()"></div>
+        <div id="content-display" class="content-display"></div>
+    <main>
     <script>
         const allFiles = <?php echo json_encode($allImageFiles); ?>;
     </script>

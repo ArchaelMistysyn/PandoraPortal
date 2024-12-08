@@ -1,3 +1,10 @@
+#ranking-main-container {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: flex-start;
+}
+
 #leaderboard-container {
     display: flex;
     justify-content: center;

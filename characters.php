@@ -113,7 +113,7 @@
 <body id="page-body">
 	<header id="header"></header>
     <!-- Main Content Section -->
-    <main class="size-lock-main">
+    <main id="character-main">
 		<div id="top-container">
 			<div id="content-container">
 				<div id="detail-buttons">

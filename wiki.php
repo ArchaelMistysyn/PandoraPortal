@@ -12,7 +12,7 @@
     <!-- Header Section -->
     <header id="header"></header>
     <!-- Main Content Section -->
-    <main id="wiki">
+    <main id="wiki-main">
         <div id="wiki-main-container">
           <div id="tab-menu">
               <input type="text" id="filter-input" placeholder="Filter Content" oninput="filterItems()">

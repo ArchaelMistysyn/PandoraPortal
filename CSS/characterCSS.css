@@ -16,7 +16,7 @@
   --border-primary-light: 1px solid rgba(255, 255, 255, 0.15);
 }
 
-main {
+#character-main {
   display: flex;
   justify-content: center;
   flex-direction: column;

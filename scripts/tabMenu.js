@@ -1,13 +1,23 @@
 const tabMenu = document.getElementById("tabMenu");
+const buttonClasses = [
+  "button-green",
+  "button-amethyst",
+  "button-ruby",
+  "button-azure",
+  "button-pink",
+];
 
 function buildTabMenu() {
+  let classIndex = 0; 
   for (const [mainTab, subTabs] of Object.entries(segments)) {
+    const buttonClass = buttonClasses[classIndex % buttonClasses.length];
     const mainTabElement = document.createElement("div");
     mainTabElement.id = `mainTab-${mainTab}`;
     mainTabElement.classList.add("main-tab");
     mainTabElement.classList.add("highlight-text");
     mainTabElement.classList.add("unselectable");
-    mainTabElement.innerHTML = `<span class="main-tab-text">${mainTab}</span> <span class="arrow unselectable">▲</span>`;
+    mainTabElement.classList.add(buttonClass);
+    mainTabElement.innerHTML = `<div class="tab-span-container"><span class="main-tab-text">${mainTab}</span> <span class="arrow unselectable">▲</span></span>`;
     const subTabsList = document.createElement("ul");
     subTabsList.id = `subTabsList-${mainTab}`;
     subTabsList.classList.add("sub-tabs");
@@ -32,6 +42,7 @@ function buildTabMenu() {
 
     tabMenu.appendChild(mainTabElement);
     tabMenu.appendChild(subTabsList);
+    classIndex++;
   }
 }
 

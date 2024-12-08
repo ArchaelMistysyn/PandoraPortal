@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const gallery = document.getElementById("gallery");
+  const gallery = document.getElementById("gallery-main");
   const carousel = document.getElementById("carousel");
   const lightbox = document.getElementById("lightbox");
   const lightboxImage = document.getElementById("lightbox-image");

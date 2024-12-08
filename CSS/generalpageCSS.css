@@ -48,6 +48,12 @@ html {
   background-color: #111;
 }
 
+main {
+  height: calc(100vh - 100px);
+  width: 100%;
+  overflow-y: auto;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -91,35 +97,34 @@ header {
   z-index: 1000;
 }
 
-.size-lock-main {
-  height: calc(100vh - 100px);
-}
-
-.header-left,
-.header-right {
+#header-left,
+#header-right {
   width: 300px;
 }
 
-.header-left a {
+#header-left a {
   display: flex;
   width: 100%;
   height: 100%;
   text-decoration: none;
 }
 
-.header-left a img {
+#header-left a img {
   max-width: 300px;
   max-height: 80px;
 }
 
-.header-middle {
+#header-middle {
+  position: relative;
   gap: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.header-middle a {
+#header-middle a {
+  position: relative;
+  display: inline-block;
   font-family: PandoraDiamond;
   font-size: 1.2rem;
   height: 45px;
@@ -132,7 +137,8 @@ header {
   text-shadow: 1px 1px black;
 }
 
-.header-middle a span {
+#header-middle a span, .main-tab .tab-span-container {
+  position: relative;
   background-color: rgba(0, 0, 0, 0.3);
   width: 100%;
   height: 100%;
@@ -140,9 +146,79 @@ header {
   display: inline-flex;
   justify-content: center;
   align-items: center;
+  z-index: 4;
 }
 
-.header-right img {
+#header-middle a::before {
+  content: "";
+  position: absolute;
+  display: inline-block;
+  background-size: cover;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.button-green::before {
+  background-image: url("../images/Button/Button_Emerald.webp");
+}
+.button-gold::before {
+  background-image: url("../images/Button/Button_Gold.webp");
+}
+.button-amethyst::before {
+  background-image: url("../images/Button/Button_Amethyst.webp");
+}
+.button-azure::before {
+  background-image: url("../images/Button/Button_Azure.webp");
+}
+.button-ruby::before {
+  background-image: url("../images/Button/Button_Ruby.webp");
+}
+.button-pink::before {
+  background-image: url("../images/Button/Button_Pink.webp");
+}
+
+#header-middle .button-green:hover span {
+  background-color: rgba(2, 165, 2, 0.3);
+}
+#header-middle .button-gold:hover span {
+  background-color: rgba(255, 193, 7, 0.3);
+}
+#header-middle .button-amethyst:hover span {
+  background-color: rgba(120, 10, 195, 0.3);
+}
+#header-middle .button-azure:hover span {
+  background-color: rgba(0, 123, 255, 0.3);
+}
+#header-middle .button-ruby:hover span {
+  background-color: rgba(255, 0, 0, 0.3);
+}
+#header-middle .button-pink:hover span {
+  background-color: rgba(255, 20, 147, 0.3);
+}
+
+
+#header-right {
+  height: 53px;
+  display: flex;
+  justify-content: center;
+}
+
+#header-right a {
+  display: block;
+  width: 70px;
+  height: 53px;
+  background-image: url("../images/Discord/discord-mark-blue.webp");
+  background-size: cover;
+  background-position: center;
+}
+#header-right a:hover {
+  background-image: url("../images/Discord/discord-mark-white.webp");
+}
+
+#header-right img {
   width: 40px;
   height: 40px;
 }
@@ -154,62 +230,6 @@ header {
   height: calc(100vh - 100px);
   width: 100%;
   overflow-y: auto;
-}
-
-.button-green {
-  background-image: url("../images/Button/Button_Emerald.webp");
-}
-.button-gold {
-  background-image: url("../images/Button/Button_Gold.webp");
-}
-.button-amethyst {
-  background-image: url("../images/Button/Button_Amethyst.webp");
-}
-.button-azure {
-  background-image: url("../images/Button/Button_Azure.webp");
-}
-.button-ruby {
-  background-image: url("../images/Button/Button_Ruby.webp");
-}
-.button-pink {
-  background-image: url("../images/Button/Button_Pink.webp");
-}
-
-.button-green:hover span {
-  background-color: rgba(2, 165, 2, 0.3);
-}
-.button-gold:hover span {
-  background-color: rgba(255, 193, 7, 0.3);
-}
-.button-amethyst:hover span {
-  background-color: rgba(120, 10, 195, 0.3);
-}
-.button-azure:hover span {
-  background-color: rgba(0, 123, 255, 0.3);
-}
-.button-ruby:hover span {
-  background-color: rgba(255, 0, 0, 0.3);
-}
-.button-pink:hover span {
-  background-color: rgba(255, 20, 147, 0.3);
-}
-
-.header-right {
-  height: 53px;
-  display: flex;
-  justify-content: center;
-}
-
-.header-right a {
-  display: block;
-  width: 70px;
-  height: 53px;
-  background-image: url("../images/Discord/discord-mark-blue.webp");
-  background-size: cover;
-  background-position: center;
-}
-.header-right a:hover {
-  background-image: url("../images/Discord/discord-mark-white.webp");
 }
 
 .hidden-tag {
@@ -500,14 +520,10 @@ input:focus {
 }
 .main-tab {
   position: relative;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   cursor: pointer;
-  padding: 5px;
-  padding-left: 10px;
   border-bottom: 1px solid #ccc;
   font-size: 1.6rem;
+  height: 45px;
 }
 .main-tab::before {
   content: "";
@@ -517,11 +533,36 @@ input:focus {
   width: 100%;
   height: 100%;
   background-size: 100%;
-  opacity: 0.2;
   z-index: 0;
 }
 
+.main-tab .tab-span-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+.main-tab.button-green:hover .tab-span-container {
+  background-color: rgba(0, 36, 0, 0.4);
+}
+.main-tab.button-gold:hover .tab-span-container {
+  background-color: rgba(102, 77, 0, 0.4);
+}
+.main-tab.button-amethyst:hover .tab-span-container {
+  background-color: rgba(45, 0, 75, 0.4);
+}
+.main-tab.button-azure:hover .tab-span-container {
+  background-color: rgba(0, 35, 75, 0.4);
+}
+.main-tab.button-ruby:hover .tab-span-container {
+  background-color: rgba(75, 0, 0, 0.4);
+}
+.main-tab.button-pink:hover .tab-span-container {
+  background-color: rgba(75, 0, 50, 0.4);
+}
+
 .main-tab-text {
+  padding-left: 10px;
   z-index: 4;
 }
 .sub-tabs {
@@ -537,7 +578,7 @@ input:focus {
   cursor: pointer;
 }
 .sub-tabs li:hover {
-  background: var(--bg-gradient-secondary);
+  background: var(--bg-gradient-dark);
 }
 
 .arrow {

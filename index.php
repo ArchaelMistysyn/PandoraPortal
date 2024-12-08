@@ -33,7 +33,7 @@
             </a>
         </div>
     </header>
-    <div class="main-menu">
+    <main id="index-main">
 		<div class="grid-layout">
 			<a href="wiki.php" class="card" style="background-image: url('./gallery/Displays/Banners/Pandora Awoken.webp');">
 				<div class="overlay overlay-purple">
@@ -68,7 +68,7 @@
 			</a>
 			<div id="image-cycler" class="card"></div>
 		</div>
-	</div>
+	</main>
     <footer>
 		<a href="https://discord.gg/WXWJw9QYzZ" target="_blank" class="discord-button"></a>
         <p>&copy; 2024 Pandora Portal. All rights reserved.</p>

@@ -10,10 +10,9 @@
 </head>
 <body>
 	<header id="header"></header>
-	<main id="gallery">
+	<main id="gallery-main">
     <div id="lightbox" class="lightbox hidden">
       <span id="lightbox-close" class="lightbox-close">&times;</span>
-
       <div class="lightbox-main-content">
         <img id="lightbox-image" src="" alt="Lightbox Image" />
         <div class="carousel-container">
@@ -23,7 +22,6 @@
           <button id="carousel-next" class="carousel-control"><img src="/images/Icons/arrow-square-right-fill.png" alt="carousel left"></button>
         </div>
       </div>
-
     </div>
 		<div id="gallery-main-container">
 			<div id="tab-menu">

@@ -118,12 +118,19 @@
 </head>
 <body>
     <header id="header"></header>
-    <main>
-		<div id="leaderboard-container">
-			<?php display_leaderboard_table($leaderboard_data, $leaderboard_type, $rank_column, $value_column, $player_id); ?>
+    <main id="ranking-main">
+		<div id="ranking-main-container">
+			<div id="tab-menu">
+				<input type="text" id="filter-input" placeholder="Filter Content" oninput="filterItems()">
+				<div class="tab-menu" id="tabMenu"></div>
+			</div>
+			<div id="leaderboard-container">
+				<?php display_leaderboard_table($leaderboard_data, $leaderboard_type, $rank_column, $value_column, $player_id); ?>
+			</div>
 		</div>
     </main>
 	<script src="scripts/header.js"></script>
+	<script src="scripts/buttonMenu.js"></script>
 	<script src="scripts/screensizeWarning.js"></script>
 </body>
 </html>
