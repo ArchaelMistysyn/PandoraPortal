@@ -322,10 +322,8 @@ th div {
   height: 40px;
 }
 
-.button-cell {
-  align-items: center;
-  justify-content: center;
-  text-align: center;
+.rank-cell div{
+  font-size: 2rem;
 }
 
 .button-cell div {
@@ -334,22 +332,27 @@ th div {
   justify-content: center;
   width: 100%;
 }
-
-.icon-cell div {
-  height: 40px;
+.icon-cell div, .icon-cell div, .icon-cell div {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.icon-cell div {
+  height: 40px;
+}
+.icon-cell-medium div {
+  height: 54px;
+}
+.icon-cell-big div {
+  height: 70px;
 }
 .icon-cell div img {
   height: 36px;
   width: 36px;
 }
-.icon-cell-big div {
-  height: 70px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.icon-cell-medium  div img {
+  height: 50px;
+  width: 50px;
 }
 .icon-cell-big div img {
   height: 64px;

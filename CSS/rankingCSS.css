@@ -1,6 +1,26 @@
+/* CSS Variables */
+/* Modify and reuse throughout stylesheet */
+:root {
+    --brand-color-primary: #007bff;
+    --brand-color-secondary: #780ac3;
+    --brand-color-3: #ff0000;
+    --brand-color-4: #ff1493;
+    --brand-color-5: #ffc107;
+    --brand-color-6: #da9932;
+  
+    --bg-gradient-primary: linear-gradient(#110eb8, #1c117e, #09086b);
+    --bg-gradient-secondary: linear-gradient(#1e1e1e, #111111);
+    --bg-gradient-tertiary: linear-gradient(#da9932, #ae7a28);
+  
+    --bg-gradient-dark: linear-gradient(#2f2f2f, black);
+    --border-primary-light: 1px solid rgba(255, 255, 255, 0.15);
+  }
+  
+
 #ranking-main-container {
     display: flex;
     width: 100%;
+    height: 100%;
     justify-content: center;
     align-items: flex-start;
 }
@@ -12,9 +32,14 @@
 }
 
 .rank-table {
+	display: none;
+}
+
+.rank-table.active {
     margin-top: 10px;
-    max-width: 1600px;
+    width: 1300px;
     color: white;
+	display: block;
 }
 
 .rank-table h3 {
@@ -27,4 +52,11 @@
 	width: 100%;
 	font-size: 1.6rem;
 	height: 40px;
+}
+
+.exact-match {
+    position: relative;
+    z-index: 1;
+    background: var(--bg-gradient-secondary) !important;
+    border: 1px solid red !important;
 }
