@@ -332,7 +332,7 @@ th div {
   justify-content: center;
   width: 100%;
 }
-.icon-cell div, .icon-cell div, .icon-cell div {
+.icon-cell div, .icon-cell-medium div, .icon-cell-big div {
   display: flex;
   align-items: center;
   justify-content: center;
