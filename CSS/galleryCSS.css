@@ -17,30 +17,32 @@
 #gallery-main-container {
   display: flex;
   width: 100%;
-  justify-content: center;
-  align-items: flex-start;
-  height: 100%; /* TEMPORARY */
+  height: 100%;
+  justify-content: flex-start;
+  flex-direction: column;
+  margin-top: 10px;
 }
 
-#gallery-content-container {
+#gallery-top-container {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+#display-container {
   position: relative;
   display: flex;
   justify-content: center;
-  margin-top: 10px;
   height: 100%;
-  max-width: 70%;
+  width: 1200px;
 }
 
-#tab-content {
+#display-content {
   background-color: #111;
   border: red;
   height: 100%;
-}
-
-.search-category img {
-  /* Temporary shrink. Replace as needed*/
-  width: 300px;
-  height: 200px;
+  width: 100%;
 }
 
 #mainTab-Bosses::before {
@@ -57,19 +59,24 @@
 }
 
 /* Carousel */
-.carousel-container {
-  display: flex;
+#gallery-bottom-container {
+  display:flex;
   align-items: center;
-  position: relative;
+  justify-content: center;
   margin-top: 10px;
 }
 
-.carousel {
+#carousel-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#tab-content {
   display: flex;
   overflow-x: auto;
   scroll-behavior: smooth;
-  width: 80%;
-  max-width: 80dvw;
+  width: 100%;
   padding: 10px 0;
   margin: 0 auto;
   gap: 10px;
@@ -77,11 +84,11 @@
   -ms-overflow-style: none;
 }
 
-.carousel::-webkit-scrollbar {
+#tab-content::-webkit-scrollbar {
   display: none;
 }
 
-.carousel img {
+#tab-content img {
   cursor: pointer;
   width: 80px;
   height: 80px;
@@ -91,7 +98,7 @@
   border-color: white;
 }
 
-.carousel img.active {
+#tab-content img.active {
   border-color: var(--brand-color-secondary);
 }
 
@@ -101,26 +108,15 @@
   border: none;
   font-size: 24px;
   padding: 0;
+  margin: 0px 10px;
+}
+
+#carousel-prev img, #carousel-next img {
+  width: 48px;
+  height: 48px;
+}
+
+.carousel-control:hover {
   cursor: pointer;
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 1;
-}
-
-#carousel-prev {
-  left: 0;
-  margin-right: 16px;
-}
-#carousel-prev img {
-  width: 32px;
-  height: 32px;
-}
-
-#carousel-next {
-  right: 0;
-}
-#carousel-next img {
-  width: 32px;
-  height: 32px;
+  /* Needs more responsiveness */
 }
