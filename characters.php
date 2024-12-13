@@ -9,11 +9,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
-	error_reporting(E_ALL); */
-?>
-<!DOCTYPE html>
-<html lang="en">
-<?php
 	// Inclusions
 	include_once('./bot_php/db_queries.php');
 	include_once('./bot_php/globals.php');
