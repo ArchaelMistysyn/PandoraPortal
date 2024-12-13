@@ -133,6 +133,8 @@
     <title>Pandora Portal - Leaderboards</title>
     <link rel="stylesheet" href="CSS/generalpageCSS.css">
     <link rel="stylesheet" href="CSS/rankingCSS.css">
+    <link rel="stylesheet" href="CSS/generalpageCSS.css">
+    <link rel="stylesheet" href="CSS/rankingCSS.css">
     <link rel="icon" type="img/ico" href="./images/favicon.ico">
 </head>
 <body>

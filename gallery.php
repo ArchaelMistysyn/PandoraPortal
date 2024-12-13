@@ -6,6 +6,8 @@
     <title>Pandora Portal - Gallery</title>
     <link rel="stylesheet" href="CSS/generalpageCSS.css">
     <link rel="stylesheet" href="CSS/galleryCSS.css">
+    <link rel="stylesheet" href="CSS/generalpageCSS.css">
+    <link rel="stylesheet" href="CSS/galleryCSS.css">
     <link rel="icon" type="img/ico" href="./images/favicon.ico">
 </head>
 <body>
