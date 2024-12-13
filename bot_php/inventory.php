@@ -498,7 +498,7 @@
 			if ($encode_filename) {
 				$filename = urlencode($filename);
 			}
-			return "https://kyleportfolio.ca/botimages/Gear_Icon/$folder/$sub_folder$filename";
+			return "./botimages/Gear_Icon/$folder/$sub_folder$filename";
 		}
 		
 		public function generate_element_icons() {

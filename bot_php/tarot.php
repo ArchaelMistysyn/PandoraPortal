@@ -24,9 +24,9 @@
 			if ($card_qty == 0) {
 				$this->card_image_link = "./gallery/Tarot/Paragon/Cardback.webp";
 			} else {
-				$this->card_image_link = "https://www.KylePortfolio.ca/botimages/tarot/" . $card_numeral . "/" . $card_numeral . "_" . $num_stars. ".png";
+				$this->card_image_link = "./botimages/tarot/" . $card_numeral . "/" . $card_numeral . "_" . $num_stars. ".png";
 			}
-			$this->essence_link = "https://www.KylePortfolio.ca/botimages/NonGear_Icon/Essence/Frame_Essence_" . $this->num_stars . ".png";
+			$this->essence_link = "./botimages/NonGear_Icon/Essence/Frame_Essence_" . $this->num_stars . ".png";
 		}
 		
 		public function assign_tarot_values($player_obj) {
