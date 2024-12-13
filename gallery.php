@@ -13,7 +13,7 @@
   <main id="gallery-main">
     <div id="lightbox" class="lightbox hidden">
       <span id="lightbox-close" class="lightbox-close">&times;</span>
-      <div class="lightbox-main-content"><img id="lightbox-image" src="" alt="Lightbox Image" /></div>
+      <div class="lightbox-main-content"><img id="lightbox-image" class="" src="" alt="Lightbox Image" /></div>
     </div>
     <div id="gallery-main-container">
       <div id="gallery-top-container">
@@ -23,18 +23,19 @@
         </div>
         <div id="display-container">
           <div id="display-content">
+            <div id="display-content__img">
+              <img id="display-content__expand" src="/images/Icons/arrows-out-fill.png"></img>
+            </div>
           </div>
         </div>
       </div>
-      <div id="gallery-bottom-container"><div id="carousel-container">
-        <button id="carousel-prev" class="carousel-control"><img src="/images/Icons/arrow-square-left-fill.png" alt="carousel left"></button>
-        <div id="tab-content" class="carousel"></div>
-        <button id="carousel-next" class="carousel-control"><img src="/images/Icons/arrow-square-right-fill.png" alt="carousel right"></button>
-      </div></div>
-    </div>
-    <div id="lightbox" class="lightbox hidden">
-      <span id="lightbox-close" class="lightbox-close">&times;</span>
-      <img id="lightbox-image" src="" alt="Lightbox Image" />
+      <div id="gallery-bottom-container">
+        <div id="carousel-container">
+          <button id="carousel-prev" class="carousel-control"><img src="/images/Icons/arrow-square-left-fill.png" alt="carousel left"></button>
+          <div id="tab-content" class="carousel"></div>
+          <button id="carousel-next" class="carousel-control"><img src="/images/Icons/arrow-square-right-fill.png" alt="carousel right"></button>
+        </div>
+      </div>
     </div>
   </main>
 	<script>

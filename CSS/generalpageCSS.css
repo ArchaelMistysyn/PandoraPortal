@@ -16,7 +16,6 @@
   --border-primary-light: 1px solid rgba(255, 255, 255, 0.15);
 }
 
-
 @font-face {
   font-family: "PandoraDiamond";
   src: url("../font/PandoraDiamond/PandoraDiamond.woff2") format("woff2"),
@@ -69,7 +68,9 @@ main {
   user-select: none;
 }
 
-h1, h2, h3 {
+h1,
+h2,
+h3 {
   font-weight: normal;
 }
 
@@ -137,7 +138,8 @@ header {
   text-shadow: 1px 1px black;
 }
 
-#header-middle a span, .main-tab .tab-span-container {
+#header-middle a span,
+.main-tab .tab-span-container {
   position: relative;
   background-color: rgba(0, 0, 0, 0.3);
   width: 100%;
@@ -198,7 +200,6 @@ header {
 #header-middle .button-pink:hover span {
   background-color: rgba(255, 20, 147, 0.3);
 }
-
 
 #header-right {
   height: 53px;
@@ -264,36 +265,49 @@ header {
 .tier-7 td {
   color: #008080;
 }
-.tier-8, .tier-8 td {
-	color: #E8E8E8;
+.tier-8,
+.tier-8 td {
+  color: #e8e8e8;
 }
-.tier-9, .tier-9 td {
-	color: #C20C0C;
-}
-
-.inner-skill-circle .ultra, .ultra td{
-	background: linear-gradient(to right, #b87333, #cd7f32, #a97142, #804a00);
-	background-clip: text;
-    -webkit-background-clip: text;
-    color: transparent;
+.tier-9,
+.tier-9 td {
+  color: #c20c0c;
 }
 
-.inner-skill-circle .uber, .uber td{
-	background: linear-gradient(to right, #C0C0C0, #D4D4D4, #E8E8E8, #F2F2F2);
-	background-clip: text;
-    -webkit-background-clip: text;
-    color: transparent;
+.inner-skill-circle .ultra,
+.ultra td {
+  background: linear-gradient(to right, #b87333, #cd7f32, #a97142, #804a00);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
 }
 
-.inner-skill-circle .ultimate, .ultimate td{
-	background: linear-gradient(to right, #FFD700, #FFC300, #FFB300, #FFA500, #FF8C00);
-	background-clip: text;
-    -webkit-background-clip: text;
-    color: transparent;
+.inner-skill-circle .uber,
+.uber td {
+  background: linear-gradient(to right, #c0c0c0, #d4d4d4, #e8e8e8, #f2f2f2);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
 }
 
-.rare-skill, .command-column {
-	color: #C20C0C;
+.inner-skill-circle .ultimate,
+.ultimate td {
+  background: linear-gradient(
+    to right,
+    #ffd700,
+    #ffc300,
+    #ffb300,
+    #ffa500,
+    #ff8c00
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.rare-skill,
+.command-column {
+  color: #c20c0c;
 }
 
 .bonus:hover {
@@ -322,7 +336,7 @@ th div {
   height: 40px;
 }
 
-.rank-cell div{
+.rank-cell div {
   font-size: 2rem;
 }
 
@@ -332,7 +346,9 @@ th div {
   justify-content: center;
   width: 100%;
 }
-.icon-cell div, .icon-cell-medium div, .icon-cell-big div {
+.icon-cell div,
+.icon-cell-medium div,
+.icon-cell-big div {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -350,7 +366,7 @@ th div {
   height: 36px;
   width: 36px;
 }
-.icon-cell-medium  div img {
+.icon-cell-medium div img {
   height: 50px;
   width: 50px;
 }
@@ -380,48 +396,50 @@ th div {
   color: white;
 }
 .table-box {
-	background-color: #111;
-	padding: 8px;
-	margin-bottom: 5px;
+  background-color: #111;
+  padding: 8px;
+  margin-bottom: 5px;
 }
-.style-table tbody td{
-	padding-left: 25px;
-	padding-right: 25px;
-	text-align:center;
-	height: 35px;
-	font-size: 20px;
+.style-table tbody td {
+  padding-left: 25px;
+  padding-right: 25px;
+  text-align: center;
+  height: 35px;
+  font-size: 20px;
 }
-.style-table tbody tr{
-	padding-left: 25px;
-	padding-right: 25px;
-	text-align:center;
-	height: 35px;
-	border-top: 1px solid #111;
+.style-table tbody tr {
+  padding-left: 25px;
+  padding-right: 25px;
+  text-align: center;
+  height: 35px;
+  border-top: 1px solid #111;
 }
 .style-table tbody tr:nth-child(even) {
-	background: #111;
+  background: #111;
 }
 .style-table tbody tr:nth-child(odd) {
-	background: #1b1a18;
+  background: #1b1a18;
 }
 
-.style-header, .style-header tr, .style-header tr th {
-	background-color: transparent;
+.style-header,
+.style-header tr,
+.style-header tr th {
+  background-color: transparent;
 }
-.style-header tr th:first-child{
-	padding-left: 0;
+.style-header tr th:first-child {
+  padding-left: 0;
 }
-.style-header tr th:last-child{
-	padding-right: 0;
+.style-header tr th:last-child {
+  padding-right: 0;
 }
 
-.style-header tr th{
+.style-header tr th {
   background-image: var(--bg-gradient-dark);
   background-clip: content-box;
   height: 3rem;
   margin-bottom: 0;
 }
-.style-header tr th div{
+.style-header tr th div {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -438,7 +456,7 @@ input[type="text"] {
   color: var(--brand-color-primary);
   transition: all 0.3s;
   border: var(--border-primary-light);
-	width: 100%;
+  width: 100%;
   margin-right: 10px;
   padding: 10px;
   width: 300px;
@@ -453,7 +471,7 @@ input[type="text"] {
   color: white;
   transition: all 0.3s;
   border: var(--border-primary-light);
-	width: 100%;
+  width: 100%;
   margin: 0 5px;
   width: 110px;
   padding: 10px;
@@ -625,8 +643,10 @@ input:focus {
 }
 
 /* Tooltips */
-.tooltip, .tooltip-lower,
-.glyph-tooltip, .glyph-tooltip-lower {
+.tooltip,
+.tooltip-lower,
+.glyph-tooltip,
+.glyph-tooltip-lower {
   visibility: hidden;
   background-color: #000;
   color: white;
@@ -646,7 +666,7 @@ input:focus {
 
 .tooltip {
   width: 300px;
-  bottom: 100%;  
+  bottom: 100%;
 }
 
 .tooltip-lower {
@@ -673,92 +693,90 @@ input:focus {
   text-shadow: 2px 2px var(--brand-color-secondary);
 }
 
-.glow-button a, .image-button a{
-	display: flex;
-    justify-content: center;
-    align-items: center;
-	width:100%;
-	height:100%;
-	color: inherit;
-	text-decoration: none;
+.glow-button a,
+.image-button a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  color: inherit;
+  text-decoration: none;
 }
-	
+
 .glow-button {
-	color: #fff;
-	display: block;
-	margin: 5px auto;
-	padding: 5px;
-	font-size: 20px;
-	font-weight: bold;
-	outline: none;
-	background-image: linear-gradient(145deg, #9932CC, #006eff 50%, #00BFFF);
-	transition: 
-		background-color 0.4s ease, 
-		text-shadow 0.4s ease, 
-		color 0.4s ease, 
-		background-size 0.4s ease, 
-		background-position 0.4s ease;
-	cursor: pointer;
-	position: relative;
-	border-radius: 10px;
-	border: none;
-	text-shadow: 1px 1px black;
-	text-decoration: none;
-	z-index: 0;
- }
+  color: #fff;
+  display: block;
+  margin: 5px auto;
+  padding: 5px;
+  font-size: 20px;
+  font-weight: bold;
+  outline: none;
+  background-image: linear-gradient(145deg, #9932cc, #006eff 50%, #00bfff);
+  transition: background-color 0.4s ease, text-shadow 0.4s ease, color 0.4s ease,
+    background-size 0.4s ease, background-position 0.4s ease;
+  cursor: pointer;
+  position: relative;
+  border-radius: 10px;
+  border: none;
+  text-shadow: 1px 1px black;
+  text-decoration: none;
+  z-index: 0;
+}
 
 .glow-button::before {
-	content: "";
-	background: linear-gradient(
-		45deg,
-		#ff0000,
-		#ff7300,
-		#fffb00,
-		#48ff00,
-		#00ffd5,
-		#002bff,
-		#7a00ff,
-		#ff00c8,
-		#ff0000
-	);
-	position: absolute;
-	top: -2px;
-	left: -2px;
-	filter: blur(5px);
-	background-size: 400%;
-	z-index: -1;
-	width: calc(100% + 4px);
-	height: calc(100% + 4px);
-	opacity: 0;
-	animation: glowing-button 20s linear infinite;
-	transition: opacity 0.4s ease-in-out;
-	border-radius: 10px;
+  content: "";
+  background: linear-gradient(
+    45deg,
+    #ff0000,
+    #ff7300,
+    #fffb00,
+    #48ff00,
+    #00ffd5,
+    #002bff,
+    #7a00ff,
+    #ff00c8,
+    #ff0000
+  );
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  filter: blur(5px);
+  background-size: 400%;
+  z-index: -1;
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  opacity: 0;
+  animation: glowing-button 20s linear infinite;
+  transition: opacity 0.4s ease-in-out;
+  border-radius: 10px;
 }
 
-.glow-button:hover::before, .glow-button:hover::after {
-	opacity: 1;
+.glow-button:hover::before,
+.glow-button:hover::after {
+  opacity: 1;
 }
 
 .glow-button::after {
-	content: "";
-	z-index: -1;
-	position: absolute;
-	opacity: 0;
-	background-image: url(../images/spatialBG.webp);
-	background-size: 100% 200%;
-	background-position-y: center;
-	transition: opacity 0.4s ease-in-out, background-size 0.3s ease-in-out;
-	width: 100%;
-	height: 100%;
-	left: 0;
-	top: 0;
-	border-radius: 10px;
+  content: "";
+  z-index: -1;
+  position: absolute;
+  opacity: 0;
+  background-image: url(../images/spatialBG.webp);
+  background-size: 100% 200%;
+  background-position-y: center;
+  transition: opacity 0.4s ease-in-out, background-size 0.3s ease-in-out;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  border-radius: 10px;
 }
 
 .medium-button {
-	width: 140px;
-	height: 40px;
-	margin-top: 5px;
+  width: 140px;
+  height: 40px;
+  margin-top: 5px;
 }
 
 @keyframes glowing-button {
@@ -780,7 +798,7 @@ input:focus {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(0, 0, 0, 0.9);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -809,9 +827,9 @@ input:focus {
 }
 
 #lightbox-image {
-  max-width: 90%;
+  max-width: 70%;
   max-height: 924px;
-  min-height: 720px;
+  /* min-height: 720px; */
 }
 
 /* Lightbox background */
@@ -821,7 +839,7 @@ input:focus {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.85);
   display: flex;
   align-items: center;
   justify-content: center;

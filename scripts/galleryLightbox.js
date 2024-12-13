@@ -1,63 +1,94 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const gallery = document.getElementById("gallery-main");
-  const carousel = document.getElementById("carousel");
+  const displayContent = document.getElementById("display-content__img");
+  const displayExpandBtn = document.getElementById("display-content__expand");
+  const tabMenu = document.getElementById("tabMenu");
+  const carousel = document.querySelector(".carousel");
   const lightbox = document.getElementById("lightbox");
   const lightboxImage = document.getElementById("lightbox-image");
   const closeLightbox = document.getElementById("lightbox-close");
   const prevButton = document.getElementById("carousel-prev");
   const nextButton = document.getElementById("carousel-next");
+
+  let firstImage = "";
   let galleryImages = [];
-  let activeIndex = 0;
 
-  // Listeners to open lightbox via image selection
-  gallery.addEventListener("click", (e) => {
-    if (e.target.classList.contains("gallery-img")) {
-      galleryImages = Array.from(document.querySelectorAll(".gallery-img"));
-      activeIndex = galleryImages.indexOf(e.target);
+  // Handle Init Display Image + add carousel active class on load
+  setTimeout(() => {
+    firstImage = document.querySelector(".search-category img");
+    if (firstImage) {
+      firstImage.classList.toggle("active");
+      const clonedFirstImage = firstImage.cloneNode(true);
+      displayContent.append(clonedFirstImage);
+    }
+  }, 800);
 
-      carousel.innerHTML = galleryImages
-        .map(
-          (img, index) =>
-            `<img src="${img.src}" data-index="${index}" class="${
-              index === activeIndex ? "active" : ""
-            }">`
-        )
-        .join("");
-
-      updateLightboxImage(activeIndex);
+  // Handle Display Img Click: Activate lightbox for display image
+  displayExpandBtn.addEventListener("click", (e) => {
+    if (displayContent.lastChild.classList.contains("gallery-img")) {
+      lightboxImage.src = displayContent.lastChild.src;
       lightbox.classList.remove("hidden");
     }
   });
 
-  // Update lightbox preview image and active thumbnail(s)
-  function updateLightboxImage(index) {
-    activeIndex = index;
-    lightboxImage.src = galleryImages[index].src;
-
-    // Highlight the active thumbnail
-    const thumbnails = carousel.querySelectorAll("img");
-    thumbnails.forEach((thumb, idx) => {
-      thumb.classList.toggle("active", idx === activeIndex);
-    });
-  }
-
-  // Handle thumbnail clicks
+  // Handle Carousel Img Click: Display selected carousel img in display
   carousel.addEventListener("click", (e) => {
-    if (e.target.tagName === "IMG") {
-      const index = parseInt(e.target.dataset.index, 10);
-      updateLightboxImage(index);
+    if (e.target.classList.contains("gallery-img")) {
+      // Build array of images in carousel
+      galleryImages = Array.from(
+        document.querySelectorAll(".search-category img")
+      );
+      activeIndex = galleryImages.indexOf(e.target);
+
+      // Toggle 'active' class on selected image
+      galleryImages.forEach((img) => {
+        img.classList.toggle("active", false);
+      });
+      e.target.classList.toggle("active");
+
+      // Replace display img with selected img
+      const selectedImg = e.target.cloneNode(true);
+      const displayImg = displayContent.lastChild;
+      displayContent.replaceChild(selectedImg, displayImg);
     }
   });
 
-  // Carousel Navigation controls
+  // Handle Carousel Navigation controls
   prevButton.addEventListener("click", () => {
     const scrollAmount = -carousel.clientWidth / 2;
-    carousel.scrollBy({ left: scrollAmount, behavior: "smooth" });
+    carousel.scrollBy({ left: scrollAmount, behavior: "instant" });
   });
-
   nextButton.addEventListener("click", () => {
     const scrollAmount = carousel.clientWidth / 2;
-    carousel.scrollBy({ left: scrollAmount, behavior: "smooth" });
+    carousel.scrollBy({ left: scrollAmount, behavior: "instant" });
+  });
+
+  // Handle mouse wheel scroll for carousel
+  carousel.addEventListener("wheel", (e) => {
+    e.preventDefault();
+    const scrollAmount = carousel.clientWidth / 2;
+
+    // Handle scrolling for each direction
+    if (e.deltaY > 0) {
+      carousel.scrollBy({ left: -scrollAmount, behavior: "instant" });
+    } else {
+      carousel.scrollBy({ left: scrollAmount, behavior: "instant" });
+    }
+  });
+
+  // Handle reset for carousel position + display Img when changing category
+  tabMenu.addEventListener("click", (e) => {
+    if (e.target.tagName === "LI") {
+      carousel.scrollTo({ left: 0, behavior: "instant" });
+      setTimeout(() => {
+        // Make first carousel imag active
+        firstImage = document.querySelector(".search-category img");
+        firstImage.classList.toggle("active");
+        // Replace display img
+        clonedFirstImage = firstImage.cloneNode(true);
+        const displayImg = displayContent.lastChild;
+        displayContent.replaceChild(clonedFirstImage, displayImg);
+      }, 1000);
+    }
   });
 
   // Close lightbox
