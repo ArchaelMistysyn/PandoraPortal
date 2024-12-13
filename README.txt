@@ -1,4 +1,4 @@
-Pandora Portal Website-
+Pandora Portal Website
 
 Server testing in VScode Terminal:
 php -S localhost:8000
