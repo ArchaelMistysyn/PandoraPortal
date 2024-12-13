@@ -24,7 +24,7 @@
 			$this->pen = $insignia_multipliers[$this->num_elements][0];
 			$this->pen += $insignia_multipliers[$this->num_elements][1] * $this->insignia_stars * $mutation_adjust;
 			$this->insignia_name = "{$insignia_name_list[$this->num_elements]} Insignia";
-			$this->insignia_link = "https://www.KylePortfolio.ca/botimages/iconframes/Icon_Border_106px/Icon_border_Silver_106px.png";
+			$this->insignia_link = "./botimages/iconframes/Icon_Border_106px/Icon_border_Silver_106px.png";
 		}
 		
 		private function get_insignia_stars($echelon, $mutation_tier) {

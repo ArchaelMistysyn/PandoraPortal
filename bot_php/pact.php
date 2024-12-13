@@ -9,7 +9,7 @@
 			$pact_code = explode(';', $player_obj->player_pact);
 			$this->pact_tier = (int)$pact_code[0];
 			$this->pact_variant = $pact_code[1];
-			$base_url = 'https://www.KylePortfolio.ca/botimages/Gear_Icon/Pact/Frame_Pact_';
+			$base_url = './botimages/Gear_Icon/Pact/Frame_Pact_';
 			$this->pact_link = $base_url . $this->pact_tier . '_' . $this->pact_variant . '.png';
 			$this->demon_name = $pact_data['demon_variants'][$this->pact_tier];
 			$this->pact_stars = generate_stars($this->pact_tier);
