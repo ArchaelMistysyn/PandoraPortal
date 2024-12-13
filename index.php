@@ -1,10 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
+<?php
 	function getFilePaths($directory) {
 		$files = [];
 		$scanned_directory = array_diff(scandir($directory), array('..', '.'));
 		foreach ($scanned_directory as $file) {
+			$filePath = $directory . '/' . $file;
+			if (is_file($filePath)) {
+				$files[] = $filePath;
+			}
 			$filePath = $directory . '/' . $file;
 			if (is_file($filePath)) {
 				$files[] = $filePath;
@@ -16,11 +21,16 @@
 	$arbiterFiles = getFilePaths('./gallery/Tarot/Arbiter');
 	$dragonFiles = getFilePaths('./gallery/Bosses/Dragon');
 	$allImageFiles = array_merge($dragonFiles, $paragonFiles, $arbiterFiles);
+	$dragonFiles = getFilePaths('./gallery/Bosses/Dragon');
+	$allImageFiles = array_merge($dragonFiles, $paragonFiles, $arbiterFiles);
 ?>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pandora Portal</title>
+    <link rel="stylesheet" href="CSS/generalpageCSS.css">
+	<link rel="stylesheet" href="CSS/mainpageCSS.css">
     <link rel="stylesheet" href="CSS/generalpageCSS.css">
 	<link rel="stylesheet" href="CSS/mainpageCSS.css">
 	<link rel="icon" type="img/ico" href="./images/favicon.ico">
@@ -74,6 +84,7 @@
         <p>&copy; 2024 Pandora Portal. All rights reserved.</p>
     </footer>
 	<script>
+        const allFiles = <?php echo json_encode($allImageFiles); ?>;
         const allFiles = <?php echo json_encode($allImageFiles); ?>;
     </script>
     <script src="scripts/cycler.js"></script>

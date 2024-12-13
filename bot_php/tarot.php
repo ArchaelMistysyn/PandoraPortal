@@ -2,6 +2,7 @@
 	class TarotItem {
 		public $player_id, $card_numeral, $tarot_key, $card_qty, $num_stars, $card_enhancement, $resonance;
 		public $card_name, $card_tier;
+		public $card_name, $card_tier;
 		public $card_damage, $card_hp, $card_fd, $card_type, $card_path, $path_points, $card_image_link, $essence_link;
 
 		public function __construct($player_id, $resonance, $card_numeral, $card_qty, $num_stars, $card_enhancement) {
@@ -105,12 +106,23 @@
 	function display_tarot($tarot_card) {
 		global $card_variant, $path_names;
 		$html = "<div class='item-slot' id='item-Tarot'>";
+		$html = "<div class='item-slot' id='item-Tarot'>";
 		if (!$tarot_card) {
+			return $html . "</div>";
 			return $html . "</div>";
 		}
 		$html .= "<img class='item-thumbnail' src='" . $tarot_card->essence_link . "'>";
 		$html .= "<div class='style-line'></div>";
+		$html .= "<img class='item-thumbnail' src='" . $tarot_card->essence_link . "'>";
+		$html .= "<div class='style-line'></div>";
 		$html .= generate_stars($tarot_card->num_stars);
+		$html .= '<h1 class="item-name highlight-text">' . $tarot_card->card_numeral . ' - ' . $tarot_card->card_name . '</h1>';
+		$html .= "<div class='style-line'></div>";
+		$html .= "<div class='badge-container'>";
+		$html .= '<div class="item-id-badge">' . '[' . $card_variant[$tarot_card->num_stars] . ']' . '</div>';
+		$html .= $tarot_card->resonance == 1 ? "<div class='inactive-badge'>Dormant</div>" : "<div class='active-badge'>Resonating</div>";
+		$html .= '<div class="item-tier-badge">Tier: ' . $tarot_card->num_stars . '</div>';
+		$html .= "</div>";
 		$html .= '<h1 class="item-name highlight-text">' . $tarot_card->card_numeral . ' - ' . $tarot_card->card_name . '</h1>';
 		$html .= "<div class='style-line'></div>";
 		$html .= "<div class='badge-container'>";
@@ -124,8 +136,17 @@
 		$html .= "<div class='stat-message'>Base: {$base_damage_min} - {$base_damage_max}</div>";
 		$html .= "<div class='stat-message'>Path of " . $path_names[$tarot_card->card_path] . " +" . $tarot_card->path_points . "</div>";
 		$html .= "<div class='style-line'></div>";
+		$html .= "<div class='stat-message'>Base: {$base_damage_min} - {$base_damage_max}</div>";
+		$html .= "<div class='stat-message'>Path of " . $path_names[$tarot_card->card_path] . " +" . $tarot_card->path_points . "</div>";
+		$html .= "<div class='style-line'></div>";
 		$tarot_skills = $tarot_card->display_tarot_skills();
 		$html .= '<div id="tarot-skills">' . $tarot_skills . '</div>';
+		$html .= '</div>';
+		$html .= "<div id='image-tarot' class='item-slot'>";
+		$html .= "<div id='image-tarot-bg' style=\"background-image: url('" . $tarot_card->card_image_link . "');\"></div>";
+		$artist_name = get_artist_by_numeral($tarot_card->card_numeral);
+		$html .= "<div class='artist-name highlight-text'>Tarot Artist</div><div class='artist-name'>" . $artist_name . "</div>";
+		$html .= "</div>";
 		$html .= '</div>';
 		$html .= "<div id='image-tarot' class='item-slot'>";
 		$html .= "<div id='image-tarot-bg' style=\"background-image: url('" . $tarot_card->card_image_link . "');\"></div>";
@@ -143,7 +164,17 @@
 			}
 		}
 		return "No Artist";
+
+	function get_artist_by_numeral($numeral) {
+		global $artist_numerals;
+		foreach ($artist_numerals as $artist => $numerals) {
+			if (in_array($numeral, $numerals)) {
+				return $artist;
+			}
+		}
+		return "No Artist";
 	}
+
 
 	function roman_to_number($roman) {
 		$map = ['M' => 1000, 'CM' => 900, 'D' => 500, 'CD' => 400, 'C' => 100, 'XC' => 90, 'L' => 50, 'XL' => 40, 'X' => 10, 'IX' => 9, 'V' => 5, 'IV' => 4, 'I' => 1];
