@@ -1,7 +1,6 @@
 <?php
 	session_start();
 	/* Enable PHP reporting if needed
-	/* Enable PHP reporting if needed
 	ini_set('display_errors', 1);
 	ini_set('display_startup_errors', 1);
 	error_reporting(E_ALL); */
@@ -38,7 +37,6 @@
 		$search_input = $_POST['search_input'];
 		$player_profile = get_player_by_id($search_input, "all");
 		if ($player_profile && $player_profile->player_id != 0) {
-		if ($player_profile && $player_profile->player_id != 0) {
 			$player_id = $player_profile->player_id;
 			$non_zero_equipped = array_filter($player_profile->player_equipped, function($value) { return $value != '0'; });
 			$item_type_map = [];
@@ -72,7 +70,6 @@
 			$player_profile->get_player_multipliers();
 			$player_main_html = $player_profile->display_player($equipped_items["W"] ?? null);
 			$element_stats_html = $player_profile->display_element_stats($equipped_items["W"] ?? null);
-			$resist_stats_html = $player_profile->display_resistances();
 			$resist_stats_html = $player_profile->display_resistances();
 			$defence_stats_html = $player_profile->display_defences();
 			$details_stats_html = $player_profile->display_details();
@@ -147,19 +144,7 @@
 			</div>
 			<div id="slot-display">
 				<?php 
-			<div id="slot-display">
-				<?php 
 					if ($player_profile) { 
-						foreach ($slot_types as $slot_id => $type) {
-							if ($slot_id === 'Pact') {
-								echo display_pact($player_profile);
-							} elseif ($slot_id === 'Insignia') {
-								echo display_insignia($player_profile);
-							} elseif ($slot_id === 'Tarot') {
-								echo display_tarot($tarot_card);
-							} else {
-								echo display_equipment($slot_id, $equipped_items, $equipped_gems);
-							}
 						foreach ($slot_types as $slot_id => $type) {
 							if ($slot_id === 'Pact') {
 								echo display_pact($player_profile);
@@ -202,28 +187,26 @@
 		<div id="bottom-container"><div id="slot-buttons-container">
 			<?php
 				foreach ($slot_types as $slot_id => $type) {
-				if ($slot_id === 'Pact' && !empty($player_profile->player_pact)) {
-					$icon_path = (new Pact($player_profile))->pact_link;
-				} elseif ($slot_id === 'Insignia' && !empty($player_profile->player_insignia)) {
-					$icon_path = (new Insignia($player_profile))->insignia_link;
-				} elseif ($slot_id === 'Tarot' && !empty($player_profile->equipped_tarot)) {
-					$icon_path = (get_tarot_by_id($player_profile, $resonance))->essence_link;
-				} else {
-					$icon_path = isset($equipped_items[$slot_id]) ? $equipped_items[$slot_id]->get_gear_thumbnail($encode_filename = true) : '';
-				}						
-				$background_style = $icon_path ? "background-image: url(\"$icon_path\");" : '';
-        $slot_condition = !empty($icon_path);
-        $class_name = $slot_condition ? 'item-slot-icon' : 'item-slot-icon-empty';
-        $inner_text = $slot_condition ? '' : 'Empty';
-				echo "<button type='button' id='item-slot-{$slot_id}' class='item-slot-button' onclick='showEquipmentSlot(\"{$slot_id}\")'><span class='{$class_name}' style='{$background_style}'>{$inner_text}</span></button>";
+					if ($slot_id === 'Pact' && !empty($player_profile->player_pact)) {
+						$icon_path = (new Pact($player_profile))->pact_link;
+					} elseif ($slot_id === 'Insignia' && !empty($player_profile->player_insignia)) {
+						$icon_path = (new Insignia($player_profile))->insignia_link;
+					} elseif ($slot_id === 'Tarot' && !empty($player_profile->equipped_tarot)) {
+						$icon_path = (get_tarot_by_id($player_profile, $resonance))->essence_link;
+					} else {
+						$icon_path = isset($equipped_items[$slot_id]) ? $equipped_items[$slot_id]->get_gear_thumbnail($encode_filename = true) : '';
+					}						
+					$background_style = $icon_path ? "background-image: url(\"$icon_path\");" : '';
+					$slot_condition = !empty($icon_path);
+					$class_name = $slot_condition ? 'item-slot-icon' : 'item-slot-icon-empty';
+					$inner_text = $slot_condition ? '' : 'Empty';
+					echo "<button type='button' id='item-slot-{$slot_id}' class='item-slot-button' onclick='showEquipmentSlot(\"{$slot_id}\")'><span class='{$class_name}' style='{$background_style}'>{$inner_text}</span></button>";
 				}
 			?>
 		</div></div>
     </main>
 	<script src="scripts/charDetails.js"></script>
-	<script src="scripts/charDetails.js"></script>
 	<script>
-		let playerProfileExists = <?php echo $player_profile ? 'true' : 'false'; ?>;
 		let playerProfileExists = <?php echo $player_profile ? 'true' : 'false'; ?>;
 		let hoverEventListeners = [];
 		const sectionContent = {
@@ -234,20 +217,10 @@
 			4: `<?php echo $details_stats_html; ?>`,
 			5: `<?php echo $misc_stats_html; ?>`
 		};
-
-			2: `<?php echo $resist_stats_html; ?>`,
-			3: `<?php echo $defence_stats_html; ?>`,
-			4: `<?php echo $details_stats_html; ?>`,
-			5: `<?php echo $misc_stats_html; ?>`
-		};
-
 		if (playerProfileExists) {
 			document.getElementById('detail-buttons').style.display = "flex";
 			document.getElementById('slot-buttons-container').style.display = "flex";
-			document.getElementById('detail-buttons').style.display = "flex";
-			document.getElementById('slot-buttons-container').style.display = "flex";
 			handleButtonClick(0);
-			showEquipmentSlot("W");
 			showEquipmentSlot("W");
 		}
 	</script>

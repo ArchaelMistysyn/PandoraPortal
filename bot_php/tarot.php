@@ -2,7 +2,6 @@
 	class TarotItem {
 		public $player_id, $card_numeral, $tarot_key, $card_qty, $num_stars, $card_enhancement, $resonance;
 		public $card_name, $card_tier;
-		public $card_name, $card_tier;
 		public $card_damage, $card_hp, $card_fd, $card_type, $card_path, $path_points, $card_image_link, $essence_link;
 
 		public function __construct($player_id, $resonance, $card_numeral, $card_qty, $num_stars, $card_enhancement) {
@@ -164,17 +163,7 @@
 			}
 		}
 		return "No Artist";
-
-	function get_artist_by_numeral($numeral) {
-		global $artist_numerals;
-		foreach ($artist_numerals as $artist => $numerals) {
-			if (in_array($numeral, $numerals)) {
-				return $artist;
-			}
-		}
-		return "No Artist";
 	}
-
 
 	function roman_to_number($roman) {
 		$map = ['M' => 1000, 'CM' => 900, 'D' => 500, 'CD' => 400, 'C' => 100, 'XC' => 90, 'L' => 50, 'XL' => 40, 'X' => 10, 'IX' => 9, 'V' => 5, 'IV' => 4, 'I' => 1];
