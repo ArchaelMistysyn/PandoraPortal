@@ -14,10 +14,10 @@ deployment:
     - /bin/cp -R scripts/* $DEPLOYPATH/scripts/
     - /bin/cp -R images/* $DEPLOYPATH/images/
     - /bin/cp -R gallery/* $DEPLOYPATH/gallery/
-    - /bin/cp -R gallery/* $DEPLOYPATH/galleryPages/
-    - /bin/cp -R gallery/* $DEPLOYPATH/font/
-    - /bin/cp -R gallery/* $DEPLOYPATH/bot_php/
-    - /bin/cp -R gallery/* $DEPLOYPATH/image_display/
+    - /bin/cp -R galleryPages/* $DEPLOYPATH/galleryPages/
+    - /bin/cp -R font/* $DEPLOYPATH/font/
+    - /bin/cp -R bot_php/* $DEPLOYPATH/bot_php/
+    - /bin/cp -R image_display/* $DEPLOYPATH/image_display/
     - /bin/cp -R *.php $DEPLOYPATH/
     - /bin/cp -R *.html $DEPLOYPATH/
     - /bin/cp -R .cpanel.yml $DEPLOYPATH/
