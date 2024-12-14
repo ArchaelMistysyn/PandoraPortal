@@ -133,25 +133,6 @@
 					$quality = "[" . $ring_category[$ring_tier] . "]";
 				}
 			}
-
-			$thumbnail_url = $this->get_gear_thumbnail();
-			$html = '<img src="' . $thumbnail_url . '" alt="' . $this->item_name . '" class="item-thumbnail">';
-			$html .= "<h1 class='item-name highlight-text'>" . $name . "</h1>";
-			$html .= "<div class='style-line'></div>";
-			$html .= $this->generate_stars();
-			$html .= $this->generate_element_icons();
-			$html .= "<div class='style-line'></div>";
-			// Tags
-			$html .= "<div class='badge-container'>";	
-			$html .= "<div class='item-name-badge'>" . $quality . "</div>";
-			$html .= "<div class='item-id-badge'>ID: " . $this->item_id . "</div>";
-			$html .= "<div class='item-tier-badge'>Tier: " . $this->item_tier . "</div>";
-			$html .="</div>";
-			// Item Data
-			$html .= "<div class='style-line'></div>";
-			$html .= "<div class='item-dmg-stat'>Base: " . number_format($this->item_damage_min) . " - " . number_format($this->item_damage_max) . "</div>";
-			}
-
 			$thumbnail_url = $this->get_gear_thumbnail();
 			$html = '<img src="' . $thumbnail_url . '" alt="' . $this->item_name . '" class="item-thumbnail">';
 			$html .= "<h1 class='item-name highlight-text'>" . $name . "</h1>";
@@ -169,7 +150,6 @@
 			$html .= "<div class='style-line'></div>";
 			$html .= "<div class='item-dmg-stat'>Base: " . number_format($this->item_damage_min) . " - " . number_format($this->item_damage_max) . "</div>";
 			if (!$is_gem) {
-				$html .= '<img src="../gallery/Icons/Classes/' . $this->item_damage_type . '.webp" alt="' . $this->item_damage_type . '" class="item-class-thumbnail">';
 				$html .= '<img src="../gallery/Icons/Classes/' . $this->item_damage_type . '.webp" alt="' . $this->item_damage_type . '" class="item-class-thumbnail">';
 				if ($this->item_type == 'R'){
 					$bonus_stat_msg = '- - -';
@@ -293,7 +273,6 @@
 				if (isset($keyword_data[$skill_tag])) {
 					$skill_display .= "<div class=\"skill-slot tier-$this->item_tier\">";
 					$skill_display .= "<span class='skill-name'>$skill_name +$skill_value%</span>";
-					$skill_display .= "<span class='tooltip'>{$keyword_data[$skill_tag]['description']}</span>";
 					$skill_display .= "<span class='tooltip'>{$keyword_data[$skill_tag]['description']}</span>";
 					$skill_display .= "</div>";
 				} else {
@@ -485,9 +464,7 @@
 			for ($i = 1; $i <= 9; $i++) {
 				if ($i <= $this->item_tier) {
 					$star_display .= '<img src="./gallery/Icons/Stars/Star' . $this->item_tier . '.webp" class="icon-small">';
-					$star_display .= '<img src="./gallery/Icons/Stars/Star' . $this->item_tier . '.webp" class="icon-small">';
 				} else {
-					$star_display .= '<img src="./gallery/Icons/Stars/StarBlank.webp" class="icon-small">';
 					$star_display .= '<img src="./gallery/Icons/Stars/StarBlank.webp" class="icon-small">';
 				}
 			}
@@ -495,7 +472,6 @@
 			return $star_display;
 		}
 		
-		public function get_gear_thumbnail($encode_filename = false) {
 		public function get_gear_thumbnail($encode_filename = false) {
 			global $ring_item_type, $sovereign_item_list, $tag_dict;
 			$folder = $item_tag = $this->item_base_type;
@@ -551,8 +527,6 @@
 					$element_name = $element_names[$index];
 					$tooltip = isset($tooltip_dict[$this->item_type]) ? str_replace('X', $element_name, $tooltip_dict[$this->item_type]) : "{$element_name}";
 					$element_display .= '<div class="element-icon-container"><img src="./gallery/Icons/Elements/';
-					$element_display .= $element_name . '.webp" class="icon-small" alt="' . $element_name . '">';
-					$element_display .= '<span class="tooltip">' . $tooltip . '</span></div>';
 					$element_display .= $element_name . '.webp" class="icon-small" alt="' . $element_name . '">';
 					$element_display .= '<span class="tooltip">' . $tooltip . '</span></div>';
 				}
@@ -792,9 +766,7 @@
 		for ($i = 1; $i <= 9; $i++) {
 			if ($i <= $tier) {
 				$star_display .= '<img src="./gallery/Icons/Stars/Star' . $tier . '.webp" class="icon-small">';
-				$star_display .= '<img src="./gallery/Icons/Stars/Star' . $tier . '.webp" class="icon-small">';
 			} else {
-				$star_display .= '<img src="./gallery/Icons/Stars/StarBlank.webp" class="icon-small">';
 				$star_display .= '<img src="./gallery/Icons/Stars/StarBlank.webp" class="icon-small">';
 			}
 		}
@@ -815,7 +787,6 @@
 		foreach ($elements as $index => $value) {
 			if ($value == '1' || $value == 1) {
 				$element_name = $element_names[$index];
-				$element_display .= '<img src="./gallery/Icons/Elements/' . $element_name . '.webp" class="icon-small" alt="' . $element_name . '">';
 				$element_display .= '<img src="./gallery/Icons/Elements/' . $element_name . '.webp" class="icon-small" alt="' . $element_name . '">';
 			}
 		}
