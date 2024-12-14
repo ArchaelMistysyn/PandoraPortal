@@ -20,3 +20,4 @@ deployment:
     - /bin/cp -R gallery/* $DEPLOYPATH/image_display/
     - /bin/cp -R *.php $DEPLOYPATH/
     - /bin/cp -R *.html $DEPLOYPATH/
+    - /bin/cp -R .cpanel.yml $DEPLOYPATH/
