@@ -22,9 +22,7 @@
 
 	function display_pact($player_profile) {
 		$pact_output = "<div class='item-slot' id='item-Pact'>";
-		$pact_output = "<div class='item-slot' id='item-Pact'>";
 		if (empty($player_profile->player_pact)) {
-			return $pact_output . "Empty Slot: Pact</div>";
 			return $pact_output . "Empty Slot: Pact</div>";
 		}
 		global $skill_data;
@@ -32,18 +30,7 @@
 		$pact_output .= "<img class='item-thumbnail' src='" . $pact->pact_link . "'/>";
 		$pact_output .= "<h1 class='item-name highlight-text'>" . $pact->demon_name . " Pact</h1>";
 		$pact_output .= "<div class='style-line'></div>";
-		$pact_output .= "<img class='item-thumbnail' src='" . $pact->pact_link . "'/>";
-		$pact_output .= "<h1 class='item-name highlight-text'>" . $pact->demon_name . " Pact</h1>";
-		$pact_output .= "<div class='style-line'></div>";
 		$pact_output .= "<div>" . $pact->pact_stars . "</div>";
-		$pact_output .= '<div class="element-icons"></div>';
-		$pact_output .= "<div class='style-line'></div>";
-		$pact_output .= "<div class='badge-container'>";
-		$pact_output .= "<div class='item-id-badge'>[" . $pact->pact_variant . "]</div>";
-		$pact_output .= "<div class='item-tier-badge'>Tier: " . $pact->pact_tier . "</div>";
-		$pact_output .= "</div>";
-		$pact_output .= "<div class='style-line'></div>";
-		$pact_output .= "<div class='stat-message'>- - -</div><div class='stat-message'>- - -</div>";
 		$pact_output .= '<div class="element-icons"></div>';
 		$pact_output .= "<div class='style-line'></div>";
 		$pact_output .= "<div class='badge-container'>";
@@ -63,8 +50,6 @@
 			$skill_value = $pact->pact_tier * $skill_data[$skill][1];
 			$pact_output .= "<div class='skill-slot tier-" . $pact->pact_tier . "'>" . "$skill_name +$skill_value%" . "</div>";
 		}
-		$pact_output .= "</div>";
-		$pact_output .= "<div class='item-slot-void' id='void-pact'></div>";
 		$pact_output .= "</div>";
 		$pact_output .= "<div class='item-slot-void' id='void-pact'></div>";
 		return $pact_output;

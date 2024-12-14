@@ -112,16 +112,7 @@
 		}
 		$html .= "<img class='item-thumbnail' src='" . $tarot_card->essence_link . "'>";
 		$html .= "<div class='style-line'></div>";
-		$html .= "<img class='item-thumbnail' src='" . $tarot_card->essence_link . "'>";
-		$html .= "<div class='style-line'></div>";
 		$html .= generate_stars($tarot_card->num_stars);
-		$html .= '<h1 class="item-name highlight-text">' . $tarot_card->card_numeral . ' - ' . $tarot_card->card_name . '</h1>';
-		$html .= "<div class='style-line'></div>";
-		$html .= "<div class='badge-container'>";
-		$html .= '<div class="item-id-badge">' . '[' . $card_variant[$tarot_card->num_stars] . ']' . '</div>';
-		$html .= $tarot_card->resonance == 1 ? "<div class='inactive-badge'>Dormant</div>" : "<div class='active-badge'>Resonating</div>";
-		$html .= '<div class="item-tier-badge">Tier: ' . $tarot_card->num_stars . '</div>';
-		$html .= "</div>";
 		$html .= '<h1 class="item-name highlight-text">' . $tarot_card->card_numeral . ' - ' . $tarot_card->card_name . '</h1>';
 		$html .= "<div class='style-line'></div>";
 		$html .= "<div class='badge-container'>";
