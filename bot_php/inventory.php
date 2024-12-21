@@ -135,7 +135,7 @@
 			}
 			$thumbnail_url = $this->get_gear_thumbnail();
 			$html = '<img src="' . $thumbnail_url . '" alt="' . $this->item_name . '" class="item-thumbnail">';
-			if ($this->item_inlaid_gem_id != 0) {
+			if ($this->item_inlaid_gem_id != 0 || $is_gem) {
 				$html .= '<button type="button" class="slot-toggle input-button" onclick="toggleSlotDisplay(\'' . $stored_type . '\')">Toggle</button>';
 			}
 			$html .= "<h1 class='item-name highlight-text'>" . $name . "</h1>";
