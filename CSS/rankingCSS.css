@@ -19,7 +19,7 @@
 
 #ranking-main-container {
     display: flex;
-    width: 100%;
+    width: 96%;
     height: 100%;
     justify-content: center;
     align-items: flex-start;
@@ -54,9 +54,29 @@
 	height: 40px;
 }
 
+.rank-table td:nth-child(7) {
+    word-wrap: break-word; /* For older browsers */
+    overflow-wrap: anywhere; /* Modern browsers */
+    max-width: 185px; /* Adjust to desired width */
+    min-width: 185px;
+    font-size: 1.1rem;
+    white-space: normal; /* Allows wrapping */
+}
+
 .exact-match {
     position: relative;
     z-index: 1;
     background: var(--bg-gradient-secondary) !important;
     border: 1px solid red !important;
+}
+
+#tab-menu {
+    width: 200px;
+}
+
+@media screen and (max-width: 1290px) {
+    /* Need to fix X-overflow on low screen width by fixing the header */
+    .table-box.active {
+        width: 100%;
+    }
 }
