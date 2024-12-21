@@ -114,7 +114,7 @@
 		}
 
 		
-		public function display_item($is_gem=false) {
+		public function display_item($stored_type, $is_gem=false) {
 			global $sovereign_item_list, $ring_skill_data, $ring_category, $path_names, $gem_point_dict, $low_tier_skills;
 			$quality = '';
 			$name = '';
@@ -135,6 +135,9 @@
 			}
 			$thumbnail_url = $this->get_gear_thumbnail();
 			$html = '<img src="' . $thumbnail_url . '" alt="' . $this->item_name . '" class="item-thumbnail">';
+			if ($this->item_inlaid_gem_id != 0) {
+				$html .= '<button type="button" class="slot-toggle input-button" onclick="toggleSlotDisplay(\'' . $stored_type . '\')">Toggle</button>';
+			}
 			$html .= "<h1 class='item-name highlight-text'>" . $name . "</h1>";
 			$html .= "<div class='style-line'></div>";
 			$html .= $this->generate_stars();
@@ -190,12 +193,10 @@
 					$final_damage = ($this->item_tier - 4) * 25;
 					$tooltip = $application_mapping[$this->item_bonus_stat];
 					$tooltip = "<span class='tooltip'>{$tooltip}. Final Damage +{$final_damage}%</span>";
-					$tooltip = "<span class='tooltip'>{$tooltip}. Final Damage +{$final_damage}%</span>";
 				} else if ($this->item_tier < 5 && in_array($this->item_type, ["G", "C"])) {
 					if (isset($low_tier_skills[$this->item_bonus_stat])) {
 						$bonus_stat_msg = "{$low_tier_skills[$this->item_bonus_stat]['name']} ({$this->item_bonus_stat})";
 						$tooltip = $low_tier_skills[$this->item_bonus_stat]['description'];
-						$tooltip = "<span class='tooltip'>{$tooltip}</span>";
 						$tooltip = "<span class='tooltip'>{$tooltip}</span>";
 					}
 				}

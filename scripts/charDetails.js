@@ -34,41 +34,48 @@ function showEquipmentSlot(slotId) {
   const tarotImage = document.getElementById(`image-tarot`);
   const voidPact = document.getElementById(`void-pact`);
   const voidInsignia = document.getElementById(`void-insignia`);
-
   document.querySelectorAll(".item-slot-button").forEach((button) => {
     button.classList.remove("item-slot-button-active");
     const buttonSlotId = button.id.replace("item-slot-", "");
     button.onclick = () => showEquipmentSlot(buttonSlotId);
   });
   document.querySelectorAll(".item-slot").forEach((slot) => {
-    slot.style.display = "none";
+    slot.classList.remove("visible-tag");
+    slot.classList.add("hidden-tag");
   });
 
   currentButton.classList.add("item-slot-button-active");
   currentButton.onclick = null;
-
   if (itemSlot) {
-    itemSlot.style.display = "flex";
+    itemSlot.classList.add("visible-tag");
+    itemSlot.classList.remove("hidden-tag");
   }
   if (gemSlot) {
-    gemSlot.style.display = "flex";
+    gemSlot.classList.add("visible-tag");
+    gemSlot.classList.remove("hidden-tag");
   }
   if (tarotImage) {
     if (slotId == "Tarot") {
-      tarotImage.style.display = "flex";
+      tarotImage.classList.add("visible-tag");
+      tarotImage.classList.remove("hidden-tag");
     } else {
-      tarotImage.style.display = "none";
+      tarotImage.classList.add("hidden-tag");
+      tarotImage.classList.remove("visible-tag");
     }
   }
   if (slotId == "Pact") {
-    voidPact.style.display = "block";
+    voidPact.classList.add("visible-tag");
+    voidPact.classList.remove("hidden-tag");
   } else {
-    voidPact.style.display = "none";
+    voidPact.classList.add("hidden-tag");
+    voidPact.classList.remove("visible-tag");
   }
   if (slotId == "Insignia") {
-    voidInsignia.style.display = "block";
+    voidInsignia.classList.add("visible-tag");
+    voidInsignia.classList.remove("hidden-tag");
   } else {
-    voidInsignia.style.display = "none";
+    voidInsignia.classList.add("hidden-tag");
+    voidInsignia.classList.remove("visible-tag");
   }
 }
 
@@ -121,4 +128,19 @@ function removeHoverListeners() {
     const newSection = section.cloneNode(true);
     section.parentNode.replaceChild(newSection, section);
   });
+}
+
+function toggleSlotDisplay(type) {
+  const itemSlot = document.getElementById(`item-${type}`);
+  const gemSlot = document.getElementById(`gem-${type}`);
+  const tarotImage = document.getElementById(`image-tarot`);
+  const targetSlot = (type === "Tarot") ? tarotImage : gemSlot;
+  
+  if (itemSlot.classList.contains('active')) {
+      itemSlot.classList.remove('active');
+      targetSlot.classList.add('active');
+  } else {
+      itemSlot.classList.add('active');
+      targetSlot.classList.remove('active');
+  }
 }

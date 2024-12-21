@@ -82,18 +82,18 @@
 	// Item Data
 	function display_equipment($type, $equipped_items, $equipped_gems) {
 		global $tag_dict;
-		$html = '<div class="item-slot" id="item-' . $type . '">';
+		$html = '<div class="item-slot card1 active" id="item-' . $type . '">';
 		if (isset($equipped_items[$type])) {
-			$html .= $equipped_items[$type]->display_item();
+			$html .= $equipped_items[$type]->display_item($type);
 		} else {
 			$type_name = isset($tag_dict[$type]) ? $tag_dict[$type] : "Unknown";
 			$html .= "Empty Slot: " . $type_name;
 		}
 		$html .= '</div>';
 		// Gem Slot
-		$html .= '<div class="item-slot display-off" id="gem-' . $type . '">';
+		$html .= '<div class="item-slot card2" id="gem-' . $type . '">';
 		if (isset($equipped_gems[$type])) {
-			$html .= $equipped_gems[$type]->display_item(true);
+			$html .= $equipped_gems[$type]->display_item($type, true);
 		} else {
 			$html .= "Empty Slot: Gem";
 		}

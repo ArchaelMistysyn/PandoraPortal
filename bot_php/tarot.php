@@ -104,12 +104,11 @@
 	
 	function display_tarot($tarot_card) {
 		global $card_variant, $path_names;
-		$html = "<div class='item-slot' id='item-Tarot'>";
-		$html = "<div class='item-slot' id='item-Tarot'>";
+		$html = "<div class='item-slot hidden-tag tarot1 active' id='item-Tarot'>";
 		if (!$tarot_card) {
 			return $html . "</div>";
-			return $html . "</div>";
 		}
+		$html .= '<button type="button" class="slot-toggle input-button" onclick="toggleSlotDisplay(\'Tarot\')">Toggle</button>';
 		$html .= "<img class='item-thumbnail' src='" . $tarot_card->essence_link . "'>";
 		$html .= "<div class='style-line'></div>";
 		$html .= generate_stars($tarot_card->num_stars);
@@ -126,19 +125,11 @@
 		$html .= "<div class='stat-message'>Base: {$base_damage_min} - {$base_damage_max}</div>";
 		$html .= "<div class='stat-message'>Path of " . $path_names[$tarot_card->card_path] . " +" . $tarot_card->path_points . "</div>";
 		$html .= "<div class='style-line'></div>";
-		$html .= "<div class='stat-message'>Base: {$base_damage_min} - {$base_damage_max}</div>";
-		$html .= "<div class='stat-message'>Path of " . $path_names[$tarot_card->card_path] . " +" . $tarot_card->path_points . "</div>";
-		$html .= "<div class='style-line'></div>";
 		$tarot_skills = $tarot_card->display_tarot_skills();
 		$html .= '<div id="tarot-skills">' . $tarot_skills . '</div>';
 		$html .= '</div>';
-		$html .= "<div id='image-tarot' class='item-slot'>";
-		$html .= "<div id='image-tarot-bg' style=\"background-image: url('" . $tarot_card->card_image_link . "');\"></div>";
-		$artist_name = get_artist_by_numeral($tarot_card->card_numeral);
-		$html .= "<div class='artist-name highlight-text'>Tarot Artist</div><div class='artist-name'>" . $artist_name . "</div>";
-		$html .= "</div>";
-		$html .= '</div>';
-		$html .= "<div id='image-tarot' class='item-slot'>";
+		$html .= "<div id='image-tarot' class='item-slot tarot2'>";
+		$html .= '<button type="button" class="slot-toggle input-button" onclick="toggleSlotDisplay(\'Tarot\')">Toggle</button>';
 		$html .= "<div id='image-tarot-bg' style=\"background-image: url('" . $tarot_card->card_image_link . "');\"></div>";
 		$artist_name = get_artist_by_numeral($tarot_card->card_numeral);
 		$html .= "<div class='artist-name highlight-text'>Tarot Artist</div><div class='artist-name'>" . $artist_name . "</div>";
