@@ -95,8 +95,8 @@
 
 #detail-buttons {
   display: none;
-  justify-content: start;
-  align-items: start;
+  justify-content: space-between;
+  align-items: flex-start;
   flex-direction: column;
   height: 651px;
 }
@@ -675,7 +675,6 @@
 
 #image-tarot {
   padding: 0;
-  display: flex;
   flex-direction: column;
   justify-content: flex-start;
 }
@@ -722,7 +721,6 @@
   padding-top: 10px;
   font-size: 1.2rem;
   text-align: center;
-  display: none;
   flex-direction: column;
   color: white;
 }
@@ -733,6 +731,13 @@
   left: 10px;
   height: 36px;
   width: 36px;
+}
+
+.slot-toggle {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: none;
 }
 
 .element-icons {
@@ -1208,5 +1213,29 @@
   #content-container, #slot-display {
       margin-top: 5px;
       margin-bottom: 5px;
+  }
+}
+@media (max-width: 1200px) {
+  #character-main{
+    overflow-x: auto;
+  }
+}
+
+/* Downscaling slot displays */
+@media (max-width: 1600px) {
+  .card1, .card2, .tarot1, .tarot2 {
+    display: none;
+  }
+  .visible-tag.card1.active, .visible-tag.card2.active, 
+  .visible-tag.tarot1.active, .visible-tag.tarot2.active, 
+  #item-Insignia.visible-tag, #item-Pact.visible-tag {
+    display: flex;
+  }
+
+  .slot-toggle {
+    display: flex;
+  }
+  #top-container{
+    justify-content: space-between;
   }
 }

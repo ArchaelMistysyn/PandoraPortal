@@ -236,6 +236,9 @@ header {
 .hidden-tag {
   display: none;
 }
+.visible-tag {
+  display: flex;
+}
 
 .tier-1,
 .tier-1 td {
