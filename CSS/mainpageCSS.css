@@ -78,7 +78,7 @@ header {
     }
 }
 
-@media (max-height: 800px) {
+@media (max-height: 650px) {
     .card {
         height: 150px;
     }
