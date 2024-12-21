@@ -27,6 +27,7 @@ header {
     height: calc(100vh - 160px);
     width: 100%;
     overflow-y: auto;
+    position: relative;
 }
 
 .grid-layout {
@@ -73,18 +74,19 @@ header {
         height: 200px;
     }
     .grid-layout {
-        height: 520px;
+        height: 640px;
         gap: 20px;
     }
 }
 
-@media (max-height: 650px) {
-    .card {
-        height: 150px;
-    }
+@media (max-height: 800px) {
     .grid-layout {
-        height: 490px;
-        gap: 20px;
+        padding-top: 40px; /* gap offset */
+        grid-template-columns: 1fr;
+        width: 400px;
+    }
+    .card{
+        min-width: 400px;
     }
 }
 
