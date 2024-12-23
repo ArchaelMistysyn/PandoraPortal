@@ -507,6 +507,7 @@
   justify-content: flex-start;
   height: 490px;
   gap: 12px;
+  position: relative;
 }
 
 .side-detail-list {
@@ -1068,54 +1069,95 @@
   color: #c20c0c;
 }
 
+.appli-image {
+  opacity: 0.5;
+  width: 250px;
+  height: 250px;
+  position:absolute;
+  bottom: 25px;
+  left: 50%;
+  transform:translateX(-50%);
+}
+
 .appBox-Elemental {
   color: #00bfff; /* Deep Sky Blue */
   border: 2px solid #00bfff;
+}
+.appBox-Elemental .appli-image {
+  background-image: url("");
 }
 
 .appBox-Critical {
   color: #ffd700; /* Yellow */
   border: 2px solid #ffd700;
 }
+.appBox-Critical .appli-image {
+  background-image: url("");
+  background-size: cover;
+}
 
 .appBox-Bleed {
   color: #ff4500; /* Orange-Red */
   border: 2px solid #ff4500;
+}
+.appBox-Bleed .appli-image {
+  background-image: url("");
 }
 
 .appBox-Ultimate {
   color: #9370db; /* Medium Purple */
   border: 2px solid #9370db;
 }
+.appBox-Ultimate .appli-image {
+  background-image: url("");
+}
 
 .appBox-Mana {
   color: #1e90ff; /* Dodger Blue */
   border: 2px solid #1e90ff;
+}
+.appBox-Mana .appli-image {
+  background-image: url("");
 }
 
 .appBox-Temporal {
   color: #8a2be2; /* Blue Violet */
   border: 2px solid #8a2be2;
 }
+.appBox-Temporal .appli-image {
+  background-image: url("");
+}
 
 .appBox-Combo {
   color: #7fffd4; /* Aquamarine */
   border: 2px solid #7fffd4;
+}
+.appBox-Combo .appli-image {
+  background-image: url("");
 }
 
 .appBox-Aqua {
   color: #00ced1; /* Dark Turquoise */
   border: 2px solid #00ced1;
 }
+.appBox-Aqua .appli-image {
+  background-image: url("");
+}
 
 .appBox-Life {
   color: #ff69b4; /* Hot Pink */
   border: 2px solid #ff69b4;
 }
+.appBox-Life .appli-image {
+  background-image: url("");
+}
 
 .appBox-Bloom {
   color: #228b22;
   border: 2px solid #228b22;
+}
+.appBox-Bloom .appli-image {
+  background-image: url("");
 }
 
 .appli-highlight-Elemental {

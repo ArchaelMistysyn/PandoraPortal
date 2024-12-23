@@ -615,14 +615,14 @@ class PlayerProfile {
 		// Bloom exception, because it's not an application
 		$bloom_is_active = $this->trigger_rate["Bloom"] > 0;
 		$bloom_html = "<div id='section-bloom' class='detail-section appBox-Bloom" . ($bloom_is_active ? "" : " inactive-element") . "'>";
-			$bloom_html .= "<div><h1 class='appli-highlight-Bloom'>Bloom: N/A</h1></div>";
+		$bloom_html .= "<div><h1 class='appli-highlight-Bloom'>Bloom: N/A</h1></div>";
 		$bloom_html .= "</div>";
 		$bloom_side_html = "<div id='side-box-bloom' class='side-detail-list appli-highlight-Bloom appBox-Bloom'>";
-			$bloom_side_html .= "<div class='detail-item app-item player-table-stat'>
-        <div class='stat-section-left'>Bloom Damage:</div>
-        <div class='stat-section-right'>" . number_format(show_num($this->bloom_mult)) . "%</div>
-       </div>";
-			$bloom_side_html .= "<div class='detail-item app-item player-table-stat'>
+		$bloom_side_html .= "<div class='detail-item app-item player-table-stat'>
+			<div class='stat-section-left'>Bloom Damage:</div>
+			<div class='stat-section-right'>" . number_format(show_num($this->bloom_mult)) . "%</div>
+		</div>";
+		$bloom_side_html .= "<div class='detail-item app-item player-table-stat'>
         <div class='stat-section-left'>Bloom Rate:</div>
         <div class='stat-section-right'>" . number_format(show_num($this->trigger_rate["Bloom"])) . "%</div>
       </div>";
@@ -633,54 +633,56 @@ class PlayerProfile {
 		});
 	
 		$html = "<div id='player-info'>" . $this->player_header() . "<div id='player-box-content'>";
-			$html .= "<div class='player-table-title'><span>Application/Trigger Details</span></div>";
-			$html .= "<div id='detail-container'>";
-				$html .= "<div id='main-detail-box'>";
-					$side_html = '';
-					$bloom_inserted = false;
-					$first_active_set = false;
-					foreach ($appli_data as $type => $data) {
-						$appBoxClass = "appBox-" . $type;
-						$is_active = $type === 'Elemental' || ($type === "Critical" && $this->trigger_rate["Critical"] > $this->trigger_rate["Fractal"]);
-						$is_active = $is_active || $this->appli[$type] > 0;
-						$class_modifier = $is_active ? "" : " inactive-element";
-						$highlight_class = "appli-highlight-" . $type;
-						$section_id = "section-" . strtolower($type);
-						$side_detail_id = "side-detail-" . strtolower($type);
-						$box_class = "side-detail-list";
-						// Bloom exception insertion
-						if ($bloom_is_active && !$is_active && !$bloom_inserted) {
-							$html .= $bloom_html;
-							$side_html .= $bloom_side_html;
-							$bloom_inserted = true;
-						}
+		$html .= "<div class='player-table-title'><span>Application/Trigger Details</span></div>";
+		$html .= "<div id='detail-container'>";
+		$html .= "<div id='main-detail-box'>";
+		$side_html = '';
+		$bloom_inserted = false;
+		$first_active_set = false;
+		foreach ($appli_data as $type => $data) {
+			$appBoxClass = "appBox-" . $type;
+			$is_active = $type === 'Elemental' || ($type === "Critical" && $this->trigger_rate["Critical"] > $this->trigger_rate["Fractal"]);
+			$is_active = $is_active || $this->appli[$type] > 0;
+			$class_modifier = $is_active ? "" : " inactive-element";
+			$class_modifier .= $first_active_set ? "" : " focused-element";
+			$highlight_class = "appli-highlight-" . $type;
+			$section_id = "section-" . strtolower($type);
+			$side_detail_id = "side-detail-" . strtolower($type);
+			$box_class = "side-detail-list";
+			// Bloom exception insertion
+			if (!$is_active && !$bloom_inserted) {
+				$html .= $bloom_html;
+				$side_html .= $bloom_side_html;
+				$bloom_inserted = true;
+			}
 
-						$html .= "<div id='{$section_id}' class='detail-section {$appBoxClass}{$class_modifier}'>";
-							$html .= "<div><h1 class='{$highlight_class}'>{$type}: {$this->appli[$type]}</h1></div>";
-						$html .= "</div>";
-						
-						if ($is_active && !$first_active_set) {
-							$box_class = "side-detail-list-active";
-							$first_active_set = true;
-						}
-						$side_html .= "<div id='side-box-" . strtolower($type) . "' class='{$box_class} {$highlight_class} {$appBoxClass}'>";
-						foreach ($data as $item) {
-							$tag = $item['tag'];
-							$value = $item['value'];
-							$value = $tag == "Flat Damage" && $this->appli["Life"] == 0 ? 0 : $value;
-							$no_percentage_tags = ["Capacity", "Flat Damage", "Mana Limit", "Synchronize"];
-							$extension = (!in_array($tag, $no_percentage_tags) && $tag !== "") ? "%" : "";
-							$formatted_value = is_numeric($value) ? "" . number_format($value) : $value;
-							$side_html .= "<div class='detail-item app-item player-table-stat'>
-                <div class='stat-section-left'>{$tag}: </div>
-                <div class='stat-section-right'>" . $formatted_value . "{$extension}</div>
-              </div>";
-						}
-						$side_html .= "</div>";
-					}
-				$html .= "</div>";
-				$html .= "<div id='side-detail-box'>" . $side_html . "</div>";
+			$html .= "<div id='{$section_id}' class='detail-section {$appBoxClass}{$class_modifier}'>";
+			$html .= "<div><h1 class='{$highlight_class}'>{$type}: {$this->appli[$type]}</h1></div>";
 			$html .= "</div>";
+			
+			if ($is_active && !$first_active_set) {
+				$box_class = "side-detail-list-active";
+				$first_active_set = true;
+			}
+			$side_html .= "<div id='side-box-" . strtolower($type) . "' class='{$box_class} {$highlight_class} {$appBoxClass}'>";
+			foreach ($data as $item) {
+				$tag = $item['tag'];
+				$value = $item['value'];
+				$value = $tag == "Flat Damage" && $this->appli["Life"] == 0 ? 0 : $value;
+				$no_percentage_tags = ["Capacity", "Flat Damage", "Mana Limit", "Synchronize"];
+				$extension = (!in_array($tag, $no_percentage_tags) && $tag !== "") ? "%" : "";
+				$formatted_value = is_numeric($value) ? "" . number_format($value) : $value;
+				$side_html .= "<div class='detail-item app-item player-table-stat'>
+								<div class='stat-section-left'>{$tag}: </div>
+								<div class='stat-section-right'>" . $formatted_value . "{$extension}</div>
+								</div>";
+			}
+			$side_html .= "<div class='appli-image'></div>";
+			$side_html .= "</div>";
+		}
+			$html .= "</div>";
+			$html .= "<div id='side-detail-box'>" . $side_html . "</div>";
+		$html .= "</div>";
 		$html .= "</div></div>";
 		return $html;
 	}
@@ -730,7 +732,7 @@ class PlayerProfile {
 					$html .= "<div class='stat-section-left'><img src='/images/Icons/diamonds-four-fill.png' alt='stat icon' class='icon-small stat-icon'/><h3 class='unconditional'>Class Mastery Rate: </h3></div>";
 					$html .= "<div class='stat-section-right'><p>" . number_format(show_num($this->class_multiplier)) . "%</p></div>";
 				$html .= "</div>";
-				// Class Mastery
+				// Class Mastery TOTAL
 				$html .= "<div class='player-table-stat'>";
 					$html .= "<div class='stat-section-left'><img src='/images/Icons/diamonds-four-fill.png' alt='stat icon' class='icon-small stat-icon'/><h3 class='unconditional'>Class Mastery Total: </h3></div>";
 					$html .= "<div class='stat-section-right'><p>" . number_format(show_num($this->total_class_mult)) . "%</p></div>";
@@ -747,7 +749,6 @@ class PlayerProfile {
 				$html .= "</div>";
 			$html .= "</div>";
 		$html .= "</div></div>";
-
 		return $html;
 	}
 	
