@@ -6,8 +6,6 @@
     <title>Pandora Portal - Gallery</title>
     <link rel="stylesheet" href="CSS/generalpageCSS.css">
     <link rel="stylesheet" href="CSS/galleryCSS.css">
-    <link rel="stylesheet" href="CSS/generalpageCSS.css">
-    <link rel="stylesheet" href="CSS/galleryCSS.css">
     <link rel="icon" type="img/ico" href="./images/favicon.ico">
 </head>
 <body>
@@ -24,21 +22,12 @@
           <div class="tab-menu" id="tabMenu"></div>
         </div>
         <div id="display-container">
-          <div id="display-content">
-            <div id="display-content__img">
-              <img id="display-content__expand" src="/images/Icons/arrows-out-fill.png"></img>
-            </div>
+          <div id="tab-content">
           </div>
         </div>
       </div>
-      <div id="gallery-bottom-container">
-        <div id="carousel-container">
-          <button id="carousel-prev" class="carousel-control"><img src="/images/Icons/arrow-square-left-fill.png" alt="carousel left"></button>
-          <div id="tab-content" class="carousel"></div>
-          <button id="carousel-next" class="carousel-control"><img src="/images/Icons/arrow-square-right-fill.png" alt="carousel right"></button>
-        </div>
-      </div>
     </div>
+    <!-- <img id="display-content__expand" src="/images/Icons/arrows-out-fill.png"></img> -->
   </main>
 	<script>
         const subcontentFolder = "galleryPages";
