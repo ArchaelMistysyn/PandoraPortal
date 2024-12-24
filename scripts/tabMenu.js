@@ -59,13 +59,15 @@ function initializeTabMenu() {
 }
 
 function selectSubTab(mainTab, subTabElement) {
+  const tabContent = document.getElementById("tab-content");
   const currentSelected = tabMenu.querySelector(".selected");
   if (currentSelected) {
     currentSelected.classList.remove("selected");
   }
-  subTabElement.classList.add("selected");
+  subTabElement.classList.add("selected");  
 
   const subTab = subTabElement.textContent.trim();
+  tabContent.className = subTab;
   let filePath = `./${subcontentFolder}/${mainTab}/${subTab}.html`;
   fetch(filePath)
     .then((response) => {

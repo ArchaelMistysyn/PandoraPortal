@@ -38,30 +38,41 @@
   background-color: #111;
 }
 
-
 .search-category {
   display: contents;
 }
 #tab-content {
   display: grid;
-  grid-auto-columns: 2fr;
+  justify-content: center;
   position: relative;
-  row-gap: 20px;
+  row-gap: 15px;
   column-gap: 20px;
-  width: 95%;
+  width: 100%;
   margin: 20px auto;
 }
-#tab-content img {
+#tab-content.Dragons, #tab-content.Banners, #tab-content.Locations {
+  grid-template-columns: repeat(auto-fill, minmax(250px, auto));
+}
+#tab-content.Paragons {
+  grid-template-columns: repeat(auto-fill, minmax(150px, auto));
+}
+#tab-content.Items, #tab-content.Thumbnails, #tab-content.Misc,
+#tab-content.Weapons, #tab-content.Equipment, #tab-content.Rings {
+  grid-template-columns: repeat(auto-fill, minmax(75px, auto));
+}
+
+.gallery-img {
+  display: inline-block;
+  position: relative;
   cursor: pointer;
   object-fit: cover;
   border: 2px solid transparent;
   transition: border-color 0.3s ease;
   border-color: white;
 }
-
 .gallery-img.display-icon {
-  width: 106px;
-  height: 106px;
+  width: 72px;
+  height: 72px;
 }
 .gallery-img.display-portrait {
   width: 150px;
@@ -70,6 +81,34 @@
 .gallery-img.display-landscape {
   width: 250px;
   height: 170px;
+}
+
+.preview-div {
+  position:relative;
+  transition: all 0.3s;
+}
+.preview-div::before {
+  content: "";
+  display: block;
+  left: 10px;
+  top: 10px;
+  width: 10px;
+  height: 10px;
+  background: url(../images/Icons/arrows-out-fill.png) no-repeat center center;
+  background-size: contain;
+  opacity: 0;
+  position: absolute;
+  z-index: 9999;
+  transition: all 0.5s;
+  filter: brightness(1);
+}
+.preview-div:hover .gallery-img{
+  filter: brightness(0.5);
+}
+.preview-div:hover::before {
+  opacity: 1;
+  width: 50px;
+  height: 50px;
 }
 
 #tab-content__img {
