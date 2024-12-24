@@ -32,7 +32,7 @@
 	<script>
         const subcontentFolder = "galleryPages";
         const segments = {
-            Bosses: ["Dragons", "Paragons"],
+            Bosses: ["Dragons", "Paragons", "Arbiters"],
             Displays: ["Banners", "Locations"],
             Gear: ["Weapons", "Equipment", "Rings"],
             Icons: ["Items", "Thumbnails", "Misc"]
