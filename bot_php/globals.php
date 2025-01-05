@@ -331,8 +331,8 @@
 
 	// Artist Data List
 	$artist_numerals = [
-		"Daerun" => ["III", "VI", "XIV"],
-		"Heng Ming Chiun" => ["XV"],
-		"Alina Arkhipova" => []
+		"Daerun" => ["III", "VI", "XIV", "XXIV"],
+		"Heng Ming Chiun" => ["IV", "XV"],
+		"Alina Arkhipova" => ["XXVIII"]
 	];	
 ?>
