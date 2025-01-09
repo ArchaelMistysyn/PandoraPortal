@@ -14,6 +14,7 @@
     <div id="lightbox" class="lightbox hidden">
       <span id="lightbox-close" class="lightbox-close">&times;</span>
       <div class="lightbox-main-content"><img id="lightbox-image" class="" src="" alt="Lightbox Image" /></div>
+      <div id="info-box"></div>
     </div>
     <div id="gallery-main-container">
       <div id="gallery-top-container">
@@ -27,7 +28,6 @@
         </div>
       </div>
     </div>
-    <!-- <img id="display-content__expand" src="/images/Icons/arrows-out-fill.png"></img> -->
   </main>
 	<script>
         const subcontentFolder = "galleryPages";
