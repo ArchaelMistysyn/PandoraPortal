@@ -48,7 +48,7 @@
 				'current_exp' => fn($data) => "<td>" . number_format($data['player_exp']) . "</td>",
 				'max_exp' => fn($data) => "<td>" . number_format(get_max_exp($data['player_level'])) . "</td>"]],
 		'end_fields' => [
-        	'action' => fn($data) => "<td class='button-cell'><div><form method='post' action='characters.php'>
+        	'action' => fn($data) => "<td class='button-cell'><div><form method='get' action='characters.php'>
                                     		<input type='hidden' name='search_input' value='{$data['player_id']}'>
                                     		<button type='submit' class='input-button'>View</button>
                                   		</form></div></td>"]
