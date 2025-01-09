@@ -115,8 +115,6 @@
 </head>
 <body id="page-body">
 	<header id="header"></header>
-<body id="page-body">
-	<header id="header"></header>
     <!-- Main Content Section -->
     <main id="character-main">
 		<div id="top-container">
