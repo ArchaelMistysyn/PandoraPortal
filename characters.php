@@ -33,8 +33,8 @@
 	$details_stats_html = '';
 	$misc_stats_html = '';
 	
-	if ($_SERVER["REQUEST_METHOD"] == "POST") {
-		$search_input = $_POST['search_input'];
+	if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['search_input']) && ctype_digit($_GET['search_input'])) {
+		$search_input = (int)$_GET['search_input'];
 		$player_profile = get_player_by_id($search_input, "all");
 		if ($player_profile && $player_profile->player_id != 0) {
 			$player_id = $player_profile->player_id;
@@ -133,7 +133,7 @@
 				<div id="character-box-container">
 					<div id="detail-box"><div id="player-info">
 						<div id="char-name-section">
-							<form id="filter-form" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+							<form id="filter-form" method="get" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
 								<input type="text" autocomplete="off" name="search_input" placeholder="Enter Player ID/Username or Discord ID" required>
 								<button type="submit" class="input-button">Search</button>
 							</form>
