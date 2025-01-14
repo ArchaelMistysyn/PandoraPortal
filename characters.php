@@ -32,6 +32,7 @@
 	$defence_stats_html = '';
 	$details_stats_html = '';
 	$misc_stats_html = '';
+	$total_gear_score  = 0;
 	
 	if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['search_input'])) {
 		$search_input = trim($_GET['search_input']);
@@ -68,11 +69,17 @@
 						}
 					}
 				}
+				foreach ($equipped_items as $item) {
+					$total_gear_score += $item->get_gear_score();
+				}
+				foreach ($equipped_gems as $gem) {
+					$total_gear_score += $gem->get_gear_score();
+				}
 			}
 			$resonance = check_resonance($equipped_items["W"] ?? null, $equipped_items["R"] ?? null);
 			$tarot_card = get_tarot_by_id($player_profile, $resonance);
 			$player_profile->get_player_multipliers();
-			$player_main_html = $player_profile->display_player($equipped_items["W"] ?? null);
+			$player_main_html = $player_profile->display_player($equipped_items["W"] ?? null, $total_gear_score);
 			$element_stats_html = $player_profile->display_element_stats($equipped_items["W"] ?? null);
 			$resist_stats_html = $player_profile->display_resistances();
 			$defence_stats_html = $player_profile->display_defences();
