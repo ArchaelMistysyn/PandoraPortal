@@ -33,8 +33,12 @@
 	$details_stats_html = '';
 	$misc_stats_html = '';
 	
-	if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['search_input']) && ctype_digit($_GET['search_input'])) {
-		$search_input = (int)$_GET['search_input'];
+	if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['search_input'])) {
+		$search_input = trim($_GET['search_input']);
+		$search_input = htmlspecialchars($search_input, ENT_QUOTES, 'UTF-8');
+		if (ctype_digit($search_input)) {
+			$search_input = (int)$search_input;
+		}
 		$player_profile = get_player_by_id($search_input, "all");
 		if ($player_profile && $player_profile->player_id != 0) {
 			$player_id = $player_profile->player_id;
@@ -171,34 +175,10 @@
 					$icon_path = isset($equipped_items[$slot_id]) ? $equipped_items[$slot_id]->get_gear_thumbnail($encode_filename = true) : '';
 				}						
 				$background_style = $icon_path ? "background-image: url(\"$icon_path\");" : '';
-        $slot_condition = !empty($icon_path);
-        $class_name = $slot_condition ? 'item-slot-icon' : 'item-slot-icon-empty';
-        $inner_text = $slot_condition ? '' : 'Empty';
+				$slot_condition = !empty($icon_path);
+				$class_name = $slot_condition ? 'item-slot-icon' : 'item-slot-icon-empty';
+				$inner_text = $slot_condition ? '' : 'Empty';
 				echo "<button type='button' id='item-slot-{$slot_id}' class='item-slot-button' onclick='showEquipmentSlot(\"{$slot_id}\")'><span class='{$class_name}' style='{$background_style}'>{$inner_text}</span></button>";
-				}
-			?>
-		</div></div>
-					}
-				?>
-			</div>
-		</div>
-		<div id="bottom-container"><div id="slot-buttons-container">
-			<?php
-				foreach ($slot_types as $slot_id => $type) {
-					if ($slot_id === 'Pact' && !empty($player_profile->player_pact)) {
-						$icon_path = (new Pact($player_profile))->pact_link;
-					} elseif ($slot_id === 'Insignia' && !empty($player_profile->player_insignia)) {
-						$icon_path = (new Insignia($player_profile))->insignia_link;
-					} elseif ($slot_id === 'Tarot' && !empty($player_profile->equipped_tarot)) {
-						$icon_path = (get_tarot_by_id($player_profile, $resonance))->essence_link;
-					} else {
-						$icon_path = isset($equipped_items[$slot_id]) ? $equipped_items[$slot_id]->get_gear_thumbnail($encode_filename = true) : '';
-					}						
-					$background_style = $icon_path ? "background-image: url(\"$icon_path\");" : '';
-					$slot_condition = !empty($icon_path);
-					$class_name = $slot_condition ? 'item-slot-icon' : 'item-slot-icon-empty';
-					$inner_text = $slot_condition ? '' : 'Empty';
-					echo "<button type='button' id='item-slot-{$slot_id}' class='item-slot-button' onclick='showEquipmentSlot(\"{$slot_id}\")'><span class='{$class_name}' style='{$background_style}'>{$inner_text}</span></button>";
 				}
 			?>
 		</div></div>

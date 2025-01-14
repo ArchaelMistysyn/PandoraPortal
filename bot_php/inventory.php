@@ -119,6 +119,7 @@
 			$quality = '';
 			$name = '';
 			$tooltip = '';
+			$base_stat_msg = '';
 			if (preg_match('/^(.*?)\s*(\[[^\]]+\])$/', $this->item_name, $matches)) {
 				$name = $matches[1];
 				$quality = $matches[2];
@@ -148,6 +149,7 @@
 			$html .= "<div class='item-name-badge'>" . $quality . "</div>";
 			$html .= "<div class='item-id-badge'>ID: " . $this->item_id . "</div>";
 			$html .= "<div class='item-tier-badge'>Tier: " . $this->item_tier . "</div>";
+			$html .= "<div class='item-gear-score-badge'><span class='star-symbol'>★</span>: " . $this->get_gear_score() . "</div>";
 			$html .="</div>";
 			// Item Data
 			$html .= "<div class='style-line'></div>";
@@ -173,7 +175,7 @@
 					} else {
 						$display_base_stat = rtrim(rtrim(number_format($this->item_base_stat, 2), '0'), '.');
 					}
-					$bonus_stat_msg = "{$base_type}{$display_base_stat}{$aux_suffix}";
+					$base_stat_msg = "{$base_type}{$display_base_stat}{$aux_suffix}";
 				}
 				$tier_specifier = [5 => "Void", 6 => "Wish", 7 => "Abyss", 8 => "Divine", 9 => "Sacred"];
 				$application_mapping = [
@@ -195,9 +197,8 @@
 					$tooltip = "<span class='tooltip'>{$tooltip}. Final Damage +{$final_damage}%</span>";
 				} else if ($this->item_tier < 5 && in_array($this->item_type, ["G", "C"])) {
 					if (isset($low_tier_skills[$this->item_bonus_stat])) {
-						$bonus_stat_msg = "{$low_tier_skills[$this->item_bonus_stat]['name']} ({$this->item_bonus_stat})";
-						$tooltip = $low_tier_skills[$this->item_bonus_stat]['description'];
-						$tooltip = "<span class='tooltip'>{$tooltip}</span>";
+						$bonus_stat_msg = "{$low_tier_skills[$this->item_bonus_stat]} ({$this->item_bonus_stat})";
+						$tooltip = "<span class='tooltip'>{$low_tier_skills[$this->item_bonus_stat]}</span>";
 					}
 				}
 			} else {
@@ -205,7 +206,13 @@
 				$path_name = $path_names[intval($this->item_bonus_stat)];
 				$bonus_stat_msg = "Path of {$path_name} +{$points_value}";
 			}
-			$html .= "<div class='stat-message'>" . $bonus_stat_msg . $tooltip . "</div><div class='style-line'></div></span>";
+			if (isset($base_stat_msg)) {
+				$html .= "<div class='stat-message'>" . $base_stat_msg . "</div>";
+			}
+			if (isset($bonus_stat_msg)) {
+				$html .= "<div class='stat-message'>" . $bonus_stat_msg . $tooltip . "</div>";
+			}
+			$html .= "<div class='style-line'></div></span>";
 			if ($this->item_type == 'R') {
 				$html .= $this->display_ring_skills();
 			} else {
@@ -332,6 +339,42 @@
 				}
 			}
 		}
+
+		public function get_gear_score() {
+			$tier_score = ($this->item_tier > 8) ? 999 : 0;
+			$enhancement_score = round(($this->item_enhancement / 200) * 1500);
+			$quality_score = 1500;
+			$base_damage_score = 0;
+			$rolls_score = 3000;
+			$base_max = 150000;
+		
+			if ($this->item_base_type !== "R" && strpos($this->item_type, "D") === false) {
+				$quality_score = round(($this->item_quality_tier / 5) * 1500);
+				$base_max = 250000;
+			}
+		
+			$base_stat_max = ($this->item_type === "W") ? 4.0 : (($this->item_type === "A") ? 30.0 : 0);
+			$base_stat_score = ($base_stat_max > 0) ? round(($this->item_base_stat / $base_stat_max) * 1500) : 1500;
+		
+			if ($this->item_base_type === "R" || in_array($this->item_base_type, $GLOBALS['sovereign_item_list'])) {
+				$base_damage_score = 1500;
+			} elseif ($this->base_damage_min > 0 && $this->base_damage_max > 0) {
+				$base_damage_score = round(($this->base_damage_min / $base_max) * 750) +
+									 round(($this->base_damage_max / $base_max) * 750);
+			}
+		
+			if ($this->item_type === "R") {
+				$rolls_score = round(min($this->item_tier, 8) / 8 * 3000);
+			} elseif (!in_array($this->item_base_type, $GLOBALS['sovereign_item_list'])) {
+				$roll_scores = array_map(function ($roll) {
+					return round(min(intval($roll[0]), 8) / 8 * 500);
+				}, $this->item_roll_values);
+				$rolls_score = array_sum($roll_scores);
+			}
+		
+			return $tier_score + $enhancement_score + $quality_score + $base_stat_score + $base_damage_score + $rolls_score;
+		}
+		
 		
 		public function generate_base() {
 			global $weapon_type_dict;
