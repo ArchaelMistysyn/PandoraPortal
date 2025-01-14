@@ -187,7 +187,7 @@
 }
 
 #player-box-content {
-  padding: 1rem;
+  padding: 0.7rem;
 }
 
 .character-icon {
@@ -201,7 +201,7 @@
 
 #player-table {
   color: white;
-  margin-bottom: 1.2rem;
+  margin-bottom: 0.7rem;
 }
 
 .player-table-title {
@@ -212,7 +212,7 @@
   border: var(--border-primary-light);
   background-clip: content-box;
   height: 3rem;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
   color: white;
   font-size: 20px;
   text-shadow: 2px 2px var(--brand-color-secondary);

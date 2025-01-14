@@ -168,7 +168,7 @@ class PlayerProfile {
 		return $html;
 	}
 	
-	public function display_player($w_item) {
+	public function display_player($w_item, $gear_score) {
 		global $path_names, $glyph_data, $path_perks;	
 		if ($this->player_id == 0) {
 			return "<h1>No Character Loaded</h1>";
@@ -196,6 +196,8 @@ class PlayerProfile {
 		$html .= '<tr class="player-table-stat"><td><img src="/images/Icons/diamonds-four-fill.png" alt="stat icon" class="icon-small stat-icon"/>Element Spread:</td><td>' . $this->display_elemental_breakdown($w_item) . '</td></tr>';
 		// Player ID
 		$html .= '<tr class="player-table-stat"><td><img src="/images/Icons/diamonds-four-fill.png" alt="stat icon" class="icon-small stat-icon"/>Player ID:</td><td>' . $this->player_id . '</td></tr>';
+		// Player ID
+		$html .= '<tr class="player-table-stat"><td><img src="/images/Icons/diamonds-four-fill.png" alt="stat icon" class="icon-small stat-icon"/>Total Gear Score:</td><td><span class="star-symbol">★</span> ' . number_format($gear_score) . '</td></tr>';
 		// Base Damage
 		$html .= '<tr class="player-table-stat"><td><img src="/images/Icons/diamonds-four-fill.png" alt="stat icon" class="icon-small stat-icon"/>Base Damage:</td><td>' . number_format($this->player_damage_min) . ' - ' . number_format($this->player_damage_max) . '</td></tr>';
 		// Attack Speed
