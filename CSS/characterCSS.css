@@ -639,6 +639,7 @@
 .item-name-badge,
 .item-id-badge,
 .item-tier-badge,
+.item-gear-score-badge,
 .inactive-badge,
 .active-badge {
   display: flex;
@@ -661,11 +662,17 @@
 .item-tier-badge {
   background: #2a944a;
 }
+.item-gear-score-badge{
+  background: #E1A800;
+}
 .inactive-badge {
   background: rgba(255, 0, 0, 0.562);
 }
 .active-badge {
   background: rgba(94, 255, 0, 0.562);
+}
+.star-symbol{
+  line-height: 1;
 }
 
 .item-thumbnail {
