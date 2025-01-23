@@ -325,8 +325,8 @@
   "Crown of Skulls": {
     "tier": 8,
     "skills": [
-      {"name": "Banquet of Bones"},
-      {"name": "Avaricious Ruin"}
+      {"name": "Avaricious Ruin"},
+      {"name": "Banquet of Bones"}
     ],
     "resonance": "Random",
     "element": [5]
