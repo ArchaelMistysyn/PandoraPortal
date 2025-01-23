@@ -369,7 +369,7 @@
 			$base_stat_max = ($this->item_type === "W") ? 4.0 : (($this->item_type === "A") ? 30.0 : 0);
 			$base_stat_score = ($base_stat_max > 0) ? round(($this->item_base_stat / $base_stat_max) * 1500) : 1500;
 		
-			if ($this->item_type === "R" || in_array($this->item_base_type, $GLOBALS['sovereign_item_list'])) {
+			if ($this->item_type === "R" && in_array($this->item_base_type, $GLOBALS['sovereign_item_list'])) {
 				$base_damage_score = 1500;
 			} elseif ($this->base_damage_min > 0 && $this->base_damage_max > 0) {
 				$base_damage_score = round(($this->base_damage_min / $base_max) * 750) +
