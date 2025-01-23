@@ -129,7 +129,7 @@
 			if (empty ($quality)) {
 				if (in_array($this->item_name, $sovereign_item_list)) {
 					$quality = "[Sovereign]";
-				} else if (array_key_exists($item_name, $ring_skill_data)) {
+				} else if (array_key_exists($this->item_name, $ring_skill_data)) {
 					$ring_tier = $ring_skill_data[$this->item_name]['tier'];
 					$quality = "[" . $ring_category[$ring_tier] . "]";
 				}
@@ -530,7 +530,7 @@
 		}
 		
 		public function get_gear_thumbnail($encode_filename = false) {
-			global $ring_item_type, $sovereign_item_list, $tag_dict;
+			global $ring_item_type, $sovereign_item_list, $tag_dict, $path_names;
 			$folder = $item_tag = $this->item_base_type;
 			$sub_folder = $element_index = "";
 			if (in_array($this->item_base_type, $sovereign_item_list)) {
@@ -544,10 +544,16 @@
 			} elseif ($this->item_type == "R") {
 				$folder = "Ring";
 				$sub_folder = $ring_item_type[$this->item_tier - 1] . "/";
-				if (in_array($item['item_tier'], [4, 5])) {
+				if (in_array($this->item_tier, [4, 5])) {
 					$item_tag = $ring_item_type[$this->item_tier - 1];
 					$elements = explode(';', $this->item_elements);
 					$element_index = array_search('1', $elements);
+				} elseif ($this->item_tier == 6) {
+					$item_tag = $ring_item_type[$this->item_tier - 1];
+					$path_name = trim(explode("Ring of ", $this->item_name)[1] ?? "");
+					$element_index = array_search($path_name, $path_names);
+				} elseif ($this->item_tier == 7) {
+					$item_tag = $this->item_base_type;
 				} else {
 					return null;
 				}
