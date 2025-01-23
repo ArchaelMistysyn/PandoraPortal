@@ -256,7 +256,7 @@
 		}
 
 		public function display_ring_skills() {
-			global $ring_skill_data, $sovereign_item_list, $tarot_data, $keyword_data;
+			global $ring_skill_data, $sovereign_item_list, $tarot_data, $keyword_data, $scaling_rings;
 			if (!isset($this->item_base_type) || !isset($ring_skill_data[$this->item_base_type])) {
 				return "No ring skills found.";
 			}
@@ -273,18 +273,30 @@
 			}
 			$skill_display = "<div class=\"skill-slot tier-$this->item_tier\">Final Damage +$final_damage%</div>";
 			$skill_display .= "<div class=\"skill-slot tier-$this->item_tier\">Attack Speed +$attack_speed%</div>";
+			$scaling_count = 0;
 			foreach ($skills as $skill) {
 				$skill_name = $skill['name'];
-				$skill_value = $skill['value'];
 				$skill_tag = preg_replace('/[\(\[].*?[\)\]]/', '', $skill_name);
 				$skill_tag = trim($skill_tag);
+				if (!isset($skill['value'])) {
+					if (in_array($this->item_base_type, $scaling_rings)) {
+						$scaling_bonus = intval($this->item_roll_values[$scaling_count]);
+						$skill_output = "$skill_name [$scaling_bonus]";
+						$scaling_count++;
+					} else {
+						$skill_output = $skill_name;
+					}
+				} else {
+					$skill_output = $skill_name . " +" . $skill['value'] . "%";
+				}
+				
 				if (isset($keyword_data[$skill_tag])) {
 					$skill_display .= "<div class=\"skill-slot tier-$this->item_tier\">";
-					$skill_display .= "<span class='skill-name'>$skill_name +$skill_value%</span>";
+					$skill_display .= "<span class='skill-name'>$skill_output</span>";
 					$skill_display .= "<span class='tooltip'>{$keyword_data[$skill_tag]['description']}</span>";
 					$skill_display .= "</div>";
 				} else {
-					$skill_display .= "<div class=\"skill-slot tier-$this->item_tier\">$skill_name +$skill_value%</div>";
+					$skill_display .= "<div class=\"skill-slot tier-$this->item_tier\">$skill_output</div>";
 				}
 			}
 			if ($resonance) {
@@ -308,9 +320,9 @@
 			$player_obj->attack_speed += $this->item_tier * 0.05;
 			if (in_array($this->item_base_type, $scaling_rings)) {
 				if ($this->item_base_type == "Chromatic Tears") {
-					$player_obj->all_elemental_mult += intdiv($this->item_roll_values[1], 100);
-					$player_obj->all_elemental_pen += intdiv($this->item_roll_values[1], 100);
-					$player_obj->all_elemental_curse += intdiv($this->item_roll_values[0], 100) + intdiv($this->item_roll_values[1], 100);
+					$player_obj->all_elemental_mult += intdiv(intval($this->item_roll_values[1]), 100);
+					$player_obj->all_elemental_pen += intdiv(intval($this->item_roll_values[1]), 100);
+					$player_obj->all_elemental_curse += intdiv(intval($this->item_roll_values[0]), 100) + intdiv(intval($this->item_roll_values[1]), 100);
 				}
 				return;
 			}
@@ -342,13 +354,14 @@
 
 		public function get_gear_score() {
 			$tier_score = ($this->item_tier > 8) ? 999 : 0;
-			$enhancement_score = round(($this->item_enhancement / 200) * 1500);
+			$enhancement_score = 1500;
 			$quality_score = 1500;
 			$base_damage_score = 0;
 			$rolls_score = 3000;
 			$base_max = 150000;
 		
-			if ($this->item_base_type !== "R" && strpos($this->item_type, "D") === false) {
+			if ($this->item_type !== "R" && strpos($this->item_type, "D") === false) {
+				$enhancement_score = round(($this->item_enhancement / 200) * 1500);
 				$quality_score = round(($this->item_quality_tier / 5) * 1500);
 				$base_max = 250000;
 			}
@@ -356,7 +369,7 @@
 			$base_stat_max = ($this->item_type === "W") ? 4.0 : (($this->item_type === "A") ? 30.0 : 0);
 			$base_stat_score = ($base_stat_max > 0) ? round(($this->item_base_stat / $base_stat_max) * 1500) : 1500;
 		
-			if ($this->item_base_type === "R" || in_array($this->item_base_type, $GLOBALS['sovereign_item_list'])) {
+			if ($this->item_type === "R" || in_array($this->item_base_type, $GLOBALS['sovereign_item_list'])) {
 				$base_damage_score = 1500;
 			} elseif ($this->base_damage_min > 0 && $this->base_damage_max > 0) {
 				$base_damage_score = round(($this->base_damage_min / $base_max) * 750) +

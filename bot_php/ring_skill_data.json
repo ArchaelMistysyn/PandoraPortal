@@ -335,8 +335,7 @@
     "tier": 8,
     "skills": [
       {"name": "Rainbow's End"},
-      {"name": "Cursed Wish"},
-      {"name": "Resonance [The Wish]"}
+      {"name": "Cursed Wish"}
     ],
     "resonance": 25,
     "element": ["all"]
