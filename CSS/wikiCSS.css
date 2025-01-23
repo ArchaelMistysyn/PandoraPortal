@@ -19,7 +19,7 @@
   #wiki {
     height: calc(100vh - 100px);
     width: 100%;
-    overflow-y: auto;
+    overflow-y: scroll;
   }
   #wiki-main-container {
     display: flex;
