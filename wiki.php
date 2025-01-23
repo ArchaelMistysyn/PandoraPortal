@@ -6,14 +6,10 @@
     <title>Pandora Portal - Wiki</title>
 	<link rel="stylesheet" href="CSS/generalpageCSS.css">
     <link rel="stylesheet" href="CSS/wikiCSS.css">
-	<link rel="stylesheet" href="CSS/generalpageCSS.css">
-    <link rel="stylesheet" href="CSS/wikiCSS.css">
     <link rel="icon" type="img/ico" href="./images/favicon.ico">
 </head>
 <body id="page-body">
-<body id="page-body">
     <!-- Header Section -->
-    <header id="header"></header>
     <header id="header"></header>
     <!-- Main Content Section -->
     <main id="wiki-main">
