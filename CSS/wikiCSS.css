@@ -42,11 +42,11 @@
   }
   
   #wiki-content-container {
+    height: calc(100vh - 100px);
     position: relative;
     display: flex;
     justify-content: center;
     margin-top: 10px;
-    height: 100%;
     max-width: 70%;
   }
   
