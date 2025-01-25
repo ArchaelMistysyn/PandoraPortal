@@ -1,0 +1,243 @@
+/* CSS Variables */
+/* Modify and reuse throughout stylesheet */
+  :root {
+    --brand-color-primary: #007bff;
+    --brand-color-secondary: #780ac3;
+    --brand-color-3: #ff0000;
+    --brand-color-4: #ff1493;
+    --brand-color-5: #ffc107;
+    --brand-color-6: #da9932;
+  
+    --bg-gradient-primary: linear-gradient(#110eb8, #1c117e, #09086b);
+    --bg-gradient-secondary: linear-gradient(#1e1e1e, #111111);
+    --bg-gradient-tertiary: linear-gradient(#da9932, #ae7a28);
+  
+    --bg-gradient-dark: linear-gradient(#2f2f2f, black);
+    --border-primary-light: 1px solid rgba(255, 255, 255, 0.15);
+  }
+
+  @font-face {
+    font-family: "PandoraDiamond";
+    src: url("../font/PandoraDiamond/PandoraDiamond.woff2") format("woff2"),
+      url("../font/PandoraDiamond/PandoraDiamond.woff") format("woff");
+  }
+
+
+  /* GENERAL CSS */
+  ::-webkit-scrollbar {
+    width: 12px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: #111;
+    border-radius: 10px;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: #9932cc;
+    border-radius: 10px;
+    border: 3px solid #111;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: #00bfff;
+  }
+  
+  html {
+    scrollbar-width: thin;
+    scrollbar-color: #9932cc #111;
+    background-color: #111;
+  }
+
+  body {
+    height: 100vh;
+    background-color: #111;
+    background-image: url("https://www.PandoraPortal.ca/images/spatialBG.webp");
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+  
+  main {
+    height: 100vh;
+    width: 100%;
+    overflow-y: auto;
+  }
+  
+  * {
+    margin: 0;
+    padding: 0;
+    color: white;
+    box-sizing: border-box;
+    font-family: PandoraDiamond;
+  }
+  
+  .unselectable {
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+  }
+
+  #status-id {
+    position: absolute;
+    font-size: 1.1rem;
+    left: 20px;
+    bottom: 10px;
+    border: 2px solid lime;
+    background-color:rgba(0, 0, 0, 0.6);
+    padding: 5px;
+  }
+  #status-error {
+    font-size: 2rem;
+    border: 2px solid red;
+    background-color:rgba(0, 0, 0, 0.6);
+    padding: 15px;
+  }
+  
+  /* Bottom-Menu CSS */
+  #bottom-menu {
+    position: relative;
+    background-color: black;
+    border: 2px solid violet;
+    height: 250px;
+    width: 100%;
+    gap: 20px;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  #bottom-menu a {
+    position: relative;
+    display: inline-block;
+    font-family: PandoraDiamond;
+    font-size: 2.4rem;
+    height: 80px;
+    width: 200px;
+    text-align: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    transition: color 0.3s;
+    border: 1px solid white;
+    text-shadow: 1px 1px black;
+  }
+  
+  #bottom-menu a span {
+    position: relative;
+    background-color: rgba(0, 0, 0, 0.3);
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 4;
+    }
+
+#bottom-menu a::before {
+  content: "";
+  position: absolute;
+  display: inline-block;
+  background-size: cover;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.button-green::before {
+  background-image: url("../images/Button/Button_Emerald.webp");
+}
+.button-gold::before {
+  background-image: url("../images/Button/Button_Gold.webp");
+}
+.button-amethyst::before {
+  background-image: url("../images/Button/Button_Amethyst.webp");
+}
+.button-azure::before {
+  background-image: url("../images/Button/Button_Azure.webp");
+}
+.button-ruby::before {
+  background-image: url("../images/Button/Button_Ruby.webp");
+}
+.button-pink::before {
+  background-image: url("../images/Button/Button_Pink.webp");
+}
+
+#bottom-menu .button-green:hover span {
+  background-color: rgba(2, 165, 2, 0.3);
+}
+#bottom-menu .button-gold:hover span {
+  background-color: rgba(255, 193, 7, 0.3);
+}
+#bottom-menu .button-amethyst:hover span {
+  background-color: rgba(120, 10, 195, 0.3);
+}
+#bottom-menu .button-azure:hover span {
+  background-color: rgba(0, 123, 255, 0.3);
+}
+#bottom-menu .button-ruby:hover span {
+  background-color: rgba(255, 0, 0, 0.3);
+}
+#bottom-menu .button-pink:hover span {
+  background-color: rgba(255, 20, 147, 0.3);
+}
+
+
+ /* LAYOUT CSS */
+  #play-main {
+    position: relative;
+    border: 2px solid green;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 25px;
+    padding: 25px;
+  }
+  #left-interface, #right-interface {
+    position: relative;
+    background-color: black;
+    border: 2px solid yellow;
+    height: 100%;
+    width: 350px;
+  }
+  #main-interface {
+    position: relative;
+    border: 2px solid red;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 25px;
+  }
+
+  #primary-content {
+    position: relative;
+    background-color: black;
+    border: 2px solid blue;
+    flex: 1;
+    width: 100%;
+  }
+
+/* MEDIA QUERIES */
+@media (max-width: 2000px) {
+  #left-interface {
+    display: none;
+  }
+  #bottom-menu {
+    height: 140px;
+    padding: 20px;
+  }
+  #bottom-menu a {
+    font-size: 1.6rem;
+    height: 60px;
+    width: 130px;
+  }
+}
+
+
