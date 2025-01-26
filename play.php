@@ -34,19 +34,24 @@
 	<link rel="icon" type="img/ico" href="./images/favicon.ico">
 </head>
 <body id="play-body">
-    <main id="play-main">
-        <div id="left-interface">Optional Space/Banner, hideable on smaller screen</div>
+    <div id="interface-screen"></div>
+    <main id="play-main">   
+        <div id="left-spacer"></div>
         <div id="main-interface">
-            <div id="primary-content"></div>
+            <div id="primary-content">
+                <?php if ($logged_in){
+                    echo "<div id='loadscreen'></div>";
+                    echo "<div id='status-id'>UID: " . htmlspecialchars($player_profile->discord_id) . "</div>";
+                } ?>
+            </div>
             <div id="bottom-menu">
                 <?php if ($logged_in){
-                    $menu = "<div id='status-id'>UID: " . htmlspecialchars($player_profile->discord_id) . "</div>";
-                    $menu .= '<a href="#" class="button-green"><span>Travel</span></a>';
-                    $menu .= '<a href="#" class="button-amethyst"><span>Quest</span></a>';
-                    $menu .= '<a href="#" class="button-ruby"><span>Battle</span></a>';
-                    $menu .= '<a href="#" class="button-azure"><span>Gear</span></a>';
-                    $menu .= '<a href="#" class="button-gold"><span>Inventory</span></a>';
-                    $menu .= '<a href="#" class="button-pink"><span>Lore</span></a>';
+                    $menu = '<a href="#" class="button-green" onclick="onTravel()"><span>Travel</span></a>';
+                    $menu .= '<a href="#" class="button-amethyst" onclick="onQuest()"><span>Quest</span></a>';
+                    $menu .= '<a href="#" class="button-ruby" onclick="onBattle()"><span>Battle</span></a>';
+                    $menu .= '<a href="#" class="button-azure" onclick="onGear()"><span>Gear</span></a>';
+                    $menu .= '<a href="#" class="button-gold" onclick="onInventory()"><span>Inventory</span></a>';
+                    $menu .= '<a href="#" class="button-pink" onclick="onLore()"><span>Lore</span></a>';
                     echo $menu;
                 } else {
                     echo "<div id='status-error'>Login Required</div>";
@@ -54,7 +59,8 @@
                 
             </div>
         </div>
-        <div id="right-interface">Primary Select Menu</div>
+        <div id="right-spacer"></div>
     </main>
+    <script src="./scripts/play_buttons.js"></script>
 </body>
 </html>
