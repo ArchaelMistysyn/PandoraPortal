@@ -1218,6 +1218,13 @@
   font-size: 20px;
 }
 
+.bonus {
+  background-color: rgba(0, 255, 0, 0.1);
+}
+.penalty {
+  background-color: rgba(255, 0, 0, 0.1);
+}
+
 /* Media Queries - For 125% Scaling at 1920 x 1080 */
 @media (max-width: 1868px) {
   main {

@@ -40,10 +40,10 @@
 		$pact_output .= "<div class='style-line'></div>";
 		$pact_output .= "<div class='stat-message'>- - -</div><div class='stat-message'>- - -</div>";
 		$pact_output .= "<div class='style-line'></div>";
-		$pact_output .= "<div class='bonus skill-slot tier-" . $pact->pact_tier . "'>" . $pact->bonus1 . "</div>";
-		$pact_output .= "<div class='bonus skill-slot tier-" . $pact->pact_tier . "'>" . $pact->bonus2 . "</div>";
-		$pact_output .= "<div class='penalty skill-slot tier-" . $pact->pact_tier . "'>" . $pact->penalty1 . "</div>";
-		$pact_output .= "<div class='penalty skill-slot tier-" . $pact->pact_tier . "'>" . $pact->penalty2 . "</div>";
+		$pact_output .= "<div class='bonus skill-slot tier-" . $pact->pact_tier . "'>Double: " . $pact->bonus1 . "</div>";
+		$pact_output .= "<div class='bonus skill-slot tier-" . $pact->pact_tier . "'>Double: " . $pact->bonus2 . "</div>";
+		$pact_output .= "<div class='penalty skill-slot tier-" . $pact->pact_tier . "'>Half: " . $pact->penalty1 . "</div>";
+		$pact_output .= "<div class='penalty skill-slot tier-" . $pact->pact_tier . "'>Half: " . $pact->penalty2 . "</div>";
 		$skills =  ["damage-13", "unique-4-s"];
 		foreach ($skills as $skill) {
 			$skill_name = $skill_data[$skill][0];
