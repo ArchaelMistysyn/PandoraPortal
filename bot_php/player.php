@@ -565,6 +565,7 @@ class PlayerProfile {
 		['label' => 'Damage Mitigation', 'value' => number_format($this->damage_mitigation, 1)],
 		['label' => 'Block Rate', 'value' => number_format(round($this->block * 100), 1)],
 		['label' => 'Dodge Rate', 'value' => number_format(round($this->dodge * 100), 1)],
+		['label' => 'Immortal', 'value' => $this->immortal ? 'Active' : 'Inactive']
 		];
 		foreach ($stats as $stat) {
 			$html .= "<div class='defense-section player-table-stat'>";
@@ -891,7 +892,6 @@ function get_oath_data($player_id) {
     $query = "SELECT oath_data FROM MiscPlayerData WHERE player_id = " . intval($player_id);
     $result = run_query($query);
 	if (!empty($result) && isset($result[0]['oath_data'])) {
-        echo "<div class='highlight-text'>" . $result[0]['oath_data'] . "</div>"; // Debugging Output
         $oath_data = explode(';', $result[0]['oath_data']);
         return array_map('intval', $oath_data);
     }
