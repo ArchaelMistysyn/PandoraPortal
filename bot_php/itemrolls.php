@@ -29,7 +29,8 @@
 				$current = $category_dict[0];
 				$current_roll = $current[$this->roll_code];
 				$this->roll_value = $current_roll[1] * $roll_adjust;
-				$this->roll_msg = "{$current_roll[0]} " . intval(round($this->roll_value * 100)) . "%";
+				$roll_percentage = $this->roll_value * 100;
+				$this->roll_msg = "{$current_roll[0]} " . (floor($roll_percentage) == $roll_percentage ? intval($roll_percentage) : number_format($roll_percentage, 1)) . "%";
 				$this->roll_name = $current_roll[0];
 				return;
 			}
