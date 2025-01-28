@@ -7,6 +7,7 @@ class PlayerProfile {
     public $player_class;
     public $player_quest, $quest_tokens;
     public $player_coins, $player_stamina, $luck_bonus;
+	public $player_oath_num;
 
     // Player gear/stats info
     public $player_stats, $gear_points, $player_equipped;
@@ -67,6 +68,7 @@ class PlayerProfile {
         $this->player_coins = 0;
         $this->player_stamina = 0;
         $this->luck_bonus = 0;
+		$this->player_oath_num = -1;
 
         $this->player_stats = array_fill(0, 9, 0);
         $this->gear_points = array_fill(0, 9, 0);
@@ -184,7 +186,7 @@ class PlayerProfile {
 	
 		$html = '<div id="player-info">';
 		$html .= $this->player_header();
-    $html .= '<div id="player-box-content">';
+    	$html .= '<div id="player-box-content">';
 		$html .= '<table id="player-table">';
 		$html .= '<tr class="player-table-title"><th colspan="2">GENERAL STATS</th></tr>';
 		// Experience
@@ -203,8 +205,12 @@ class PlayerProfile {
 		// Attack Speed
 		$html .= '<tr class="player-table-stat"><td><img src="/images/Icons/diamonds-four-fill.png" alt="stat icon" class="icon-small stat-icon"/>Attack Speed:</td><td>' . number_format(round(floor($this->attack_speed * 10) / 10, 2), 2) . ' / min</td></tr>';
 		// Oath
-		$oath = "Eleuia's Oath";
-		$html .= '<tr class="player-table-stat"><td><img src="/images/Icons/diamonds-four-fill.png" alt="stat icon" class="icon-small stat-icon"/>Oath [Add Later]:</td><td>' . $oath . '</td></tr>';
+		$oath_labels = [0 => "Pandora's Oath", 1 => "Thana's Oath", 2 => "Eleuia's Oath"];
+		$oath_label = "Oathless";
+		if (isset($this->player_oath_num) && array_key_exists($this->player_oath_num, $oath_labels)) {
+			$oath_label = $oath_labels[$this->player_oath_num];
+		}
+		$html .= '<tr class="player-table-stat"><td><img src="/images/Icons/diamonds-four-fill.png" alt="stat icon" class="icon-small stat-icon"/>Oath:</td><td>' . $oath_label . '</td></tr>';
 		// Lotus Coins
 		$formatted_coin_value = number_format($this->player_coins);
 		$html .= '<tr class="player-table-stat"><td><img src="./gallery/Icons/Misc/Lotus Coin.webp" alt="Coins" class="icon-small stat-icon"/>Lotus Coins:</td><td> ' . $formatted_coin_value . '</td></tr>';
@@ -264,16 +270,18 @@ class PlayerProfile {
 			1 => ["Immortal", "Life", "Mana"],
 			2 => ["Elemental", "Elemental"]
 		];
-		/*$oath_data = $this->get_oath_data();
+		$oath_data = get_oath_data($this->player_id);
 		if (in_array(3, $oath_data)) {
-			foreach ($oath_bonus[array_search(3, $oath_data)] as $bonus) {
+			$oath_index = array_search(3, $oath_data);
+			$this->player_oath_num = $oath_index;
+			foreach ($oath_bonus[$oath_index] as $bonus) {
 				if ($bonus == "Immortal") {
 					$this->immortal = true;
 				} else {
 					$this->appli[$bonus] += 1;
 				}
 			}
-		}*/
+		}
 		// Item Multipliers
 		$e_item = [];
 		$equipped_gem_ids = [];
@@ -477,8 +485,8 @@ class PlayerProfile {
 	public function display_element_stats($w_item = null) {
 		global $element_names;
 		$html = $this->player_header();
-    $html .= '<div id="player-box-content">';
-    $html .= '<div class="player-table-title"><span>Elements</span></div>';
+    	$html .= '<div id="player-box-content">';
+    	$html .= '<div class="player-table-title"><span>Elements</span></div>';
 		$element_breakdown = [];
 		$total_contribution = 0;
 		$temp_element_list = $w_item ? limit_elements($this, $w_item) : array_fill(0, 9, false);
@@ -551,6 +559,7 @@ class PlayerProfile {
 		$html .= '<div class="player-table-title"><span>Defences</span></div>';
 		$html .= "<div id='defensive-stats'>";
 		$stats = [
+		['label' => 'Max HP', 'value' => number_format(round($this->player_mHP))],
 		['label' => 'HP Regen', 'value' => number_format(round($this->hp_regen * $this->player_mHP))],
 		['label' => 'Recovery', 'value' => number_format($this->recovery)],
 		['label' => 'Damage Mitigation', 'value' => number_format($this->damage_mitigation, 1)],
@@ -625,9 +634,9 @@ class PlayerProfile {
 			<div class='stat-section-right'>" . number_format(show_num($this->bloom_mult)) . "%</div>
 		</div>";
 		$bloom_side_html .= "<div class='detail-item app-item player-table-stat'>
-        <div class='stat-section-left'>Bloom Rate:</div>
-        <div class='stat-section-right'>" . number_format(show_num($this->trigger_rate["Bloom"])) . "%</div>
-      </div>";
+			<div class='stat-section-left'>Bloom Rate:</div>
+			<div class='stat-section-right'>" . number_format(show_num($this->trigger_rate["Bloom"])) . "%</div>
+		</div>";
 		$bloom_side_html .= "</div>";
 
 		uksort($appli_data, function($a, $b) {
@@ -671,7 +680,7 @@ class PlayerProfile {
 				$tag = $item['tag'];
 				$value = $item['value'];
 				$value = $tag == "Flat Damage" && $this->appli["Life"] == 0 ? 0 : $value;
-				$no_percentage_tags = ["Capacity", "Flat Damage", "Mana Limit", "Synchronize"];
+				$no_percentage_tags = ["Capacity", "Flat Damage Bonus", "Mana Limit", "Synchronize"];
 				$extension = (!in_array($tag, $no_percentage_tags) && $tag !== "") ? "%" : "";
 				$formatted_value = is_numeric($value) ? "" . number_format($value) : $value;
 				$side_html .= "<div class='detail-item app-item player-table-stat'>
@@ -878,5 +887,15 @@ function show_num($input_number, $adjust = 100) {
     return intval(round($input_number * $adjust));
 }
 
+function get_oath_data($player_id) {
+    $query = "SELECT oath_data FROM MiscPlayerData WHERE player_id = " . intval($player_id);
+    $result = run_query($query);
+	if (!empty($result) && isset($result[0]['oath_data'])) {
+        echo "<div class='highlight-text'>" . $result[0]['oath_data'] . "</div>"; // Debugging Output
+        $oath_data = explode(';', $result[0]['oath_data']);
+        return array_map('intval', $oath_data);
+    }
+    return [1, 0, 0];
+}
 
 ?>

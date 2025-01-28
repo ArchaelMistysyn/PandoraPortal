@@ -280,7 +280,7 @@
 	$card_variant = ["Empty", "Prelude", "Emergence", "Chromatic", "Prismatic", "Resplendent", "Iridescent", "Transcendent", "Masterpiece"];
 	$gem_point_dict = [1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 6, 6 => 8, 7 => 10, 8 => 15, 9 => 20];
 	$tarot_damage = [0, 5000, 25000, 50000, 100000, 250000, 500000, 750000, 1000000];
-	$tarot_hp = [0, 1000, 2500, 5000, 7500, 10000, 15000, 25000, 50000];
+	$tarot_hp = [0, 5000, 1000, 1500, 2000, 2500, 5000, 10000, 20000];
 	$tarot_fd = [0, 10, 20, 30, 40, 50, 70, 100, 200];
 	$tarot_point_values = [0, 1, 2, 3, 4, 5, 7, 10, 20];
 	$insignia_name_list = [null, "Monolith", "Dyadic", "Trinity", "Tetradic", "Pentagram", null, null, null, "Refraction"];
