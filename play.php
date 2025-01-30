@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
-	// Inclusions
+	// Web Inclusions
 	include_once('./bot_php/db_queries.php');
 	include_once('./bot_php/globals.php');
 	include_once('./bot_php/player.php');
@@ -23,6 +23,7 @@
     $verified_user_id = 23; /* Apply login system later. */
     $player_profile = get_player_by_id($verified_user_id);
 	if ($player_profile && $player_profile->player_id != 0) {
+        $_SESSION['player_id'] = $verified_user_id;
         $logged_in = True;
     }
 ?>
@@ -41,6 +42,21 @@
             <div id="primary-content">
                 <?php if ($logged_in){
                     echo "<div id='loadscreen'></div>";
+                    echo '<div id="inventory-container">
+                        <div id="inventory-menu">
+                            <button class="sort-button" onclick="onInventory(\'Crafting\')">Crafting</button>
+                            <button class="sort-button" onclick="onInventory(\'Fae Cores\')">Fae Cores</button>
+                            <button class="sort-button" onclick="onInventory(\'Materials\')">Materials</button>
+                            <button class="sort-button" onclick="onInventory(\'Unprocessed\')">Unprocessed</button>
+                            <button class="sort-button" onclick="onInventory(\'Essences\')">Essences</button>
+                            <button class="sort-button" onclick="onInventory(\'Summoning\')">Summoning</button>
+                            <button class="sort-button" onclick="onInventory(\'Gemstone\')">Gemstone</button>
+                            <button class="sort-button" onclick="onInventory(\'Fish\')">Fish</button>
+                            <button class="sort-button" onclick="onInventory(\'Misc\')">Misc</button>
+                            <button class="sort-button" onclick="onInventory(\'Ultra Rare\')">Ultra Rare</button>
+                            <button class="sort-button" onclick="onInventory()">Show All</button>
+                        </div>
+                    <div id="inventory-screen"></div></div>';
                     echo "<div id='status-id'>UID: " . htmlspecialchars($player_profile->discord_id) . "</div>";
                 } ?>
             </div>
