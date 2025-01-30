@@ -1,0 +1,1353 @@
+{
+    "Fae0": {
+        "item_id": "Fae0",
+        "name": "Fae Core (Fire)",
+        "tier": 1,
+        "description": "The core harvested from a fire fae spirit. Brimming with elemental energies.",
+        "cost": 500,
+        "success_rate": 100,
+        "category": "Fae"
+    },
+    "Fae1": {
+        "item_id": "Fae1",
+        "name": "Fae Core (Water)",
+        "tier": 1,
+        "description": "The core harvested from a water fae spirit. Brimming with elemental energies.",
+        "cost": 500,
+        "success_rate": 100,
+        "category": "Fae"
+    },
+    "Fae2": {
+        "item_id": "Fae2",
+        "name": "Fae Core (Lightning)",
+        "tier": 1,
+        "description": "The core harvested from a lightning fae spirit. Brimming with elemental energies.",
+        "cost": 500,
+        "success_rate": 100,
+        "category": "Fae"
+    },
+    "Fae3": {
+        "item_id": "Fae3",
+        "name": "Fae Core (Earth)",
+        "tier": 1,
+        "description": "The core harvested from an earth fae spirit. Brimming with elemental energies.",
+        "cost": 500,
+        "success_rate": 100,
+        "category": "Fae"
+    },
+    "Fae4": {
+        "item_id": "Fae4",
+        "name": "Fae Core (Wind)",
+        "tier": 1,
+        "description": "The core harvested from a wind fae spirit. Brimming with elemental energies.",
+        "cost": 500,
+        "success_rate": 100,
+        "category": "Fae"
+    },
+    "Fae5": {
+        "item_id": "Fae5",
+        "name": "Fae Core (Ice)",
+        "tier": 1,
+        "description": "The core harvested from an ice fae spirit. Brimming with elemental energies.",
+        "cost": 500,
+        "success_rate": 100,
+        "category": "Fae"
+    },
+    "Fae6": {
+        "item_id": "Fae6",
+        "name": "Fae Core (Shadow)",
+        "tier": 1,
+        "description": "The core harvested from a shadow fae spirit. Brimming with elemental energies.",
+        "cost": 500,
+        "success_rate": 100,
+        "category": "Fae"
+    },
+    "Fae7": {
+        "item_id": "Fae7",
+        "name": "Fae Core (Light)",
+        "tier": 1,
+        "description": "The core harvested from a light fae spirit. Brimming with elemental energies.",
+        "cost": 500,
+        "success_rate": 100,
+        "category": "Fae"
+    },
+    "Fae8": {
+        "item_id": "Fae8",
+        "name": "Fae Core (Celestial)",
+        "tier": 1,
+        "description": "The core harvested from a celestial fae spirit. Brimming with elemental energies.",
+        "cost": 500,
+        "success_rate": 100,
+        "category": "Fae"
+    },
+    "Token1": {
+        "item_id": "Token1",
+        "name": "Changeling Token",
+        "tier": 1,
+        "description": "An ancient token. Can be used to change your class or username.",
+        "cost": 100000,
+        "success_rate": 100,
+        "category": "Token"
+    },
+    "Token2": {
+        "item_id": "Token2",
+        "name": "Soulweaver Token",
+        "tier": 2,
+        "description": "An ancient token. Can be used for insignia engraving and upgrades.",
+        "cost": 100000,
+        "success_rate": 100,
+        "category": "Token"
+    },
+    "Token3": {
+        "item_id": "Token3",
+        "name": "Pathwalker Token",
+        "tier": 3,
+        "description": "An ancient token. Can be used to reset all skill points.",
+        "cost": 100000,
+        "success_rate": 100,
+        "category": "Token"
+    },
+    "Token4": {
+        "item_id": "Token4",
+        "name": "Lifeblood Token",
+        "tier": 4,
+        "description": "An ancient token. Can be used to reshape dragon heart gems.",
+        "cost": 100000,
+        "success_rate": 100,
+        "category": "Token"
+    },
+    "Token5": {
+        "item_id": "Token5",
+        "name": "Scribe Token",
+        "tier": 5,
+        "description": "An ancient token. Can be used to enscribe weapons.",
+        "cost": 250000,
+        "success_rate": 100,
+        "category": "Token"
+    },
+    "Token6": {
+        "item_id": "Token6",
+        "name": "Oracle Token",
+        "tier": 6,
+        "description": "An ancient token. Can be used to obtain lotus items.",
+        "cost": 500000,
+        "success_rate": 100,
+        "category": "Token"
+    },
+    "Token7": {
+        "item_id": "Token7",
+        "name": "Adjudicator Token",
+        "tier": 7,
+        "description": "An ancient token. ???.",
+        "cost": 500000,
+        "success_rate": 100,
+        "category": "Token"
+    },
+    "Summon1": {
+        "item_id": "Summon1",
+        "name": "Summoning Relic",
+        "tier": 5,
+        "description": "Perform a summoning ritual to summon a tier 5 paragon solo boss.",
+        "cost": 50000,
+        "success_rate": 100,
+        "category": "Summon"
+    },
+    "Summon2": {
+        "item_id": "Summon2",
+        "name": "Summoning Artifact",
+        "tier": 6,
+        "description": "Perform a summoning ritual to summon a tier 6 paragon solo boss.",
+        "cost": 100000,
+        "success_rate": 100,
+        "category": "Summon"
+    },
+    "Summon3": {
+        "item_id": "Summon3",
+        "name": "Summoning Prism",
+        "tier": 7,
+        "description": "Perform a summoning ritual to summon a tier 7 arbiter solo boss.",
+        "cost": 500000,
+        "success_rate": 100,
+        "category": "Summon"
+    },
+    "Stone1": {
+        "item_id": "Stone1",
+        "name": "Fortress Stone",
+        "tier": 1,
+        "description": "Obtained from fortress bosses. It's a stone.",
+        "cost": 0,
+        "success_rate": 100,
+        "category": "Stone"
+    },
+    "Stone2": {
+        "item_id": "Stone2",
+        "name": "Dragon Stone",
+        "tier": 2,
+        "description": "Obtained from dragon bosses. It's a stone.",
+        "cost": 0,
+        "success_rate": 100,
+        "category": "Stone"
+    },
+    "Stone3": {
+        "item_id": "Stone3",
+        "name": "Demon Stone",
+        "tier": 3,
+        "description": "Obtained from demon bosses. It's a stone.",
+        "cost": 0,
+        "success_rate": 100,
+        "category": "Stone"
+    },
+    "Stone4": {
+        "item_id": "Stone4",
+        "name": "Paragon Stone",
+        "tier": 4,
+        "description": "Obtained from paragon bosses. It's a stone.",
+        "cost": 0,
+        "success_rate": 100,
+        "category": "Stone"
+    },
+    "Stone5": {
+        "item_id": "Stone5",
+        "name": "Ruler's Stone",
+        "tier": 8,
+        "description": "Obtained from ruler bosses. It's a stone.",
+        "cost": 0,
+        "success_rate": 100,
+        "category": "Stone"
+    },
+    "Stone6": {
+        "item_id": "Stone6",
+        "name": "Arbiter Stone",
+        "tier": 6,
+        "description": "Obtained from arbiter bosses. It's a stone.",
+        "cost": 0,
+        "success_rate": 100,
+        "category": "Stone"
+    },
+    "Potion1": {
+        "item_id": "Potion1",
+        "name": "Lesser Stamina Potion",
+        "tier": 1,
+        "description": "Consume to restore 500 stamina.",
+        "cost": 2500,
+        "success_rate": 100,
+        "category": "Potion"
+    },
+    "Potion2": {
+        "item_id": "Potion2",
+        "name": "Standard Stamina Potion",
+        "tier": 2,
+        "description": "Consume to restore 1000 stamina.",
+        "cost": 5000,
+        "success_rate": 100,
+        "category": "Potion"
+    },
+    "Potion3": {
+        "item_id": "Potion3",
+        "name": "Greater Stamina Potion",
+        "tier": 3,
+        "description": "Consume to restore 2500 stamina.",
+        "cost": 10000,
+        "success_rate": 100,
+        "category": "Potion"
+    },
+    "Potion4": {
+        "item_id": "Potion4",
+        "name": "Ultimate Stamina Potion",
+        "tier": 4,
+        "description": "Consume to restore 5000 stamina.",
+        "cost": 20000,
+        "success_rate": 100,
+        "category": "Potion"
+    },
+    "Trove1": {
+        "item_id": "Trove1",
+        "name": "Lesser Lotus Trove",
+        "tier": 1,
+        "description": "Open to receive 1,000 - 5,000 lotus coins. Lotus chance: 0.001%",
+        "cost": 0,
+        "success_rate": 100,
+        "category": "Trove"
+    },
+    "Trove2": {
+        "item_id": "Trove2",
+        "name": "Standard Lotus Trove",
+        "tier": 2,
+        "description": "Open to receive 5,000 - 10,000 lotus coins. Lotus chance: 0.010%",
+        "cost": 0,
+        "success_rate": 100,
+        "category": "Trove"
+    },
+    "Trove3": {
+        "item_id": "Trove3",
+        "name": "Greater Lotus Trove",
+        "tier": 3,
+        "description": "Open to receive 10,000 - 20,000 lotus coins. Lotus chance: 0.050%",
+        "cost": 0,
+        "success_rate": 100,
+        "category": "Trove"
+    },
+    "Trove4": {
+        "item_id": "Trove4",
+        "name": "Ultimate Lotus Trove",
+        "tier": 4,
+        "description": "Open to receive 20,000 - 35,000 lotus coins. Lotus chance: 0.100%",
+        "cost": 0,
+        "success_rate": 100,
+        "category": "Trove"
+    },
+    "Trove5": {
+        "item_id": "Trove5",
+        "name": "Voidworn Lotus Trove",
+        "tier": 5,
+        "description": "Open to receive 35,000 - 50,000 lotus coins. Lotus chance: 0.500%",
+        "cost": 0,
+        "success_rate": 100,
+        "category": "Trove"
+    },
+    "Trove6": {
+        "item_id": "Trove6",
+        "name": "Miraculous Lotus Trove",
+        "tier": 6,
+        "description": "Open to receive 50,000 - 75,000 lotus coins. Lotus chance: 1.000%",
+        "cost": 0,
+        "success_rate": 100,
+        "category": "Trove"
+    },
+    "Trove7": {
+        "item_id": "Trove7",
+        "name": "Abyssal Lotus Trove",
+        "tier": 7,
+        "description": "Open to receive 75,000 - 100,000 lotus coins. Lotus chance: 2.000%",
+        "cost": 0,
+        "success_rate": 100,
+        "category": "Trove"
+    },
+    "Trove8": {
+        "item_id": "Trove8",
+        "name": "Divine Lotus Trove",
+        "tier": 8,
+        "description": "Open to receive 100,000 - 1,000,000 lotus coins. Lotus chance: 3.000%",
+        "cost": 0,
+        "success_rate": 100,
+        "category": "Trove"
+    },
+    "Ore1": {
+        "item_id": "Ore1",
+        "name": "Crude Ore",
+        "tier": 1,
+        "description": "Ore with 2% purity. Used for reinforcing gear items. Increasing the quality.",
+        "cost": 2500,
+        "success_rate": 2,
+        "category": "Ore"
+    },
+    "Ore2": {
+        "item_id": "Ore2",
+        "name": "Cosmite Ore",
+        "tier": 2,
+        "description": "Ore with 5% purity. Used for reinforcing gear items. Increasing the quality.",
+        "cost": 5000,
+        "success_rate": 5,
+        "category": "Ore"
+    },
+    "Ore3": {
+        "item_id": "Ore3",
+        "name": "Celestite Ore",
+        "tier": 3,
+        "description": "Ore with 10% purity. Used for reinforcing gear items. Increasing the quality.",
+        "cost": 10000,
+        "success_rate": 10,
+        "category": "Ore"
+    },
+    "Ore4": {
+        "item_id": "Ore4",
+        "name": "Crystallite Ore",
+        "tier": 4,
+        "description": "Ore with 50% purity. Used for reinforcing gear items. Increasing the quality.",
+        "cost": 50000,
+        "success_rate": 50,
+        "category": "Ore"
+    },
+    "Ore5": {
+        "item_id": "Ore5",
+        "name": "Heavenly Ore",
+        "tier": 5,
+        "description": "Ore with 100% purity. Used for reinforcing gear items. Increasing the quality.",
+        "cost": 0,
+        "success_rate": 100,
+        "category": "Ore"
+    },
+    "Flame1": {
+        "item_id": "Flame1",
+        "name": "Purgatorial Flame",
+        "tier": 3,
+        "description": "75% chance to reforge the base stats and unique ability of a gear item within its tier.",
+        "cost": 5000,
+        "success_rate": 50,
+        "category": "Flame"
+    },
+    "Flame2": {
+        "item_id": "Flame2",
+        "name": "Abyss Flame",
+        "tier": 7,
+        "description": "50% chance to reroll a unique ability on tier 5+ gear.",
+        "cost": 0,
+        "success_rate": 75,
+        "category": "Flame"
+    },
+    "Fragment1": {
+        "item_id": "Fragment1",
+        "name": "Fragmentized Void",
+        "tier": 5,
+        "description": "A fragment containing the essence of the void. Used for forging, infusion and crafting.",
+        "cost": 0,
+        "success_rate": 100,
+        "category": "Fragment"
+    },
+    "Fragment2": {
+        "item_id": "Fragment2",
+        "name": "Fragmentized Wish",
+        "tier": 6,
+        "description": "A fragment containing the essence of a wish. Used for forging, infusion and crafting.",
+        "cost": 0,
+        "success_rate": 100,
+        "category": "Fragment"
+    },
+    "Fragment3": {
+        "item_id": "Fragment3",
+        "name": "Fragmentized Abyss",
+        "tier": 7,
+        "description": "A fragment containing the essence of the abyss. Used for forging, infusion and crafting.",
+        "cost": 0,
+        "success_rate": 100,
+        "category": "Fragment"
+    },
+    "Fragment4": {
+        "item_id": "Fragment4",
+        "name": "Fragmentized Divinity",
+        "tier": 8,
+        "description": "A fragment containing the essence of divinity. Used for forging, infusion and crafting.",
+        "cost": 0,
+        "success_rate": 100,
+        "category": "Fragment"
+    },
+    "Crystal1": {
+        "item_id": "Crystal1",
+        "name": "Crystallized Void",
+        "tier": 5,
+        "description": "A crystal containing the essence of the void. Used for forging, infusion and crafting.",
+        "cost": 0,
+        "success_rate": 100,
+        "category": "Crystal"
+    },
+    "Crystal2": {
+        "item_id": "Crystal2",
+        "name": "Crystallized Wish",
+        "tier": 6,
+        "description": "A crystal containing the essence of a wish. Used for forging, infusion and crafting.",
+        "cost": 0,
+        "success_rate": 100,
+        "category": "Crystal"
+    },
+    "Crystal3": {
+        "item_id": "Crystal3",
+        "name": "Crystallized Abyss",
+        "tier": 7,
+        "description": "A crystal containing the essence of the abyss. Used for forging, infusion and crafting.",
+        "cost": 0,
+        "success_rate": 100,
+        "category": "Crystal"
+    },
+    "Crystal4": {
+        "item_id": "Crystal4",
+        "name": "Crystallized Divinity",
+        "tier": 8,
+        "description": "A crystal containing the essence of divinity. Used for forging, infusion and crafting.",
+        "cost": 0,
+        "success_rate": 100,
+        "category": "Crystal"
+    },
+    "Skull1": {
+        "item_id": "Skull1",
+        "name": "Cursed Golden Skull",
+        "tier": 5,
+        "description": "A skull of pure gold that whispers to you softly.",
+        "cost": 100000,
+        "success_rate": 1,
+        "category": "Skull"
+    },
+    "Skull2": {
+        "item_id": "Skull2",
+        "name": "Haunted Golden Skull",
+        "tier": 6,
+        "description": "A golden skull that exudes darkness. Placing it against your ear is clearly a bad idea.",
+        "cost": 1000000,
+        "success_rate": 10,
+        "category": "Skull"
+    },
+    "Skull3": {
+        "item_id": "Skull3",
+        "name": "Radiant Golden Skull",
+        "tier": 7,
+        "description": "A golden skull with a serene aura. Yet screaming can occasionally be heard from within. [Ultra Rare]",
+        "cost": 10000000,
+        "success_rate": 100,
+        "category": "Skull"
+    },
+    "Skull4": {
+        "item_id": "Skull4",
+        "name": "Prismatic Golden Skull",
+        "tier": 9,
+        "description": "A golden skull that sparkles extraordinarily. Beware the lustful voices calling your name. [Ultimate Rare]",
+        "cost": 100000000,
+        "success_rate": 1000,
+        "category": "Skull"
+    },
+    "Void1": {
+        "item_id": "Void1",
+        "name": "Unrefined Void Item (Sword)",
+        "tier": 5,
+        "description": "Refine for 50% chance to receive a tier 5 sword.",
+        "cost": 0,
+        "success_rate": 100,
+        "category": "Void"
+    },
+    "Void2": {
+        "item_id": "Void2",
+        "name": "Unrefined Void Item (Axe)",
+        "tier": 5,
+        "description": "Refine for 50% chance to receive a tier 5 axe.",
+        "cost": 0,
+        "success_rate": 80,
+        "category": "Void"
+    },
+    "Void3": {
+        "item_id": "Void3",
+        "name": "Unrefined Void Item (Bow)",
+        "tier": 5,
+        "description": "Refine for 50% chance to receive a tier 5 bow.",
+        "cost": 0,
+        "success_rate": 80,
+        "category": "Void"
+    },
+    "Void4": {
+        "item_id": "Void4",
+        "name": "Unrefined Void Item (Shield)",
+        "tier": 5,
+        "description": "Refine for 50% chance to receive a tier 5 shield.",
+        "cost": 0,
+        "success_rate": 80,
+        "category": "Void"
+    },
+    "Void5": {
+        "item_id": "Void5",
+        "name": "Unrefined Void Item (Armor)",
+        "tier": 5,
+        "description": "Refine for 50% chance to receive a tier 5 armor.",
+        "cost": 0,
+        "success_rate": 80,
+        "category": "Void"
+    },
+    "Void6": {
+        "item_id": "Void6",
+        "name": "Unrefined Void Item (Helm)",
+        "tier": 5,
+        "description": "Refine for 50% chance to receive a tier 5 helm.",
+        "cost": 0,
+        "success_rate": 80,
+        "category": "Void"
+    },
+    "Unrefined1": {
+        "item_id": "Unrefined1",
+        "name": "Unrefined Dragon Wings",
+        "tier": 4,
+        "description": "Refine for 75% chance to receive tier 2-4 dragon wings.",
+        "cost": 0,
+        "success_rate": 75,
+        "category": "Unrefined"
+    },
+    "Unrefined2": {
+        "item_id": "Unrefined2",
+        "name": "Unrefined Demon Greaves",
+        "tier": 4,
+        "description": "Refine for 75% chance to receive a tier 2-4 demon Greaves.",
+        "cost": 0,
+        "success_rate": 75,
+        "category": "Unrefined"
+    },
+    "Unrefined3": {
+        "item_id": "Unrefined3",
+        "name": "Unrefined Paragon Crest",
+        "tier": 4,
+        "description": "Refine for 75% chance to receive a tier 2-4 paragon crest.",
+        "cost": 0,
+        "success_rate": 75,
+        "category": "Unrefined"
+    },
+    "Gem1": {
+        "item_id": "Gem1",
+        "name": "Unrefined Dragon Gem",
+        "tier": 2,
+        "description": "Refine for 75% chance to receive tier 2-4 dragon gem.",
+        "cost": 0,
+        "success_rate": 75,
+        "category": "Gem"
+    },
+    "Gem2": {
+        "item_id": "Gem2",
+        "name": "Unrefined Demon Gem",
+        "tier": 3,
+        "description": "Refine for 75% chance to receive a tier 2-4 demon gem.",
+        "cost": 0,
+        "success_rate": 75,
+        "category": "Gem"
+    },
+    "Gem3": {
+        "item_id": "Gem3",
+        "name": "Unrefined Paragon Gem",
+        "tier": 4,
+        "description": "Refine for 75% chance to receive a tier 2-4 paragon gem.",
+        "cost": 0,
+        "success_rate": 75,
+        "category": "Gem"
+    },
+    "Jewel1": {
+        "item_id": "Jewel1",
+        "name": "Unrefined Dragon Jewel",
+        "tier": 5,
+        "description": "Refine for 50% chance to receive tier 5-8 dragon jewel.",
+        "cost": 0,
+        "success_rate": 75,
+        "category": "Jewel"
+    },
+    "Jewel2": {
+        "item_id": "Jewel2",
+        "name": "Unrefined Demon Jewel",
+        "tier": 5,
+        "description": "Refine for 50% chance to receive a tier 5-8 demon jewel.",
+        "cost": 0,
+        "success_rate": 75,
+        "category": "Jewel"
+    },
+    "Jewel3": {
+        "item_id": "Jewel3",
+        "name": "Unrefined Paragon Jewel",
+        "tier": 5,
+        "description": "Refine for 50% chance to receive a tier 5-8 paragon jewel.",
+        "cost": 0,
+        "success_rate": 75,
+        "category": "Jewel"
+    },
+    "Jewel4": {
+        "item_id": "Jewel4",
+        "name": "Unrefined Arbiter Jewel",
+        "tier": 7,
+        "description": "Refine for 50% chance to receive a tier 6-8 arbiter jewel.",
+        "cost": 0,
+        "success_rate": 75,
+        "category": "Jewel"
+    },
+    "Jewel5": {
+        "item_id": "Jewel5",
+        "name": "Unrefined Incarnate Jewel",
+        "tier": 8,
+        "description": "Refine for 50% chance to receive a tier 7-8 incarnate jewel.",
+        "cost": 0,
+        "success_rate": 75,
+        "category": "Jewel"
+    },
+    "Essence0": {
+        "item_id": "Essence0",
+        "name": "Essence of The Reflection",
+        "tier": 1,
+        "description": "Perform a binding ritual to attempt to seal this essence into card form.",
+        "cost": 0,
+        "success_rate": 10,
+        "category": "Essence"
+    },
+    "EssenceI": {
+        "item_id": "EssenceI",
+        "name": "Essence of The Magic",
+        "tier": 1,
+        "description": "Perform a binding ritual to attempt to seal this essence into card form.",
+        "cost": 0,
+        "success_rate": 10,
+        "category": "Essence"
+    },
+    "EssenceII": {
+        "item_id": "EssenceII",
+        "name": "Essence of The Celestial",
+        "tier": 4,
+        "description": "Perform a binding ritual to attempt to seal this essence into card form.",
+        "cost": 0,
+        "success_rate": 10,
+        "category": "Essence"
+    },
+    "EssenceIII": {
+        "item_id": "EssenceIII",
+        "name": "Essence Of The Void",
+        "tier": 5,
+        "description": "Perform a binding ritual to attempt to seal this essence into card form.",
+        "cost": 0,
+        "success_rate": 10,
+        "category": "Essence"
+    },
+    "EssenceIV": {
+        "item_id": "EssenceIV",
+        "name": "Essence Of The Infinite",
+        "tier": 5,
+        "description": "Perform a binding ritual to attempt to seal this essence into card form.",
+        "cost": 0,
+        "success_rate": 10,
+        "category": "Essence"
+    },
+    "EssenceV": {
+        "item_id": "EssenceV",
+        "name": "Essence of The Duality",
+        "tier": 3,
+        "description": "Perform a binding ritual to attempt to seal this essence into card form.",
+        "cost": 0,
+        "success_rate": 10,
+        "category": "Essence"
+    },
+    "EssenceVI": {
+        "item_id": "EssenceVI",
+        "name": "Essence of The Love",
+        "tier": 1,
+        "description": "Perform a binding ritual to attempt to seal this essence into card form.",
+        "cost": 0,
+        "success_rate": 10,
+        "category": "Essence"
+    },
+    "EssenceVII": {
+        "item_id": "EssenceVII",
+        "name": "Essence of The Dragon",
+        "tier": 4,
+        "description": "Perform a binding ritual to attempt to seal this essence into card form.",
+        "cost": 0,
+        "success_rate": 10,
+        "category": "Essence"
+    },
+    "EssenceVIII": {
+        "item_id": "EssenceVIII",
+        "name": "Essence of The Behemoth",
+        "tier": 4,
+        "description": "Perform a binding ritual to attempt to seal this essence into card form.",
+        "cost": 0,
+        "success_rate": 10,
+        "category": "Essence"
+    },
+    "EssenceIX": {
+        "item_id": "EssenceIX",
+        "name": "Essence of The Memory",
+        "tier": 1,
+        "description": "Perform a binding ritual to attempt to seal this essence into card form.",
+        "cost": 0,
+        "success_rate": 10,
+        "category": "Essence"
+    },
+    "EssenceX": {
+        "item_id": "EssenceX",
+        "name": "Essence of The Temporal",
+        "tier": 3,
+        "description": "Perform a binding ritual to attempt to seal this essence into card form.",
+        "cost": 0,
+        "success_rate": 10,
+        "category": "Essence"
+    },
+    "EssenceXI": {
+        "item_id": "EssenceXI",
+        "name": "Essence of The Heavens",
+        "tier": 3,
+        "description": "Perform a binding ritual to attempt to seal this essence into card form.",
+        "cost": 0,
+        "success_rate": 10,
+        "category": "Essence"
+    },
+    "EssenceXII": {
+        "item_id": "EssenceXII",
+        "name": "Essence of The Abyss",
+        "tier": 3,
+        "description": "Perform a binding ritual to attempt to seal this essence into card form.",
+        "cost": 0,
+        "success_rate": 10,
+        "category": "Essence"
+    },
+    "EssenceXIII": {
+        "item_id": "EssenceXIII",
+        "name": "Essence of The Death",
+        "tier": 3,
+        "description": "Perform a binding ritual to attempt to seal this essence into card form.",
+        "cost": 0,
+        "success_rate": 10,
+        "category": "Essence"
+    },
+    "EssenceXIV": {
+        "item_id": "EssenceXIV",
+        "name": "Essence of The Clarity",
+        "tier": 1,
+        "description": "Perform a binding ritual to attempt to seal this essence into card form.",
+        "cost": 0,
+        "success_rate": 10,
+        "category": "Essence"
+    },
+    "EssenceXV": {
+        "item_id": "EssenceXV",
+        "name": "Essence of The Primordial",
+        "tier": 4,
+        "description": "Perform a binding ritual to attempt to seal this essence into card form.",
+        "cost": 0,
+        "success_rate": 10,
+        "category": "Essence"
+    },
+    "EssenceXVI": {
+        "item_id": "EssenceXVI",
+        "name": "Essence of The Fortress",
+        "tier": 4,
+        "description": "Perform a binding ritual to attempt to seal this essence into card form.",
+        "cost": 0,
+        "success_rate": 10,
+        "category": "Essence"
+    },
+    "EssenceXVII": {
+        "item_id": "EssenceXVII",
+        "name": "Essence of The Star",
+        "tier": 2,
+        "description": "Perform a binding ritual to attempt to seal this essence into card form.",
+        "cost": 0,
+        "success_rate": 10,
+        "category": "Essence"
+    },
+    "EssenceXVIII": {
+        "item_id": "EssenceXVIII",
+        "name": "Essence of The Moon",
+        "tier": 2,
+        "description": "Perform a binding ritual to attempt to seal this essence into card form.",
+        "cost": 0,
+        "success_rate": 10,
+        "category": "Essence"
+    },
+    "EssenceXIX": {
+        "item_id": "EssenceXIX",
+        "name": "Essence of The Sun",
+        "tier": 2,
+        "description": "Perform a binding ritual to attempt to seal this essence into card form.",
+        "cost": 0,
+        "success_rate": 10,
+        "category": "Essence"
+    },
+    "EssenceXX": {
+        "item_id": "EssenceXX",
+        "name": "Essence of The Requiem",
+        "tier": 2,
+        "description": "Perform a binding ritual to attempt to seal this essence into card form.",
+        "cost": 0,
+        "success_rate": 10,
+        "category": "Essence"
+    },
+    "EssenceXXI": {
+        "item_id": "EssenceXXI",
+        "name": "Essence of The Creation",
+        "tier": 2,
+        "description": "Perform a binding ritual to attempt to seal this essence into card form.",
+        "cost": 0,
+        "success_rate": 10,
+        "category": "Essence"
+    },
+    "EssenceXXII": {
+        "item_id": "EssenceXXII",
+        "name": "Essence of The Changeling",
+        "tier": 1,
+        "description": "Perform a binding ritual to attempt to seal this essence into card form.",
+        "cost": 0,
+        "success_rate": 10,
+        "category": "Essence"
+    },
+    "EssenceXXIII": {
+        "item_id": "EssenceXXIII",
+        "name": "Essence of The Pathwalker",
+        "tier": 2,
+        "description": "Perform a binding ritual to attempt to seal this essence into card form.",
+        "cost": 0,
+        "success_rate": 10,
+        "category": "Essence"
+    },
+    "EssenceXXIV": {
+        "item_id": "EssenceXXIV",
+        "name": "Essence of The Soulweaver",
+        "tier": 3,
+        "description": "Perform a binding ritual to attempt to seal this essence into card form.",
+        "cost": 0,
+        "success_rate": 10,
+        "category": "Essence"
+    },
+    "EssenceXXV": {
+        "item_id": "EssenceXXV",
+        "name": "Essence of The Wish",
+        "tier": 6,
+        "description": "Perform a binding ritual to attempt to seal this essence into card form.",
+        "cost": 0,
+        "success_rate": 10,
+        "category": "Essence"
+    },
+    "EssenceXXVI": {
+        "item_id": "EssenceXXVI",
+        "name": "Essence of The Lifeblood",
+        "tier": 4,
+        "description": "Perform a binding ritual to attempt to seal this essence into card form.",
+        "cost": 0,
+        "success_rate": 10,
+        "category": "Essence"
+    },
+    "EssenceXXVII": {
+        "item_id": "EssenceXXVII",
+        "name": "Essence of The Scribe",
+        "tier": 5,
+        "description": "Perform a binding ritual to attempt to seal this essence into card form.",
+        "cost": 0,
+        "success_rate": 10,
+        "category": "Essence"
+    },
+    "EssenceXXVIII": {
+        "item_id": "EssenceXXVIII",
+        "name": "Essence of The Oracle",
+        "tier": 6,
+        "description": "Perform a binding ritual to attempt to seal this essence into card form.",
+        "cost": 0,
+        "success_rate": 10,
+        "category": "Essence"
+    },
+    "EssenceXXIX": {
+        "item_id": "EssenceXXIX",
+        "name": "Essence of The Adjudicator",
+        "tier": 7,
+        "description": "Perform a binding ritual to attempt to seal this essence into card form.",
+        "cost": 0,
+        "success_rate": 10,
+        "category": "Essence"
+    },
+    "EssenceXXX": {
+        "item_id": "EssenceXXX",
+        "name": "Essence of The Lotus",
+        "tier": 8,
+        "description": "Perform a binding ritual to attempt to seal this essence into card form. [Ultimate Rare]",
+        "cost": 0,
+        "success_rate": 10,
+        "category": "Essence"
+    },
+    "Lotus1": {
+        "item_id": "Lotus1",
+        "name": "Lotus of Nightmares",
+        "tier": 8,
+        "description": "Used for Divine Synthesis (Weapon). Increases the tier to 8. [Ultra Rare]",
+        "cost": 0,
+        "success_rate": 100,
+        "category": "Lotus"
+    },
+    "Lotus2": {
+        "item_id": "Lotus2",
+        "name": "Lotus of Prosperity",
+        "tier": 8,
+        "description": "Used for Divine Purification (Amulet). Increases the tier to 8. [Ultra Rare]",
+        "cost": 9999999,
+        "success_rate": 100,
+        "category": "Lotus"
+    },
+    "Lotus3": {
+        "item_id": "Lotus3",
+        "name": "Lotus of Serenity",
+        "tier": 8,
+        "description": "Used for Divine Purification (Greaves). Increases the tier to 8. [Ultra Rare]",
+        "cost": 0,
+        "success_rate": 100,
+        "category": "Lotus"
+    },
+    "Lotus4": {
+        "item_id": "Lotus4",
+        "name": "Lotus of Freedom",
+        "tier": 8,
+        "description": "Used for Divine Purification (Wings). Increases the tier to 8. [Ultra Rare]",
+        "cost": 0,
+        "success_rate": 100,
+        "category": "Lotus"
+    },
+    "Lotus5": {
+        "item_id": "Lotus5",
+        "name": "Lotus of Eternity",
+        "tier": 8,
+        "description": "Used for Divine Melding (Jewels). Increases the tier to 8. [Ultra Rare]",
+        "cost": 0,
+        "success_rate": 100,
+        "category": "Lotus"
+    },
+    "Lotus6": {
+        "item_id": "Lotus6",
+        "name": "Lotus of Abundance",
+        "tier": 8,
+        "description": "Used for Divine Purification (Armour). Increases the tier to 8. [Ultra Rare]",
+        "cost": 0,
+        "success_rate": 100,
+        "category": "Lotus"
+    },
+    "Lotus7": {
+        "item_id": "Lotus7",
+        "name": "Lotus of Domination",
+        "tier": 8,
+        "description": "Used for Divine Purification (Crest). Increases the tier to 8. [Ultra Rare]",
+        "cost": 0,
+        "success_rate": 100,
+        "category": "Lotus"
+    },
+    "Lotus8": {
+        "item_id": "Lotus8",
+        "name": "Lotus of Divergence",
+        "tier": 8,
+        "description": "Used for Divine Mutation (Insignia). Increases the tier to 8. [Ultra Rare]",
+        "cost": 0,
+        "success_rate": 100,
+        "category": "Lotus"
+    },
+    "Lotus9": {
+        "item_id": "Lotus9",
+        "name": "Lotus of Revelations",
+        "tier": 8,
+        "description": "Used for Divine Synthesis (Tarot). Increases the tier to 8. [Ultra Rare]",
+        "cost": 0,
+        "success_rate": 100,
+        "category": "Lotus"
+    },
+    "Lotus10": {
+        "item_id": "Lotus10",
+        "name": "Divine Lotus",
+        "tier": 8,
+        "description": "The key to divinity and the object of the Arbiter's worship. [Uber Rare]",
+        "cost": 0,
+        "success_rate": 100,
+        "category": "Lotus"
+    },
+    "Lotus11": {
+        "item_id": "Lotus11",
+        "name": "Rainbow Lotus",
+        "tier": 8,
+        "description": "A mythical lotus dyed by the colours of fate. [Ultimate Rare]",
+        "cost": 0,
+        "success_rate": 100,
+        "category": "Lotus"
+    },
+    "Gemstone0": {
+        "item_id": "Gemstone1",
+        "name": "Blazing Ruby",
+        "tier": 6,
+        "description": "Pulsing with volcanic force, this gem radiates with an intense heat.",
+        "cost": 0,
+        "success_rate": 100,
+        "category": "Gemstone"
+    },
+    "Gemstone1": {
+        "item_id": "Gemstone2",
+        "name": "Drowned Sapphire",
+        "tier": 6,
+        "description": "Formed from colliding waves and tides, this gem holds the depths of the ocean within.",
+        "cost": 0,
+        "success_rate": 100,
+        "category": "Gemstone"
+    },
+    "Gemstone2": {
+        "item_id": "Gemstone3",
+        "name": "Silent Topaz",
+        "tier": 6,
+        "description": "Crackling with electricity, this gem is often used as an energy source.",
+        "cost": 0,
+        "success_rate": 100,
+        "category": "Gemstone"
+    },
+    "Gemstone3": {
+        "item_id": "Gemstone4",
+        "name": "Ancient Agate",
+        "tier": 6,
+        "description": "Hardened by the earth, this gem has a high density and is exceptionally sturdy.",
+        "cost": 0,
+        "success_rate": 100,
+        "category": "Gemstone"
+    },
+    "Gemstone4": {
+        "item_id": "Gemstone5",
+        "name": "Whispering Emerald",
+        "tier": 6,
+        "description": "A destructive gale condensed into a single stone, air leaks out from this gem creating a gentle breeze.",
+        "cost": 0,
+        "success_rate": 100,
+        "category": "Gemstone"
+    },
+    "Gemstone5": {
+        "item_id": "Gemstone6",
+        "name": "Arctic Zircon",
+        "tier": 6,
+        "description": "Despite the chilling aura, this gem's pure surface mirrors its surroundings.",
+        "cost": 0,
+        "success_rate": 100,
+        "category": "Gemstone"
+    },
+    "Gemstone6": {
+        "item_id": "Gemstone7",
+        "name": "Haunted Obsidian",
+        "tier": 6,
+        "description": "Dark and ominous, this small gem casts a foreboding shadow.",
+        "cost": 0,
+        "success_rate": 100,
+        "category": "Gemstone"
+    },
+    "Gemstone7": {
+        "item_id": "Gemstone8",
+        "name": "Prismatic Opal",
+        "tier": 6,
+        "description": "Gleaming with radiance, it shines with all kinds of vibrant colours.",
+        "cost": 0,
+        "success_rate": 100,
+        "category": "Gemstone"
+    },
+    "Gemstone8": {
+        "item_id": "Gemstone9",
+        "name": "Spatial Lapis",
+        "tier": 6,
+        "description": "Shimmering endlessly, the inside of this gem is boundless like the starry night.",
+        "cost": 0,
+        "success_rate": 100,
+        "category": "Gemstone"
+    },
+    "Gemstone9": {
+        "item_id": "Gemstone10",
+        "name": "Soul Diamond",
+        "tier": 6,
+        "description": "A gem of crystallized soul, a priceless treasure.",
+        "cost": 0,
+        "success_rate": 100,
+        "category": "Gemstone"
+    },
+    "Gemstone10": {
+        "item_id": "Gemstone11",
+        "name": "Aurora Tear",
+        "tier": 7,
+        "description": "If you gaze within you can make out the remnants of the dream from which it was formed.",
+        "cost": 2000000,
+        "success_rate": 100,
+        "category": "Gemstone"
+    },
+    "Gemstone11": {
+        "item_id": "Gemstone12",
+        "name": "Stone of the True Void",
+        "tier": 8,
+        "description": "An impossible gem, it embodies the infinite nothingness within the depths of the void. [Uber Rare]",
+        "cost": 0,
+        "success_rate": 100,
+        "category": "Gemstone"
+    },
+    "Heart1": {
+        "item_id": "Heart1",
+        "name": "Radiant Heart",
+        "tier": 6,
+        "description": "Used for various infusions.",
+        "cost": 0,
+        "success_rate": 100,
+        "category": "Heart"
+    },
+    "Heart2": {
+        "item_id": "Heart2",
+        "name": "Chaos Heart",
+        "tier": 7,
+        "description": "Used for various infusions.",
+        "cost": 0,
+        "success_rate": 100,
+        "category": "Heart"
+    },
+    "Catalyst": {
+        "item_id": "Catalyst",
+        "name": "Gemstone Catalyst",
+        "tier": 5,
+        "description": "A hollow transparent gemstone. It's true nature can be revealed through elemental infusion.",
+        "cost": 500000,
+        "success_rate": 100,
+        "category": "Misc"
+    },
+    "Hammer": {
+        "item_id": "Hammer",
+        "name": "Astral Hammer",
+        "tier": 2,
+        "description": "Used to reroll specific item rolls. Works on tier 4 and lower gear items.",
+        "cost": 50000,
+        "success_rate": 80,
+        "category": "Misc"
+    },
+    "Pearl": {
+        "item_id": "Pearl",
+        "name": "Stellar Pearl",
+        "tier": 4,
+        "description": "Augments an item roll. Increases the tier by 1.",
+        "cost": 50000,
+        "success_rate": 75,
+        "category": "Misc"
+    },
+    "Matrix": {
+        "item_id": "Matrix",
+        "name": "Socket Matrix",
+        "tier": 3,
+        "description": "5% Chance to add a socket to a gear item.",
+        "cost": 5000,
+        "success_rate": 5,
+        "category": "Misc"
+    },
+    "Chest": {
+        "item_id": "Chest",
+        "name": "Chest",
+        "tier": 1,
+        "description": "Contains a random item.",
+        "cost": 50000,
+        "success_rate": 100,
+        "category": "Misc"
+    },
+    "Shard": {
+        "item_id": "Shard",
+        "name": "Sovereign Shard",
+        "tier": 7,
+        "description": "A fragment of an ancient weapon. Perhaps it can be reforged.",
+        "cost": 0,
+        "success_rate": 100,
+        "category": "Misc"
+    },
+    "Scrap": {
+        "item_id": "Scrap",
+        "name": "Equipment Scrap",
+        "tier": 1,
+        "description": "One of many countless pieces of Pandora's Legendary Hammer.",
+        "cost": 0,
+        "success_rate": 100,
+        "category": "Misc"
+    },
+    "Compass": {
+        "item_id": "Compass",
+        "name": "Illusory Compass",
+        "tier": 6,
+        "description": "An enigmatic compass said to be capable of locating the Spire of Illusions.",
+        "cost": 500000,
+        "success_rate": 100,
+        "category": "Misc"
+    },
+    "DarkStar": {
+        "item_id": "DarkStar",
+        "name": "Dark Star of Shattered Dreams",
+        "tier": 8,
+        "description": "Legend tells of a star engulfed in black flames that heralds great disasters. The old records describe visions of the dark star blocking out the sun leaving chaos in its wake. [Uber Rare]",
+        "cost": 0,
+        "success_rate": 100,
+        "category": "Misc"
+    },
+    "LightStar": {
+        "item_id": "LightStar",
+        "name": "Glittering Star of Fractured Hearts",
+        "tier": 8,
+        "description": "Legend tells of a star often spotted by lovers as it dazzles and sparkles amidst the black night. The old records indicate that the star was so beautiful it would steal the hearts of those who saw it. [Uber Rare]",
+        "cost": 0,
+        "success_rate": 100,
+        "category": "Misc"
+    },
+    "Nadir": {
+        "item_id": "Nadir",
+        "name": "Phantasm of Nadir",
+        "tier": 8,
+        "description": "Amidst the vastest oceans, this tiny fish is exceedingly elusive. They dwell in the deepest trenches. Their pitch-black scales conceal precious and unique gems that grow inside their small bodies. [Ultimate Rare]",
+        "cost": 0,
+        "success_rate": 100,
+        "category": "Fish"
+    },
+    "RoyalCoin": {
+        "item_id": "RoyalCoin",
+        "name": "Royal Lotus Coin",
+        "tier": 8,
+        "description": "A sacred coin blessed by gods. It is said to be indestructible.",
+        "cost": 0,
+        "success_rate": 100,
+        "category": "Misc"
+    },
+    "Nephilim": {
+        "item_id": "Nephilim",
+        "name": "Nephilim's Wicked Heart",
+        "tier": 8,
+        "description": "The heart of the lotus incarnate. Its divine luster has long since withered away, leaving a lingering resentment in its place. [Ultimate Rare]",
+        "cost": 0,
+        "success_rate": 100,
+        "category": "Misc"
+    },
+    "Pandora": {
+        "item_id": "Pandora",
+        "name": "Pandora's Twinkling Heart",
+        "tier": 8,
+        "description": "The spiritual heart of the celestial paragon. At the dawn of creation, Pandora bore her celestial heart as a power source for her hammer. [Ultimate Rare]",
+        "cost": 0,
+        "success_rate": 100,
+        "category": "Misc"
+    },
+    "Ruler": {
+        "item_id": "Ruler",
+        "name": "Ruler's Crown Jewel",
+        "tier": 9,
+        "description": "A jewel of unmatched quality, unparalleled value, and unfathomable beauty. A truly unique treasure. [Ultimate Rare]",
+        "cost": 0,
+        "success_rate": 100,
+        "category": "Misc"
+    },
+    "Sacred": {
+        "item_id": "Sacred",
+        "name": "Sacred Blood",
+        "tier": 9,
+        "description": "Rare drop from raid bosses. Can be optionally consumed as an additional cost to guarantee a 'Sacred' outcome during infusion. It can also be used to upgrade tier 8 gear to tier 9. [Ultimate Rare]",
+        "cost": 0,
+        "success_rate": 100,
+        "category": "Misc"
+    },
+    "Salvation": {
+        "item_id": "Salvation",
+        "name": "Seal of Salvation",
+        "tier": 9,
+        "description": "Rare drop from raid bosses. Can be consumed to guarantee an on-class skill roll on an Amulet. [Ultimate Rare]",
+        "cost": 0,
+        "success_rate": 100,
+        "category": "Misc"
+    },
+    "Metamorphite": {
+        "item_id": "Metamorphite",
+        "name": "Metamorphite Ore",
+        "tier": 7,
+        "description": "A mysterious ore that can drastically change an item.",
+        "cost": 0,
+        "success_rate": 100,
+        "category": "Misc"
+    },
+    "Fish1": { "item_id": "Fish1", "name": "Sawshark", "tier": 1, "description": "Amazing! What a cute fish. So adorable!", "cost": 0, "success_rate": 100, "category": "Fish" },
+    "Fish2": { "item_id": "Fish2", "name": "Slippery Dick", "tier": 1, "description": "Amazing! What a cute fish. So adorable!", "cost": 0, "success_rate": 100, "category": "Fish" },
+    "Fish3": { "item_id": "Fish3", "name": "Scorpionfish", "tier": 1, "description": "Amazing! What a cute fish. So adorable!", "cost": 0, "success_rate": 100, "category": "Fish" },
+    "Fish4": { "item_id": "Fish4", "name": "Clownfish", "tier": 1, "description": "Amazing! What a cute fish. So adorable!", "cost": 0, "success_rate": 100, "category": "Fish" },
+    "Fish5": { "item_id": "Fish5", "name": "Hammerhead Shark", "tier": 2, "description": "Amazing! What a cute fish. So adorable!", "cost": 0, "success_rate": 100, "category": "Fish" },
+    "Fish6": { "item_id": "Fish6", "name": "Old Wife", "tier": 2, "description": "Amazing! What a cute fish. So adorable!", "cost": 0, "success_rate": 100, "category": "Fish" },
+    "Fish7": { "item_id": "Fish7", "name": "Glass Catfish", "tier": 2, "description": "Amazing! What a cute fish. So adorable!", "cost": 0, "success_rate": 100, "category": "Fish" },
+    "Fish8": { "item_id": "Fish8", "name": "Jellyfish", "tier": 2, "description": "Amazing! What a cute fish. So adorable!", "cost": 0, "success_rate": 100, "category": "Fish" },
+    "Fish9": { "item_id": "Fish9", "name": "Nurse Shark", "tier": 3, "description": "Amazing! What a cute fish. So adorable!", "cost": 0, "success_rate": 100, "category": "Fish" },
+    "Fish10": { "item_id": "Fish10", "name": "Wahoo", "tier": 3, "description": "Amazing! What a cute fish. So adorable!", "cost": 0, "success_rate": 100, "category": "Fish" },
+    "Fish11": { "item_id": "Fish11", "name": "Frogfish", "tier": 3, "description": "Amazing! What a cute fish. So adorable!", "cost": 0, "success_rate": 100, "category": "Fish" },
+    "Fish12": { "item_id": "Fish12", "name": "Butterflyfish", "tier": 3, "description": "Amazing! What a cute fish. So adorable!", "cost": 0, "success_rate": 100, "category": "Fish" },
+    "Fish13": { "item_id": "Fish13", "name": "Cookiecutter Shark", "tier": 4, "description": "Amazing! What a cute fish. So adorable!", "cost": 0, "success_rate": 100, "category": "Fish" },
+    "Fish14": { "item_id": "Fish14", "name": "Four-Eyed Fish", "tier": 4, "description": "Amazing! What a cute fish. So adorable!", "cost": 0, "success_rate": 100, "category": "Fish" },
+    "Fish15": { "item_id": "Fish15", "name": "Coffinfish", "tier": 4, "description": "Amazing! What a cute fish. So adorable!", "cost": 0, "success_rate": 100, "category": "Fish" },
+    "Fish16": { "item_id": "Fish16", "name": "BoxFish", "tier": 4, "description": "Amazing! What a cute fish. So adorable!", "cost": 0, "success_rate": 100, "category": "Fish" },
+    "Fish17": { "item_id": "Fish17", "name": "Goblin Shark", "tier": 5, "description": "Amazing! What a cute fish. So adorable!", "cost": 0, "success_rate": 100, "category": "Fish" },
+    "Fish18": { "item_id": "Fish18", "name": "Obese Dragonfish", "tier": 5, "description": "Amazing! What a cute fish. So adorable!", "cost": 0, "success_rate": 100, "category": "Fish" },
+    "Fish19": { "item_id": "Fish19", "name": "Anglerfish", "tier": 5, "description": "Amazing! What a cute fish. So adorable!", "cost": 0, "success_rate": 100, "category": "Fish" },
+    "Fish20": { "item_id": "Fish20", "name": "Swordfish", "tier": 5, "description": "Amazing! What a cute fish. So adorable!", "cost": 0, "success_rate": 100, "category": "Fish" },
+    "Fish21": { "item_id": "Fish21", "name": "Zebra Shark", "tier": 6, "description": "Amazing! What a cute fish. So adorable!", "cost": 0, "success_rate": 100, "category": "Fish" },
+    "Fish22": { "item_id": "Fish22", "name": "Blue Bastard", "tier": 6, "description": "Amazing! What a cute fish. So adorable!", "cost": 0, "success_rate": 100, "category": "Fish" },
+    "Fish23": { "item_id": "Fish23", "name": "Sunfish", "tier": 6, "description": "Amazing! What a cute fish. So adorable!", "cost": 0, "success_rate": 100, "category": "Fish" },
+    "Fish24": { "item_id": "Fish24", "name": "Angelfish", "tier": 6, "description": "Amazing! What a cute fish. So adorable!", "cost": 0, "success_rate": 100, "category": "Fish" },
+    "Fish25": { "item_id": "Fish25", "name": "Whale Shark", "tier": 7, "description": "Amazing! What a cute fish. So adorable!", "cost": 0, "success_rate": 100, "category": "Fish" },
+    "Fish26": { "item_id": "Fish26", "name": "Whitemargin Stargazer", "tier": 7, "description": "Amazing! What a cute fish. So adorable!", "cost": 0, "success_rate": 100, "category": "Fish" },
+    "Fish27": { "item_id": "Fish27", "name": "Viperfish", "tier": 7, "description": "Amazing! What a cute fish. So adorable!", "cost": 0, "success_rate": 100, "category": "Fish" },
+    "Fish28": { "item_id": "Fish28", "name": "Spookfish", "tier": 7, "description": "Amazing! What a cute fish. So adorable!", "cost": 0, "success_rate": 100, "category": "Fish" }
+}

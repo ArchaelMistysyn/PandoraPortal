@@ -1,4 +1,5 @@
 <?php
+	$itemData = json_decode(file_get_contents('./bot_php/itemData.json'), true);
 
 	$slot_types = [
 		'W' => 'Weapon', 

@@ -228,6 +228,7 @@
     background-color: black;
     border: 1px solid white;
     flex: 1;
+    max-height: 90%;
     width: 100%;
   }
   #loadscreen {
@@ -238,6 +239,67 @@
     width: 100%;
     height: 100%;
   }
+
+/* Inventory */
+  #inventory-container {
+    position: relative;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    padding-bottom: 80px;
+  }
+  #inventory-menu {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+    width: 100%;
+    gap: 10px;
+  }
+  #inventory-screen {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 104px);
+    padding: 0px 50px;
+    gap: 25px;
+    overflow-y: auto;
+    height: 100%;
+    max-width: 1700px;
+    width: 100%;
+  }
+  .sort-button {
+    border: 2px solid red;
+    background-color: black;
+    color: white;
+    height:50px;
+    width: 100px;
+  }
+  .sort-button:hover {
+    background-color: gray;
+  }
+  .inventory-item {
+    position: relative;
+    width: 104px;
+    height: 104px;
+  }
+  .inventory-hovername {
+    display: none;
+    position: absolute;
+    padding: 8px;
+    font-size: 1rem;
+    text-align: center;
+    color: white;
+    border: 1px solid white;
+    background-color: black;
+    z-index: 10;
+  }
+  .inventory-item:hover .inventory-hovername{
+    display: flex;
+  }
+
 /* MEDIA QUERIES */
 @media (max-width: 2000px) {
   #bottom-menu {
