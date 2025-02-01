@@ -18,6 +18,7 @@ if (!isset($_SESSION['player_id']) || !isset($_GET['action'])) {
 }
 $verified_player_id = $_SESSION['player_id'];
 $action = $_GET['action'];
+$item_id = isset($_GET['item_id']) ? (int)$_GET['item_id'] : null;
 $response = ["success" => false];
 switch ($action) {
     case "inventory":
@@ -32,11 +33,13 @@ switch ($action) {
     case "displaygear":
         $response = handle_gear($verified_player_id);
         break;
+    case "showGearItem":
+        $response = create_gear_lightbox($item_id);
+        break;
     default:
         $response["message"] = "Invalid action";
 }
-echo json_encode($response);
-
+echo json_encode($response, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
 
 // Fetch Functions
 function get_inventory_by_player_id($player_id) {
@@ -62,6 +65,7 @@ function get_inventory_by_player_id($player_id) {
 }
 
 function handle_gear($player_id) {
+    $player_profile = get_player_by_id($player_id);
     $gearData = get_gear_by_player_id($player_id);
     if (!$gearData["success"]) {
         return $gearData;
@@ -81,10 +85,25 @@ function handle_gear($player_id) {
             "min_dmg" => $gear->item_damage_min,
             "max_dmg" => $gear->item_damage_max,
             "icon" => $gear->get_gear_thumbnail(),
-            "item_type" => $gear->item_type
+            "item_type" => $gear->item_type,
+            "equipped" => in_array((int) $gear->item_id, $player_profile->player_equipped, true),
+            "num_sockets" => $gear->item_num_sockets,
+            "inlaid_id" => $gear->item_inlaid_gem_id
         ];
     }
     return $response;
+}
+
+function create_gear_lightbox($item_id) {
+    $item = read_custom_item($item_id);
+    if (!$item) {
+        return ["success" => false, "message" => "Item not found"];
+    }
+    $is_gem = strpos($item->item_type, "D") !== false;
+    $item_html = "<div class='item-slot'>";
+    $item_html .= $item->display_item($is_gem, "basic");
+    $item_html .= "</div>";
+    return ["success" => true, "html" => $item_html];
 }
 
 function get_gear_by_player_id($player_id, $specific_id = null) {
@@ -118,6 +137,5 @@ function get_gear_by_player_id($player_id, $specific_id = null) {
     }
     return ["success" => true, "items" => $filteredGear];
 }
-
 
 ?>

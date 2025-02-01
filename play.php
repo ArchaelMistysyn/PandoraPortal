@@ -20,7 +20,7 @@
 	include_once('./bot_php/itemrolls.php');
 
     $logged_in = False;
-    $verified_user_id = 23; /* Apply login system later. */
+    $verified_user_id = 30; /* Apply login system later. */
     $player_profile = get_player_by_id($verified_user_id);
 	if ($player_profile && $player_profile->player_id != 0) {
         $_SESSION['player_id'] = $verified_user_id;
@@ -57,8 +57,10 @@
             $gearContainerHTML .= '<button class="sort-button" onclick="onGear(\'Ring\')">Ring</button>';
             $gearContainerHTML .= '<button class="sort-button" onclick="onGear(\'Gem\')">Gem</button>';
         $gearContainerHTML .= '</div>';
-        $gearContainerHTML .= '<div id="gear-screen"></div>';
-        $gearContainerHTML .= '<div id="equipped-gear"></div>';
+        $gearContainerHTML .= '<div id="gear-screen-container">';
+            $gearContainerHTML .= '<div id="gear-screen"></div>';
+            $gearContainerHTML .= '<div id="equipped-gear"></div>';
+        $gearContainerHTML .= '</div>';
     $gearContainerHTML .= '</div>';
 
 
@@ -71,6 +73,7 @@
 	<link rel="icon" type="img/ico" href="./images/favicon.ico">
 </head>
 <body id="play-body">
+    <div id="lightbox-screen"><div id="lightbox-container"><div id="lightbox-display"></div><div id="lightbox-menu"></div></div></div>
     <div id="interface-screen"></div>
     <main id="play-main">   
         <div id="left-spacer"></div>
@@ -99,6 +102,8 @@
         </div>
         <div id="right-spacer"></div>
     </main>
+    <script src="./scripts/inventory_button.js"></script>
+    <script src="./scripts/gear_button.js"></script>
     <script src="./scripts/play_buttons.js"></script>
 </body>
 </html>

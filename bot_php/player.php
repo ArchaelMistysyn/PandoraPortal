@@ -285,10 +285,9 @@ class PlayerProfile {
 		// Item Multipliers
 		$e_item = [];
 		$equipped_gem_ids = [];
-		$non_zero_equipped = array_filter($this->player_equipped, function($value) { return $value != '0'; });
+		$non_zero_equipped = array_filter($this->player_equipped, function($value) { return $value !== 0; });
 		if (!empty($non_zero_equipped)) {
-			$equipped_ids = array_map('intval', $non_zero_equipped);
-			$equipped_placeholder = implode(',', $equipped_ids);
+			$equipped_placeholder = implode(',', $non_zero_equipped);
 			if ($equipped_placeholder) {
 				$result_items = read_custom_item(null, $equipped_placeholder);
 				foreach ($result_items as $row) {
@@ -865,11 +864,11 @@ function get_player_by_id($search_input, $check_method="player") {
 		$player_profile->player_echelon = $data['player_echelon'];
 		$player_profile->player_class = $data['player_class'];
 		$player_profile->player_quest = $data['player_quest'];
-		$player_profile->quest_tokens = explode(';', $data['quest_tokens']);
+		$player_profile->quest_tokens = array_map('intval', explode(';', $data['quest_tokens']));
 		$player_profile->player_coins = $data['player_coins'];
 		$player_profile->player_stamina = $data['player_stamina'];
-		$player_profile->player_stats = explode(';', $data['player_stats']);
-		$player_profile->player_equipped = explode(';', $data['player_equipped']);
+		$player_profile->player_stats = array_map('intval', explode(';', $data['player_stats']));
+		$player_profile->player_equipped = array_map('intval', explode(';', $data['player_equipped']));
 		$player_profile->player_pact = $data['player_pact'];
 		$player_profile->player_insignia = $data['player_insignia'];
 		$player_profile->equipped_tarot = $data['player_tarot'];

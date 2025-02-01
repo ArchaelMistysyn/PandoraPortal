@@ -95,7 +95,7 @@
 		global $tag_dict;
 		$html = '<div class="item-slot card1 active" id="item-' . $type . '">';
 		if (isset($equipped_items[$type])) {
-			$html .= $equipped_items[$type]->display_item($type);
+			$html .= $equipped_items[$type]->display_item();
 		} else {
 			$type_name = isset($tag_dict[$type]) ? $tag_dict[$type] : "Unknown";
 			$html .= "Empty Slot: " . $type_name;
@@ -104,7 +104,7 @@
 		// Gem Slot
 		$html .= '<div class="item-slot card2" id="gem-' . $type . '">';
 		if (isset($equipped_gems[$type])) {
-			$html .= $equipped_gems[$type]->display_item($type, true);
+			$html .= $equipped_gems[$type]->display_item(true);
 		} else {
 			$html .= "Empty Slot: Gem";
 		}
