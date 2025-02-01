@@ -114,7 +114,7 @@
 		}
 
 		
-		public function display_item($stored_type, $is_gem=false) {
+		public function display_item($is_gem=false, $method=null) {
 			global $sovereign_item_list, $ring_skill_data, $ring_category, $path_names, $gem_point_dict, $low_tier_skills;
 			$quality = '';
 			$name = '';
@@ -136,8 +136,8 @@
 			}
 			$thumbnail_url = $this->get_gear_thumbnail();
 			$html = '<img src="' . $thumbnail_url . '" alt="' . $this->item_name . '" class="item-thumbnail">';
-			if ($this->item_inlaid_gem_id != 0 || $is_gem) {
-				$html .= '<button type="button" class="slot-toggle input-button" onclick="toggleSlotDisplay(\'' . $stored_type . '\')">Toggle</button>';
+			if ($method !== "basic" && ($this->item_inlaid_gem_id != 0 || $is_gem)) {
+				$html .= '<button type="button" class="slot-toggle input-button" onclick="toggleSlotDisplay(\'' . $this->item_type . '\')">Toggle</button>';
 			}
 			$html .= "<h1 class='item-name highlight-text'>" . $name . "</h1>";
 			$html .= "<div class='style-line'></div>";
@@ -794,7 +794,11 @@
 				}
 			}
 			if ($multi_id === null) {
-				return $item_list[0];
+				if (empty($item_list)) {
+					return null;
+				} else {
+					return reset($item_list); 
+				}
 			} else {
 				return $item_list;
 			}
