@@ -1,5 +1,6 @@
 const loadScreen = document.getElementById("loadscreen");
 const selectMenu = document.getElementById("interface-screen");
+const slotTypes = {"W": "Weapon", "A": "Armour", "V": "Greaves", "Y": "Amulet", "R": "Ring", "G": "Wings", "C": "Crest"};
     
 
 function clearScreens() {
@@ -18,8 +19,49 @@ function onBattle() {
     clearScreens();
 }
 
-function onGear() {
+function onGear(filterCategory = null) {
     clearScreens();
+    fetch('./fetch_handler.php?action=displaygear')
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                let filteredGear = filterCategory ? filterGear(data.items, filterCategory) : data.items;
+                displayGear(filteredGear);
+            } else {
+                alert("Failed to load gear.");
+            }
+        })
+        .catch(error => console.error('Error:', error));
+}
+
+function displayGear(items) {
+    let gearContainer = document.getElementById("gear-container");
+    let gearScreen = document.getElementById("gear-screen");
+    gearScreen.innerHTML = "";
+    items.forEach(item => {
+        let itemElement = document.createElement("div");
+        let itemIcon = document.createElement("img");
+        let itemName = document.createElement("span");
+        let itemTag = document.createElement("div");
+        itemElement.classList.add("gear-item");
+        itemElement.dataset.itemId = item.item_id;
+        itemName.textContent = item.name;
+        itemName.classList.add("gear-hovername");
+        itemIcon.src = item.icon;
+        itemIcon.alt = item.name;
+        itemIcon.classList.add("gear-icon");
+        itemTag.classList.add("id-tag");
+        itemTag.textContent = `ID: ${item.item_id}`;
+        itemElement.appendChild(itemIcon);
+        itemElement.appendChild(itemName);
+        itemElement.appendChild(itemTag);
+        gearScreen.appendChild(itemElement);
+    });
+    gearContainer.style.display = "flex";
+}
+
+function filterGear(items, category) {
+    return items.filter(item => category === "Gem" ? item.item_type.includes("D") : slotTypes[item.item_type] === category);
 }
 
 function onInventory(filterCategory = null) {
@@ -45,6 +87,7 @@ function displayInventory(items) {
         let itemElement = document.createElement("div");
         let itemIcon = document.createElement("img");
         let itemName = document.createElement("span");
+        let itemTag = document.createElement("div");
         itemElement.classList.add("inventory-item");
         itemElement.dataset.itemId = item.item_id;
         itemElement.dataset.itemQty = item.item_qty;
@@ -53,8 +96,11 @@ function displayInventory(items) {
         itemIcon.src = item.icon;
         itemIcon.alt = item.name;
         itemIcon.classList.add("inventory-icon");
+        itemTag.classList.add("qty-tag");
+        itemTag.textContent = item.item_qty;
         itemElement.appendChild(itemIcon);
         itemElement.appendChild(itemName);
+        itemElement.appendChild(itemTag);
         inventoryScreen.appendChild(itemElement);
     });
     inventoryContainer.style.display = "flex";

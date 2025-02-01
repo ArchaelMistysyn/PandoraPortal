@@ -240,7 +240,16 @@
     height: 100%;
   }
 
-/* Inventory */
+/* Inventory/Gear */
+  #gear-container {
+    position: relative;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    padding-bottom: 80px;
+  }
   #inventory-container {
     position: relative;
     display: none;
@@ -250,7 +259,7 @@
     width: 100%;
     padding-bottom: 80px;
   }
-  #inventory-menu {
+  #inventory-menu, #gear-menu {
     position: relative;
     display: flex;
     justify-content: center;
@@ -259,7 +268,7 @@
     width: 100%;
     gap: 10px;
   }
-  #inventory-screen {
+  #inventory-screen, #gear-screen {
     position: relative;
     display: grid;
     grid-template-columns: repeat(auto-fill, 104px);
@@ -280,12 +289,12 @@
   .sort-button:hover {
     background-color: gray;
   }
-  .inventory-item {
+  .inventory-item, .gear-item {
     position: relative;
     width: 104px;
     height: 104px;
   }
-  .inventory-hovername {
+  .inventory-hovername, .gear-hovername {
     display: none;
     position: absolute;
     padding: 8px;
@@ -296,8 +305,23 @@
     background-color: black;
     z-index: 10;
   }
-  .inventory-item:hover .inventory-hovername{
+  .inventory-item:hover .inventory-hovername, .gear-item:hover .gear-hovername {
     display: flex;
+  }
+  .qty-tag, .id-tag {
+    position:absolute;
+    vertical-align: center;
+    text-align: center;
+    bottom: 5px;
+    right: 5px;
+    font-size: 1.2rem;
+    width: fit-content;
+    padding: 2px 5px;
+    height: 25px;
+    background-color: black;
+    border: 1px solid white;
+    color: white;
+    z-index: 9;
   }
 
 /* MEDIA QUERIES */
