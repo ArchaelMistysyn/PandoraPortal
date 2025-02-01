@@ -26,6 +26,42 @@
         $_SESSION['player_id'] = $verified_user_id;
         $logged_in = True;
     }
+
+    // Interfaces - Inventory Container
+    $inventoryContainerHTML = '<div id="inventory-container">';
+        $inventoryContainerHTML .= '<div id="inventory-menu">';
+            $inventoryContainerHTML .= '<button class="sort-button" onclick="onInventory(\'Crafting\')">Crafting</button>';
+            $inventoryContainerHTML .= '<button class="sort-button" onclick="onInventory(\'Fae Cores\')">Fae Cores</button>';
+            $inventoryContainerHTML .= '<button class="sort-button" onclick="onInventory(\'Materials\')">Materials</button>';
+            $inventoryContainerHTML .= '<button class="sort-button" onclick="onInventory(\'Unprocessed\')">Unprocessed</button>';
+            $inventoryContainerHTML .= '<button class="sort-button" onclick="onInventory(\'Essences\')">Essences</button>';
+            $inventoryContainerHTML .= '<button class="sort-button" onclick="onInventory(\'Summoning\')">Summoning</button>';
+            $inventoryContainerHTML .= '<button class="sort-button" onclick="onInventory(\'Gemstone\')">Gemstone</button>';
+            $inventoryContainerHTML .= '<button class="sort-button" onclick="onInventory(\'Fish\')">Fish</button>';
+            $inventoryContainerHTML .= '<button class="sort-button" onclick="onInventory(\'Misc\')">Misc</button>';
+            $inventoryContainerHTML .= '<button class="sort-button" onclick="onInventory(\'Ultra Rare\')">Ultra Rare</button>';
+            $inventoryContainerHTML .= '<button class="sort-button" onclick="onInventory()">Show All</button>';
+        $inventoryContainerHTML .= '</div>';
+        $inventoryContainerHTML .= '<div id="inventory-screen"></div>';
+    $inventoryContainerHTML .= '</div>';
+
+    // Interfaces - Gear Container
+    $gearContainerHTML = '<div id="gear-container">';
+        $gearContainerHTML .= '<div id="gear-menu">';
+            $gearContainerHTML .= '<button class="sort-button" onclick="onGear(\'Weapon\')">Weapon</button>';
+            $gearContainerHTML .= '<button class="sort-button" onclick="onGear(\'Armour\')">Armour</button>';
+            $gearContainerHTML .= '<button class="sort-button" onclick="onGear(\'Greaves\')">Greaves</button>';
+            $gearContainerHTML .= '<button class="sort-button" onclick="onGear(\'Amulet\')">Amulet</button>';
+            $gearContainerHTML .= '<button class="sort-button" onclick="onGear(\'Wings\')">Wings</button>';
+            $gearContainerHTML .= '<button class="sort-button" onclick="onGear(\'Crest\')">Crest</button>';
+            $gearContainerHTML .= '<button class="sort-button" onclick="onGear(\'Ring\')">Ring</button>';
+            $gearContainerHTML .= '<button class="sort-button" onclick="onGear(\'Gem\')">Gem</button>';
+        $gearContainerHTML .= '</div>';
+        $gearContainerHTML .= '<div id="gear-screen"></div>';
+        $gearContainerHTML .= '<div id="equipped-gear"></div>';
+    $gearContainerHTML .= '</div>';
+
+
 ?>
 <head>
     <meta charset="UTF-8">
@@ -42,22 +78,8 @@
             <div id="primary-content">
                 <?php if ($logged_in){
                     echo "<div id='loadscreen'></div>";
-                    echo '<div id="inventory-container">
-                        <div id="inventory-menu">
-                            <button class="sort-button" onclick="onInventory(\'Crafting\')">Crafting</button>
-                            <button class="sort-button" onclick="onInventory(\'Fae Cores\')">Fae Cores</button>
-                            <button class="sort-button" onclick="onInventory(\'Materials\')">Materials</button>
-                            <button class="sort-button" onclick="onInventory(\'Unprocessed\')">Unprocessed</button>
-                            <button class="sort-button" onclick="onInventory(\'Essences\')">Essences</button>
-                            <button class="sort-button" onclick="onInventory(\'Summoning\')">Summoning</button>
-                            <button class="sort-button" onclick="onInventory(\'Gemstone\')">Gemstone</button>
-                            <button class="sort-button" onclick="onInventory(\'Fish\')">Fish</button>
-                            <button class="sort-button" onclick="onInventory(\'Misc\')">Misc</button>
-                            <button class="sort-button" onclick="onInventory(\'Ultra Rare\')">Ultra Rare</button>
-                            <button class="sort-button" onclick="onInventory()">Show All</button>
-                        </div>
-                    <div id="inventory-screen"></div></div>';
-                    echo "<div id='status-id'>UID: " . htmlspecialchars($player_profile->discord_id) . "</div>";
+                    echo $inventoryContainerHTML;
+                    echo $gearContainerHTML;
                 } ?>
             </div>
             <div id="bottom-menu">

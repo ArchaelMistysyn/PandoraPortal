@@ -546,8 +546,10 @@
 				$sub_folder = $ring_item_type[$this->item_tier - 1] . "/";
 				if (in_array($this->item_tier, [4, 5])) {
 					$item_tag = $ring_item_type[$this->item_tier - 1];
-					$elements = explode(';', $this->item_elements);
-					$element_index = array_search('1', $elements);
+					$elements = is_array($this->item_elements)
+						? array_map('intval', $this->item_elements)
+						: array_map('intval', explode(';', $this->item_elements));
+					$element_index = array_search(1, $elements, true);
 				} elseif ($this->item_tier == 6) {
 					$item_tag = $ring_item_type[$this->item_tier - 1];
 					$path_name = trim(explode("Ring of ", $this->item_name)[1] ?? "");
@@ -578,7 +580,9 @@
 				"C" => "Grants X Curse 10%"
 			];
 			if (is_string($this->item_elements)) {
-				$elements = explode(';', $this->item_elements);
+				$elements = is_array($this->item_elements)
+						? array_map('intval', $this->item_elements)
+						: array_map('intval', explode(';', $this->item_elements));
 			} elseif (is_array($this->item_elements)) {
 				$elements = $this->item_elements;
 			} else {
@@ -586,7 +590,7 @@
 			}
 			$element_display = '<div class="element-icons">';
 			foreach ($elements as $index => $value) {
-				if ($value == '1' || $value == 1) {
+				if ($value == 1) {
 					$element_name = $element_names[$index];
 					$tooltip = isset($tooltip_dict[$this->item_type]) ? str_replace('X', $element_name, $tooltip_dict[$this->item_type]) : "{$element_name}";
 					$element_display .= '<div class="element-icon-container"><img src="./gallery/Icons/Elements/';
@@ -769,7 +773,7 @@
 				$item->item_name = $item_data['item_name'];
 				$item->item_enhancement = $item_data['item_enhancement'];
 				$item->item_quality_tier = $item_data['item_quality_tier'];
-				$item->item_elements = explode(';', $item_data['item_elements']);
+				$item->item_elements = array_map('intval', explode(';', $item_data['item_elements']));
 				$item->item_roll_values = explode(';', $item_data['item_roll_values']);
 				$item->item_num_rolls = count($item->item_roll_values);
 				$item->item_base_stat = $item_data['item_base_stat'];
@@ -848,7 +852,7 @@
 		}
 		$element_display = '<div class="element-icons">';
 		foreach ($elements as $index => $value) {
-			if ($value == '1' || $value == 1) {
+			if ($value == 1) {
 				$element_name = $element_names[$index];
 				$element_display .= '<img src="./gallery/Icons/Elements/' . $element_name . '.webp" class="icon-small" alt="' . $element_name . '">';
 			}
