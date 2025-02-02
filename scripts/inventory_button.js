@@ -1,6 +1,10 @@
 function onInventory(filterCategory = null) {
     clearScreens();
-    fetch('./fetch_handler.php?action=inventory')
+    fetch('./fetch_handler.php', {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action: "inventory" })
+    })
         .then(response => response.json())
         .then(data => {
             if (data.success) {
@@ -36,6 +40,7 @@ function displayInventory(items) {
         itemElement.appendChild(itemName);
         itemElement.appendChild(itemTag);
         inventoryScreen.appendChild(itemElement);
+        itemElement.onclick = () => openInventoryLightbox(item);
     });
     inventoryContainer.style.display = "flex";
 }
@@ -59,4 +64,23 @@ function filterInventory(items, category) {
         }
         return regex_dict[category].test(String(item.item_id));
     });
+}
+
+function openInventoryLightbox(item) {
+    fetch('./fetch_handler.php', {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action: "showInventoryItem", item_id: item.item_id })
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                lightboxDisplay.innerHTML = data.html;
+                lightboxMenu.innerHTML = data.menu;
+                lightboxScreen.style.display = "flex"; 
+            } else {
+                console.error("Failed to fetch inventory item details:", data.message);
+            }
+        })
+        .catch(error => console.error("Error fetching inventory details:", error));
 }

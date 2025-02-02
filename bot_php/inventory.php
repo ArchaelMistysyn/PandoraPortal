@@ -119,7 +119,6 @@
 			$quality = '';
 			$name = '';
 			$tooltip = '';
-			$base_stat_msg = '';
 			if (preg_match('/^(.*?)\s*(\[[^\]]+\])$/', $this->item_name, $matches)) {
 				$name = $matches[1];
 				$quality = $matches[2];
@@ -197,7 +196,7 @@
 					$tooltip = "<span class='tooltip'>{$tooltip}. Final Damage +{$final_damage}%</span>";
 				} else if ($this->item_tier < 5 && in_array($this->item_type, ["G", "C"])) {
 					if (isset($low_tier_skills[$this->item_bonus_stat])) {
-						$bonus_stat_msg = "{$low_tier_skills[$this->item_bonus_stat]} ({$this->item_bonus_stat})";
+						$bonus_stat_msg = $this->item_bonus_stat;
 						$tooltip = "<span class='tooltip'>{$low_tier_skills[$this->item_bonus_stat]}</span>";
 					}
 				}

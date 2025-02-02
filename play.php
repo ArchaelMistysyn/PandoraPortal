@@ -20,7 +20,7 @@
 	include_once('./bot_php/itemrolls.php');
 
     $logged_in = False;
-    $verified_user_id = 30; /* Apply login system later. */
+    $verified_user_id = 29; /* Apply login system later. */
     $player_profile = get_player_by_id($verified_user_id);
 	if ($player_profile && $player_profile->player_id != 0) {
         $_SESSION['player_id'] = $verified_user_id;
@@ -74,6 +74,7 @@
 </head>
 <body id="play-body">
     <div id="lightbox-screen"><div id="lightbox-container"><div id="lightbox-display"></div><div id="lightbox-menu"></div></div></div>
+    <div id="blocking-screen"></div>
     <div id="interface-screen"></div>
     <main id="play-main">   
         <div id="left-spacer"></div>
@@ -81,6 +82,7 @@
             <div id="primary-content">
                 <?php if ($logged_in){
                     echo "<div id='loadscreen'></div>";
+                    echo "<div id='status-id'>" . $player_profile->discord_id . "</div>";
                     echo $inventoryContainerHTML;
                     echo $gearContainerHTML;
                 } ?>
