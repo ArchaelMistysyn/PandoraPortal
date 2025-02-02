@@ -5,6 +5,7 @@ const loadScreen = document.getElementById("loadscreen");
 const selectMenu = document.getElementById("interface-screen");
 const gearContainer = document.getElementById("gear-container");
 const inventoryContainer = document.getElementById("inventory-container");
+const blockingScreen = document.getElementById("blocking-screen");
 const slotTypes = {"W": "Weapon", "A": "Armour", "V": "Greaves", "Y": "Amulet", "R": "Ring", "G": "Wings", "C": "Crest"};
 
 document.getElementById("lightbox-screen").addEventListener("click", function(event) {
@@ -15,7 +16,8 @@ document.getElementById("lightbox-screen").addEventListener("click", function(ev
 });
 
 function closeLightbox() {
-    document.getElementById("lightbox-screen").style.display = "none";
+    lightboxScreen.style.display = "none";
+    blockingScreen.style.display = "none";
 }
 
 function clearScreens() {

@@ -205,6 +205,17 @@
     height: 100%;
     width: 350px;
   }
+  #blocking-screen {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0);
+    z-index: 99999;
+    pointer-events: auto;
+  }
   #interface-screen {
     position: absolute;
     top: 0;
@@ -285,17 +296,28 @@
     gap: 10px;
   }
   #lightbox-menu button {
-    background: #444;
     color: white;
     border: none;
     padding: 8px 12px;
+    margin: 5px;
+    font-size: 1rem;
+    height: 40px;
+    width: 85px;
     cursor: pointer;
     border-radius: 5px;
-    transition: background 0.3s;
+    transition: all 0.3s;
   }
-
   #lightbox-menu button:hover {
-      background: #666;
+    filter: brightness(1.2);
+  }
+  .lightbox-button-green {
+    background-color: rgba(2, 165, 2, 1);
+  }
+  .lightbox-button-blue {
+    background-color: rgba(0, 123, 255, 1);
+  }
+  .lightbox-button-gray {
+    background-color: #444;
   }
 /* Inventory/Gear */
   #gear-container {
@@ -327,19 +349,20 @@
   }
   #gear-screen-container {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
     width: 100%;
     padding: 50px;
+    padding-bottom: 80px;
   }
   #inventory-screen {
     position: relative;
     display: grid;
     grid-template-columns: repeat(auto-fill, 104px);
     padding: 0px 50px;
+    padding-bottom: 80px;
     gap: 25px;
     overflow-y: auto;
-    height: 100%;
     max-width: 1700px;
     width: 100%;
   }
@@ -348,9 +371,9 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, 104px);
     padding: 10px 50px;
+    padding-bottom: 80px;
     gap: 25px;
     overflow-y: auto;
-    height: 100%;
     flex: 1;
   }
   #equipped-gear{
@@ -402,8 +425,17 @@
     background-color: rgba(0, 123, 255, 0.3);
     border: 2px solid darkgray;
   }
+  .empty-slot.gem-slot {
+    border-radius: 50px;
+  }
   .no-slot {
+    margin-top: 25px;
+    margin-bottom: 20px;
+    border: 2px solid black;
     background-color: rgba(255, 0, 0, 0.3);
+    width: 24px;
+    height: 24px;
+    border-radius: 15px;
   }
   .sort-button {
     border: 2px solid red;
@@ -419,10 +451,14 @@
     position: relative;
     width: 104px;
     height: 104px;
+    background-color: black;
   }
   .inventory-hovername, .gear-hovername {
     display: none;
+    justify-content: center;
+    align-items: center;
     position: absolute;
+    min-width: 135px;
     padding: 8px;
     font-size: 1rem;
     text-align: center;
@@ -430,6 +466,8 @@
     border: 1px solid white;
     background-color: black;
     z-index: 10;
+    transform: translateX(-50%);
+    left: 50%;
   }
   .inventory-item:hover .inventory-hovername, .gear-item:hover .gear-hovername {
     display: flex;
@@ -452,7 +490,23 @@
   }
 
 
-  /* Gear Lightbox (Carried over from char.css) */
+  /* Gear/Inventory Lightbox */
+  .item-displaybox {
+    position: relative;
+    min-width: 400px;
+    max-width: 400px;
+    min-height: 400px;
+    max-height: 400px;
+    background-color: #111;
+    border: 1px solid white;
+    padding: 0px;
+    padding: 10px 30px;
+    font-size: 1.2rem;
+    text-align: center;
+    flex-direction: column;
+    color: white;
+  }
+  
   .item-slot {
     position: relative;
     min-width: 400px;
@@ -675,7 +729,9 @@
   line-height: 0.6;
   color: black;
 }
-
+.symbol-height {
+  line-height: 1;
+}
 /* MEDIA QUERIES */
 @media (max-width: 2000px) {
   #bottom-menu {

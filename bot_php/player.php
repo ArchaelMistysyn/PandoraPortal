@@ -169,6 +169,22 @@ class PlayerProfile {
 		$html .= '</div></div>';
 		return $html;
 	}
+
+	public function update_player_data() {
+		$query = "UPDATE PlayerList SET";
+		$query .= " player_equipped = '" . implode(';', $this->player_equipped);
+		$query .= "', player_exp = " . intval($this->player_exp);
+		$query .= ", player_level = " . intval($this->player_level);
+		$query .= ", player_echelon = " . intval($this->player_echelon);
+		$query .= ", player_coins = " . intval($this->player_coins);
+		$query .= ", player_stamina = " . intval($this->player_stamina);
+		$query .= ", player_pact = '" . addslashes($this->player_pact);
+		$query .= "', player_insignia = '" . addslashes($this->player_insignia);
+		$query .= "', player_tarot = '" . addslashes($this->equipped_tarot);
+		$query .= "' WHERE player_id = " . intval($this->player_id);
+		run_query($query, false);
+		return;
+	}	
 	
 	public function display_player($w_item, $gear_score) {
 		global $path_names, $glyph_data, $path_perks;	

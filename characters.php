@@ -120,8 +120,6 @@
     <title>Pandora Portal - Characters</title>
     <link rel="stylesheet" href="CSS/generalpageCSS.css">
 	<link rel="stylesheet" href="CSS/characterCSS.css">
-    <link rel="stylesheet" href="CSS/generalpageCSS.css">
-	<link rel="stylesheet" href="CSS/characterCSS.css">
     <link rel="icon" type="img/ico" href="./images/favicon.ico">
 </head>
 <body id="page-body">

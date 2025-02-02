@@ -12,17 +12,33 @@ include_once('./bot_php/path.php');
 include_once('./bot_php/inventory.php');
 include_once('./bot_php/itemrolls.php');
 
-if (!isset($_SESSION['player_id']) || !isset($_GET['action'])) {
-    echo json_encode(["success" => false, "message" => !isset($_SESSION['player_id']) ? "Unauthorized access" : "No action"]);
+if (!isset($_SESSION['player_id'])) {
+    echo json_encode(["success" => false, "message" => "Unauthorized access"]);
     exit();
 }
 $verified_player_id = $_SESSION['player_id'];
-$action = $_GET['action'];
-$item_id = isset($_GET['item_id']) ? (int)$_GET['item_id'] : null;
+$input = json_decode(file_get_contents("php://input"), true);
+$action = $input['action'] ?? null;
+$item_id = $input['item_id'] ?? null;
+if (!$action) {
+    echo json_encode(["success" => false, "message" => "No action provided"]);
+    exit();
+}
+if ($item_id !== null) {
+    if (ctype_digit((string) $item_id)) {
+        $item_id = (int) $item_id;
+    } elseif (!isset($itemData[$item_id])) {
+        echo json_encode(["success" => false, "message" => "Invalid item ID"]);
+        exit();
+    }
+}
 $response = ["success" => false];
 switch ($action) {
     case "inventory":
         $response = get_inventory_by_player_id($verified_player_id);
+        break;
+    case "showInventoryItem":
+        $response = create_inventory_lightbox($verified_player_id, $item_id);
         break;
     case "player":
         $player_profile = get_player_by_id($verified_player_id);
@@ -34,7 +50,20 @@ switch ($action) {
         $response = handle_gear($verified_player_id);
         break;
     case "showGearItem":
-        $response = create_gear_lightbox($item_id);
+        $response = create_gear_lightbox($verified_player_id, $item_id);
+        break;
+    case "equipItem":
+        if ($item_id == null) {
+            $response = ["success" => false, "message" => "Missing item ID"];
+        } else {
+            $response = equip_gear($verified_player_id, $item_id);
+        }
+        break;
+    case "removeItemScrap":
+        $response = process_gear_removal($verified_player_id, $item_id, 'Scrap');
+        break;
+    case "removeItemSell":
+        $response = process_gear_removal($verified_player_id, $item_id, 'Sell');
         break;
     default:
         $response["message"] = "Invalid action";
@@ -42,12 +71,21 @@ switch ($action) {
 echo json_encode($response, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
 
 // Fetch Functions
-function get_inventory_by_player_id($player_id) {
+function get_inventory_by_player_id($player_id, $specific_item_id = null) {
     global $itemData;
+    if ($specific_item_id !== null) {
+        if (!isset($itemData[$specific_item_id])) {
+            return ["success" => false, "message" => "Invalid item ID"];
+        }
+        $specific_item_id = "'" . addslashes($specific_item_id) . "'";
+    }
     $query = "SELECT item_id, item_qty FROM BasicInventory WHERE player_id = " . intval($player_id);
+    if ($specific_item_id !== null) {
+        $query .= " AND item_id = " . $specific_item_id;
+    }
     $inventory = run_query($query);
     if (!$inventory) {
-        return [];
+        return ["success" => false, "message" => "Item not found"];
     }
     foreach ($inventory as &$item) {
         $category = $itemData[$item["item_id"]]["category"];
@@ -61,8 +99,38 @@ function get_inventory_by_player_id($player_id) {
         }
         $item["icon"] = "./botimages/NonGear_Icon/{$category}/{$filename}";
     }
-    return ["success" => (bool) $inventory, "items" => $inventory ?: []];
+    return $specific_item_id !== null ? ["success" => true, "item" => $inventory[0]] : ["success" => true, "items" => $inventory];
 }
+
+function create_inventory_lightbox($player_id, $item_id) {
+    global $itemData;
+    if (!isset($itemData[$item_id])) {
+        return ["success" => false, "message" => "Invalid item ID"];
+    }
+    $result = get_inventory_by_player_id($player_id, $item_id);
+    if (!$result["success"]) {
+        return ["success" => false, "message" => "Item not found"];
+    }
+    $item = $result["item"];
+    $tier = $itemData[$item_id]["tier"];
+    $description = $itemData[$item_id]["description"];
+    $stars = generate_stars($tier);
+    $item_html = "<div class='item-displaybox'>";
+    $item_html .= "<img src='{$item["icon"]}' alt='{$item["name"]}' class='inventory-lightbox-icon'>";
+    $item_html .= "<div class='item-name highlight-text'>{$item["name"]}</div>";
+    $item_html .= "<div class='style-line'></div>";
+    $item_html .= "<div class='inventory-stars'>{$stars}</div>";
+    $item_html .= "<div class='style-line'></div>";
+    $item_html .= "<div class='inventory-description'>{$description}</div>";
+    $item_html .= "<div class='style-line'></div>";
+    $item_html .= "<div>Quantity: {$item["item_qty"]}</div>";
+    $item_html .= "</div>";
+    $menu_html = "<div class='lightbox-menu'>";
+    $menu_html .= "<button class='close-lightbox' onclick='closeLightbox()'>✖ Close</button>";
+    $menu_html .= "</div>";
+    return ["success" => true, "html" => $item_html, "menu" => $menu_html];
+}
+
 
 function handle_gear($player_id) {
     $player_profile = get_player_by_id($player_id);
@@ -94,7 +162,8 @@ function handle_gear($player_id) {
     return $response;
 }
 
-function create_gear_lightbox($item_id) {
+function create_gear_lightbox($player_id, $item_id) {
+    $player_profile = get_player_by_id($player_id);
     $item = read_custom_item($item_id);
     if (!$item) {
         return ["success" => false, "message" => "Item not found"];
@@ -103,7 +172,15 @@ function create_gear_lightbox($item_id) {
     $item_html = "<div class='item-slot'>";
     $item_html .= $item->display_item($is_gem, "basic");
     $item_html .= "</div>";
-    return ["success" => true, "html" => $item_html];
+    $menu_html = "<div class='lightbox-menu'>";
+    if (!$is_gem && !in_array($item_id, $player_profile->player_equipped, true)) {
+        $menu_html .= "<button class='lightbox-button-green' onclick='EquipItem(\"" . $item_id . "\")'>Equip</button>";
+        $menu_html .= "<button class='lightbox-button-blue' onclick='handleGearAction(" . $item_id . ", \"Scrap\")'>Scrap</button>";
+        $menu_html .= "<button class='lightbox-button-blue' onclick='handleGearAction(" . $item_id . ", \"Sell\")'>Sell</button>";
+    }
+    $menu_html .= "<button class='lightbox-button-gray' onclick='closeLightbox()'><span class='symbol-height'>✖</span> Close</button>";
+    $menu_html .= "</div>";
+    return ["success" => true, "html" => $item_html, "menu" => $menu_html];
 }
 
 function get_gear_by_player_id($player_id, $specific_id = null) {
@@ -136,6 +213,58 @@ function get_gear_by_player_id($player_id, $specific_id = null) {
         $filteredGear[] = $customItem;
     }
     return ["success" => true, "items" => $filteredGear];
+}
+
+function equip_gear($player_id, $item_id) {
+    global $item_loc_dict;
+    $item = read_custom_item($item_id);
+    $player = get_player_by_id($player_id);
+    if (!$item || !$player) {
+        return ["success" => false, "message" => "Item or Player not found."];
+    }
+    $player->player_equipped[$item_loc_dict[$item->item_type]] = $item_id;
+    $player->update_player_data();
+    return ["success" => true, "message" => "Item equipped: " . $item_id];
+}
+
+function process_gear_removal($player_id, $item_id, $action) {
+    $player = get_player_by_id($player_id);
+    $item = read_custom_item($item_id);
+    if (!$item || !$player) {
+        return ["success" => false, "reload" => true, "message" => "Item or Player not found."];
+    }
+    $equip_index = array_search($item_id, $player->player_equipped, true);
+    if ($equip_index !== false) {
+        $player->player_equipped[$equip_index] = 0;
+    }
+    $query = "DELETE FROM CustomInventory WHERE player_id = " . intval($player_id) . " AND item_id = " . intval($item_id);
+    run_query($query, true);
+    if ($action === "Scrap") {
+        $reward_message = assign_scrap_reward($player_id, $item);
+    } else if ($action === "Sell"){
+        $reward_message = assign_sell_reward($player, $item);
+    }
+    $player->update_player_data();
+    return ["success" => true, "message" => "Item $action completed. " . $reward_message];
+}
+
+function assign_scrap_reward($player_id, $item) {
+    $scrap_qty = $item->item_tier;
+    $query = "INSERT INTO BasicInventory (player_id, item_id, item_qty)";
+    $query .= " VALUES ($player_id, 'Scrap', $scrap_qty)";
+    $query .= " ON DUPLICATE KEY UPDATE item_qty = item_qty + $scrap_qty";
+    run_query($query, false);
+    return "Received $scrap_qty Scrap.";
+}
+
+function assign_sell_reward($player, $item) {
+    $sell_value_by_tier = [
+        0 => 0, 1 => 500, 2 => 1000, 3 => 2500, 4 => 5000,
+        5 => 10000, 6 => 25000, 7 => 50000, 8 => 100000, 9 => 500000
+    ];
+    $sell_value = $sell_value_by_tier[$item->item_tier] ?? 0;
+    $player->player_coins += $sell_value;
+    return "Sold for $sell_value coins.";
 }
 
 ?>

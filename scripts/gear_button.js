@@ -1,6 +1,10 @@
 function onGear(filterCategory = null) {
     clearScreens();
-    fetch('./fetch_handler.php?action=displaygear')
+    fetch('./fetch_handler.php', {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action: "displaygear" })
+    })
         .then(response => response.json())
         .then(data => {
             if (data.success) {
@@ -127,15 +131,71 @@ function filterGear(items, category) {
 }
 
 function openGearLightbox(item) {
-    fetch(`./fetch_handler.php?action=showGearItem&item_id=${item.item_id}`)
+    fetch('./fetch_handler.php', {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action: "showGearItem", item_id: item.item_id })
+    })
         .then(response => response.json())
         .then(data => {
             if (data.success) {
                 lightboxDisplay.innerHTML = data.html;
+                lightboxMenu.innerHTML = data.menu;
                 lightboxScreen.style.display = "flex"; 
             } else {
                 console.error("Failed to fetch gear item details:", data.message);
             }
         })
         .catch(error => console.error("Error fetching gear details:", error));
+}
+
+function EquipItem(itemId) {
+    blockingScreen.style.display = "block";
+    fetch('./fetch_handler.php', {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action: "equipItem", item_id: itemId })
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                onGear();
+                closeLightbox();
+            } else {
+                console.error("Failed to equip item:", data.message);
+                alert(`Error: ${data.message}`);
+            }
+        })
+        .catch(error => console.error("Error equipping item:", error))
+        .finally(() => {
+            blockingScreen.style.display = "none";
+        });
+}
+
+function handleGearAction(itemId, method) {
+    blockingScreen.style.display = "block";
+    let action = "removeItem" + method;
+    fetch('./fetch_handler.php', {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action: action, item_id: itemId })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            onGear();
+            closeLightbox();
+        } else if (data.reload) {
+            onGear();
+            closeLightbox();
+            alert(`Error: ${data.message}`);
+        } else {
+            console.error(`Failed to ${method} item:`, data.message);
+            alert(`Error: ${data.message}`);
+        }
+    })
+    .catch(error => console.error(`Error ${method}ing item:`, error))
+    .finally(() => {
+        blockingScreen.style.display = "none";
+    });
 }

@@ -13,6 +13,7 @@
 		'Insignia' => 'Insignia', 
 		'Tarot' => 'Tarot'
 	];
+	$item_loc_dict = ['W' => 0, 'A' => 1, 'V' => 2, 'Y' => 3, 'R' => 4, 'G' => 5, 'C' => 6];
 
 	$element_dict = [
 		'Fire' => [0], 
