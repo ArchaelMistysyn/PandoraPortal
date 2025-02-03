@@ -84,6 +84,7 @@
     user-select: none;
   }
 
+   /* Login Logout */
   #status-id {
     position: absolute;
     font-size: 1.6rem;
@@ -93,12 +94,59 @@
     background-color:rgba(0, 0, 0, 0.9);
     padding: 5px;
   }
-  #login-form {
-    font-size: 2rem;
+  #login-container {
     border: 2px solid red;
-    background-color:rgba(0, 0, 0, 0.9);
+    height: 600px;
+    width: 450px;
+    padding: 50px;
+  }
+  #login-header {
+    color: red;
+    text-align:center;
+    font-size: 2.4rem;
+    margin-bottom: 10px;
+  }
+  #login-instructions {
+    color: white;
+    font-size: 1.3rem;
+    line-height: 1.5;
+    margin-bottom: 15px;
+  }
+  #login-instructions li{
+    list-style-position: inside; 
+  }
+  #login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 2rem;
     padding: 15px;
   }
+  #login-form input[type="text"], #login-form input[type="password"] {
+      width: 100%;
+      padding: 8px;
+      font-size: 14px;
+      border: 1px solid #555;
+      border-radius: 5px;
+      background-color: #333;
+      color: white;
+  }
+  #login-form label {
+    font-size: 1.2rem;
+  }
+  #login-form button {
+    background-color: darkred;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  #login-form button:hover {
+    background-color: green;
+  }
+
 
   .logout-button {
     text-decoration: none;
@@ -117,6 +165,7 @@
     justify-content: center;
     align-items: center;
     z-index: 5;
+    flex-shrink: 0;
   }
   
   #bottom-menu a {
@@ -197,7 +246,11 @@
 }
 
 /* LAYOUT CSS */
+  #play-body{
+    height: 100vh;
+  }
   #play-main {
+    height: 100vh;
     position: absolute;
     display: flex;
     align-items: flex-start;
@@ -233,7 +286,7 @@
 
   #main-interface {
     position: relative;
-    height: 100%;
+    height: calc(100vh - 50px);
     width: 100%;
     display: flex;
     padding-top: 20px;
@@ -245,10 +298,13 @@
 
   #primary-content {
     position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background-color: black;
     border: 1px solid white;
     flex: 1;
-    max-height: 90%;
+    height: calc(100vh - 320px);
     width: 100%;
   }
   #loadscreen {
@@ -347,7 +403,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 90px;
+    flex-shrink: 0;
+    height: 100px;
     width: 100%;
     gap: 10px;
   }
