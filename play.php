@@ -19,13 +19,58 @@
 	include_once('./bot_php/inventory.php');
 	include_once('./bot_php/itemrolls.php');
 
-    $logged_in = False;
-    $verified_user_id = 29; /* Apply login system later. */
-    $player_profile = get_player_by_id($verified_user_id);
-	if ($player_profile && $player_profile->player_id != 0) {
-        $_SESSION['player_id'] = $verified_user_id;
-        $logged_in = True;
+    $logged_in = false;
+    $player_profile = null;
+    if (isset($_SESSION['player_id'])) {
+        $player_profile = get_player_by_id($_SESSION['player_id']);
+        if ($player_profile) {
+            $logged_in = true;
+        }
+    } elseif (isset($_COOKIE['player_id'])) {
+        $player_profile = get_player_by_id($_COOKIE['player_id']);
+        if ($player_profile) {
+            $logged_in = true;
+            $_SESSION['player_id'] = $player_profile->player_id;
+        }
+    } elseif ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['discord_id'], $_POST['login_key'])) {
+        $webEnvFile = "/home/kylep910/PandoraPortalEnv/.env";
+        $localEnvFile = "./nonpublic/.env";
+        $envFile = file_exists($localEnvFile) ? $localEnvFile : $webEnvFile;
+        if (file_exists($envFile)) {
+            $lines = file($envFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+            foreach ($lines as $line) {
+                if (strpos(trim($line), '#') === 0) continue;
+                putenv($line);
+            }
+        }
+        $SECRET_KEY = getenv('SECRET_KEY');
+        $discord_id = $_POST['discord_id'];
+        $login_key = $_POST['login_key'];
+        $player_profile = get_player_by_id($discord_id, "discord");
+        if ($player_profile && password_verify_key($discord_id, $login_key, $SECRET_KEY)) {
+            $_SESSION['player_id'] = $player_profile->player_id;
+            $logged_in = true;
+            if (isset($_POST['remember_me'])) {
+                setcookie("player_id", $player_profile->player_id, time() + (30 * 24 * 60 * 60), "/");
+            }
+        }
     }
+
+    function password_verify_key($discord_id, $login_key, $secret_key) {
+        $query = "SELECT encrypted_key FROM LoginKeys WHERE discord_id = '$discord_id'";
+        $result = run_query($query);
+        if (empty($result)) {
+            return false;
+        }
+        $encrypted_b64 = $result[0]['encrypted_key'];
+        $encrypted_data = base64_decode($encrypted_b64);
+        $iv = substr($encrypted_data, 0, 16);
+        $cipher_text = substr($encrypted_data, 16);
+        $cipher = "aes-256-cbc";
+        $decrypted_key = openssl_decrypt($cipher_text, $cipher, $secret_key, OPENSSL_RAW_DATA, $iv);
+        return hash_equals($decrypted_key, $login_key);
+    }
+    
 
     // Interfaces - Inventory Container
     $inventoryContainerHTML = '<div id="inventory-container">';
@@ -63,6 +108,16 @@
         $gearContainerHTML .= '</div>';
     $gearContainerHTML .= '</div>';
 
+    // Interfaces - Login
+    $login_form = '<form id="login-form" method="POST">';
+        $login_form .= '<label for="discord_id">Discord ID:</label>';
+        $login_form .= '<input type="text" name="discord_id" required>';
+        $login_form .= '<label for="login_key">Login Key:</label>';
+        $login_form .= '<input type="password" name="login_key" required>';
+        $login_form .= '<label><input type="checkbox" name="remember_me"> Remember Me</label>';
+        $login_form .= '<button type="submit">Login</button>';
+    $login_form .= '</form>';
+
 
 ?>
 <head>
@@ -82,7 +137,7 @@
             <div id="primary-content">
                 <?php if ($logged_in){
                     echo "<div id='loadscreen'></div>";
-                    echo "<div id='status-id'>" . $player_profile->discord_id . "</div>";
+                    echo "<div id='status-id'>" . $player_profile->discord_id . "<a href='./bot_php/logout.php' class='logout-button'> X</a></div>";
                     echo $inventoryContainerHTML;
                     echo $gearContainerHTML;
                 } ?>
@@ -97,7 +152,7 @@
                     $menu .= '<a href="#" class="button-pink" onclick="onLore()"><span>Lore</span></a>';
                     echo $menu;
                 } else {
-                    echo "<div id='status-error'>Login Required</div>";
+                    echo $login_form;
                 } ?>
                 
             </div>
