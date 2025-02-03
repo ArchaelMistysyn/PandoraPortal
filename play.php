@@ -109,14 +109,23 @@
     $gearContainerHTML .= '</div>';
 
     // Interfaces - Login
-    $login_form = '<form id="login-form" method="POST">';
-        $login_form .= '<label for="discord_id">Discord ID:</label>';
-        $login_form .= '<input type="text" name="discord_id" required>';
-        $login_form .= '<label for="login_key">Login Key:</label>';
-        $login_form .= '<input type="password" name="login_key" required>';
-        $login_form .= '<label><input type="checkbox" name="remember_me"> Remember Me</label>';
-        $login_form .= '<button type="submit">Login</button>';
-    $login_form .= '</form>';
+    $login_form = '<div id="login-container">';
+        $login_form .= '<div id="login-header">Login Required</div>';
+        $login_form .= '<ol id="login-instructions">';
+            $login_form .= '<li>Join the discord.</li>';
+            $login_form .= '<li>/Register with the bot.</li>';
+            $login_form .= '<li>Direct Message the bot "login" to get your id and key.</li>';
+            $login_form .= '<li>Directly Messaging "reset" to the bot will give you a new key.</li>';
+        $login_form .= '</ol>';
+        $login_form .= '<form id="login-form" method="POST">';
+            $login_form .= '<label for="discord_id">Discord ID:</label>';
+            $login_form .= '<input type="text" name="discord_id" required>';
+            $login_form .= '<label for="login_key">Login Key:</label>';
+            $login_form .= '<input type="password" name="login_key" required>';
+            $login_form .= '<label><input type="checkbox" name="remember_me"> Remember Me</label>';
+            $login_form .= '<button type="submit">Login</button>';
+        $login_form .= '</form>';
+    $login_form .= '</div>';
 
 
 ?>
@@ -140,6 +149,8 @@
                     echo "<div id='status-id'>" . $player_profile->discord_id . "<a href='./bot_php/logout.php' class='logout-button'> X</a></div>";
                     echo $inventoryContainerHTML;
                     echo $gearContainerHTML;
+                } else {
+                    echo $login_form;
                 } ?>
             </div>
             <div id="bottom-menu">
@@ -151,8 +162,6 @@
                     $menu .= '<a href="#" class="button-gold" onclick="onInventory()"><span>Inventory</span></a>';
                     $menu .= '<a href="#" class="button-pink" onclick="onLore()"><span>Lore</span></a>';
                     echo $menu;
-                } else {
-                    echo $login_form;
                 } ?>
                 
             </div>
