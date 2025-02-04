@@ -199,3 +199,33 @@ function handleGearAction(itemId, method) {
         blockingScreen.style.display = "none";
     });
 }
+
+function toggleInlayMenu() {
+    let menu = document.getElementById("inlay-gear-select");
+    if (menu) {
+        menu.classList.toggle("hideItem");
+    }
+}
+
+function InlayItem(gemId, slotType) {
+    blockingScreen.style.display = "block";
+    fetch('./fetch_handler.php', {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action: "inlayItem", item_id: gemId, slot_type: slotType })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            onGear();
+            closeLightbox();
+        } else {
+            alert(`Error: ${data.message}`);
+        }
+    })
+    .catch(error => console.error("Error inlaying gem:", error))
+    .finally(() => {
+        blockingScreen.style.display = "none";
+    });
+}
+

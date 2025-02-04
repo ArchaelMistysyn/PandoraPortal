@@ -8,6 +8,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
+    // Environment Variables
+    $webEnvFile = "/home/kylep910/PandoraPortalEnv/.env";
+    $localEnvFile = "./nonpublic/.env";
+    $envFile = file_exists($localEnvFile) ? $localEnvFile : $webEnvFile;
+    if (file_exists($envFile)) {
+        $lines = file($envFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+        foreach ($lines as $line) {
+            if (strpos(trim($line), '#') === 0) continue;
+            putenv($line);
+        }
+    }
+    $SECRET_KEY = getenv('SECRET_KEY');
+
 	// Web Inclusions
 	include_once('./bot_php/db_queries.php');
 	include_once('./bot_php/globals.php');
@@ -21,39 +34,37 @@
 
     $logged_in = false;
     $player_profile = null;
+    
+    // Check if session exists
     if (isset($_SESSION['player_id'])) {
         $player_profile = get_player_by_id($_SESSION['player_id']);
-        if ($player_profile) {
-            $logged_in = true;
+        $logged_in = ($player_profile !== null);
+    } 
+    elseif (isset($_COOKIE['login_key'], $_COOKIE['discord_id'])) {
+        $player_profile = authenticate_user($_COOKIE['discord_id'], $_COOKIE['login_key'], $SECRET_KEY);
+        $logged_in = ($player_profile !== null);
+        if (!$logged_in) {
+            setcookie("login_key", "", time() - 3600, "/");
+            setcookie("discord_id", "", time() - 3600, "/");
         }
-    } elseif (isset($_COOKIE['player_id'])) {
-        $player_profile = get_player_by_id($_COOKIE['player_id']);
-        if ($player_profile) {
-            $logged_in = true;
-            $_SESSION['player_id'] = $player_profile->player_id;
-        }
-    } elseif ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['discord_id'], $_POST['login_key'])) {
-        $webEnvFile = "/home/kylep910/PandoraPortalEnv/.env";
-        $localEnvFile = "./nonpublic/.env";
-        $envFile = file_exists($localEnvFile) ? $localEnvFile : $webEnvFile;
-        if (file_exists($envFile)) {
-            $lines = file($envFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-            foreach ($lines as $line) {
-                if (strpos(trim($line), '#') === 0) continue;
-                putenv($line);
+    } 
+    elseif ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['discord_id'], $_POST['login_key'])) {
+        $player_profile = authenticate_user($_POST['discord_id'], $_POST['login_key'], $SECRET_KEY, isset($_POST['remember_me']));
+        $logged_in = ($player_profile !== null);
+    }
+
+
+    function authenticate_user($discord_id, $login_key, $secret_key, $remember_me = false) {
+        $player = get_player_by_id($discord_id, "discord");
+        if ($player && password_verify_key($discord_id, $login_key, $secret_key)) {
+            $_SESSION['player_id'] = $player->player_id;
+            if ($remember_me) {
+                setcookie("login_key", $login_key, time() + (30 * 24 * 60 * 60), "/", "", true, true);
+                setcookie("discord_id", $discord_id, time() + (30 * 24 * 60 * 60), "/", "", true, true);
             }
+            return $player;
         }
-        $SECRET_KEY = getenv('SECRET_KEY');
-        $discord_id = $_POST['discord_id'];
-        $login_key = $_POST['login_key'];
-        $player_profile = get_player_by_id($discord_id, "discord");
-        if ($player_profile && password_verify_key($discord_id, $login_key, $SECRET_KEY)) {
-            $_SESSION['player_id'] = $player_profile->player_id;
-            $logged_in = true;
-            if (isset($_POST['remember_me'])) {
-                setcookie("player_id", $player_profile->player_id, time() + (30 * 24 * 60 * 60), "/");
-            }
-        }
+        return null;
     }
 
     function password_verify_key($discord_id, $login_key, $secret_key) {
@@ -71,7 +82,6 @@
         return hash_equals($decrypted_key, $login_key);
     }
     
-
     // Interfaces - Inventory Container
     $inventoryContainerHTML = '<div id="inventory-container">';
         $inventoryContainerHTML .= '<div id="inventory-menu">';
@@ -141,7 +151,6 @@
     <div id="blocking-screen"></div>
     <div id="interface-screen"></div>
     <main id="play-main">   
-        <div id="left-spacer"></div>
         <div id="main-interface">
             <div id="primary-content">
                 <?php if ($logged_in){
@@ -166,7 +175,6 @@
                 
             </div>
         </div>
-        <div id="right-spacer"></div>
     </main>
     <script src="./scripts/inventory_button.js"></script>
     <script src="./scripts/gear_button.js"></script>
