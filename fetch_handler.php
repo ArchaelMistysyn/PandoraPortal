@@ -19,6 +19,7 @@ if (!isset($_SESSION['player_id'])) {
 $verified_player_id = $_SESSION['player_id'];
 $input = json_decode(file_get_contents("php://input"), true);
 $action = $input['action'] ?? null;
+$slot_type = $input['slot_type'] ?? null;
 $item_id = $input['item_id'] ?? null;
 if (!$action) {
     echo json_encode(["success" => false, "message" => "No action provided"]);
@@ -31,6 +32,10 @@ if ($item_id !== null) {
         echo json_encode(["success" => false, "message" => "Invalid item ID"]);
         exit();
     }
+}
+if ($slot_type && !isset($slot_types[$slot_type])){
+    echo json_encode(["success" => false, "message" => "Invalid slot type"]);
+    exit();
 }
 $response = ["success" => false];
 switch ($action) {
@@ -59,6 +64,14 @@ switch ($action) {
             $response = equip_gear($verified_player_id, $item_id);
         }
         break;
+    case "inlayItem":
+        $slot_type = $input['slot_type'] ?? null;
+        if (!$item_id || !$slot_type) {
+            $response = ["success" => false, "message" => "Missing gem ID or slot type"];
+        } else {
+            $response = inlay_gem($verified_player_id, $item_id, $slot_type);
+        }
+        break; 
     case "removeItemScrap":
         $response = process_gear_removal($verified_player_id, $item_id, 'Scrap');
         break;
@@ -126,7 +139,7 @@ function create_inventory_lightbox($player_id, $item_id) {
     $item_html .= "<div>Quantity: {$item["item_qty"]}</div>";
     $item_html .= "</div>";
     $menu_html = "<div class='lightbox-menu'>";
-    $menu_html .= "<button class='close-lightbox' onclick='closeLightbox()'>✖ Close</button>";
+    $menu_html .= "<button class='lightbox-button-gray' onclick='closeLightbox()'><span class='symbol-height'>✖</span> Close</button>";
     $menu_html .= "</div>";
     return ["success" => true, "html" => $item_html, "menu" => $menu_html];
 }
@@ -163,6 +176,7 @@ function handle_gear($player_id) {
 }
 
 function create_gear_lightbox($player_id, $item_id) {
+    global $slot_types;
     $player_profile = get_player_by_id($player_id);
     $item = read_custom_item($item_id);
     if (!$item) {
@@ -172,14 +186,31 @@ function create_gear_lightbox($player_id, $item_id) {
     $item_html = "<div class='item-slot'>";
     $item_html .= $item->display_item($is_gem, "basic");
     $item_html .= "</div>";
-    $menu_html = "<div class='lightbox-menu'>";
-    if (!$is_gem && !in_array($item_id, $player_profile->player_equipped, true)) {
-        $menu_html .= "<button class='lightbox-button-green' onclick='EquipItem(\"" . $item_id . "\")'>Equip</button>";
+    $menu_html = "";
+    if (!in_array($item_id, $player_profile->player_equipped, true)) {
+        if (!$is_gem) {
+            $menu_html .= "<button class='lightbox-button-green' onclick='EquipItem(\"" . $item_id . "\")'>Equip</button>";
+        } else {
+            $gear_options = "";
+            $gearData = get_gear_by_player_id($player_id);
+            $equipped_gear = array_filter($gearData["items"], function ($gear) use ($player_profile) {
+                return in_array((int) $gear->item_id, array_map('intval', $player_profile->player_equipped), true);
+            });                     
+            foreach ($equipped_gear as $gear) {
+                if ($gear->item_num_sockets > 0) {
+                    $slot_type = $gear->item_type;
+                    $gear_options .= "<button class='lightbox-button-red' value='{$slot_type}' onclick='InlayItem(\"$item_id\", \"{$slot_type}\")'>{$slot_types[$slot_type]}</button>";
+                }
+            }
+            if ($gear_options) {
+                $menu_html .= "<button class='lightbox-button-green' onclick='toggleInlayMenu()'>Inlay</button>";
+                $menu_html .= "<div id='inlay-gear-select' class='hideItem'>$gear_options</div>";
+            }
+        }
         $menu_html .= "<button class='lightbox-button-blue' onclick='handleGearAction(" . $item_id . ", \"Scrap\")'>Scrap</button>";
         $menu_html .= "<button class='lightbox-button-blue' onclick='handleGearAction(" . $item_id . ", \"Sell\")'>Sell</button>";
     }
     $menu_html .= "<button class='lightbox-button-gray' onclick='closeLightbox()'><span class='symbol-height'>✖</span> Close</button>";
-    $menu_html .= "</div>";
     return ["success" => true, "html" => $item_html, "menu" => $menu_html];
 }
 
@@ -215,11 +246,33 @@ function get_gear_by_player_id($player_id, $specific_id = null) {
     return ["success" => true, "items" => $filteredGear];
 }
 
+function inlay_gem($player_id, $gem_id, $slot_type) {
+    global $slot_types;
+    $player = get_player_by_id($player_id);
+    $gearData = get_gear_by_player_id($player_id);
+    $slot_index = array_search($slot_type, array_keys($slot_types), true);
+    if (!$gearData["success"] || !isset($player->player_equipped[$slot_index]) || $player->player_equipped[$slot_index] == 0) {
+        return ["success" => false, "message" => "Failed to inlay gem"];
+    }
+    $gem = array_filter($gearData["items"], fn($gear) => $gear->item_id == $gem_id);
+    if (empty($gem)) {
+        return ["success" => false, "message" => "Gem not found in inventory"];
+    }
+    $item_id = (int) $player->player_equipped[$slot_index];
+    $update_query = "UPDATE CustomInventory SET item_inlaid_gem_id = CASE ";
+    $update_query .= "WHEN item_id = " . intval($item_id) . " AND item_num_sockets > 0 THEN " . intval($gem_id) . " ";
+    $update_query .= "WHEN item_inlaid_gem_id = " . intval($gem_id) . " THEN 0 ";
+    $update_query .= "ELSE item_inlaid_gem_id END ";
+    $update_query .= "WHERE player_id = " . intval($player_id); 
+    run_query($update_query, false);
+    return ["success" => true, "message" => "Gem successfully inlaid"];
+}
+
 function equip_gear($player_id, $item_id) {
     global $item_loc_dict;
     $item = read_custom_item($item_id);
     $player = get_player_by_id($player_id);
-    if (!$item || !$player) {
+    if (!$item || !$player || $item->player_id !== $player->player_id) {
         return ["success" => false, "message" => "Item or Player not found."];
     }
     $player->player_equipped[$item_loc_dict[$item->item_type]] = $item_id;
@@ -230,8 +283,8 @@ function equip_gear($player_id, $item_id) {
 function process_gear_removal($player_id, $item_id, $action) {
     $player = get_player_by_id($player_id);
     $item = read_custom_item($item_id);
-    if (!$item || !$player) {
-        return ["success" => false, "reload" => true, "message" => "Item or Player not found."];
+    if (!$item || !$player || $item->player_id !== $player->player_id) {
+        return ["success" => false, "reload" => true, "message" => "Item or Player error."];
     }
     $equip_index = array_search($item_id, $player->player_equipped, true);
     if ($equip_index !== false) {
