@@ -118,6 +118,22 @@
         $gearContainerHTML .= '</div>';
     $gearContainerHTML .= '</div>';
 
+    // Interfaces - Forge Container
+    $forgeContainerHTML = '<div id="forge-container">';
+        $forgeContainerHTML .= '<div id="gear-menu">';
+            $forgeContainerHTML .= '<button class="sort-button" onclick="onForge(\'W\')">Weapon</button>';
+            $forgeContainerHTML .= '<button class="sort-button" onclick="onForge(\'A\')">Armour</button>';
+            $forgeContainerHTML .= '<button class="sort-button" onclick="onForge(\'G\')">Greaves</button>';
+            $forgeContainerHTML .= '<button class="sort-button" onclick="onForge(\'A\')">Amulet</button>';
+            $forgeContainerHTML .= '<button class="sort-button" onclick="onForge(\'W\')">Wings</button>';
+            $forgeContainerHTML .= '<button class="sort-button" onclick="onForge(\'C\')">Crest</button>';
+        $forgeContainerHTML .= '</div>';
+        $forgeContainerHTML .= '<div id="forge-screen-container">';
+            $forgeContainerHTML .= '<div id="forge-item-screen"></div>';
+            $forgeContainerHTML .= '<div id="forge-menu"></div>';
+        $forgeContainerHTML .= '</div>';
+    $forgeContainerHTML .= '</div>';
+
     // Interfaces - Login
     $login_form = '<div id="login-container">';
         $login_form .= '<div id="login-header">Login Required</div>';
@@ -158,13 +174,14 @@
                     echo "<div id='status-id'>" . $player_profile->discord_id . "<a href='./bot_php/logout.php' class='logout-button'> X</a></div>";
                     echo $inventoryContainerHTML;
                     echo $gearContainerHTML;
+                    echo $forgeContainerHTML;
                 } else {
                     echo $login_form;
                 } ?>
             </div>
             <div id="bottom-menu">
                 <?php if ($logged_in){
-                    $menu = '<a href="#" class="button-green" onclick="onTravel()"><span>Travel</span></a>';
+                    $menu = '<a href="#" class="button-green" onclick="onForge()"><span>Travel</span></a>'; // Temporarily skip to forge.
                     $menu .= '<a href="#" class="button-amethyst" onclick="onQuest()"><span>Quest</span></a>';
                     $menu .= '<a href="#" class="button-ruby" onclick="onBattle()"><span>Battle</span></a>';
                     $menu .= '<a href="#" class="button-azure" onclick="onGear()"><span>Gear</span></a>';
@@ -176,8 +193,21 @@
             </div>
         </div>
     </main>
+    <script>
+        let itemData = {};
+        document.addEventListener('DOMContentLoaded', () => {
+            fetch('./itemData.json')
+                .then(response => response.json())
+                .then(data => {
+                    itemData = data;
+                })
+                .catch(error => console.error('Failed to load item data:', error));
+        });
+    </script>
+    <script src="./scripts/sharedmethods.js"></script>
     <script src="./scripts/inventory_button.js"></script>
     <script src="./scripts/gear_button.js"></script>
+    <script src="./scripts/forge.js"></script>
     <script src="./scripts/play_buttons.js"></script>
 </body>
 </html>

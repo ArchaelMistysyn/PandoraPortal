@@ -20,6 +20,7 @@ $verified_player_id = $_SESSION['player_id'];
 $input = json_decode(file_get_contents("php://input"), true);
 $action = $input['action'] ?? null;
 $slot_type = $input['slot_type'] ?? null;
+$element = $input['element'] ?? null;
 $item_id = $input['item_id'] ?? null;
 if (!$action) {
     echo json_encode(["success" => false, "message" => "No action provided"]);
@@ -37,49 +38,82 @@ if ($slot_type && !isset($slot_types[$slot_type])){
     echo json_encode(["success" => false, "message" => "Invalid slot type"]);
     exit();
 }
+if ($element !== null && (!ctype_digit((string) $element) || $element < 0 || $element > 8)) {
+    echo json_encode(["success" => false, "message" => "Invalid element provided"]);
+    exit();
+}
+
+$forge_actions = [
+    "Fae Enchant", "Gemstone Enchant", "Reinforce Quality", "Create Socket", "Hellfire Reforge",
+    "Abyssfire Reforge", "Mutate Reforge", "Attune Rolls", "Star Fusion (Add/Reroll)",
+    "Radiant Fusion (Defensive)", "Chaos Fusion (All)", "Void Fusion (Damage)",
+    "Wish Fusion (Penetration)", "Abyss Fusion (Curse)", "Divine Fusion (Unique)", "Implant"
+];
+
 $response = ["success" => false];
-switch ($action) {
-    case "inventory":
-        $response = get_inventory_by_player_id($verified_player_id);
-        break;
-    case "showInventoryItem":
-        $response = create_inventory_lightbox($verified_player_id, $item_id);
-        break;
-    case "player":
-        $player_profile = get_player_by_id($verified_player_id);
-        $response = $player_profile
-            ? ["success" => true, "player" => $player_profile]
-            : ["success" => false, "message" => "Player not found"];
-        break;
-    case "displaygear":
-        $response = handle_gear($verified_player_id);
-        break;
-    case "showGearItem":
-        $response = create_gear_lightbox($verified_player_id, $item_id);
-        break;
-    case "equipItem":
-        if ($item_id == null) {
-            $response = ["success" => false, "message" => "Missing item ID"];
-        } else {
-            $response = equip_gear($verified_player_id, $item_id);
-        }
-        break;
-    case "inlayItem":
-        $slot_type = $input['slot_type'] ?? null;
-        if (!$item_id || !$slot_type) {
-            $response = ["success" => false, "message" => "Missing gem ID or slot type"];
-        } else {
-            $response = inlay_gem($verified_player_id, $item_id, $slot_type);
-        }
-        break; 
-    case "removeItemScrap":
-        $response = process_gear_removal($verified_player_id, $item_id, 'Scrap');
-        break;
-    case "removeItemSell":
-        $response = process_gear_removal($verified_player_id, $item_id, 'Sell');
-        break;
-    default:
-        $response["message"] = "Invalid action";
+if (in_array($action, $forge_actions)) {
+    $working_item = null;
+    $response = getForgeItemDetails($verified_player_id, $slot_type, $working_item);
+    if ($response['success']) {
+        $cost = getForgeActionCost($action, $element, $working_item);
+        $stock = checkUserStock($verified_player_id, array_column($cost, 'item_id'));
+        $qualified = isItemQualifiedForAction($working_item, $action, $stock, $cost);
+        $response['cost'] = $cost;
+        $response['stock'] = $stock;
+        $response['qualified'] = $qualified;
+    }
+} else {
+    switch ($action) {
+        case "inventory":
+            $response = get_inventory_by_player_id($verified_player_id);
+            break;
+        case "showInventoryItem":
+            $response = create_inventory_lightbox($verified_player_id, $item_id);
+            break;
+        case "player":
+            $player_profile = get_player_by_id($verified_player_id);
+            $response = $player_profile
+                ? ["success" => true, "player" => $player_profile]
+                : ["success" => false, "message" => "Player not found"];
+            break;
+        case "displaygear":
+            $player_profile = get_player_by_id($verified_player_id);
+            $response = handle_gear($player_profile);
+            break;
+        case "showGearItem":
+            $response = create_gear_lightbox($verified_player_id, $item_id);
+            break;
+        case "equipItem":
+            if ($item_id == null) {
+                $response = ["success" => false, "message" => "Missing item ID"];
+            } else {
+                $response = equip_gear($verified_player_id, $item_id);
+            }
+            break;
+        case "inlayItem":
+            $slot_type = $input['slot_type'] ?? null;
+            if (!$item_id || !$slot_type) {
+                $response = ["success" => false, "message" => "Missing gem ID or slot type"];
+            } else {
+                $response = inlay_gem($verified_player_id, $item_id, $slot_type);
+            }
+            break; 
+        case "removeItemScrap":
+            $response = process_gear_removal($verified_player_id, $item_id, 'Scrap');
+            break;
+        case "removeItemSell":
+            $response = process_gear_removal($verified_player_id, $item_id, 'Sell');
+            break;
+        case "displayForge":
+            if (!$slot_type) {
+                $response = ["success" => false, "message" => "Missing slot type"];
+            } else {
+                $response = getForgeItemDetails($verified_player_id, $slot_type);
+            }
+            break;  
+        default:
+            $response["message"] = "Invalid action";
+    }
 }
 echo json_encode($response, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
 
@@ -145,74 +179,81 @@ function create_inventory_lightbox($player_id, $item_id) {
 }
 
 
-function handle_gear($player_id) {
-    $player_profile = get_player_by_id($player_id);
-    $gearData = get_gear_by_player_id($player_id);
+function handle_gear($player_profile) {
+    $gearData = get_gear_by_player_id($player_profile->player_id);
     if (!$gearData["success"]) {
         return $gearData;
     }
     $response = [
         "success" => true,
-        "items" => []
+        "items" => array_map(function($gear) use ($player_profile) {
+            return format_gear_item($gear, $player_profile);
+        }, $gearData["items"])
     ];
-    foreach ($gearData["items"] as $gear) {
-        $response["items"][] = [
-            "item_id" => $gear->item_id,
-            "name" => $gear->item_name,
-            "tier" => $gear->item_tier,
-            "quality" => $gear->item_quality_tier,
-            "base_stat" => $gear->item_base_stat,
-            "bonus_stat" => $gear->item_bonus_stat,
-            "min_dmg" => $gear->item_damage_min,
-            "max_dmg" => $gear->item_damage_max,
-            "icon" => $gear->get_gear_thumbnail(),
-            "item_type" => $gear->item_type,
-            "equipped" => in_array((int) $gear->item_id, $player_profile->player_equipped, true),
-            "num_sockets" => $gear->item_num_sockets,
-            "inlaid_id" => $gear->item_inlaid_gem_id
-        ];
-    }
     return $response;
 }
 
+function format_gear_item($gear, $player_profile) {
+    return [
+        "item_id" => $gear->item_id,
+        "name" => $gear->item_name,
+        "tier" => $gear->item_tier,
+        "quality" => $gear->item_quality_tier,
+        "base_stat" => $gear->item_base_stat,
+        "bonus_stat" => $gear->item_bonus_stat,
+        "min_dmg" => $gear->item_damage_min,
+        "max_dmg" => $gear->item_damage_max,
+        "icon" => $gear->get_gear_thumbnail(),
+        "item_type" => $gear->item_type,
+        "equipped" => in_array((int) $gear->item_id, $player_profile->player_equipped, true),
+        "num_sockets" => $gear->item_num_sockets,
+        "inlaid_id" => $gear->item_inlaid_gem_id
+    ];
+}
+
 function create_gear_lightbox($player_id, $item_id) {
-    global $slot_types;
     $player_profile = get_player_by_id($player_id);
     $item = read_custom_item($item_id);
     if (!$item) {
         return ["success" => false, "message" => "Item not found"];
     }
+    return generate_gear_content($player_profile, $item);
+}
+
+function generate_gear_content($player_profile, $item, $include_menu = true) {
+    global $slot_types;
     $is_gem = strpos($item->item_type, "D") !== false;
     $item_html = "<div class='item-slot'>";
     $item_html .= $item->display_item($is_gem, "basic");
     $item_html .= "</div>";
     $menu_html = "";
-    if (!in_array($item_id, $player_profile->player_equipped, true)) {
+    if ($include_menu && !in_array($item->item_id, $player_profile->player_equipped, true)) {
         if (!$is_gem) {
-            $menu_html .= "<button class='lightbox-button-green' onclick='EquipItem(\"" . $item_id . "\")'>Equip</button>";
+            $menu_html .= "<button class='lightbox-button-green' onclick='EquipItem(\"{$item->item_id}\")'>Equip</button>";
         } else {
             $gear_options = "";
-            $gearData = get_gear_by_player_id($player_id);
+            $gearData = get_gear_by_player_id($player_profile->player_id);
             $equipped_gear = array_filter($gearData["items"], function ($gear) use ($player_profile) {
-                return in_array((int) $gear->item_id, array_map('intval', $player_profile->player_equipped), true);
-            });                     
+                return in_array((int) $gear->item_id, $player_profile->player_equipped, true);
+            });
             foreach ($equipped_gear as $gear) {
                 if ($gear->item_num_sockets > 0) {
                     $slot_type = $gear->item_type;
-                    $gear_options .= "<button class='lightbox-button-red' value='{$slot_type}' onclick='InlayItem(\"$item_id\", \"{$slot_type}\")'>{$slot_types[$slot_type]}</button>";
+                    $gear_options .= "<button class='lightbox-button-red' value='{$slot_type}' onclick='InlayItem(\"{$item->item_id}\", \"{$slot_type}\")'>{$slot_types[$slot_type]}</button>";
                 }
             }
             if ($gear_options) {
                 $menu_html .= "<button class='lightbox-button-green' onclick='toggleInlayMenu()'>Inlay</button>";
-                $menu_html .= "<div id='inlay-gear-select' class='hideItem'>$gear_options</div>";
+                $menu_html .= "<div id='inlay-gear-select' class='hideItem'>{$gear_options}</div>";
             }
         }
-        $menu_html .= "<button class='lightbox-button-blue' onclick='handleGearAction(" . $item_id . ", \"Scrap\")'>Scrap</button>";
-        $menu_html .= "<button class='lightbox-button-blue' onclick='handleGearAction(" . $item_id . ", \"Sell\")'>Sell</button>";
+        $menu_html .= "<button class='lightbox-button-blue' onclick='handleGearAction({$item->item_id}, \"Scrap\")'>Scrap</button>";
+        $menu_html .= "<button class='lightbox-button-blue' onclick='handleGearAction({$item->item_id}, \"Sell\")'>Sell</button>";
     }
     $menu_html .= "<button class='lightbox-button-gray' onclick='closeLightbox()'><span class='symbol-height'>✖</span> Close</button>";
-    return ["success" => true, "html" => $item_html, "menu" => $menu_html];
+    return ["success" => true, "html" => $item_html, "menu" => $menu_html ];
 }
+
 
 function get_gear_by_player_id($player_id, $specific_id = null) {
     $query = "SELECT * FROM CustomInventory WHERE player_id = " . intval($player_id);
@@ -318,6 +359,97 @@ function assign_sell_reward($player, $item) {
     $sell_value = $sell_value_by_tier[$item->item_tier] ?? 0;
     $player->player_coins += $sell_value;
     return "Sold for $sell_value coins.";
+}
+
+function getForgeItemDetails($player_id, $slot_type, &$working_item = null) {
+    global $slot_types;
+    $player_profile = get_player_by_id($player_id);
+    $slot_index = array_search($slot_type, array_keys($slot_types), true);
+    if (!isset($player_profile->player_equipped[$slot_index]) || $player_profile->player_equipped[$slot_index] == 0) {
+        return ["success" => false, "message" => "No item equipped in this slot"];
+    }
+    $item_id = $player_profile->player_equipped[$slot_index];
+    $working_item = read_custom_item($item_id);
+    if (!$working_item) {
+        return ["success" => false, "message" => "Item not found"];
+    }
+    $formatted_item = format_gear_item($working_item, $player_profile);
+    $item_content = generate_gear_content($player_profile, $working_item, false);
+    return ["success" => true, "item_html" => $item_content['html'], "item_data" => $formatted_item];
+}
+
+function getForgeActionCost($action, $element, $item) {
+    $action_costs = [
+        "Fae Enchant" => [
+            ["item_id" => "Fae" . $element, "quantity" => 10],
+            ($item->item_tier >= 5) ? ["item_id" => "Fragment" . ($item->item_tier - 4), "quantity" => 1] : null
+        ],
+        "Gemstone Enchant" => [["item_id" => "Gemstone" . $element, "quantity" => 1]],
+        "Reinforce Quality" => [["item_id" => "Ore5", "quantity" => 1]],
+        "Create Socket" => [["item_id" => "Matrix", "quantity" => 1]],
+        "Hellfire Reforge" => [["item_id" => "Flame1", "quantity" => 1]],
+        "Abyssfire Reforge" => [["item_id" => "Flame2", "quantity" => 1]],
+        "Mutate Reforge" => [["item_id" => "Metamorphite", "quantity" => 1]],
+        "Attune Rolls" => [["item_id" => "Pearl", "quantity" => 1]],
+        "Star Fusion (Add/Reroll)" => [["item_id" => "Hammer", "quantity" => 1]],
+        "Radiant Fusion (Defensive)" => [
+            ["item_id" => "Hammer", "quantity" => 1],
+            ["item_id" => "Heart1", "quantity" => 1]
+        ],
+        "Chaos Fusion (All)" => [
+            ["item_id" => "Hammer", "quantity" => 1],
+            ["item_id" => "Heart2", "quantity" => 1]
+        ],
+        "Void Fusion (Damage)" => [
+            ["item_id" => "Hammer", "quantity" => 1],
+            ["item_id" => "Fragment1", "quantity" => 1]
+        ],
+        "Wish Fusion (Penetration)" => [
+            ["item_id" => "Hammer", "quantity" => 1],
+            ["item_id" => "Fragment2", "quantity" => 1]
+        ],
+        "Abyss Fusion (Curse)" => [
+            ["item_id" => "Hammer", "quantity" => 1],
+            ["item_id" => "Fragment3", "quantity" => 1]
+        ],
+        "Divine Fusion (Unique)" => [
+            ["item_id" => "Hammer", "quantity" => 1],
+            ["item_id" => "Fragment4", "quantity" => 1]
+        ],
+        "Implant" =>  [["item_id" => "Gemstone" . $element, "quantity" => 1]]
+    ];
+    return array_values(array_filter($action_costs[$action] ?? []));
+}
+
+function checkUserStock($player_id, $item_ids) {
+    if (empty($item_ids)) return [];
+    $item_ids_string = implode("','", array_map('addslashes', $item_ids));
+    $query = "SELECT item_id, item_qty FROM BasicInventory 
+              WHERE player_id = " . intval($player_id) . " 
+              AND item_id IN ('$item_ids_string')";
+    $result = run_query($query);
+    $stock = [];
+    foreach ($result as $row) {
+        $stock[$row['item_id']] = (int) $row['item_qty'];
+    }
+    foreach ($item_ids as $item_id) {
+        if (!isset($stock[$item_id])) {
+            $stock[$item_id] = 0;
+        }
+    }
+    return $stock;
+}
+
+function isItemQualifiedForAction($item, $action, $stock, $cost) {
+    foreach ($cost as $requirement) {
+        $item_id = $requirement['item_id'];
+        $required_qty = $requirement['quantity'];
+        $available_qty = $stock[$item_id] ?? 0;
+        if ($available_qty < $required_qty) {
+            return false;
+        }
+    }
+    return true;
 }
 
 ?>

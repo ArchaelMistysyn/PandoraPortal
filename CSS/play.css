@@ -385,8 +385,8 @@
   .lightbox-button-gray {
     background-color: #444;
   }
-/* Inventory/Gear */
-  #gear-container {
+/* Forge */
+  #forge-container {
     position: relative;
     display: none;
     flex-direction: column;
@@ -395,7 +395,108 @@
     width: 100%;
     padding-bottom: 80px;
   }
-  #inventory-container {
+  #forge-screen-container {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    width: 100%;
+    max-width: 1700px;
+    height: 100%;
+    padding: 50px;
+    gap: 50px;
+    padding-bottom: 80px;
+  }
+  #forge-menu {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #242424;
+    gap: 15px;
+    padding: 20px 50px;
+    width: 400px;
+    height: 651px;
+  }
+  #sub-forge-menu {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    gap: 10px;
+  }
+  #forge-sub-header {
+    font-size: 1.5rem;
+    font-weight: normal;
+    text-align: center;
+  }
+  .forge-button, .sub-forge-button, .final-forge-button {
+    padding: 12px;
+    font-size: 1.2rem;
+    width: 280px;
+    height: 45px;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    border-radius: 5px;
+  }
+  .forge-button {
+    background-color: rgb(160, 10, 10);
+  }
+  .sub-forge-button {
+    background-color: rgba(2, 165, 2);
+  }
+  .final-forge-button {
+    background-color: rgba(0, 123, 255);
+  }
+  .forge-button:hover, .sub-button:hover, .final-forge-button:hover {
+    filter: brightness(1.3);
+  }
+
+  .action-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+
+  select {
+    padding: 8px;
+    height: 38px;
+    width: 220px;
+    font-size: 1.2rem;
+    background-color: #333;
+    color: white;
+    border: 1px solid #555;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+  select:hover {
+    background-color: #444;
+    cursor: pointer;
+  }
+
+  .cost-row{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+  }
+  .cost-icon {
+    width: 32px;
+    height: 32px;
+  }
+  .cost-name {
+    font-size: 1.2rem;
+  }
+
+/* Inventory/Gear */
+  #gear-container, #inventory-container {
     position: relative;
     display: none;
     flex-direction: column;
