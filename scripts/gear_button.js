@@ -16,7 +16,7 @@ function onGear(filterCategory = null) {
                 displayGear(filteredGear, allInlaidGemIds);
                 displayEquippedGear(data.items, playerEquipped);
             } else {
-                alert("Failed to load gear.");
+                alert(data.message || "Failed to load gear.");
             }
         })
         .catch(error => console.error('Error:', error));
@@ -143,7 +143,7 @@ function openGearLightbox(item) {
                 lightboxMenu.innerHTML = data.menu;
                 lightboxScreen.style.display = "flex"; 
             } else {
-                console.error("Failed to fetch gear item details:", data.message);
+                alert(data.message || "Failed to fetch gear details.");
             }
         })
         .catch(error => console.error("Error fetching gear details:", error));
@@ -162,8 +162,7 @@ function EquipItem(itemId) {
                 onGear();
                 closeLightbox();
             } else {
-                console.error("Failed to equip item:", data.message);
-                alert(`Error: ${data.message}`);
+                alert(data.message || "Failed to equip item.");
             }
         })
         .catch(error => console.error("Error equipping item:", error))
@@ -190,8 +189,7 @@ function handleGearAction(itemId, method) {
             closeLightbox();
             alert(`Error: ${data.message}`);
         } else {
-            console.error(`Failed to ${method} item:`, data.message);
-            alert(`Error: ${data.message}`);
+            alert(data.message || `Failed to ${method} item. ${data.message}`);
         }
     })
     .catch(error => console.error(`Error ${method}ing item:`, error))
@@ -220,7 +218,7 @@ function InlayItem(gemId, slotType) {
             onGear();
             closeLightbox();
         } else {
-            alert(`Error: ${data.message}`);
+            alert(data.message || "Failed to inlay gem.");
         }
     })
     .catch(error => console.error("Error inlaying gem:", error))

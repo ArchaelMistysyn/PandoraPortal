@@ -11,7 +11,7 @@ function onInventory(filterCategory = null) {
                 let filteredItems = filterCategory ? filterInventory(data.items, filterCategory) : data.items;
                 displayInventory(filteredItems);
             } else {
-                alert("Failed to load inventory.");
+                alert(data.message || "Failed to load inventory.");
             }
         })
         .catch(error => console.error('Error:', error));
@@ -79,7 +79,7 @@ function openInventoryLightbox(item) {
                 lightboxMenu.innerHTML = data.menu;
                 lightboxScreen.style.display = "flex"; 
             } else {
-                console.error("Failed to fetch inventory item details:", data.message);
+                alert(data.message || "Failed to fetch inventory item details.");
             }
         })
         .catch(error => console.error("Error fetching inventory details:", error));
