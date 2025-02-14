@@ -113,6 +113,29 @@
 			$this->set_item_name();
 		}
 
+		public function saveChanges() {
+			$updated_roll_values = implode(";", array_map('strval', $this->item_roll_values));
+			$updated_elements = implode(";", array_map('intval', $this->item_elements));
+			$query = "UPDATE CustomInventory SET 
+						player_id = " . intval($this->player_id) . ", 
+						item_name = '" . addslashes($this->item_name) . "',
+						item_type = '" . addslashes($this->item_type) . "',
+						item_base_type = '" . addslashes($this->item_base_type) . "',
+						item_damage_type = '" . addslashes($this->item_damage_type) . "',
+						item_tier = " . intval($this->item_tier) . ", 
+						item_enhancement = " . intval($this->item_enhancement) . ", 
+						item_quality_tier = " . intval($this->item_quality_tier) . ", 
+						item_elements = '" . addslashes($updated_elements) . "',
+						item_roll_values = '" . addslashes($updated_roll_values) . "', 
+						item_base_stat = " . number_format($this->item_base_stat, 2, '.', '') . ", 
+						item_bonus_stat = '" . addslashes(strval($this->item_bonus_stat)) . "', 
+						item_base_dmg_min = " . intval($this->base_damage_min) . ", 
+						item_base_dmg_max = " . intval($this->base_damage_max) . ", 
+						item_num_sockets = " . intval($this->item_num_sockets) . ", 
+						item_inlaid_gem_id = " . intval($this->item_inlaid_gem_id) . " 
+					  WHERE item_id = " . intval($this->item_id);
+			run_query($query, false);
+		}
 		
 		public function display_item($is_gem=false, $method=null) {
 			global $sovereign_item_list, $ring_skill_data, $ring_category, $path_names, $gem_point_dict, $low_tier_skills;
@@ -229,6 +252,7 @@
 			foreach ($this->item_roll_values as $skill) {
 				if (!in_array($this->item_base_type, $sovereign_item_list)) {
 					$skill_obj = new ItemRoll($skill);
+					$skill_icon = $skill_obj->roll_icon;
 					$skill_name = $skill_data[$skill_obj->roll_code][0];
 					$skill_value = $skill_obj->roll_tier * $skill_data[$skill_obj->roll_code][1];
 					if (strpos($skill_name, 'X') !== false) {
@@ -238,12 +262,16 @@
 					}
 					$tier_class = "tier-$skill_obj->roll_tier";
 				} else if ($this->item_tier >= 8 && !empty($skill)) {
+					$skill_icon = '';
 					$skill_name = $skill;
 					$tier_class = "tier-$this->item_tier";
 				}
 				$skill_tag = preg_replace('/[\(\[].*?[\)\]]/', '', $skill_name);
 				$skill_tag = trim($skill_tag);
 				$tooltip = "<span class='skill-name'>$skill_name</span>";
+				if (isset($skill_icon)){
+					//$tooltip = "<div class='format-icon'><img class='aug-icon' src='" . $skill_icon . "' />" . $tooltip . "</div>";
+				}
 				if (isset($keyword_data[$skill_tag])) {
 					$description = $keyword_data[$skill_tag]['description'];
 					$tooltip .= "<span class='tooltip'>{$description}</span>";

@@ -1,4 +1,5 @@
 <?php
+	$web_url_base = 'https://www.PandoraPortal.ca/';
 	$itemData = json_decode(file_get_contents('./bot_php/itemData.json'), true);
 
 	$slot_types = [
@@ -38,6 +39,11 @@
 		'Confluence' => [0, 1, 2, 3, 4, 5, 6, 7, 8]
 	];
 
+	$augment_icons = [];
+	for ($i = 1; $i <= 9; $i++) {
+		$augment_icons[] = $web_url_base . "gallery/Icons/Pearls/Pearl{$i}.webp";
+	}
+
 	// Weapon Type Dictionary
 	$weapon_type_dict = [
 		"Knight" => [["Sword"], [], ["Saber", "Scythe"]],
@@ -68,6 +74,9 @@
 		8 => "Transcendent",
 		9 => "MAX"
 	];
+
+	// Enhancement Maximum
+	$max_enhancement = [10, 20, 30, 40, 50, 100, 150, 200, 200];
 
 	// Quality Damage Map
 	$quality_damage_map = [

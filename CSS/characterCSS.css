@@ -748,12 +748,23 @@
   display: none;
 }
 
+.format-icon {
+  display: flex;
+  align-items: center;
+}
+
+.aug-icon {
+  height: 16px;
+  width: 16px;
+  margin-right: 10px;
+}
+
 .element-icons {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 20px;
-  margin: 0 0 0.8rem 0;
+  height: 32px;
+  margin: 0;
 }
 
 .star-container {
@@ -795,7 +806,7 @@
   display: inline-block;
   text-align: left;
   width: 100%;
-  padding: 0.3rem 0 0.3rem 10%;
+  padding: 0.3rem 10%;
 }
 
 .skill-slot:hover {

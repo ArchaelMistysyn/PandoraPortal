@@ -123,9 +123,9 @@
         $forgeContainerHTML .= '<div id="gear-menu">';
             $forgeContainerHTML .= '<button class="sort-button" onclick="onForge(\'W\')">Weapon</button>';
             $forgeContainerHTML .= '<button class="sort-button" onclick="onForge(\'A\')">Armour</button>';
-            $forgeContainerHTML .= '<button class="sort-button" onclick="onForge(\'G\')">Greaves</button>';
-            $forgeContainerHTML .= '<button class="sort-button" onclick="onForge(\'A\')">Amulet</button>';
-            $forgeContainerHTML .= '<button class="sort-button" onclick="onForge(\'W\')">Wings</button>';
+            $forgeContainerHTML .= '<button class="sort-button" onclick="onForge(\'V\')">Greaves</button>';
+            $forgeContainerHTML .= '<button class="sort-button" onclick="onForge(\'Y\')">Amulet</button>';
+            $forgeContainerHTML .= '<button class="sort-button" onclick="onForge(\'G\')">Wings</button>';
             $forgeContainerHTML .= '<button class="sort-button" onclick="onForge(\'C\')">Crest</button>';
         $forgeContainerHTML .= '</div>';
         $forgeContainerHTML .= '<div id="forge-screen-container">';
@@ -196,7 +196,7 @@
     <script>
         let itemData = {};
         document.addEventListener('DOMContentLoaded', () => {
-            fetch('./itemData.json')
+            fetch('./bot_php/itemData.json')
                 .then(response => response.json())
                 .then(data => {
                     itemData = data;
