@@ -11,6 +11,7 @@ include_once('./bot_php/pact.php');
 include_once('./bot_php/path.php');
 include_once('./bot_php/inventory.php');
 include_once('./bot_php/itemrolls.php');
+include_once('./bot_php/forge.php');
 
 if (!isset($_SESSION['player_id'])) {
     echo json_encode(["success" => false, "message" => "Unauthorized access"]);
@@ -55,12 +56,19 @@ if (in_array($action, $forge_actions)) {
     $working_item = null;
     $response = getForgeItemDetails($verified_player_id, $slot_type, $working_item);
     if ($response['success']) {
+        $player_profile = get_player_by_id($verified_player_id);
         $cost = getForgeActionCost($action, $element, $working_item);
         $stock = checkUserStock($verified_player_id, array_column($cost, 'item_id'));
-        $qualified = isItemQualifiedForAction($working_item, $action, $stock, $cost);
+        forgeQualifyAndRate($response, $working_item, $action, $stock, $cost);
         $response['cost'] = $cost;
         $response['stock'] = $stock;
-        $response['qualified'] = $qualified;
+        if (!empty($input['execute'])) {
+            $execution_result = processForgeExecution($player_profile, $working_item, $action, $element, $response);
+            forgeQualifyAndRate($execution_result, $working_item, $action, $stock, $cost);
+            echo json_encode($execution_result, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+            exit();
+        }
+        
     }
 } else {
     switch ($action) {
@@ -116,6 +124,7 @@ if (in_array($action, $forge_actions)) {
     }
 }
 echo json_encode($response, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+exit();
 
 // Fetch Functions
 function get_inventory_by_player_id($player_id, $specific_item_id = null) {
@@ -332,7 +341,7 @@ function process_gear_removal($player_id, $item_id, $action) {
         $player->player_equipped[$equip_index] = 0;
     }
     $query = "DELETE FROM CustomInventory WHERE player_id = " . intval($player_id) . " AND item_id = " . intval($item_id);
-    run_query($query, true);
+    run_query($query, false);
     if ($action === "Scrap") {
         $reward_message = assign_scrap_reward($player_id, $item);
     } else if ($action === "Sell"){
@@ -361,66 +370,6 @@ function assign_sell_reward($player, $item) {
     return "Sold for $sell_value coins.";
 }
 
-function getForgeItemDetails($player_id, $slot_type, &$working_item = null) {
-    global $slot_types;
-    $player_profile = get_player_by_id($player_id);
-    $slot_index = array_search($slot_type, array_keys($slot_types), true);
-    if (!isset($player_profile->player_equipped[$slot_index]) || $player_profile->player_equipped[$slot_index] == 0) {
-        return ["success" => false, "message" => "No item equipped in this slot"];
-    }
-    $item_id = $player_profile->player_equipped[$slot_index];
-    $working_item = read_custom_item($item_id);
-    if (!$working_item) {
-        return ["success" => false, "message" => "Item not found"];
-    }
-    $formatted_item = format_gear_item($working_item, $player_profile);
-    $item_content = generate_gear_content($player_profile, $working_item, false);
-    return ["success" => true, "item_html" => $item_content['html'], "item_data" => $formatted_item];
-}
-
-function getForgeActionCost($action, $element, $item) {
-    $action_costs = [
-        "Fae Enchant" => [
-            ["item_id" => "Fae" . $element, "quantity" => 10],
-            ($item->item_tier >= 5) ? ["item_id" => "Fragment" . ($item->item_tier - 4), "quantity" => 1] : null
-        ],
-        "Gemstone Enchant" => [["item_id" => "Gemstone" . $element, "quantity" => 1]],
-        "Reinforce Quality" => [["item_id" => "Ore5", "quantity" => 1]],
-        "Create Socket" => [["item_id" => "Matrix", "quantity" => 1]],
-        "Hellfire Reforge" => [["item_id" => "Flame1", "quantity" => 1]],
-        "Abyssfire Reforge" => [["item_id" => "Flame2", "quantity" => 1]],
-        "Mutate Reforge" => [["item_id" => "Metamorphite", "quantity" => 1]],
-        "Attune Rolls" => [["item_id" => "Pearl", "quantity" => 1]],
-        "Star Fusion (Add/Reroll)" => [["item_id" => "Hammer", "quantity" => 1]],
-        "Radiant Fusion (Defensive)" => [
-            ["item_id" => "Hammer", "quantity" => 1],
-            ["item_id" => "Heart1", "quantity" => 1]
-        ],
-        "Chaos Fusion (All)" => [
-            ["item_id" => "Hammer", "quantity" => 1],
-            ["item_id" => "Heart2", "quantity" => 1]
-        ],
-        "Void Fusion (Damage)" => [
-            ["item_id" => "Hammer", "quantity" => 1],
-            ["item_id" => "Fragment1", "quantity" => 1]
-        ],
-        "Wish Fusion (Penetration)" => [
-            ["item_id" => "Hammer", "quantity" => 1],
-            ["item_id" => "Fragment2", "quantity" => 1]
-        ],
-        "Abyss Fusion (Curse)" => [
-            ["item_id" => "Hammer", "quantity" => 1],
-            ["item_id" => "Fragment3", "quantity" => 1]
-        ],
-        "Divine Fusion (Unique)" => [
-            ["item_id" => "Hammer", "quantity" => 1],
-            ["item_id" => "Fragment4", "quantity" => 1]
-        ],
-        "Implant" =>  [["item_id" => "Gemstone" . $element, "quantity" => 1]]
-    ];
-    return array_values(array_filter($action_costs[$action] ?? []));
-}
-
 function checkUserStock($player_id, $item_ids) {
     if (empty($item_ids)) return [];
     $item_ids_string = implode("','", array_map('addslashes', $item_ids));
@@ -438,18 +387,6 @@ function checkUserStock($player_id, $item_ids) {
         }
     }
     return $stock;
-}
-
-function isItemQualifiedForAction($item, $action, $stock, $cost) {
-    foreach ($cost as $requirement) {
-        $item_id = $requirement['item_id'];
-        $required_qty = $requirement['quantity'];
-        $available_qty = $stock[$item_id] ?? 0;
-        if ($available_qty < $required_qty) {
-            return false;
-        }
-    }
-    return true;
 }
 
 ?>

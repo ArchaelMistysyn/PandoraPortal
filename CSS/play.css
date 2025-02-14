@@ -414,7 +414,7 @@
     align-items: center;
     background-color: #242424;
     gap: 15px;
-    padding: 20px 50px;
+    padding: 20px 0px;
     width: 400px;
     height: 651px;
   }
@@ -432,7 +432,7 @@
     font-weight: normal;
     text-align: center;
   }
-  .forge-button, .sub-forge-button, .final-forge-button {
+  .forge-button, .sub-forge-button, .final-forge-button, .disabled-button {
     padding: 12px;
     font-size: 1.2rem;
     width: 280px;
@@ -443,6 +443,9 @@
     transition: background-color 0.3s;
     border-radius: 5px;
   }
+  .disabled-button {
+    cursor: default;
+  }
   .forge-button {
     background-color: rgb(160, 10, 10);
   }
@@ -451,6 +454,9 @@
   }
   .final-forge-button {
     background-color: rgba(0, 123, 255);
+  }
+  .disabled-button {
+    background-color: rgb(46, 46, 46);
   }
   .forge-button:hover, .sub-button:hover, .final-forge-button:hover {
     filter: brightness(1.3);
@@ -482,6 +488,7 @@
   }
 
   .cost-row{
+    height: 32px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -491,7 +498,7 @@
     width: 32px;
     height: 32px;
   }
-  .cost-name {
+  .cost-name, .cost-quantity {
     font-size: 1.2rem;
   }
 
@@ -764,14 +771,14 @@
     color: white;
     text-align: left;
     width: 100%;
-    padding: 0.3rem 0 0.3rem 10%;
+    padding: 0.3rem 10%;
   }
   .element-icons {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 20px;
-    margin: 0 0 0.8rem 0;
+    height: 32px;
+    margin: 0;
   }
   
   .star-container {

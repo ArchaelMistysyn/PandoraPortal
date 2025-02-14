@@ -6,7 +6,8 @@
         "description": "The core harvested from a fire fae spirit. Brimming with elemental energies.",
         "cost": 500,
         "success_rate": 100,
-        "category": "Fae"
+        "category": "Fae",
+        "image_link": "https://www.PandoraPortal.ca/gallery/Items/Fae Cores/Fae Core (Fire).webp"
     },
     "Fae1": {
         "item_id": "Fae1",
@@ -15,7 +16,8 @@
         "description": "The core harvested from a water fae spirit. Brimming with elemental energies.",
         "cost": 500,
         "success_rate": 100,
-        "category": "Fae"
+        "category": "Fae",
+        "image_link": "https://www.PandoraPortal.ca/gallery/Items/Fae Cores/Fae Core (Water).webp"
     },
     "Fae2": {
         "item_id": "Fae2",
@@ -24,7 +26,8 @@
         "description": "The core harvested from a lightning fae spirit. Brimming with elemental energies.",
         "cost": 500,
         "success_rate": 100,
-        "category": "Fae"
+        "category": "Fae",
+        "image_link": "https://www.PandoraPortal.ca/gallery/Items/Fae Cores/Fae Core (Lightning).webp"
     },
     "Fae3": {
         "item_id": "Fae3",
@@ -33,7 +36,8 @@
         "description": "The core harvested from an earth fae spirit. Brimming with elemental energies.",
         "cost": 500,
         "success_rate": 100,
-        "category": "Fae"
+        "category": "Fae",
+        "image_link": "https://www.PandoraPortal.ca/gallery/Items/Fae Cores/Fae Core (Earth).webp"
     },
     "Fae4": {
         "item_id": "Fae4",
@@ -42,7 +46,8 @@
         "description": "The core harvested from a wind fae spirit. Brimming with elemental energies.",
         "cost": 500,
         "success_rate": 100,
-        "category": "Fae"
+        "category": "Fae",
+        "image_link": "https://www.PandoraPortal.ca/gallery/Items/Fae Cores/Fae Core (Wind).webp"
     },
     "Fae5": {
         "item_id": "Fae5",
@@ -51,7 +56,8 @@
         "description": "The core harvested from an ice fae spirit. Brimming with elemental energies.",
         "cost": 500,
         "success_rate": 100,
-        "category": "Fae"
+        "category": "Fae",
+        "image_link": "https://www.PandoraPortal.ca/gallery/Items/Fae Cores/Fae Core (Ice).webp"
     },
     "Fae6": {
         "item_id": "Fae6",
@@ -60,7 +66,8 @@
         "description": "The core harvested from a shadow fae spirit. Brimming with elemental energies.",
         "cost": 500,
         "success_rate": 100,
-        "category": "Fae"
+        "category": "Fae",
+        "image_link": "https://www.PandoraPortal.ca/gallery/Items/Fae Cores/Fae Core (Shadow).webp"
     },
     "Fae7": {
         "item_id": "Fae7",
@@ -69,7 +76,8 @@
         "description": "The core harvested from a light fae spirit. Brimming with elemental energies.",
         "cost": 500,
         "success_rate": 100,
-        "category": "Fae"
+        "category": "Fae",
+        "image_link": "https://www.PandoraPortal.ca/gallery/Items/Fae Cores/Fae Core (Light).webp"
     },
     "Fae8": {
         "item_id": "Fae8",
@@ -78,7 +86,8 @@
         "description": "The core harvested from a celestial fae spirit. Brimming with elemental energies.",
         "cost": 500,
         "success_rate": 100,
-        "category": "Fae"
+        "category": "Fae",
+        "image_link": "https://www.PandoraPortal.ca/gallery/Items/Fae Cores/Fae Core (Celestial).webp"
     },
     "Token1": {
         "item_id": "Token1",
@@ -87,7 +96,8 @@
         "description": "An ancient token. Can be used to change your class or username.",
         "cost": 100000,
         "success_rate": 100,
-        "category": "Token"
+        "category": "Token",
+        "image_link": ""
     },
     "Token2": {
         "item_id": "Token2",
@@ -96,7 +106,8 @@
         "description": "An ancient token. Can be used for insignia engraving and upgrades.",
         "cost": 100000,
         "success_rate": 100,
-        "category": "Token"
+        "category": "Token",
+        "image_link": ""
     },
     "Token3": {
         "item_id": "Token3",
@@ -105,7 +116,8 @@
         "description": "An ancient token. Can be used to reset all skill points.",
         "cost": 100000,
         "success_rate": 100,
-        "category": "Token"
+        "category": "Token",
+        "image_link": ""
     },
     "Token4": {
         "item_id": "Token4",
@@ -114,7 +126,8 @@
         "description": "An ancient token. Can be used to reshape dragon heart gems.",
         "cost": 100000,
         "success_rate": 100,
-        "category": "Token"
+        "category": "Token",
+        "image_link": ""
     },
     "Token5": {
         "item_id": "Token5",
@@ -123,7 +136,8 @@
         "description": "An ancient token. Can be used to enscribe weapons.",
         "cost": 250000,
         "success_rate": 100,
-        "category": "Token"
+        "category": "Token",
+        "image_link": ""
     },
     "Token6": {
         "item_id": "Token6",
@@ -132,7 +146,8 @@
         "description": "An ancient token. Can be used to obtain lotus items.",
         "cost": 500000,
         "success_rate": 100,
-        "category": "Token"
+        "category": "Token",
+        "image_link": ""
     },
     "Token7": {
         "item_id": "Token7",
@@ -141,7 +156,8 @@
         "description": "An ancient token. ???.",
         "cost": 500000,
         "success_rate": 100,
-        "category": "Token"
+        "category": "Token",
+        "image_link": ""
     },
     "Summon1": {
         "item_id": "Summon1",
@@ -150,7 +166,8 @@
         "description": "Perform a summoning ritual to summon a tier 5 paragon solo boss.",
         "cost": 50000,
         "success_rate": 100,
-        "category": "Summon"
+        "category": "Summon",
+        "image_link": ""
     },
     "Summon2": {
         "item_id": "Summon2",
@@ -159,7 +176,8 @@
         "description": "Perform a summoning ritual to summon a tier 6 paragon solo boss.",
         "cost": 100000,
         "success_rate": 100,
-        "category": "Summon"
+        "category": "Summon",
+        "image_link": ""
     },
     "Summon3": {
         "item_id": "Summon3",
@@ -168,7 +186,8 @@
         "description": "Perform a summoning ritual to summon a tier 7 arbiter solo boss.",
         "cost": 500000,
         "success_rate": 100,
-        "category": "Summon"
+        "category": "Summon",
+        "image_link": ""
     },
     "Stone1": {
         "item_id": "Stone1",
@@ -177,7 +196,8 @@
         "description": "Obtained from fortress bosses. It's a stone.",
         "cost": 0,
         "success_rate": 100,
-        "category": "Stone"
+        "category": "Stone",
+        "image_link": ""
     },
     "Stone2": {
         "item_id": "Stone2",
@@ -186,7 +206,8 @@
         "description": "Obtained from dragon bosses. It's a stone.",
         "cost": 0,
         "success_rate": 100,
-        "category": "Stone"
+        "category": "Stone",
+        "image_link": ""
     },
     "Stone3": {
         "item_id": "Stone3",
@@ -195,7 +216,8 @@
         "description": "Obtained from demon bosses. It's a stone.",
         "cost": 0,
         "success_rate": 100,
-        "category": "Stone"
+        "category": "Stone",
+        "image_link": ""
     },
     "Stone4": {
         "item_id": "Stone4",
@@ -204,7 +226,8 @@
         "description": "Obtained from paragon bosses. It's a stone.",
         "cost": 0,
         "success_rate": 100,
-        "category": "Stone"
+        "category": "Stone",
+        "image_link": ""
     },
     "Stone5": {
         "item_id": "Stone5",
@@ -213,7 +236,8 @@
         "description": "Obtained from ruler bosses. It's a stone.",
         "cost": 0,
         "success_rate": 100,
-        "category": "Stone"
+        "category": "Stone",
+        "image_link": ""
     },
     "Stone6": {
         "item_id": "Stone6",
@@ -222,7 +246,8 @@
         "description": "Obtained from arbiter bosses. It's a stone.",
         "cost": 0,
         "success_rate": 100,
-        "category": "Stone"
+        "category": "Stone",
+        "image_link": ""
     },
     "Potion1": {
         "item_id": "Potion1",
@@ -231,7 +256,8 @@
         "description": "Consume to restore 500 stamina.",
         "cost": 2500,
         "success_rate": 100,
-        "category": "Potion"
+        "category": "Potion",
+        "image_link": ""
     },
     "Potion2": {
         "item_id": "Potion2",
@@ -240,7 +266,8 @@
         "description": "Consume to restore 1000 stamina.",
         "cost": 5000,
         "success_rate": 100,
-        "category": "Potion"
+        "category": "Potion",
+        "image_link": ""
     },
     "Potion3": {
         "item_id": "Potion3",
@@ -249,7 +276,8 @@
         "description": "Consume to restore 2500 stamina.",
         "cost": 10000,
         "success_rate": 100,
-        "category": "Potion"
+        "category": "Potion",
+        "image_link": ""
     },
     "Potion4": {
         "item_id": "Potion4",
@@ -258,7 +286,8 @@
         "description": "Consume to restore 5000 stamina.",
         "cost": 20000,
         "success_rate": 100,
-        "category": "Potion"
+        "category": "Potion",
+        "image_link": ""
     },
     "Trove1": {
         "item_id": "Trove1",
@@ -267,7 +296,8 @@
         "description": "Open to receive 1,000 - 5,000 lotus coins. Lotus chance: 0.001%",
         "cost": 0,
         "success_rate": 100,
-        "category": "Trove"
+        "category": "Trove",
+        "image_link": ""
     },
     "Trove2": {
         "item_id": "Trove2",
@@ -276,7 +306,8 @@
         "description": "Open to receive 5,000 - 10,000 lotus coins. Lotus chance: 0.010%",
         "cost": 0,
         "success_rate": 100,
-        "category": "Trove"
+        "category": "Trove",
+        "image_link": ""
     },
     "Trove3": {
         "item_id": "Trove3",
@@ -285,7 +316,8 @@
         "description": "Open to receive 10,000 - 20,000 lotus coins. Lotus chance: 0.050%",
         "cost": 0,
         "success_rate": 100,
-        "category": "Trove"
+        "category": "Trove",
+        "image_link": ""
     },
     "Trove4": {
         "item_id": "Trove4",
@@ -294,7 +326,8 @@
         "description": "Open to receive 20,000 - 35,000 lotus coins. Lotus chance: 0.100%",
         "cost": 0,
         "success_rate": 100,
-        "category": "Trove"
+        "category": "Trove",
+        "image_link": ""
     },
     "Trove5": {
         "item_id": "Trove5",
@@ -303,7 +336,8 @@
         "description": "Open to receive 35,000 - 50,000 lotus coins. Lotus chance: 0.500%",
         "cost": 0,
         "success_rate": 100,
-        "category": "Trove"
+        "category": "Trove",
+        "image_link": ""
     },
     "Trove6": {
         "item_id": "Trove6",
@@ -312,7 +346,8 @@
         "description": "Open to receive 50,000 - 75,000 lotus coins. Lotus chance: 1.000%",
         "cost": 0,
         "success_rate": 100,
-        "category": "Trove"
+        "category": "Trove",
+        "image_link": ""
     },
     "Trove7": {
         "item_id": "Trove7",
@@ -321,7 +356,8 @@
         "description": "Open to receive 75,000 - 100,000 lotus coins. Lotus chance: 2.000%",
         "cost": 0,
         "success_rate": 100,
-        "category": "Trove"
+        "category": "Trove",
+        "image_link": ""
     },
     "Trove8": {
         "item_id": "Trove8",
@@ -330,7 +366,8 @@
         "description": "Open to receive 100,000 - 1,000,000 lotus coins. Lotus chance: 3.000%",
         "cost": 0,
         "success_rate": 100,
-        "category": "Trove"
+        "category": "Trove",
+        "image_link": ""
     },
     "Ore1": {
         "item_id": "Ore1",
@@ -339,7 +376,8 @@
         "description": "Ore with 2% purity. Used for reinforcing gear items. Increasing the quality.",
         "cost": 2500,
         "success_rate": 2,
-        "category": "Ore"
+        "category": "Ore",
+        "image_link": ""
     },
     "Ore2": {
         "item_id": "Ore2",
@@ -348,7 +386,8 @@
         "description": "Ore with 5% purity. Used for reinforcing gear items. Increasing the quality.",
         "cost": 5000,
         "success_rate": 5,
-        "category": "Ore"
+        "category": "Ore",
+        "image_link": ""
     },
     "Ore3": {
         "item_id": "Ore3",
@@ -357,7 +396,8 @@
         "description": "Ore with 10% purity. Used for reinforcing gear items. Increasing the quality.",
         "cost": 10000,
         "success_rate": 10,
-        "category": "Ore"
+        "category": "Ore",
+        "image_link": ""
     },
     "Ore4": {
         "item_id": "Ore4",
@@ -366,7 +406,8 @@
         "description": "Ore with 50% purity. Used for reinforcing gear items. Increasing the quality.",
         "cost": 50000,
         "success_rate": 50,
-        "category": "Ore"
+        "category": "Ore",
+        "image_link": ""
     },
     "Ore5": {
         "item_id": "Ore5",
@@ -375,7 +416,8 @@
         "description": "Ore with 100% purity. Used for reinforcing gear items. Increasing the quality.",
         "cost": 0,
         "success_rate": 100,
-        "category": "Ore"
+        "category": "Ore",
+        "image_link": ""
     },
     "Flame1": {
         "item_id": "Flame1",
@@ -384,7 +426,8 @@
         "description": "75% chance to reforge the base stats and unique ability of a gear item within its tier.",
         "cost": 5000,
         "success_rate": 50,
-        "category": "Flame"
+        "category": "Flame",
+        "image_link": ""
     },
     "Flame2": {
         "item_id": "Flame2",
@@ -393,7 +436,8 @@
         "description": "50% chance to reroll a unique ability on tier 5+ gear.",
         "cost": 0,
         "success_rate": 75,
-        "category": "Flame"
+        "category": "Flame",
+        "image_link": ""
     },
     "Fragment1": {
         "item_id": "Fragment1",
@@ -402,7 +446,8 @@
         "description": "A fragment containing the essence of the void. Used for forging, infusion and crafting.",
         "cost": 0,
         "success_rate": 100,
-        "category": "Fragment"
+        "category": "Fragment",
+        "image_link": "https://www.PandoraPortal.ca/gallery/Items/Fragments/Fragmentized Void.webp"
     },
     "Fragment2": {
         "item_id": "Fragment2",
@@ -411,7 +456,8 @@
         "description": "A fragment containing the essence of a wish. Used for forging, infusion and crafting.",
         "cost": 0,
         "success_rate": 100,
-        "category": "Fragment"
+        "category": "Fragment",
+        "image_link": "https://www.PandoraPortal.ca/gallery/Items/Fragments/Fragmentized Wish.webp"
     },
     "Fragment3": {
         "item_id": "Fragment3",
@@ -420,7 +466,8 @@
         "description": "A fragment containing the essence of the abyss. Used for forging, infusion and crafting.",
         "cost": 0,
         "success_rate": 100,
-        "category": "Fragment"
+        "category": "Fragment",
+        "image_link": "https://www.PandoraPortal.ca/gallery/Items/Fragments/Fragmentized Abyss.webp"
     },
     "Fragment4": {
         "item_id": "Fragment4",
@@ -429,8 +476,9 @@
         "description": "A fragment containing the essence of divinity. Used for forging, infusion and crafting.",
         "cost": 0,
         "success_rate": 100,
-        "category": "Fragment"
-    },
+        "category": "Fragment",
+        "image_link": "https://www.PandoraPortal.ca/gallery/Items/Fragments/Fragmentized Divinity.webp"
+    },    
     "Crystal1": {
         "item_id": "Crystal1",
         "name": "Crystallized Void",
@@ -438,7 +486,8 @@
         "description": "A crystal containing the essence of the void. Used for forging, infusion and crafting.",
         "cost": 0,
         "success_rate": 100,
-        "category": "Crystal"
+        "category": "Crystal",
+        "image_link": "https://www.PandoraPortal.ca/gallery/Items/Fragments/Crystallized Void.webp"
     },
     "Crystal2": {
         "item_id": "Crystal2",
@@ -447,7 +496,8 @@
         "description": "A crystal containing the essence of a wish. Used for forging, infusion and crafting.",
         "cost": 0,
         "success_rate": 100,
-        "category": "Crystal"
+        "category": "Crystal",
+        "image_link": "https://www.PandoraPortal.ca/gallery/Items/Fragments/Crystallized Wish.webp"
     },
     "Crystal3": {
         "item_id": "Crystal3",
@@ -456,7 +506,8 @@
         "description": "A crystal containing the essence of the abyss. Used for forging, infusion and crafting.",
         "cost": 0,
         "success_rate": 100,
-        "category": "Crystal"
+        "category": "Crystal",
+        "image_link": "https://www.PandoraPortal.ca/gallery/Items/Fragments/Crystallized Abyss.webp"
     },
     "Crystal4": {
         "item_id": "Crystal4",
@@ -465,8 +516,9 @@
         "description": "A crystal containing the essence of divinity. Used for forging, infusion and crafting.",
         "cost": 0,
         "success_rate": 100,
-        "category": "Crystal"
-    },
+        "category": "Crystal",
+        "image_link": "https://www.PandoraPortal.ca/gallery/Items/Fragments/Crystallized Divinity.webp"
+    },    
     "Skull1": {
         "item_id": "Skull1",
         "name": "Cursed Golden Skull",
@@ -474,7 +526,8 @@
         "description": "A skull of pure gold that whispers to you softly.",
         "cost": 100000,
         "success_rate": 1,
-        "category": "Skull"
+        "category": "Skull",
+        "image_link": "https://www.PandoraPortal.ca/gallery/Items/Skulls/Cursed Golden Skull.webp"
     },
     "Skull2": {
         "item_id": "Skull2",
@@ -483,7 +536,8 @@
         "description": "A golden skull that exudes darkness. Placing it against your ear is clearly a bad idea.",
         "cost": 1000000,
         "success_rate": 10,
-        "category": "Skull"
+        "category": "Skull",
+        "image_link": "https://www.PandoraPortal.ca/gallery/Items/Skulls/Haunted Golden Skull.webp"
     },
     "Skull3": {
         "item_id": "Skull3",
@@ -492,7 +546,8 @@
         "description": "A golden skull with a serene aura. Yet screaming can occasionally be heard from within. [Ultra Rare]",
         "cost": 10000000,
         "success_rate": 100,
-        "category": "Skull"
+        "category": "Skull",
+        "image_link": "https://www.PandoraPortal.ca/gallery/Items/Skulls/Radiant Golden Skull.webp"
     },
     "Skull4": {
         "item_id": "Skull4",
@@ -501,62 +556,69 @@
         "description": "A golden skull that sparkles extraordinarily. Beware the lustful voices calling your name. [Ultimate Rare]",
         "cost": 100000000,
         "success_rate": 1000,
-        "category": "Skull"
-    },
+        "category": "Skull",
+        "image_link": "https://www.PandoraPortal.ca/gallery/Items/Skulls/Prismatic Golden Skull.webp"
+    }, 
     "Void1": {
         "item_id": "Void1",
-        "name": "Unrefined Void Item (Sword)",
+        "name": "Unrefined Void Item (Weapon)",
         "tier": 5,
-        "description": "Refine for 50% chance to receive a tier 5 sword.",
+        "description": "Refine for 50% chance to receive a tier 5 weapon.",
         "cost": 0,
-        "success_rate": 100,
-        "category": "Void"
+        "success_rate": 50,
+        "category": "Void",
+        "image_link": "https://www.PandoraPortal.ca/gallery/Weapons/Knight/Saber5.webp"
     },
     "Void2": {
         "item_id": "Void2",
-        "name": "Unrefined Void Item (Axe)",
+        "name": "Unrefined Void Item (Armour)",
         "tier": 5,
-        "description": "Refine for 50% chance to receive a tier 5 axe.",
+        "description": "Refine for 50% chance to receive tier 5 armour.",
         "cost": 0,
-        "success_rate": 80,
-        "category": "Void"
+        "success_rate": 50,
+        "category": "Void",
+        "image_link": "https://www.PandoraPortal.ca/gallery/Equipment/Armour/Armour5.webp"
     },
     "Void3": {
         "item_id": "Void3",
-        "name": "Unrefined Void Item (Bow)",
+        "name": "Unrefined Void Item (Greaves)",
         "tier": 5,
-        "description": "Refine for 50% chance to receive a tier 5 bow.",
+        "description": "Refine for 50% chance to receive tier 5 demon greaves",
         "cost": 0,
-        "success_rate": 80,
-        "category": "Void"
-    },
+        "success_rate": 50,
+        "category": "Void",
+        "image_link": "https://www.PandoraPortal.ca/gallery/Equipment/Armour/Greaves5.webp"
+    }, 
     "Void4": {
         "item_id": "Void4",
-        "name": "Unrefined Void Item (Shield)",
+        "name": "Unrefined Void Item (Amulet)",
         "tier": 5,
-        "description": "Refine for 50% chance to receive a tier 5 shield.",
+        "description": "Refine for 50% chance to receive a tier 5 amulet.",
         "cost": 0,
-        "success_rate": 80,
-        "category": "Void"
+        "success_rate": 50,
+        "category": "Void",
+        "image_link": "https://www.PandoraPortal.ca/gallery/Equipment/Amulet/Amulet5.webp"
     },
     "Void5": {
         "item_id": "Void5",
-        "name": "Unrefined Void Item (Armor)",
+        "name": "Unrefined Void Item (Wings)",
         "tier": 5,
-        "description": "Refine for 50% chance to receive a tier 5 armor.",
+        "description": "Refine for 50% chance to receive tier 5 dragon wings.",
         "cost": 0,
-        "success_rate": 80,
-        "category": "Void"
+        "success_rate": 50,
+        "category": "Void",
+        "image_link": "https://www.PandoraPortal.ca/gallery/Equipment/Wings/Wings5.webp"
     },
     "Void6": {
         "item_id": "Void6",
-        "name": "Unrefined Void Item (Helm)",
+        "name": "Unrefined Void Item (Crest)",
         "tier": 5,
-        "description": "Refine for 50% chance to receive a tier 5 helm.",
+        "description": "Refine for 50% chance to receive a tier 5 paragon crest.",
         "cost": 0,
-        "success_rate": 80,
-        "category": "Void"
-    },
+        "success_rate": 50,
+        "category": "Void",
+        "image_link": "https://www.PandoraPortal.ca/gallery/Equipment/Crests/Crest5.webp"
+    }, 
     "Unrefined1": {
         "item_id": "Unrefined1",
         "name": "Unrefined Dragon Wings",
@@ -564,16 +626,18 @@
         "description": "Refine for 75% chance to receive tier 2-4 dragon wings.",
         "cost": 0,
         "success_rate": 75,
-        "category": "Unrefined"
+        "category": "Unrefined",
+        "image_link": "https://www.PandoraPortal.ca/gallery/Equipment/Wings/Wings4.webp"
     },
     "Unrefined2": {
         "item_id": "Unrefined2",
         "name": "Unrefined Demon Greaves",
         "tier": 4,
-        "description": "Refine for 75% chance to receive a tier 2-4 demon Greaves.",
+        "description": "Refine for 75% chance to receive a tier 2-4 demon greaves.",
         "cost": 0,
         "success_rate": 75,
-        "category": "Unrefined"
+        "category": "Unrefined",
+        "image_link": "https://www.PandoraPortal.ca/gallery/Equipment/Armour/Greaves4.webp"
     },
     "Unrefined3": {
         "item_id": "Unrefined3",
@@ -582,8 +646,9 @@
         "description": "Refine for 75% chance to receive a tier 2-4 paragon crest.",
         "cost": 0,
         "success_rate": 75,
-        "category": "Unrefined"
-    },
+        "category": "Unrefined",
+        "image_link": "https://www.PandoraPortal.ca/gallery/Equipment/Crests/Crest4.webp"
+    }, 
     "Gem1": {
         "item_id": "Gem1",
         "name": "Unrefined Dragon Gem",
@@ -591,7 +656,8 @@
         "description": "Refine for 75% chance to receive tier 2-4 dragon gem.",
         "cost": 0,
         "success_rate": 75,
-        "category": "Gem"
+        "category": "Gem",
+        "image_link": "https://www.PandoraPortal.ca/gallery/Equipment/Gem/Gem2.webp"
     },
     "Gem2": {
         "item_id": "Gem2",
@@ -600,7 +666,8 @@
         "description": "Refine for 75% chance to receive a tier 2-4 demon gem.",
         "cost": 0,
         "success_rate": 75,
-        "category": "Gem"
+        "category": "Gem",
+        "image_link": "https://www.PandoraPortal.ca/gallery/Equipment/Gem/Gem3.webp"
     },
     "Gem3": {
         "item_id": "Gem3",
@@ -609,7 +676,8 @@
         "description": "Refine for 75% chance to receive a tier 2-4 paragon gem.",
         "cost": 0,
         "success_rate": 75,
-        "category": "Gem"
+        "category": "Gem",
+        "image_link": "https://www.PandoraPortal.ca/gallery/Equipment/Gem/Gem4.webp"
     },
     "Jewel1": {
         "item_id": "Jewel1",
@@ -618,7 +686,8 @@
         "description": "Refine for 50% chance to receive tier 5-8 dragon jewel.",
         "cost": 0,
         "success_rate": 75,
-        "category": "Jewel"
+        "category": "Jewel",
+        "image_link": "https://www.PandoraPortal.ca/gallery/Equipment/Gem/Gem5.webp"
     },
     "Jewel2": {
         "item_id": "Jewel2",
@@ -627,7 +696,8 @@
         "description": "Refine for 50% chance to receive a tier 5-8 demon jewel.",
         "cost": 0,
         "success_rate": 75,
-        "category": "Jewel"
+        "category": "Jewel",
+        "image_link": "https://www.PandoraPortal.ca/gallery/Equipment/Gem/Gem5.webp"
     },
     "Jewel3": {
         "item_id": "Jewel3",
@@ -636,7 +706,8 @@
         "description": "Refine for 50% chance to receive a tier 5-8 paragon jewel.",
         "cost": 0,
         "success_rate": 75,
-        "category": "Jewel"
+        "category": "Jewel",
+        "image_link": "https://www.PandoraPortal.ca/gallery/Equipment/Gem/Gem5.webp"
     },
     "Jewel4": {
         "item_id": "Jewel4",
@@ -645,7 +716,8 @@
         "description": "Refine for 50% chance to receive a tier 6-8 arbiter jewel.",
         "cost": 0,
         "success_rate": 75,
-        "category": "Jewel"
+        "category": "Jewel",
+        "image_link": "https://www.PandoraPortal.ca/gallery/Equipment/Gem/Gem7.webp"
     },
     "Jewel5": {
         "item_id": "Jewel5",
@@ -654,8 +726,9 @@
         "description": "Refine for 50% chance to receive a tier 7-8 incarnate jewel.",
         "cost": 0,
         "success_rate": 75,
-        "category": "Jewel"
-    },
+        "category": "Jewel",
+        "image_link": "https://www.PandoraPortal.ca/gallery/Equipment/Gem/Gem8.webp"
+    },   
     "Essence0": {
         "item_id": "Essence0",
         "name": "Essence of The Reflection",
@@ -663,7 +736,8 @@
         "description": "Perform a binding ritual to attempt to seal this essence into card form.",
         "cost": 0,
         "success_rate": 10,
-        "category": "Essence"
+        "category": "Essence",
+        "image_link": "https://www.PandoraPortal.ca/gallery/Items/Essence/Essence1.webp"        
     },
     "EssenceI": {
         "item_id": "EssenceI",
@@ -672,7 +746,8 @@
         "description": "Perform a binding ritual to attempt to seal this essence into card form.",
         "cost": 0,
         "success_rate": 10,
-        "category": "Essence"
+        "category": "Essence",
+        "image_link": "https://www.PandoraPortal.ca/gallery/Items/Essence/Essence1.webp"
     },
     "EssenceII": {
         "item_id": "EssenceII",
@@ -681,7 +756,8 @@
         "description": "Perform a binding ritual to attempt to seal this essence into card form.",
         "cost": 0,
         "success_rate": 10,
-        "category": "Essence"
+        "category": "Essence",
+        "image_link": "https://www.PandoraPortal.ca/gallery/Items/Essence/Essence4.webp"
     },
     "EssenceIII": {
         "item_id": "EssenceIII",
@@ -690,7 +766,8 @@
         "description": "Perform a binding ritual to attempt to seal this essence into card form.",
         "cost": 0,
         "success_rate": 10,
-        "category": "Essence"
+        "category": "Essence",
+        "image_link": "https://www.PandoraPortal.ca/gallery/Items/Essence/Essence5.webp"
     },
     "EssenceIV": {
         "item_id": "EssenceIV",
@@ -699,7 +776,8 @@
         "description": "Perform a binding ritual to attempt to seal this essence into card form.",
         "cost": 0,
         "success_rate": 10,
-        "category": "Essence"
+        "category": "Essence",
+        "image_link": "https://www.PandoraPortal.ca/gallery/Items/Essence/Essence5.webp"
     },
     "EssenceV": {
         "item_id": "EssenceV",
@@ -708,7 +786,8 @@
         "description": "Perform a binding ritual to attempt to seal this essence into card form.",
         "cost": 0,
         "success_rate": 10,
-        "category": "Essence"
+        "category": "Essence",
+        "image_link": "https://www.PandoraPortal.ca/gallery/Items/Essence/Essence3.webp"
     },
     "EssenceVI": {
         "item_id": "EssenceVI",
@@ -717,7 +796,8 @@
         "description": "Perform a binding ritual to attempt to seal this essence into card form.",
         "cost": 0,
         "success_rate": 10,
-        "category": "Essence"
+        "category": "Essence",
+        "image_link": "https://www.PandoraPortal.ca/gallery/Items/Essence/Essence1.webp"
     },
     "EssenceVII": {
         "item_id": "EssenceVII",
@@ -726,7 +806,8 @@
         "description": "Perform a binding ritual to attempt to seal this essence into card form.",
         "cost": 0,
         "success_rate": 10,
-        "category": "Essence"
+        "category": "Essence",
+        "image_link": "https://www.PandoraPortal.ca/gallery/Items/Essence/Essence4.webp"
     },
     "EssenceVIII": {
         "item_id": "EssenceVIII",
@@ -735,7 +816,8 @@
         "description": "Perform a binding ritual to attempt to seal this essence into card form.",
         "cost": 0,
         "success_rate": 10,
-        "category": "Essence"
+        "category": "Essence",
+        "image_link": "https://www.PandoraPortal.ca/gallery/Items/Essence/Essence4.webp"
     },
     "EssenceIX": {
         "item_id": "EssenceIX",
@@ -744,7 +826,8 @@
         "description": "Perform a binding ritual to attempt to seal this essence into card form.",
         "cost": 0,
         "success_rate": 10,
-        "category": "Essence"
+        "category": "Essence",
+        "image_link": "https://www.PandoraPortal.ca/gallery/Items/Essence/Essence1.webp"
     },
     "EssenceX": {
         "item_id": "EssenceX",
@@ -753,7 +836,8 @@
         "description": "Perform a binding ritual to attempt to seal this essence into card form.",
         "cost": 0,
         "success_rate": 10,
-        "category": "Essence"
+        "category": "Essence",
+        "image_link": "https://www.PandoraPortal.ca/gallery/Items/Essence/Essence3.webp"
     },
     "EssenceXI": {
         "item_id": "EssenceXI",
@@ -762,7 +846,8 @@
         "description": "Perform a binding ritual to attempt to seal this essence into card form.",
         "cost": 0,
         "success_rate": 10,
-        "category": "Essence"
+        "category": "Essence",
+        "image_link": "https://www.PandoraPortal.ca/gallery/Items/Essence/Essence3.webp"
     },
     "EssenceXII": {
         "item_id": "EssenceXII",
@@ -771,7 +856,8 @@
         "description": "Perform a binding ritual to attempt to seal this essence into card form.",
         "cost": 0,
         "success_rate": 10,
-        "category": "Essence"
+        "category": "Essence",
+        "image_link": "https://www.PandoraPortal.ca/gallery/Items/Essence/Essence3.webp"
     },
     "EssenceXIII": {
         "item_id": "EssenceXIII",
@@ -780,7 +866,8 @@
         "description": "Perform a binding ritual to attempt to seal this essence into card form.",
         "cost": 0,
         "success_rate": 10,
-        "category": "Essence"
+        "category": "Essence",
+        "image_link": "https://www.PandoraPortal.ca/gallery/Items/Essence/Essence3.webp"
     },
     "EssenceXIV": {
         "item_id": "EssenceXIV",
@@ -789,7 +876,8 @@
         "description": "Perform a binding ritual to attempt to seal this essence into card form.",
         "cost": 0,
         "success_rate": 10,
-        "category": "Essence"
+        "category": "Essence",
+        "image_link": "https://www.PandoraPortal.ca/gallery/Items/Essence/Essence1.webp"
     },
     "EssenceXV": {
         "item_id": "EssenceXV",
@@ -798,7 +886,8 @@
         "description": "Perform a binding ritual to attempt to seal this essence into card form.",
         "cost": 0,
         "success_rate": 10,
-        "category": "Essence"
+        "category": "Essence",
+        "image_link": "https://www.PandoraPortal.ca/gallery/Items/Essence/Essence4.webp"
     },
     "EssenceXVI": {
         "item_id": "EssenceXVI",
@@ -807,7 +896,8 @@
         "description": "Perform a binding ritual to attempt to seal this essence into card form.",
         "cost": 0,
         "success_rate": 10,
-        "category": "Essence"
+        "category": "Essence",
+        "image_link": "https://www.PandoraPortal.ca/gallery/Items/Essence/Essence4.webp"
     },
     "EssenceXVII": {
         "item_id": "EssenceXVII",
@@ -816,7 +906,8 @@
         "description": "Perform a binding ritual to attempt to seal this essence into card form.",
         "cost": 0,
         "success_rate": 10,
-        "category": "Essence"
+        "category": "Essence",
+        "image_link": "https://www.PandoraPortal.ca/gallery/Items/Essence/Essence2.webp"
     },
     "EssenceXVIII": {
         "item_id": "EssenceXVIII",
@@ -825,7 +916,8 @@
         "description": "Perform a binding ritual to attempt to seal this essence into card form.",
         "cost": 0,
         "success_rate": 10,
-        "category": "Essence"
+        "category": "Essence",
+        "image_link": "https://www.PandoraPortal.ca/gallery/Items/Essence/Essence2.webp"
     },
     "EssenceXIX": {
         "item_id": "EssenceXIX",
@@ -834,7 +926,8 @@
         "description": "Perform a binding ritual to attempt to seal this essence into card form.",
         "cost": 0,
         "success_rate": 10,
-        "category": "Essence"
+        "category": "Essence",
+        "image_link": "https://www.PandoraPortal.ca/gallery/Items/Essence/Essence2.webp"
     },
     "EssenceXX": {
         "item_id": "EssenceXX",
@@ -843,7 +936,8 @@
         "description": "Perform a binding ritual to attempt to seal this essence into card form.",
         "cost": 0,
         "success_rate": 10,
-        "category": "Essence"
+        "category": "Essence",
+        "image_link": "https://www.PandoraPortal.ca/gallery/Items/Essence/Essence2.webp"
     },
     "EssenceXXI": {
         "item_id": "EssenceXXI",
@@ -852,7 +946,8 @@
         "description": "Perform a binding ritual to attempt to seal this essence into card form.",
         "cost": 0,
         "success_rate": 10,
-        "category": "Essence"
+        "category": "Essence",
+        "image_link": "https://www.PandoraPortal.ca/gallery/Items/Essence/Essence2.webp"
     },
     "EssenceXXII": {
         "item_id": "EssenceXXII",
@@ -861,7 +956,8 @@
         "description": "Perform a binding ritual to attempt to seal this essence into card form.",
         "cost": 0,
         "success_rate": 10,
-        "category": "Essence"
+        "category": "Essence",
+        "image_link": "https://www.PandoraPortal.ca/gallery/Items/Essence/Essence1.webp"
     },
     "EssenceXXIII": {
         "item_id": "EssenceXXIII",
@@ -870,7 +966,8 @@
         "description": "Perform a binding ritual to attempt to seal this essence into card form.",
         "cost": 0,
         "success_rate": 10,
-        "category": "Essence"
+        "category": "Essence",
+        "image_link": "https://www.PandoraPortal.ca/gallery/Items/Essence/Essence2.webp"
     },
     "EssenceXXIV": {
         "item_id": "EssenceXXIV",
@@ -879,7 +976,8 @@
         "description": "Perform a binding ritual to attempt to seal this essence into card form.",
         "cost": 0,
         "success_rate": 10,
-        "category": "Essence"
+        "category": "Essence",
+        "image_link": "https://www.PandoraPortal.ca/gallery/Items/Essence/Essence3.webp"
     },
     "EssenceXXV": {
         "item_id": "EssenceXXV",
@@ -888,7 +986,8 @@
         "description": "Perform a binding ritual to attempt to seal this essence into card form.",
         "cost": 0,
         "success_rate": 10,
-        "category": "Essence"
+        "category": "Essence",
+        "image_link": "https://www.PandoraPortal.ca/gallery/Items/Essence/Essence6.webp"
     },
     "EssenceXXVI": {
         "item_id": "EssenceXXVI",
@@ -897,7 +996,8 @@
         "description": "Perform a binding ritual to attempt to seal this essence into card form.",
         "cost": 0,
         "success_rate": 10,
-        "category": "Essence"
+        "category": "Essence",
+        "image_link": "https://www.PandoraPortal.ca/gallery/Items/Essence/Essence4.webp"
     },
     "EssenceXXVII": {
         "item_id": "EssenceXXVII",
@@ -906,7 +1006,8 @@
         "description": "Perform a binding ritual to attempt to seal this essence into card form.",
         "cost": 0,
         "success_rate": 10,
-        "category": "Essence"
+        "category": "Essence",
+        "image_link": "https://www.PandoraPortal.ca/gallery/Items/Essence/Essence5.webp"
     },
     "EssenceXXVIII": {
         "item_id": "EssenceXXVIII",
@@ -915,7 +1016,8 @@
         "description": "Perform a binding ritual to attempt to seal this essence into card form.",
         "cost": 0,
         "success_rate": 10,
-        "category": "Essence"
+        "category": "Essence",
+        "image_link": "https://www.PandoraPortal.ca/gallery/Items/Essence/Essence6.webp"
     },
     "EssenceXXIX": {
         "item_id": "EssenceXXIX",
@@ -924,7 +1026,8 @@
         "description": "Perform a binding ritual to attempt to seal this essence into card form.",
         "cost": 0,
         "success_rate": 10,
-        "category": "Essence"
+        "category": "Essence",
+        "image_link": "https://www.PandoraPortal.ca/gallery/Items/Essence/Essence7.webp"
     },
     "EssenceXXX": {
         "item_id": "EssenceXXX",
@@ -933,7 +1036,8 @@
         "description": "Perform a binding ritual to attempt to seal this essence into card form. [Ultimate Rare]",
         "cost": 0,
         "success_rate": 10,
-        "category": "Essence"
+        "category": "Essence",
+        "image_link": "https://www.PandoraPortal.ca/gallery/Items/Essence/Essence8.webp"
     },
     "Lotus1": {
         "item_id": "Lotus1",
@@ -942,7 +1046,8 @@
         "description": "Used for Divine Synthesis (Weapon). Increases the tier to 8. [Ultra Rare]",
         "cost": 0,
         "success_rate": 100,
-        "category": "Lotus"
+        "category": "Lotus",
+        "image_link": "https://www.PandoraPortal.ca/gallery/Items/Lotus/Lotus of Nightmares.webp"
     },
     "Lotus2": {
         "item_id": "Lotus2",
@@ -951,7 +1056,8 @@
         "description": "Used for Divine Purification (Amulet). Increases the tier to 8. [Ultra Rare]",
         "cost": 9999999,
         "success_rate": 100,
-        "category": "Lotus"
+        "category": "Lotus",
+        "image_link": "https://www.PandoraPortal.ca/gallery/Items/Lotus/Lotus of Prosperity.webp"
     },
     "Lotus3": {
         "item_id": "Lotus3",
@@ -960,7 +1066,8 @@
         "description": "Used for Divine Purification (Greaves). Increases the tier to 8. [Ultra Rare]",
         "cost": 0,
         "success_rate": 100,
-        "category": "Lotus"
+        "category": "Lotus",
+        "image_link": "https://www.PandoraPortal.ca/gallery/Items/Lotus/Lotus of Serenity.webp"
     },
     "Lotus4": {
         "item_id": "Lotus4",
@@ -969,7 +1076,8 @@
         "description": "Used for Divine Purification (Wings). Increases the tier to 8. [Ultra Rare]",
         "cost": 0,
         "success_rate": 100,
-        "category": "Lotus"
+        "category": "Lotus",
+        "image_link": "https://www.PandoraPortal.ca/gallery/Items/Lotus/Lotus of Freedom.webp"
     },
     "Lotus5": {
         "item_id": "Lotus5",
@@ -978,7 +1086,8 @@
         "description": "Used for Divine Melding (Jewels). Increases the tier to 8. [Ultra Rare]",
         "cost": 0,
         "success_rate": 100,
-        "category": "Lotus"
+        "category": "Lotus",
+        "image_link": "https://www.PandoraPortal.ca/gallery/Items/Lotus/Lotus of Eternity.webp"
     },
     "Lotus6": {
         "item_id": "Lotus6",
@@ -987,7 +1096,8 @@
         "description": "Used for Divine Purification (Armour). Increases the tier to 8. [Ultra Rare]",
         "cost": 0,
         "success_rate": 100,
-        "category": "Lotus"
+        "category": "Lotus",
+        "image_link": "https://www.PandoraPortal.ca/gallery/Items/Lotus/Lotus of Abundance.webp"
     },
     "Lotus7": {
         "item_id": "Lotus7",
@@ -996,7 +1106,8 @@
         "description": "Used for Divine Purification (Crest). Increases the tier to 8. [Ultra Rare]",
         "cost": 0,
         "success_rate": 100,
-        "category": "Lotus"
+        "category": "Lotus",
+        "image_link": "https://www.PandoraPortal.ca/gallery/Items/Lotus/Lotus of Domination.webp"
     },
     "Lotus8": {
         "item_id": "Lotus8",
@@ -1005,7 +1116,8 @@
         "description": "Used for Divine Mutation (Insignia). Increases the tier to 8. [Ultra Rare]",
         "cost": 0,
         "success_rate": 100,
-        "category": "Lotus"
+        "category": "Lotus",
+        "image_link": "https://www.PandoraPortal.ca/gallery/Items/Lotus/Lotus of Divergence.webp"
     },
     "Lotus9": {
         "item_id": "Lotus9",
@@ -1014,7 +1126,8 @@
         "description": "Used for Divine Synthesis (Tarot). Increases the tier to 8. [Ultra Rare]",
         "cost": 0,
         "success_rate": 100,
-        "category": "Lotus"
+        "category": "Lotus",
+        "image_link": "https://www.PandoraPortal.ca/gallery/Items/Lotus/Lotus of Revelations.webp"
     },
     "Lotus10": {
         "item_id": "Lotus10",
@@ -1023,7 +1136,8 @@
         "description": "The key to divinity and the object of the Arbiter's worship. [Uber Rare]",
         "cost": 0,
         "success_rate": 100,
-        "category": "Lotus"
+        "category": "Lotus",
+        "image_link": "https://www.PandoraPortal.ca/gallery/Items/Lotus/Divine Lotus.webp"
     },
     "Lotus11": {
         "item_id": "Lotus11",
@@ -1032,115 +1146,128 @@
         "description": "A mythical lotus dyed by the colours of fate. [Ultimate Rare]",
         "cost": 0,
         "success_rate": 100,
-        "category": "Lotus"
-    },
+        "category": "Lotus",
+        "image_link": "https://www.PandoraPortal.ca/gallery/Items/Lotus/Rainbow Lotus.webp"
+    },    
     "Gemstone0": {
-        "item_id": "Gemstone1",
+        "item_id": "Gemstone0",
         "name": "Blazing Ruby",
         "tier": 6,
         "description": "Pulsing with volcanic force, this gem radiates with an intense heat.",
         "cost": 0,
         "success_rate": 100,
-        "category": "Gemstone"
+        "category": "Gemstone",
+        "image_link": "https://www.PandoraPortal.ca/gallery/Items/Gemstones/Blazing Ruby.webp"
     },
     "Gemstone1": {
-        "item_id": "Gemstone2",
+        "item_id": "Gemstone1",
         "name": "Drowned Sapphire",
         "tier": 6,
         "description": "Formed from colliding waves and tides, this gem holds the depths of the ocean within.",
         "cost": 0,
         "success_rate": 100,
-        "category": "Gemstone"
+        "category": "Gemstone",
+        "image_link": "https://www.PandoraPortal.ca/gallery/Items/Gemstones/Drowned Sapphire.webp"
     },
     "Gemstone2": {
-        "item_id": "Gemstone3",
+        "item_id": "Gemstone2",
         "name": "Silent Topaz",
         "tier": 6,
         "description": "Crackling with electricity, this gem is often used as an energy source.",
         "cost": 0,
         "success_rate": 100,
-        "category": "Gemstone"
+        "category": "Gemstone",
+        "image_link": "https://www.PandoraPortal.ca/gallery/Items/Gemstones/Silent Topaz.webp"
     },
     "Gemstone3": {
-        "item_id": "Gemstone4",
+        "item_id": "Gemstone3",
         "name": "Ancient Agate",
         "tier": 6,
         "description": "Hardened by the earth, this gem has a high density and is exceptionally sturdy.",
         "cost": 0,
         "success_rate": 100,
-        "category": "Gemstone"
+        "category": "Gemstone",
+        "image_link": "https://www.PandoraPortal.ca/gallery/Items/Gemstones/Ancient Agate.webp"
     },
     "Gemstone4": {
-        "item_id": "Gemstone5",
+        "item_id": "Gemstone4",
         "name": "Whispering Emerald",
         "tier": 6,
         "description": "A destructive gale condensed into a single stone, air leaks out from this gem creating a gentle breeze.",
         "cost": 0,
         "success_rate": 100,
-        "category": "Gemstone"
+        "category": "Gemstone",
+        "image_link": "https://www.PandoraPortal.ca/gallery/Items/Gemstones/Whispering Emerald.webp"
     },
     "Gemstone5": {
-        "item_id": "Gemstone6",
+        "item_id": "Gemstone5",
         "name": "Arctic Zircon",
         "tier": 6,
         "description": "Despite the chilling aura, this gem's pure surface mirrors its surroundings.",
         "cost": 0,
         "success_rate": 100,
-        "category": "Gemstone"
+        "category": "Gemstone",
+        "image_link": "https://www.PandoraPortal.ca/gallery/Items/Gemstones/Arctic Zircon.webp"
     },
     "Gemstone6": {
-        "item_id": "Gemstone7",
+        "item_id": "Gemstone6",
         "name": "Haunted Obsidian",
         "tier": 6,
         "description": "Dark and ominous, this small gem casts a foreboding shadow.",
         "cost": 0,
         "success_rate": 100,
-        "category": "Gemstone"
+        "category": "Gemstone",
+        "image_link": "https://www.PandoraPortal.ca/gallery/Items/Gemstones/Haunted Obsidian.webp"
     },
     "Gemstone7": {
-        "item_id": "Gemstone8",
+        "item_id": "Gemstone7",
         "name": "Prismatic Opal",
         "tier": 6,
         "description": "Gleaming with radiance, it shines with all kinds of vibrant colours.",
         "cost": 0,
         "success_rate": 100,
-        "category": "Gemstone"
+        "category": "Gemstone",
+        "image_link": "https://www.PandoraPortal.ca/gallery/Items/Gemstones/Prismatic Opal.webp"
     },
     "Gemstone8": {
-        "item_id": "Gemstone9",
+        "item_id": "Gemstone8",
         "name": "Spatial Lapis",
         "tier": 6,
         "description": "Shimmering endlessly, the inside of this gem is boundless like the starry night.",
         "cost": 0,
         "success_rate": 100,
-        "category": "Gemstone"
+        "category": "Gemstone",
+        "image_link": "https://www.PandoraPortal.ca/gallery/Items/Gemstones/Spatial Lapis.webp"
     },
     "Gemstone9": {
-        "item_id": "Gemstone10",
+        "item_id": "Gemstone9",
         "name": "Soul Diamond",
         "tier": 6,
         "description": "A gem of crystallized soul, a priceless treasure.",
         "cost": 0,
         "success_rate": 100,
-        "category": "Gemstone"
+        "category": "Gemstone",
+        "image_link": "https://www.PandoraPortal.ca/gallery/Items/Gemstones/Soul Diamond.webp"
     },
     "Gemstone10": {
-        "item_id": "Gemstone11",
+        "item_id": "Gemstone10",
         "name": "Aurora Tear",
         "tier": 7,
         "description": "If you gaze within you can make out the remnants of the dream from which it was formed.",
         "cost": 2000000,
         "success_rate": 100,
-        "category": "Gemstone"
+        "category": "Gemstone",
+        "image_link": ""
     },
     "Gemstone11": {
-        "item_id": "Gemstone12",
+        "item_id": "Gemstone11",
         "name": "Stone of the True Void",
         "tier": 8,
         "description": "An impossible gem, it embodies the infinite nothingness within the depths of the void. [Uber Rare]",
         "cost": 0,
         "success_rate": 100,
-        "category": "Gemstone"
+        "category": "Gemstone",
+        "image_link": ""
     },
     "Heart1": {
         "item_id": "Heart1",
@@ -1149,7 +1276,8 @@
         "description": "Used for various infusions.",
         "cost": 0,
         "success_rate": 100,
-        "category": "Heart"
+        "category": "Heart",
+        "image_link": "https://www.PandoraPortal.ca/gallery/Items/Hearts/Radiant Heart.webp"
     },
     "Heart2": {
         "item_id": "Heart2",
@@ -1158,7 +1286,8 @@
         "description": "Used for various infusions.",
         "cost": 0,
         "success_rate": 100,
-        "category": "Heart"
+        "category": "Heart",
+        "image_link": "https://www.PandoraPortal.ca/gallery/Items/Heart/Chaos Heart.webp"
     },
     "Catalyst": {
         "item_id": "Catalyst",
@@ -1167,7 +1296,8 @@
         "description": "A hollow transparent gemstone. It's true nature can be revealed through elemental infusion.",
         "cost": 500000,
         "success_rate": 100,
-        "category": "Misc"
+        "category": "Misc",
+        "image_link": "https://www.PandoraPortal.ca/gallery/Items/Gemstones/Gemstone Catalyst.webp"
     },
     "Hammer": {
         "item_id": "Hammer",
@@ -1176,7 +1306,8 @@
         "description": "Used to reroll specific item rolls. Works on tier 4 and lower gear items.",
         "cost": 50000,
         "success_rate": 80,
-        "category": "Misc"
+        "category": "Misc",
+        "image_link": ""
     },
     "Pearl": {
         "item_id": "Pearl",
@@ -1185,7 +1316,8 @@
         "description": "Augments an item roll. Increases the tier by 1.",
         "cost": 50000,
         "success_rate": 75,
-        "category": "Misc"
+        "category": "Misc",
+        "image_link": ""
     },
     "Matrix": {
         "item_id": "Matrix",
@@ -1194,7 +1326,8 @@
         "description": "5% Chance to add a socket to a gear item.",
         "cost": 5000,
         "success_rate": 5,
-        "category": "Misc"
+        "category": "Misc",
+        "image_link": ""
     },
     "Chest": {
         "item_id": "Chest",
@@ -1203,7 +1336,8 @@
         "description": "Contains a random item.",
         "cost": 50000,
         "success_rate": 100,
-        "category": "Misc"
+        "category": "Misc",
+        "image_link": ""
     },
     "Shard": {
         "item_id": "Shard",
@@ -1212,7 +1346,8 @@
         "description": "A fragment of an ancient weapon. Perhaps it can be reforged.",
         "cost": 0,
         "success_rate": 100,
-        "category": "Misc"
+        "category": "Misc",
+        "image_link": ""
     },
     "Scrap": {
         "item_id": "Scrap",
@@ -1221,7 +1356,8 @@
         "description": "One of many countless pieces of Pandora's Legendary Hammer.",
         "cost": 0,
         "success_rate": 100,
-        "category": "Misc"
+        "category": "Misc",
+        "image_link": ""
     },
     "Compass": {
         "item_id": "Compass",
@@ -1230,7 +1366,8 @@
         "description": "An enigmatic compass said to be capable of locating the Spire of Illusions.",
         "cost": 500000,
         "success_rate": 100,
-        "category": "Misc"
+        "category": "Misc",
+        "image_link": ""
     },
     "DarkStar": {
         "item_id": "DarkStar",
@@ -1239,7 +1376,8 @@
         "description": "Legend tells of a star engulfed in black flames that heralds great disasters. The old records describe visions of the dark star blocking out the sun leaving chaos in its wake. [Uber Rare]",
         "cost": 0,
         "success_rate": 100,
-        "category": "Misc"
+        "category": "Misc",
+        "image_link": "https://www.PandoraPortal.ca/gallery/Items/Misc/Dark Star of Shattered Dreams.webp"
     },
     "LightStar": {
         "item_id": "LightStar",
@@ -1248,7 +1386,8 @@
         "description": "Legend tells of a star often spotted by lovers as it dazzles and sparkles amidst the black night. The old records indicate that the star was so beautiful it would steal the hearts of those who saw it. [Uber Rare]",
         "cost": 0,
         "success_rate": 100,
-        "category": "Misc"
+        "category": "Misc",
+        "image_link": "https://www.PandoraPortal.ca/gallery/Items/Misc/Glittering Star of Fractured Hearts.webp"
     },
     "Nadir": {
         "item_id": "Nadir",
@@ -1257,7 +1396,8 @@
         "description": "Amidst the vastest oceans, this tiny fish is exceedingly elusive. They dwell in the deepest trenches. Their pitch-black scales conceal precious and unique gems that grow inside their small bodies. [Ultimate Rare]",
         "cost": 0,
         "success_rate": 100,
-        "category": "Fish"
+        "category": "Fish",
+        "image_link": ""
     },
     "RoyalCoin": {
         "item_id": "RoyalCoin",
@@ -1266,7 +1406,8 @@
         "description": "A sacred coin blessed by gods. It is said to be indestructible.",
         "cost": 0,
         "success_rate": 100,
-        "category": "Misc"
+        "category": "Misc",
+        "image_link": ""
     },
     "Nephilim": {
         "item_id": "Nephilim",
@@ -1275,7 +1416,8 @@
         "description": "The heart of the lotus incarnate. Its divine luster has long since withered away, leaving a lingering resentment in its place. [Ultimate Rare]",
         "cost": 0,
         "success_rate": 100,
-        "category": "Misc"
+        "category": "Misc",
+        "image_link": ""
     },
     "Pandora": {
         "item_id": "Pandora",
@@ -1284,7 +1426,8 @@
         "description": "The spiritual heart of the celestial paragon. At the dawn of creation, Pandora bore her celestial heart as a power source for her hammer. [Ultimate Rare]",
         "cost": 0,
         "success_rate": 100,
-        "category": "Misc"
+        "category": "Misc",
+        "image_link": ""
     },
     "Ruler": {
         "item_id": "Ruler",
@@ -1293,7 +1436,8 @@
         "description": "A jewel of unmatched quality, unparalleled value, and unfathomable beauty. A truly unique treasure. [Ultimate Rare]",
         "cost": 0,
         "success_rate": 100,
-        "category": "Misc"
+        "category": "Misc",
+        "image_link": ""
     },
     "Sacred": {
         "item_id": "Sacred",
@@ -1302,7 +1446,8 @@
         "description": "Rare drop from raid bosses. Can be optionally consumed as an additional cost to guarantee a 'Sacred' outcome during infusion. It can also be used to upgrade tier 8 gear to tier 9. [Ultimate Rare]",
         "cost": 0,
         "success_rate": 100,
-        "category": "Misc"
+        "category": "Misc",
+        "image_link": ""
     },
     "Salvation": {
         "item_id": "Salvation",
@@ -1311,7 +1456,8 @@
         "description": "Rare drop from raid bosses. Can be consumed to guarantee an on-class skill roll on an Amulet. [Ultimate Rare]",
         "cost": 0,
         "success_rate": 100,
-        "category": "Misc"
+        "category": "Misc",
+        "image_link": ""
     },
     "Metamorphite": {
         "item_id": "Metamorphite",
@@ -1320,34 +1466,35 @@
         "description": "A mysterious ore that can drastically change an item.",
         "cost": 0,
         "success_rate": 100,
-        "category": "Misc"
+        "category": "Misc",
+        "image_link": ""
     },
-    "Fish1": { "item_id": "Fish1", "name": "Sawshark", "tier": 1, "description": "Amazing! What a cute fish. So adorable!", "cost": 0, "success_rate": 100, "category": "Fish" },
-    "Fish2": { "item_id": "Fish2", "name": "Slippery Dick", "tier": 1, "description": "Amazing! What a cute fish. So adorable!", "cost": 0, "success_rate": 100, "category": "Fish" },
-    "Fish3": { "item_id": "Fish3", "name": "Scorpionfish", "tier": 1, "description": "Amazing! What a cute fish. So adorable!", "cost": 0, "success_rate": 100, "category": "Fish" },
-    "Fish4": { "item_id": "Fish4", "name": "Clownfish", "tier": 1, "description": "Amazing! What a cute fish. So adorable!", "cost": 0, "success_rate": 100, "category": "Fish" },
-    "Fish5": { "item_id": "Fish5", "name": "Hammerhead Shark", "tier": 2, "description": "Amazing! What a cute fish. So adorable!", "cost": 0, "success_rate": 100, "category": "Fish" },
-    "Fish6": { "item_id": "Fish6", "name": "Old Wife", "tier": 2, "description": "Amazing! What a cute fish. So adorable!", "cost": 0, "success_rate": 100, "category": "Fish" },
-    "Fish7": { "item_id": "Fish7", "name": "Glass Catfish", "tier": 2, "description": "Amazing! What a cute fish. So adorable!", "cost": 0, "success_rate": 100, "category": "Fish" },
-    "Fish8": { "item_id": "Fish8", "name": "Jellyfish", "tier": 2, "description": "Amazing! What a cute fish. So adorable!", "cost": 0, "success_rate": 100, "category": "Fish" },
-    "Fish9": { "item_id": "Fish9", "name": "Nurse Shark", "tier": 3, "description": "Amazing! What a cute fish. So adorable!", "cost": 0, "success_rate": 100, "category": "Fish" },
-    "Fish10": { "item_id": "Fish10", "name": "Wahoo", "tier": 3, "description": "Amazing! What a cute fish. So adorable!", "cost": 0, "success_rate": 100, "category": "Fish" },
-    "Fish11": { "item_id": "Fish11", "name": "Frogfish", "tier": 3, "description": "Amazing! What a cute fish. So adorable!", "cost": 0, "success_rate": 100, "category": "Fish" },
-    "Fish12": { "item_id": "Fish12", "name": "Butterflyfish", "tier": 3, "description": "Amazing! What a cute fish. So adorable!", "cost": 0, "success_rate": 100, "category": "Fish" },
-    "Fish13": { "item_id": "Fish13", "name": "Cookiecutter Shark", "tier": 4, "description": "Amazing! What a cute fish. So adorable!", "cost": 0, "success_rate": 100, "category": "Fish" },
-    "Fish14": { "item_id": "Fish14", "name": "Four-Eyed Fish", "tier": 4, "description": "Amazing! What a cute fish. So adorable!", "cost": 0, "success_rate": 100, "category": "Fish" },
-    "Fish15": { "item_id": "Fish15", "name": "Coffinfish", "tier": 4, "description": "Amazing! What a cute fish. So adorable!", "cost": 0, "success_rate": 100, "category": "Fish" },
-    "Fish16": { "item_id": "Fish16", "name": "BoxFish", "tier": 4, "description": "Amazing! What a cute fish. So adorable!", "cost": 0, "success_rate": 100, "category": "Fish" },
-    "Fish17": { "item_id": "Fish17", "name": "Goblin Shark", "tier": 5, "description": "Amazing! What a cute fish. So adorable!", "cost": 0, "success_rate": 100, "category": "Fish" },
-    "Fish18": { "item_id": "Fish18", "name": "Obese Dragonfish", "tier": 5, "description": "Amazing! What a cute fish. So adorable!", "cost": 0, "success_rate": 100, "category": "Fish" },
-    "Fish19": { "item_id": "Fish19", "name": "Anglerfish", "tier": 5, "description": "Amazing! What a cute fish. So adorable!", "cost": 0, "success_rate": 100, "category": "Fish" },
-    "Fish20": { "item_id": "Fish20", "name": "Swordfish", "tier": 5, "description": "Amazing! What a cute fish. So adorable!", "cost": 0, "success_rate": 100, "category": "Fish" },
-    "Fish21": { "item_id": "Fish21", "name": "Zebra Shark", "tier": 6, "description": "Amazing! What a cute fish. So adorable!", "cost": 0, "success_rate": 100, "category": "Fish" },
-    "Fish22": { "item_id": "Fish22", "name": "Blue Bastard", "tier": 6, "description": "Amazing! What a cute fish. So adorable!", "cost": 0, "success_rate": 100, "category": "Fish" },
-    "Fish23": { "item_id": "Fish23", "name": "Sunfish", "tier": 6, "description": "Amazing! What a cute fish. So adorable!", "cost": 0, "success_rate": 100, "category": "Fish" },
-    "Fish24": { "item_id": "Fish24", "name": "Angelfish", "tier": 6, "description": "Amazing! What a cute fish. So adorable!", "cost": 0, "success_rate": 100, "category": "Fish" },
-    "Fish25": { "item_id": "Fish25", "name": "Whale Shark", "tier": 7, "description": "Amazing! What a cute fish. So adorable!", "cost": 0, "success_rate": 100, "category": "Fish" },
-    "Fish26": { "item_id": "Fish26", "name": "Whitemargin Stargazer", "tier": 7, "description": "Amazing! What a cute fish. So adorable!", "cost": 0, "success_rate": 100, "category": "Fish" },
-    "Fish27": { "item_id": "Fish27", "name": "Viperfish", "tier": 7, "description": "Amazing! What a cute fish. So adorable!", "cost": 0, "success_rate": 100, "category": "Fish" },
-    "Fish28": { "item_id": "Fish28", "name": "Spookfish", "tier": 7, "description": "Amazing! What a cute fish. So adorable!", "cost": 0, "success_rate": 100, "category": "Fish" }
+    "Fish1": { "item_id": "Fish1", "name": "Sawshark", "tier": 1, "description": "Amazing! What a cute fish. So adorable!", "cost": 0, "success_rate": 100, "category": "Fish", "image_link": "" },
+    "Fish2": { "item_id": "Fish2", "name": "Slippery Dick", "tier": 1, "description": "Amazing! What a cute fish. So adorable!", "cost": 0, "success_rate": 100, "category": "Fish", "image_link": "" },
+    "Fish3": { "item_id": "Fish3", "name": "Scorpionfish", "tier": 1, "description": "Amazing! What a cute fish. So adorable!", "cost": 0, "success_rate": 100, "category": "Fish", "image_link": "" },
+    "Fish4": { "item_id": "Fish4", "name": "Clownfish", "tier": 1, "description": "Amazing! What a cute fish. So adorable!", "cost": 0, "success_rate": 100, "category": "Fish", "image_link": "" },
+    "Fish5": { "item_id": "Fish5", "name": "Hammerhead Shark", "tier": 2, "description": "Amazing! What a cute fish. So adorable!", "cost": 0, "success_rate": 100, "category": "Fish", "image_link": "" },
+    "Fish6": { "item_id": "Fish6", "name": "Old Wife", "tier": 2, "description": "Amazing! What a cute fish. So adorable!", "cost": 0, "success_rate": 100, "category": "Fish", "image_link": "" },
+    "Fish7": { "item_id": "Fish7", "name": "Glass Catfish", "tier": 2, "description": "Amazing! What a cute fish. So adorable!", "cost": 0, "success_rate": 100, "category": "Fish", "image_link": "" },
+    "Fish8": { "item_id": "Fish8", "name": "Jellyfish", "tier": 2, "description": "Amazing! What a cute fish. So adorable!", "cost": 0, "success_rate": 100, "category": "Fish", "image_link": "" },
+    "Fish9": { "item_id": "Fish9", "name": "Nurse Shark", "tier": 3, "description": "Amazing! What a cute fish. So adorable!", "cost": 0, "success_rate": 100, "category": "Fish", "image_link": "" },
+    "Fish10": { "item_id": "Fish10", "name": "Wahoo", "tier": 3, "description": "Amazing! What a cute fish. So adorable!", "cost": 0, "success_rate": 100, "category": "Fish", "image_link": "" },
+    "Fish11": { "item_id": "Fish11", "name": "Frogfish", "tier": 3, "description": "Amazing! What a cute fish. So adorable!", "cost": 0, "success_rate": 100, "category": "Fish", "image_link": "" },
+    "Fish12": { "item_id": "Fish12", "name": "Butterflyfish", "tier": 3, "description": "Amazing! What a cute fish. So adorable!", "cost": 0, "success_rate": 100, "category": "Fish", "image_link": "" },
+    "Fish13": { "item_id": "Fish13", "name": "Cookiecutter Shark", "tier": 4, "description": "Amazing! What a cute fish. So adorable!", "cost": 0, "success_rate": 100, "category": "Fish", "image_link": "" },
+    "Fish14": { "item_id": "Fish14", "name": "Four-Eyed Fish", "tier": 4, "description": "Amazing! What a cute fish. So adorable!", "cost": 0, "success_rate": 100, "category": "Fish", "image_link": "" },
+    "Fish15": { "item_id": "Fish15", "name": "Coffinfish", "tier": 4, "description": "Amazing! What a cute fish. So adorable!", "cost": 0, "success_rate": 100, "category": "Fish", "image_link": "" },
+    "Fish16": { "item_id": "Fish16", "name": "BoxFish", "tier": 4, "description": "Amazing! What a cute fish. So adorable!", "cost": 0, "success_rate": 100, "category": "Fish", "image_link": "" },
+    "Fish17": { "item_id": "Fish17", "name": "Goblin Shark", "tier": 5, "description": "Amazing! What a cute fish. So adorable!", "cost": 0, "success_rate": 100, "category": "Fish", "image_link": "" },
+    "Fish18": { "item_id": "Fish18", "name": "Obese Dragonfish", "tier": 5, "description": "Amazing! What a cute fish. So adorable!", "cost": 0, "success_rate": 100, "category": "Fish", "image_link": "" },
+    "Fish19": { "item_id": "Fish19", "name": "Anglerfish", "tier": 5, "description": "Amazing! What a cute fish. So adorable!", "cost": 0, "success_rate": 100, "category": "Fish", "image_link": "" },
+    "Fish20": { "item_id": "Fish20", "name": "Swordfish", "tier": 5, "description": "Amazing! What a cute fish. So adorable!", "cost": 0, "success_rate": 100, "category": "Fish", "image_link": "" },
+    "Fish21": { "item_id": "Fish21", "name": "Zebra Shark", "tier": 6, "description": "Amazing! What a cute fish. So adorable!", "cost": 0, "success_rate": 100, "category": "Fish", "image_link": "" },
+    "Fish22": { "item_id": "Fish22", "name": "Blue Bastard", "tier": 6, "description": "Amazing! What a cute fish. So adorable!", "cost": 0, "success_rate": 100, "category": "Fish", "image_link": "" },
+    "Fish23": { "item_id": "Fish23", "name": "Sunfish", "tier": 6, "description": "Amazing! What a cute fish. So adorable!", "cost": 0, "success_rate": 100, "category": "Fish", "image_link": "" },
+    "Fish24": { "item_id": "Fish24", "name": "Angelfish", "tier": 6, "description": "Amazing! What a cute fish. So adorable!", "cost": 0, "success_rate": 100, "category": "Fish", "image_link": "" },
+    "Fish25": { "item_id": "Fish25", "name": "Whale Shark", "tier": 7, "description": "Amazing! What a cute fish. So adorable!", "cost": 0, "success_rate": 100, "category": "Fish", "image_link": "" },
+    "Fish26": { "item_id": "Fish26", "name": "Whitemargin Stargazer", "tier": 7, "description": "Amazing! What a cute fish. So adorable!", "cost": 0, "success_rate": 100, "category": "Fish", "image_link": "" },
+    "Fish27": { "item_id": "Fish27", "name": "Viperfish", "tier": 7, "description": "Amazing! What a cute fish. So adorable!", "cost": 0, "success_rate": 100, "category": "Fish", "image_link": "" },
+    "Fish28": { "item_id": "Fish28", "name": "Spookfish", "tier": 7, "description": "Amazing! What a cute fish. So adorable!", "cost": 0, "success_rate": 100, "category": "Fish", "image_link": "" }
 }

@@ -2,7 +2,7 @@
 	class ItemRoll {
 		public $roll_id;
 		public $roll_tier;
-		//public $roll_icon;
+		public $roll_icon;
 		public $roll_category;
 		public $roll_code;
 		public $roll_value;
@@ -15,7 +15,7 @@
 			$this->roll_id = $roll_id;
 			$roll_details = explode("-", $roll_id);
 			$this->roll_tier = intval($roll_details[0]);
-			//$this->roll_icon = $this->get_roll_icon($this->roll_tier);
+			$this->roll_icon = $this->get_roll_icon($this->roll_tier);
 			$this->roll_category = $roll_details[1];
 			$this->roll_code = "{$roll_details[1]}-{$roll_details[2]}";
 			$this->roll_value = 0;
@@ -48,7 +48,7 @@
 		}
 		public function get_roll_icon($roll_tier) {
 			global $augment_icons;
-			//return $augment_icons[$roll_tier - 1];
+			return $augment_icons[$roll_tier - 1];
 		}
 	}
 
