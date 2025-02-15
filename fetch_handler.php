@@ -19,10 +19,10 @@ if (!isset($_SESSION['player_id'])) {
 }
 $verified_player_id = $_SESSION['player_id'];
 $input = json_decode(file_get_contents("php://input"), true);
-$action = $input['action'] ?? null;
-$slot_type = $input['slot_type'] ?? null;
-$element = $input['element'] ?? null;
-$item_id = $input['item_id'] ?? null;
+$action = isset($input['action']) && $input['action'] !== 'null' ? $input['action'] : null;
+$slot_type = isset($input['slot_type']) && $input['slot_type'] !== 'null' ? $input['slot_type'] : null;
+$element = isset($input['element']) && $input['element'] !== 'null' ? $input['element'] : null;
+$item_id = isset($input['item_id']) && $input['item_id'] !== 'null' ? $input['item_id'] : null;
 if (!$action) {
     echo json_encode(["success" => false, "message" => "No action provided"]);
     exit();
@@ -39,8 +39,8 @@ if ($slot_type && !isset($slot_types[$slot_type])){
     echo json_encode(["success" => false, "message" => "Invalid slot type"]);
     exit();
 }
-if ($element !== null && (!ctype_digit((string) $element) || $element < 0 || $element > 8)) {
-    echo json_encode(["success" => false, "message" => "Invalid element provided"]);
+if ($element !== null && $element !== '' && (!ctype_digit((string) $element) || $element < 0 || $element > 8)) {
+    echo json_encode(["success" => false, "message" => "Invalid element provided: " . $element]);
     exit();
 }
 
@@ -48,7 +48,7 @@ $forge_actions = [
     "Fae Enchant", "Gemstone Enchant", "Reinforce Quality", "Create Socket", "Hellfire Reforge",
     "Abyssfire Reforge", "Mutate Reforge", "Attune Rolls", "Star Fusion (Add/Reroll)",
     "Radiant Fusion (Defensive)", "Chaos Fusion (All)", "Void Fusion (Damage)",
-    "Wish Fusion (Penetration)", "Abyss Fusion (Curse)", "Divine Fusion (Unique)", "Implant"
+    "Wish Fusion (Penetration)", "Abyss Fusion (Curse)", "Divine Fusion (Unique)", "Salvation (Class Skill)", "Implant"
 ];
 
 $response = ["success" => false];

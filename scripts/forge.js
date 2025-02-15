@@ -20,11 +20,11 @@ function onForge(selectedItem = 'W') {
 function displayForgeMenu(itemData) {
     const options = [
         { name: "Enhancement", action: null },
+        { name: "Astral Augment", action: itemData.item_num_rolls < 6 ? "Star Fusion (Add/Reroll)" : null },
+        { name: "Cosmic Attunement", action: "Attune Rolls" },
         { name: "Upgrade Quality", action: "Reinforce Quality" },
         { name: "Open Socket", action: "Create Socket" },
         { name: "Reforging", action: null },
-        { name: "Cosmic Attunement", action: "Attune Rolls" },
-        { name: "Astral Augment", action: null },
         { name: "Implant Element", action: null }
     ];
     let menu_html = options.map(option =>
@@ -41,7 +41,7 @@ function handleForgeOption(option, itemType) {
     let subMenuHtml = `<h3 id='forge-sub-header' class='highlight-text'>~ ${option} ~</h3>`;
     let elementMenu = `<div class="action-row">
         <select id="elementSelect" onchange="updateButtonAction('elementSelect', ['faeButton', 'gemstoneButton', 'elementButton'])">
-            ${["Fire", "Water", "Lightning", "Earth", "Wind", "Ice", "Light", "Shadow", "Celestial"]
+            ${["Fire", "Water", "Lightning", "Earth", "Wind", "Ice", "Shadow", "Light", "Celestial"]
                 .map((e, i) => `<option value=${i}>${e}</option>`).join('')}
         </select>
     </div>`;
@@ -53,19 +53,26 @@ function handleForgeOption(option, itemType) {
             subMenuHtml += `<button class="sub-forge-button" id="gemstoneButton" data-action="Gemstone Enchant" data-method="0" data-item="${itemType}" onclick="setActionFromButton(this)">Gemstone Enchant</button>`;
             break;
         case "Reforging":
-            ["Hellfire", "Abyssfire", "Mutate"].forEach(type =>
-                subMenuHtml += `<button class="sub-forge-button" data-action="${type} Reforge" data-method="" data-item="${itemType}" onclick="setActionFromButton(this)">${type} Reforge</button>`
-            );
-            break;
+            ["Hellfire", "Abyssfire", "Mutate"].forEach(type => {
+                if (type === "Abyssfire" && itemType === "W") return;
+                subMenuHtml += `<button class="sub-forge-button" data-action="${type} Reforge" data-method="" data-item="${itemType}" onclick="setActionFromButton(this)">${type} Reforge</button>`;
+            });
+            break; 
         case "Astral Augment":
+            let augmentOptions = [
+                "Star Fusion (Add/Reroll)", "Radiant Fusion (Defensive)", "Chaos Fusion (All)",
+                "Void Fusion (Damage)", "Wish Fusion (Penetration)", "Abyss Fusion (Curse)", "Divine Fusion (Unique)"
+            ];
+            if (itemType === "Y") { 
+                augmentOptions.push("Salvation (Class Skill)");
+            }
             subMenuHtml += `<div class="action-row">
                 <select id="augmentSelect" onchange="updateButtonAction('augmentSelect', ['augmentButton'])">
-                    ${["Star Fusion (Add/Reroll)", "Radiant Fusion (Defensive)", "Chaos Fusion (All)", "Void Fusion (Damage)", "Wish Fusion (Penetration)", "Abyss Fusion (Curse)", "Divine Fusion (Unique)"]
-                        .map(fusion => `<option value="${fusion}">${fusion}</option>`).join('')}
+                    ${augmentOptions.map(fusion => `<option value="${fusion}">${fusion}</option>`).join('')}
                 </select>
             </div>`;
-            subMenuHtml += `<button class="sub-forge-button" id="augmentButton" data-action="Star Fusion (Add/Reroll)" data-method="" data-item="${itemType}" onclick="setActionFromButton(this)">Augment Rolls</button>`;
-            break;
+            subMenuHtml += `<button class="sub-forge-button" id="augmentButton" data-action="${augmentOptions[0]}" data-method="" data-item="${itemType}" onclick="setActionFromButton(this)">Augment Rolls</button>`;
+            break;   
         case "Implant Element":
             subMenuHtml += elementMenu;
             subMenuHtml += `<button class="sub-forge-button" id="elementButton" data-action="Implant" data-method="0" data-item="${itemType}" onclick="setActionFromButton(this)">Implant Element</button>`;
@@ -127,25 +134,34 @@ function setAction(action, method, itemType) {
 
 function executeForgeAction(action, method, itemType) {
     method = method === '' ? null : method;
+    blockingScreen.style.display = "block";
     fetch('./fetch_handler.php', {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ action: action, slot_type: itemType, element: method, execute: true })
     })
     .then(response => response.json())
-    .then(data => updateForgeUI(data, action, method, itemType))
-    .catch(error => console.error("Error executing forge action:", error));
+    .then(data => {
+        updateForgeUI(data, action, method, itemType);
+        animateForgeOutcome(data.action_triggered, itemType);
+    })
+    .catch(error => {
+        console.error("Error executing forge action:", error);
+        alert("An error occurred while processing the action.");
+        blockingScreen.style.display = "none";
+    })
 }
 
 function updateForgeUI(data, action, method, itemType) {
     let subForgeMenu = document.getElementById('sub-forge-menu');
     let label = actionLabels[action] || "Forge";
     if (!data.success) {
-        alert(data.message || "Action could not be completed.");
+        alert(data.message || "Action Error.");
         return;
     }
     let menuHtml = `<h3 id='forge-sub-header' class='highlight-text'>~ ${action} ~</h3>`;
     forgeItemScreen.innerHTML = data.item_html;
+    let hasStock = true; // Track if user has enough stock
     if (data.cost && data.cost.length > 0) {
         data.cost.forEach(costItem => {
             const itemId = costItem.item_id;
@@ -153,6 +169,7 @@ function updateForgeUI(data, action, method, itemType) {
             const userStock = data.stock[itemId] || 0;
             const itemIcon = itemData[itemId]?.image_link || "";
             const itemName = itemData[itemId]?.name || "Unknown Item";
+            if (userStock < requiredQty) hasStock = false;
             menuHtml += `
                 <div class="cost-row">
                     <img src="${itemIcon}" alt="${itemName}" class="cost-icon">
@@ -163,9 +180,30 @@ function updateForgeUI(data, action, method, itemType) {
         });
     }
     if (data.cost.length < 2) menuHtml += '<div class="cost-row"></div>';
-    menuHtml += `<button id="confirmForgeButton" 
-                    class="${data.qualified ? `final-forge-button" onclick="executeForgeAction('${action}', '${method}', '${itemType}')"` : "disabled-button\""}> 
-                ${label} &lpar;${data.success_rate}%&rpar;</button>`;
+    let buttonText = label;
+    let buttonClass = "disabled-button";
+    let buttonOnClick = "";
+    if (!hasStock) {
+        buttonText = "Out of Stock";
+    } else if (!data.qualified) {
+        if (!label.includes("Reforge")){
+            buttonText += " [MAX]";
+        }
+    } else {
+        buttonText = `${label} (${data.success_rate}%)`;
+        buttonClass = "final-forge-button";
+        buttonOnClick = `onclick="executeForgeAction('${action}', '${method}', '${itemType}')"`; 
+    }
+    menuHtml += `<button id="confirmForgeButton" class="${buttonClass}" ${buttonOnClick}>${buttonText}</button>`;
     subForgeMenu.innerHTML = menuHtml;
-}             
+}
+
+function animateForgeOutcome(success, itemType) {
+    forgeItemScreen.classList.add(success ? "forge-success" : "forge-failure");
+    setTimeout(() => {
+        forgeItemScreen.classList.remove("forge-success", "forge-failure");
+        blockingScreen.style.display = "none";
+    }, 1200);
+}
+
 

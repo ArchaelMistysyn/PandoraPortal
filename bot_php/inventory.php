@@ -431,6 +431,7 @@
 			}
 			// Handle base types for non-gem items
 			if ($this->item_base_type !== "") {
+				$this->assign_bonus_stat();
 				return;
 			}
 			// Add a roll and element to non-gem items
@@ -495,6 +496,32 @@
 		public function add_item_element($element) {
 			$new_element = ($element === 9) ? rand(0, 8) : $element;
 			$this->item_elements[$new_element] = 1;
+		}
+
+		public function assign_bonus_stat() {
+			global $element_special_names, $boss_list, $rare_ability_dict;
+			if ($this->item_type === "W" || strpos($this->item_type, "D") !== false) {
+				return;
+			}
+			if ($this->item_tier < 5) {
+				if (in_array($this->item_type, ["A", "V"])) {
+					return;
+				}
+				$keyword = $element_special_names[array_rand($element_special_names)];
+				$this->item_bonus_stat = "{$keyword} Authority";
+				if (in_array($this->item_type, ["Y", "R"])) {
+					$bane_type = rand(0, 5);
+					$keyword = ($bane_type === 5) ? "Human" : $boss_list[$bane_type];
+					$this->item_bonus_stat = "{$keyword} Bane";
+					return;
+				}
+				if ($this->item_type === "G") {
+					$this->item_bonus_stat = "{$keyword} Feathers";
+					return;
+				}
+				return;
+			}
+			$this->item_bonus_stat = array_rand($rare_ability_dict);
 		}
 		
 		public function update_damage() {
