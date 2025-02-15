@@ -112,7 +112,7 @@
 				return $roll_code;
 			}
 		}
-		return "";
+		return "ERROR";
 	}
 	
 	function assign_gem_values($player_obj, $e_gem) {
@@ -180,5 +180,46 @@
 			}
 		}
 	}
+
+	function reroll_roll(&$item, $method_type, $player_class = null) {
+        global $roll_structure_dict, $item_roll_master_dict;
+        if ($method_type === "all") {
+            $tier_list = array_map(fn($roll) => (new ItemRoll($roll))->roll_tier, $item->item_roll_values);
+            $item->item_num_rolls = 0;
+            $item->item_roll_values = [];
+            add_roll($item, 6);
+            foreach ($item->item_roll_values as $index => $roll) {
+                $tier = $tier_list[$index] ?? 1;
+                $item->item_roll_values[$index] = "$tier-" . explode("-", $roll, 2)[1];
+            }
+            return;
+        }
+        $method = ($method_type === "any") ? $roll_structure_dict[$item->item_type][array_rand($roll_structure_dict[$item->item_type])] : $method_type;
+        if ($method_type === "Salvation") {
+            $method = "unique";
+        }
+        $eligible_rolls = [];
+        $roll_index = null;
+        foreach ($item->item_roll_values as $index => $roll_id) {
+            $current_roll = new ItemRoll($roll_id);
+            if ($current_roll->roll_category === $method) {
+                $eligible_rolls[$index] = $current_roll;
+            }
+        }
+        if (empty($eligible_rolls)) return;
+        $selected_index = array_rand($eligible_rolls);
+        $selected_roll = $eligible_rolls[$selected_index];
+        $roll_list = ($method === "unique") ? handle_unique($item, $player_class)[0] : $item_roll_master_dict[$method][0];
+        $exclusions_list = [];
+        $exclusions_weighting = [];
+        foreach ($eligible_rolls as $roll) {
+            $exclusions_list[] = $roll->roll_code;
+            $exclusions_weighting[] = $roll_list[$roll->roll_code][2];
+        }
+        $available_rolls = array_diff(array_keys($roll_list), $exclusions_list);
+        $selected_roll_code = select_roll(array_sum(array_column($roll_list, 2)), $exclusions_weighting, $available_rolls, $roll_list);
+        $tier = $selected_roll->roll_tier;
+        $item->item_roll_values[$selected_index] = "$tier-$selected_roll_code";
+    }
 
 ?>

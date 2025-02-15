@@ -54,6 +54,9 @@
                 ["item_id" => "Hammer", "quantity" => 1],
                 ["item_id" => "Fragment4", "quantity" => 1]
             ],
+            "Salvation (Class Skill)" => [
+                ["item_id" => "Salvation", "quantity" => 1]
+            ],
             "Implant" =>  [["item_id" => "Gemstone" . $element, "quantity" => 1]]
         ];
         return array_values(array_filter($action_costs[$action] ?? []));
@@ -104,7 +107,9 @@
                 break;
             case "Abyssfire Reforge":
                 $response['success_rate'] = 75;
-                if ($item->item_tier < 5) { $response['qualified'] = false; }
+                if ($item->item_tier < 5 || $item->item_type === "W") { 
+                    $response['qualified'] = false; 
+                }
                 break;
             case "Mutate Reforge":
                 $response['success_rate'] = 75;
@@ -124,6 +129,9 @@
             case "Divine Fusion (Unique)":
                 $response['success_rate'] = 80;
                 if ($item->item_num_rolls != 6) { $response['qualified'] = false; }
+                break;
+            case "Salvation (Class Skill)":
+                if ($item->item_type != 'Y') { $response['qualified'] = false; }
                 break;
             default:
                 $response['qualified'] = true;
@@ -147,8 +155,9 @@
             return $response;
         }
         $response['action_triggered'] = true;
-        applyForgeAction($working_item, $action, $element);
+        applyForgeAction($working_item, $action, $player_profile->player_class, $element);
         $working_item->set_item_name();
+        $working_item->update_damage();
         $working_item->saveChanges();
         $response['item_data'] = format_gear_item($working_item, $player_profile);
         $item_content = generate_gear_content($player_profile, $working_item, false);
@@ -156,7 +165,7 @@
         return $response;
     }
 
-    function applyForgeAction(&$item, $action, $element = null) {
+    function applyForgeAction(&$item, $action, $player_class, $element = null) {
         switch ($action) {
             case "Fae Enchant":
             case "Gemstone Enchant":
@@ -168,13 +177,17 @@
             case "Create Socket":
                 openSocket($item);
                 break;
-            case "Hellfire Reforge":
-            case "Abyssfire Reforge":
             case "Mutate Reforge":
-                reforgeItem($item);
+                reforgeClass($item);
+                break;
+            case "Hellfire Reforge":
+                reforgeStats($item);
+                break;
+            case "Abyssfire Reforge":
+                reforgeStats($item, true);
                 break;
             case "Attune Rolls":
-                attuneRolls($item);
+                addAugment($item);
                 break;
             case "Star Fusion (Add/Reroll)":
             case "Radiant Fusion (Defensive)":
@@ -183,7 +196,8 @@
             case "Wish Fusion (Penetration)":
             case "Abyss Fusion (Curse)":
             case "Divine Fusion (Unique)":
-                fusionProcess($item, $action);
+            case "Salvation (Class Skill)":
+                rerollItem($item, $action, $player_class);
                 break;
             case "Implant":
                 implantElement($item, $element);
@@ -201,9 +215,41 @@
         $item->item_quality_tier += 1;
     }
     
-    function reforgeItem(&$item) {
-        resetItemStats($item);
-    }
+    function reforgeClass(&$item, $specific_class = "") {
+        global $class_names;
+        if ($specific_class !== "") {
+            $item->item_damage_type = $specific_class;
+        } else {
+            $available_classes = array_filter($class_names, fn($class) => $class !== $item->item_damage_type);
+            $item->item_damage_type = $available_classes[array_rand($available_classes)];
+        }
+    }    
+    
+    function reforgeStats(&$item, $unlock = false) {
+        $item->get_tier_damage();
+        if (strpos($item->item_type, "D") !== false) {
+            return;
+        }
+        if ($item->item_type === "W") {
+            $item->set_base_attack_speed();
+            return;
+        }
+        if ($item->item_type === "A") {
+            $item->set_base_damage_mitigation();
+        }
+        if ($item->item_tier >= 5 && $unlock) {
+            global $rare_ability_dict;
+            $available = array_filter(array_keys($rare_ability_dict), fn($key) => $key !== $item->item_bonus_stat);
+            $item->item_bonus_stat = $available[array_rand($available)];
+            return;
+        }
+        if ($item->item_tier < 5) {
+            $current_bonus_stat = $item->item_bonus_stat;
+            while ($current_bonus_stat === $item->item_bonus_stat && $current_bonus_stat !== "") {
+                $item->assign_bonus_stat();
+            }
+        }
+    }    
     
     function addAugment($selected_item) {    
         $eligible_rolls = [];
@@ -233,11 +279,33 @@
         return $aug_total;
     }
     
-    function augmentItem(&$item) {
-        // $item->rolls[] = generateNewAugment();
-        return;
+    function rerollItem(&$item, $fusion_type, $player_class = null) {
+        global $roll_structure_dict, $item_roll_master_dict;
+        $current_rolls = &$item->item_roll_values;
+        $max_rolls = 6;
+        if ($fusion_type === "Star Fusion (Add/Reroll)") {
+            if (count($current_rolls) < $max_rolls) {
+                add_roll($item, 1); 
+            } else {
+                reroll_roll($item, "any");
+            }
+            return;
+        }
+        if ($fusion_type === "Chaos Fusion (All)") {
+            reroll_roll($item, "all", $player_class);
+            return;
+        }
+        $fusion_target_map = [
+            "Radiant Fusion (Defensive)" => "defensive",
+            "Void Fusion (Damage)" => "damage",
+            "Wish Fusion (Penetration)" => "penetration",
+            "Abyss Fusion (Curse)" => "curse",
+            "Divine Fusion (Unique)" => "unique",
+            "Salvation (Class Skill)" => "Salvation"
+        ];
+        reroll_roll($item, $fusion_target_map[$fusion_type], $player_class);
     }
-    
+     
     function implantElement(&$item, $element) {
         $item->item_elements[$element] = 1;
     }
