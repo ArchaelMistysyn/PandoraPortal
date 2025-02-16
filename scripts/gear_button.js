@@ -15,6 +15,7 @@ function onGear(filterCategory = null) {
                     .map(item => item.item_id);
                 displayGear(filteredGear, allInlaidGemIds);
                 displayEquippedGear(data.items, playerEquipped);
+                setActiveButton(".sort-button", filterCategory);
             } else {
                 alert(data.message || "Failed to load gear.");
             }

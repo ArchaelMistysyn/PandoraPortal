@@ -1090,3 +1090,8 @@
 }
 
 
+/* Overrides */
+.active-menu {
+  border: 2px solid blue;
+}
+

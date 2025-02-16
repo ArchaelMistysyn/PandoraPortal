@@ -10,6 +10,7 @@ function onInventory(filterCategory = null) {
             if (data.success) {
                 let filteredItems = filterCategory ? filterInventory(data.items, filterCategory) : data.items;
                 displayInventory(filteredItems);
+                setActiveButton(".sort-button", filterCategory);
             } else {
                 alert(data.message || "Failed to load inventory.");
             }
