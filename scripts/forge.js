@@ -10,6 +10,7 @@ function onForge(selectedItem = 'W') {
             if (data.success) {
                 forgeItemScreen.innerHTML = data.item_html;
                 displayForgeMenu(data.item_data);
+                setActiveButton(".sort-button", selectedItem);
             } else {
                 alert(data.message || "Failed to load forge.");                
             }
