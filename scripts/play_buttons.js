@@ -27,6 +27,7 @@ function clearScreens() {
     loadScreen.style.display = 'none';
     gearContainer.style.display = "none";
     inventoryContainer.style.display = "none";
+    forgeContainer.style.display = "none";
 }
 
 function onQuest() {

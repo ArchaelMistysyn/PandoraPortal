@@ -928,23 +928,35 @@
 /* MEDIA QUERIES */
 @media (max-width: 2000px) {
   #bottom-menu {
-    height: 140px;
-    padding: 20px;
+    height: 120px;
+    gap: 10px 25px;
   }
   #bottom-menu a {
-    font-size: 1.6rem;
-    height: 60px;
-    width: 130px;
+    font-size: 1.4rem;
+    height: 55px;
+    width: 120px;
   }
   #main-interface {
-    height: 90%;
-    gap: 25px;
+    gap: 10px;
   }
 }
 
 @media (max-width: 1600px) {
   #main-interface {
     width: 90%;
+  }
+}
+@media (max-width: 1200px) {
+  #equipped-gear {
+    padding: 10px;
+    width: 360px;
+  }
+  #inventory-menu {
+    gap: 5px;
+  }
+  .sort-button {
+    font-size: 0.6rem;
+    width: 70px;
   }
 }
 
@@ -962,6 +974,89 @@
   #bottom-menu a span{
     flex: 1 1 150px;
   }
+}
+
+@media (max-height: 1170px) {
+  #forge-container, #inventory-container, #gear-container {
+    padding-bottom: 30px;
+  }
+  #status-id {
+    font-size: 1rem;
+    border: 1px solid green;
+    padding: 2px;
+    bottom: 5px;
+  }
+  #forge-screen-container{
+    overflow-y: auto;
+    padding: 8px;
+  }
+  #forge-menu {
+    gap: 8px;
+    width: 320px;
+    height: 500px;
+  }
+  #forge-container .item-slot {
+    min-height: 531px;
+    max-height: 531px;
+  }
+  #forge-container .item-thumbnail {
+    height: 84px;
+    width: 84px;
+  }
+  #forge-container .item-name {
+    margin: 5px auto 0 auto;
+  }
+  #forge-container .skill-slot {
+    font-size: 1.1rem;
+  }
+  #forge-container .stat-message {
+    font-size: 1.1rem;
+  }
+  #forge-container .star-container {
+    margin-bottom: 4px;
+  }
+  #forge-container .star-container img {
+    height: 24px;
+    width: 24px;
+  }
+  #forge-container .style-line {
+    margin: 5px auto;
+  }
+  select {
+    font-size: 1rem;
+    height: 35px;
+    width: 170px;
+  }
+  .action-row {
+    margin-bottom: 0;
+  }
+  .forge-button, .sub-forge-button, .final-forge-button, .disabled-button {
+    padding: 5px;
+    font-size: 1rem;
+    width: 170px;
+    height: 35px;
+  }
+  #gear-screen-container{
+    overflow-y: auto;
+    padding: 10px 25px;
+  }
+  .gear-row, .gear-slot-wrapper {
+    height: 160px;
+  }
+  .gear-slot, .gear-icon, .gear-item {
+    width: 96px;
+    height: 96px;
+  }
+  .gem-slot, .gem-icon {
+    width: 48px;
+    height: 48px;
+  }
+  .no-slot {
+    width: 24px;
+    height: 24px;
+    margin: 16px 0px;
+  }
+  
 }
 
 /* Animations */
