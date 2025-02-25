@@ -7,7 +7,7 @@ class PlayerProfile {
     public $player_class;
     public $player_quest, $quest_tokens;
     public $player_coins, $player_stamina, $luck_bonus;
-	public $player_oath_num;
+	public $player_oath_num, $misc_data;
 
     // Player gear/stats info
     public $player_stats, $gear_points, $player_equipped;
@@ -69,6 +69,7 @@ class PlayerProfile {
         $this->player_stamina = 0;
         $this->luck_bonus = 0;
 		$this->player_oath_num = -1;
+		$this->misc_data = [];
 
         $this->player_stats = array_fill(0, 9, 0);
         $this->gear_points = array_fill(0, 9, 0);
@@ -184,7 +185,21 @@ class PlayerProfile {
 		$query .= "' WHERE player_id = " . intval($this->player_id);
 		run_query($query, false);
 		return;
-	}	
+	}
+	
+	public function load_misc_data() {
+        $query = "SELECT * FROM MiscPlayerData WHERE player_id = " . intval($this->player_id);
+        $result = run_query($query);
+        if (!empty($result)) {
+            $this->misc_data = $result[0];
+            $oath_data = explode(';', $this->misc_data['oath_data']);
+            $oath_data = array_map('intval', $oath_data);
+            $this->player_oath_num = array_search(3, $oath_data);
+            if ($this->player_oath_num === false) {
+                $this->player_oath_num = -1;
+            }
+        }
+    }
 	
 	public function display_player($w_item, $gear_score) {
 		global $path_names, $glyph_data, $path_perks;	
@@ -286,16 +301,11 @@ class PlayerProfile {
 			1 => ["Immortal", "Life", "Mana"],
 			2 => ["Elemental", "Elemental"]
 		];
-		$oath_data = get_oath_data($this->player_id);
-		if (in_array(3, $oath_data)) {
-			$oath_index = array_search(3, $oath_data);
-			$this->player_oath_num = $oath_index;
-			foreach ($oath_bonus[$oath_index] as $bonus) {
-				if ($bonus == "Immortal") {
-					$this->immortal = true;
-				} else {
-					$this->appli[$bonus] += 1;
-				}
+		foreach ($oath_bonus[$this->player_oath_num] as $bonus) {
+			if ($bonus == "Immortal") {
+				$this->immortal = true;
+			} else {
+				$this->appli[$bonus] += 1;
 			}
 		}
 		// Item Multipliers
@@ -888,6 +898,7 @@ function get_player_by_id($search_input, $check_method="player") {
 		$player_profile->player_pact = $data['player_pact'];
 		$player_profile->player_insignia = $data['player_insignia'];
 		$player_profile->equipped_tarot = $data['player_tarot'];
+		$player_profile->load_misc_data();
 		return $player_profile;
 	} else {
 		return null;
@@ -901,16 +912,6 @@ function apply_singularity($data_list, $bonus) {
 
 function show_num($input_number, $adjust = 100) {
     return intval(round($input_number * $adjust));
-}
-
-function get_oath_data($player_id) {
-    $query = "SELECT oath_data FROM MiscPlayerData WHERE player_id = " . intval($player_id);
-    $result = run_query($query);
-	if (!empty($result) && isset($result[0]['oath_data'])) {
-        $oath_data = explode(';', $result[0]['oath_data']);
-        return array_map('intval', $oath_data);
-    }
-    return [1, 0, 0];
 }
 
 ?>

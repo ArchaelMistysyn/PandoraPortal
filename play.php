@@ -154,6 +154,24 @@
         $login_form .= '</form>';
     $login_form .= '</div>';
 
+    // Interfaces - Lore Container
+    $loreContainerHTML = '<div id="lore-container">';
+    $loreContainerHTML .= '<div id="lore-menu">';
+        $loreContainerHTML .= '<button id="lore-menu-toggle" class="lore-button-red" onclick="loreToggle()">Hide</button>';
+        $loreContainerHTML .= '<button class="lore-button-locked" data-value="story1" onclick="onLore(\'story1\')">Locked</button>';
+        $loreContainerHTML .= '<button class="lore-button-locked" data-value="story2" onclick="onLore(\'story2\')">Locked</button>';
+        $loreContainerHTML .= '<button class="lore-button-locked" data-value="story3" onclick="onLore(\'story3\')">Locked</button>';
+        $loreContainerHTML .= '<button class="lore-button-locked" data-value="story4" onclick="onLore(\'story4\')">Locked</button>';
+        $loreContainerHTML .= '<button class="lore-button-locked" data-value="prequel1" onclick="onLore(\'prequel1\')">Locked</button>';
+        $loreContainerHTML .= '<button class="lore-button-locked" data-value="prequel2" onclick="onLore(\'prequel2\')">Locked</button>';
+        $loreContainerHTML .= '<button class="lore-button-locked" data-value="prequel3" onclick="onLore(\'prequel3\')">Locked</button>';
+        $loreContainerHTML .= '<button class="lore-button-locked" data-value="prequel4" onclick="onLore(\'prequel4\')">Locked</button>';
+    $loreContainerHTML .= '</div>';
+    $loreContainerHTML .= '<div id="lore-screen"></div>';
+    $loreContainerHTML .= '</div>';
+
+    // Default Containers
+    $containersHTML = $inventoryContainerHTML . $gearContainerHTML . $forgeContainerHTML . $loreContainerHTML;
 
 ?>
 <head>
@@ -173,9 +191,7 @@
                 <?php if ($logged_in){
                     echo "<div id='loadscreen'></div>";
                     echo "<div id='status-id'>" . $player_profile->discord_id . "<a href='./bot_php/logout.php' class='logout-button'> X</a></div>";
-                    echo $inventoryContainerHTML;
-                    echo $gearContainerHTML;
-                    echo $forgeContainerHTML;
+                    echo $containersHTML;
                 } else {
                     echo $login_form;
                 } ?>
@@ -209,6 +225,7 @@
     <script src="./scripts/inventory_button.js"></script>
     <script src="./scripts/gear_button.js"></script>
     <script src="./scripts/forge.js"></script>
+    <script src="./scripts/lore.js"></script>
     <script src="./scripts/play_buttons.js"></script>
 </body>
 </html>
