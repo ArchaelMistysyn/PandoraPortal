@@ -76,7 +76,7 @@
     text-shadow: 2px 2px var(--brand-color-secondary);
   }
   
-  .unselectable {
+  div, .unselectable {
     -moz-user-select: -moz-none;
     -khtml-user-select: none;
     -webkit-user-select: none;
@@ -668,6 +668,45 @@
     z-index: 9;
   }
 
+  /* Battle */
+  #battle-container {
+    position: relative;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    gap: 25px;
+    padding: 90px 25px;
+    padding-left: 325px;
+  }
+
+  #battle-menu {
+    position: absolute;
+    left: 50px;
+    background-color:#111;
+    width: 250px;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    border: 1px solid white;
+    z-index: 99;
+  }
+
+  .battle-button-special {
+    display: none;
+  }
+  
+  .battle-button-placeholder {
+    opacity: 0;
+    text-align: center;
+    font-size: 1.2rem;
+    border: none;
+    padding: 10px;
+    margin: 5px 0;
+    height: 41px;
+  }
+
   /* Lore */
   #lore-container {
     position: relative;
@@ -693,7 +732,7 @@
     z-index: 99;
   }
 
-  .lore-button-locked {
+  .lore-button-locked, .battle-button-locked {
     background: #333;
     text-align: center;
     color: white;
@@ -702,9 +741,10 @@
     padding: 10px;
     margin: 5px 0;
     cursor: pointer;
+    height: 41px;
   }
 
-  .lore-button-blue, .lore-button-red {
+  .lore-button-blue, .lore-button-red, .battle-button-red, .battle-button-blue {
     text-align: center;
     color: white;
     font-size: 1.2rem;
@@ -712,15 +752,17 @@
     padding: 10px;
     margin: 5px 0;
     cursor: pointer;
+    height: 41px;
   }
 
-  .lore-button-blue {
+  .lore-button-blue, .battle-button-blue {
     background: #007bff;
   } 
-  .lore-button-red {
+  .lore-button-red, .battle-button-red {
     background: darkred;
   }
-  .lore-button-blue:hover, .lore-button-red:hover {
+  .lore-button-blue:hover, .battle-button-blue:hover,
+  .lore-button-red:hover, .battle-button-red:hover {
     filter: brightness(1.3);
   }
 

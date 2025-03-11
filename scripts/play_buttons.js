@@ -12,6 +12,9 @@ const blockingScreen = document.getElementById("blocking-screen");
 const loreContainer = document.getElementById("lore-container");
 const loreScreen = document.getElementById("lore-screen");
 const loreMenu = document.getElementById("lore-menu");
+const battleContainer = document.getElementById("battle-container");
+const battleScreen = document.getElementById("battle-screen");
+const battleMenu = document.getElementById("battle-menu");
 const slotTypes = {"W": "Weapon", "A": "Armour", "V": "Greaves", "Y": "Amulet", "R": "Ring", "G": "Wings", "C": "Crest"};
 
 document.getElementById("lightbox-screen").addEventListener("click", function(event) {
@@ -31,12 +34,10 @@ function clearScreens() {
     gearContainer.style.display = "none";
     inventoryContainer.style.display = "none";
     forgeContainer.style.display = "none";
+    loreContainer.style.display = "none";
+    battleContainer.style.display = "none";
 }
 
 function onQuest() {
-    clearScreens();
-}
-
-function onBattle() {
     clearScreens();
 }

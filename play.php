@@ -154,6 +154,34 @@
         $login_form .= '</form>';
     $login_form .= '</div>';
 
+    // Interfaces - Battle Container
+    $battleContainerHTML = '<div id="battle-container">';
+        $battleContainerHTML .= '<div id="battle-menu">';
+            $battleContainerHTML .= '<div id="battle-menu-toggle" class="battle-button-red" onclick="battleToggle()">Solo Encounter</div>';
+            // Solo Menu Buttons
+            $battleContainerHTML .= '<div class="battle-button-locked battle-button-solo" data-echelon="0" data-type="Any">Random</div>';
+            $battleContainerHTML .= '<div class="battle-button-locked battle-button-solo" data-echelon="0" data-type="Fortress">Locked</div>';
+            $battleContainerHTML .= '<div class="battle-button-locked battle-button-solo" data-echelon="1" data-type="Dragon">Locked</div>';
+            $battleContainerHTML .= '<div class="battle-button-locked battle-button-solo" data-echelon="3" data-type="Demon">Locked</div>';
+            $battleContainerHTML .= '<div class="battle-button-locked battle-button-solo" data-echelon="5" data-type="Paragon">Locked</div>';
+            $battleContainerHTML .= '<div class="battle-button-locked battle-button-solo" data-echelon="7" data-type="Summon1">Locked</div>';
+            $battleContainerHTML .= '<div class="battle-button-locked battle-button-solo" data-echelon="8" data-type="Summon2">Locked</div>';
+            $battleContainerHTML .= '<div class="battle-button-locked battle-button-solo" data-echelon="9" data-type="Arbiter">Locked</div>';
+            $battleContainerHTML .= '<div class="battle-button-locked battle-button-solo" data-quest="48" data-type="Summon3">Locked</div>';
+            // Special Modes Buttons
+            $battleContainerHTML .= '<div class="battle-button-locked battle-button-special" data-echelon="1" data-type="Arena">Locked</div>';
+            $battleContainerHTML .= '<div class="battle-button-locked battle-button-special" data-quest="49" data-type="Palace1">Locked</div>';
+            $battleContainerHTML .= '<div class="battle-button-locked battle-button-special" data-quest="50" data-type="Palace2">Locked</div>';
+            $battleContainerHTML .= '<div class="battle-button-locked battle-button-special" data-level="200" data-type="Palace3">Locked</div>';
+            $battleContainerHTML .= '<div class="battle-button-locked battle-button-special" data-quest="36" data-type="Gauntlet">Locked</div>';
+            $battleContainerHTML .= '<div class="battle-button-locked battle-button-special" data-echelon="5" data-type="Ruler">Locked</div>';
+            $battleContainerHTML .= '<div class="battle-button-placeholder battle-button-special"></div>';
+            $battleContainerHTML .= '<div class="battle-button-placeholder battle-button-special"></div>';
+            $battleContainerHTML .= '<div class="battle-button-placeholder battle-button-special"></div>';
+        $battleContainerHTML .= '</div>';
+        $battleContainerHTML .= '<div id="battle-screen"></div>';
+    $battleContainerHTML .= '</div>';
+
     // Interfaces - Lore Container
     $loreContainerHTML = '<div id="lore-container">';
     $loreContainerHTML .= '<div id="lore-menu">';
@@ -171,7 +199,7 @@
     $loreContainerHTML .= '</div>';
 
     // Default Containers
-    $containersHTML = $inventoryContainerHTML . $gearContainerHTML . $forgeContainerHTML . $loreContainerHTML;
+    $containersHTML = $inventoryContainerHTML . $gearContainerHTML . $forgeContainerHTML . $loreContainerHTML . $battleContainerHTML;
 
 ?>
 <head>
@@ -225,6 +253,7 @@
     <script src="./scripts/inventory_button.js"></script>
     <script src="./scripts/gear_button.js"></script>
     <script src="./scripts/forge.js"></script>
+    <script src="./scripts/battle.js"></script>
     <script src="./scripts/lore.js"></script>
     <script src="./scripts/play_buttons.js"></script>
 </body>
