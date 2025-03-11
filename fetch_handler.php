@@ -11,6 +11,7 @@ include_once('./bot_php/pact.php');
 include_once('./bot_php/path.php');
 include_once('./bot_php/inventory.php');
 include_once('./bot_php/itemrolls.php');
+include_once('./bot_php/boss.php');
 include_once('./bot_php/forge.php');
 
 if (!isset($_SESSION['player_id'])) {
@@ -21,6 +22,7 @@ $verified_player_id = $_SESSION['player_id'];
 $input = json_decode(file_get_contents("php://input"), true);
 $action = isset($input['action']) && $input['action'] !== 'null' ? $input['action'] : null;
 $slot_type = isset($input['slot_type']) && $input['slot_type'] !== 'null' ? $input['slot_type'] : null;
+$boss_calltype = isset($input['boss_calltype']) && $input['boss_calltype'] !== 'null' ? $input['boss_calltype'] : null;
 $element = isset($input['element']) && $input['element'] !== 'null' ? $input['element'] : null;
 $item_id = isset($input['item_id']) && $input['item_id'] !== 'null' ? $input['item_id'] : null;
 if (!$action) {
@@ -50,6 +52,19 @@ $forge_actions = [
     "Radiant Fusion (Defensive)", "Chaos Fusion (All)", "Void Fusion (Damage)",
     "Wish Fusion (Penetration)", "Abyss Fusion (Curse)", "Divine Fusion (Unique)", "Salvation (Class Skill)", "Implant"
 ];
+
+$boss_calltypes = ["Any", "Fortress", "Dragon", "Demon", "Paragon", "Arbiter", 
+    "Summon1", "Summon2", "Summon3", "Gauntlet", "Palace1", "Palace2", "Palace3", "Ruler"];
+
+$boss_tier_dict = ["Any" => 0, "Fortress" => 0, "Dragon" => 0, "Demon" => 0, "Paragon" => 0, "Arbiter" => 0, "Summon1" => 5, "Summon2" => 6,
+    "Summon3" => 7, "Gauntlet" => 1, "Palace1" => 8, "Palace2" => 8, "Palace3" => 8, "Ruler" => 9];    
+$spawn_dict = [0 => 0, 1 => 1, 3 => 2, 5 => 3, 9 => 4];
+    
+
+if ($boss_calltype !== null && $boss_calltype !== '' && !in_array($boss_calltype, $boss_calltypes)) {
+    echo json_encode(["success" => false, "message" => "Invalid calltype provided: " . $boss_calltype]);
+    exit();
+}
 
 $response = ["success" => false];
 if (in_array($action, $forge_actions)) {
@@ -82,6 +97,29 @@ if (in_array($action, $forge_actions)) {
             $player_profile = get_player_by_id($verified_player_id);
             $response = $player_profile
                 ? ["success" => true, "player" => $player_profile]
+                : ["success" => false, "message" => "Player not found"];
+            break;
+        case "runBoss":
+            $player_profile = get_player_by_id($verified_player_id);
+            $boss_type = $boss_calltype;
+            if ($boss_calltype === "Any") {
+                $max_spawn_index = 0;
+                foreach ($spawn_dict as $key => $value) {
+                    if ($key <= $player_profile->player_echelon && $value > $max_spawn_index) { $max_spawn_index = $value; }
+                }
+                $boss_type = $boss_list[rand(0, $max_spawn_index)];
+            }
+            $boss_level = $player_profile->player_level;
+            if (strpos($boss_calltype, "Palace")) {
+                $boss_level = ($boss_calltype == "Palace1") ? 300 : (($boss_calltype == "Palace2") ? 600 : 999);
+            }
+            $boss_tier = $boss_tier_dict[$boss_calltype];
+            if ($boss_tier == 0) {
+                $boss_tier = getBossTier($boss_calltype);
+            }
+            $boss_profile = makeBoss($verified_player_id, $boss_type, $boss_tier, $boss_level); // Add magnitude back later
+            $response = $player_profile
+                ? ["success" => true, "player" => $player_profile, "boss" => $boss_profile]
                 : ["success" => false, "message" => "Player not found"];
             break;
         case "displaygear":
