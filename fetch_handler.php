@@ -24,6 +24,7 @@ $action = isset($input['action']) && $input['action'] !== 'null' ? $input['actio
 $slot_type = isset($input['slot_type']) && $input['slot_type'] !== 'null' ? $input['slot_type'] : null;
 $boss_calltype = isset($input['boss_calltype']) && $input['boss_calltype'] !== 'null' ? $input['boss_calltype'] : null;
 $element = isset($input['element']) && $input['element'] !== 'null' ? $input['element'] : null;
+$magnitude = isset($input['magnitude']) && $input['magnitude'] !== 'null' ? $input['magnitude'] : null;
 $item_id = isset($input['item_id']) && $input['item_id'] !== 'null' ? $input['item_id'] : null;
 if (!$action) {
     echo json_encode(["success" => false, "message" => "No action provided"]);
@@ -45,6 +46,10 @@ if ($element !== null && $element !== '' && (!ctype_digit((string) $element) || 
     echo json_encode(["success" => false, "message" => "Invalid element provided: " . $element]);
     exit();
 }
+if ($magnitude !== null && $magnitude !== '' && (!ctype_digit((string) $magnitude) || $magnitude < 0 || $magnitude > 10)) {
+    echo json_encode(["success" => false, "message" => "Invalid magnitude provided: " . $magnitude]);
+    exit();
+}
 
 $forge_actions = [
     "Fae Enchant", "Gemstone Enchant", "Reinforce Quality", "Create Socket", "Hellfire Reforge",
@@ -59,7 +64,11 @@ $boss_calltypes = ["Any", "Fortress", "Dragon", "Demon", "Paragon", "Arbiter",
 $boss_tier_dict = ["Any" => 0, "Fortress" => 0, "Dragon" => 0, "Demon" => 0, "Paragon" => 0, "Arbiter" => 0, "Summon1" => 5, "Summon2" => 6,
     "Summon3" => 7, "Gauntlet" => 1, "Palace1" => 8, "Palace2" => 8, "Palace3" => 8, "Ruler" => 9];    
 $spawn_dict = [0 => 0, 1 => 1, 3 => 2, 5 => 3, 9 => 4];
-    
+$battleItemCost = [
+    "Fortress" => "Stone1", "Dragon" => "Stone2", "Demon" => "Stone3", "Paragon"  => "Stone4", "Arbiter"  => "Stone6", "Gauntlet" => "Compass",
+    "Summon1" => "Summon1", "Summon2" => "Summon2", "Summon3" => "Summon3", "Palace1" => "Lotus10", "Palace2" => "Lotus10", "Palace3" => "Lotus10"    
+];
+  
 
 if ($boss_calltype !== null && $boss_calltype !== '' && !in_array($boss_calltype, $boss_calltypes)) {
     echo json_encode(["success" => false, "message" => "Invalid calltype provided: " . $boss_calltype]);
@@ -88,8 +97,14 @@ if (in_array($action, $forge_actions)) {
 } else {
     switch ($action) {
         case "inventory":
-            $response = get_inventory_by_player_id($verified_player_id);
-            break;
+            $inventory_result = get_inventory_by_player_id($verified_player_id);
+            $player_profile = get_player_by_id($verified_player_id);
+            if ($inventory_result["success"] && $player_profile) {
+                $response = ["success" => true, "items" => $inventory_result["items"], "player" => $player_profile];
+            } else {
+                $response = ["success" => false, "message" => "Inventory or player not found"];
+            }
+            break;        
         case "showInventoryItem":
             $response = create_inventory_lightbox($verified_player_id, $item_id);
             break;
@@ -101,8 +116,28 @@ if (in_array($action, $forge_actions)) {
             break;
         case "runBoss":
             $player_profile = get_player_by_id($verified_player_id);
+            // Handle Costs
+            $requires_stamina = in_array($boss_calltype, ["Any", "Fortress", "Dragon", "Demon", "Paragon", "Arbiter"]);
+            $has_stamina = !$requires_stamina || $player_profile->player_stamina >= 200;
+            $required_item = $battleItemCost[$boss_calltype] ?? null;
+            $has_item = true;
+            if ($required_item) {
+                $item_result = get_inventory_by_player_id($verified_player_id, $required_item);
+                $has_item = $item_result["success"] && $item_result["item"]["item_qty"] >= 1;
+            }
+            if (!$has_stamina || !$has_item) {
+                $response = ["success" => false, "message" => "Insufficient stamina/materials."];
+                break;
+            }
+            if ($requires_stamina) $player_profile->player_stamina -= 200;
+            $player_profile->update_player_data();
+            if ($required_item) {
+                $query = "UPDATE BasicInventory SET item_qty = item_qty - 1 WHERE player_id = $verified_player_id AND item_id = '$required_item' AND item_qty >= 1";
+                run_query($query, false);
+            }
+            // Handle Boss
             $boss_type = $boss_calltype;
-            if ($boss_calltype === "Any") {
+            if ($boss_type === "Any") {
                 $max_spawn_index = 0;
                 foreach ($spawn_dict as $key => $value) {
                     if ($key <= $player_profile->player_echelon && $value > $max_spawn_index) { $max_spawn_index = $value; }
@@ -110,14 +145,15 @@ if (in_array($action, $forge_actions)) {
                 $boss_type = $boss_list[rand(0, $max_spawn_index)];
             }
             $boss_level = $player_profile->player_level;
-            if (strpos($boss_calltype, "Palace")) {
-                $boss_level = ($boss_calltype == "Palace1") ? 300 : (($boss_calltype == "Palace2") ? 600 : 999);
+            if (strpos($boss_type, "Palace")) {
+                $boss_level = ($boss_type == "Palace1") ? 300 : (($boss_type == "Palace2") ? 600 : 999);
             }
-            $boss_tier = $boss_tier_dict[$boss_calltype];
+            $boss_tier = $boss_tier_dict[$boss_type];
             if ($boss_tier == 0) {
-                $boss_tier = getBossTier($boss_calltype);
+                $boss_tier = getBossTier($boss_type);
             }
-            $boss_profile = makeBoss($verified_player_id, $boss_type, $boss_tier, $boss_level); // Add magnitude back later
+            $boss_profile = makeBoss($verified_player_id, $boss_type, $boss_tier, $boss_level, $magnitude);
+            $boss_profile->setBoss($verified_player_id);
             $response = $player_profile
                 ? ["success" => true, "player" => $player_profile, "boss" => $boss_profile]
                 : ["success" => false, "message" => "Player not found"];

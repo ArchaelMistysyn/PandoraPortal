@@ -347,10 +347,37 @@
     align-items: center;
     gap: 10px;
   }
-  #lightbox-display h2 {
+  /* #lightbox-display h2 {
       font-size: 20px;
       margin: 5px 0;
       color: #f0d264;
+  } REMOVE IF NOT NEEDED? */
+  .lightbox-header {
+    font-size: 1.8rem;
+    padding-top: 10px;
+    padding-bottom: 25px;
+  }
+  .lightbox-red {
+    border: 2px solid red;
+  }
+  .lightbox-green {
+    border: 2px solid green;
+  }
+  .lightbox-extra-small {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    height: 170px;
+    width: 240px;
+    font-size: 1.4rem;
+  }
+  .lightbox-small {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    height: 200px;
+    width: 300px;
+    font-size: 1.4rem;
   }
   #lightbox-menu {
     position: relative;
@@ -677,10 +704,48 @@
     height: 100%;
     width: 100%;
     gap: 25px;
-    padding: 90px 25px;
-    padding-left: 325px;
+    padding: 90px;
   }
-
+  #battle-slider-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+    width: 100%;
+  }
+  .slider-label {
+    font-size: 1rem;
+    text-align: left;
+    width: 107px;
+  }
+  #magnitude-slider {
+    -webkit-appearance: none;
+    margin-top: 10px;
+    height: 1px;
+    width: 80%;
+    background: gray;
+    outline: none;
+  }
+  #magnitude-slider::-webkit-slider-runnable-track,
+  #magnitude-slider::-moz-range-track {
+    background: gray;
+  } 
+  #magnitude-slider::-webkit-slider-thumb{
+    -webkit-appearance: none;
+    width: 12px;
+    height: 16px;
+    clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+    background: purple;
+    cursor: pointer;
+  }
+  #magnitude-slider::-moz-range-thumb {
+    background: purple;
+    width: 12px;
+    height: 16px;
+    clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+    cursor: pointer;
+  }
   #battle-menu {
     position: absolute;
     left: 50px;
@@ -691,6 +756,12 @@
     padding: 10px;
     border: 1px solid white;
     z-index: 99;
+  }
+  #battle-screen {
+    height: 100%;
+    width: 100%;
+    background-size: cover;
+    display: none;
   }
 
   .battle-button-special {

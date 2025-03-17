@@ -123,6 +123,18 @@ class CurrentBoss {
                 break;
         }
     }
+
+    public function setBoss($player_id) {
+        $clear_query = "DELETE FROM OnlineBosses WHERE player_id = " . intval($player_id);
+        run_query($clear_query, false);
+        $boss_info = $this->boss_name . ";" . $this->boss_image . ";" . $this->boss_type_num;
+        $boss_data = $this->boss_level . ";" . $this->boss_tier . ";" . $this->boss_cHP . ";" . $this->boss_mHP;
+        $boss_weakness = implode(";", $this->boss_typeweak) . "/" . implode(";", $this->boss_eleweak);
+        $insert_query = "INSERT INTO OnlineBosses (time_stamp, player_id, encounter, boss_info, boss_data, boss_weakness) ";
+        $insert_query .= "VALUES (CURRENT_TIMESTAMP, $player_id, 'solo', '$boss_info', '$boss_data', '$boss_weakness')";
+        run_query($insert_query, false);
+    }
+    
     
 }
 

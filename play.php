@@ -158,6 +158,10 @@
     $battleContainerHTML = '<div id="battle-container">';
         $battleContainerHTML .= '<div id="battle-menu">';
             $battleContainerHTML .= '<div id="battle-menu-toggle" class="battle-button-red" onclick="battleToggle()">Solo Encounter</div>';
+            $battleContainerHTML .= '<div id="battle-slider-container">';
+                $battleContainerHTML .= '<label for="magnitude-slider" class="slider-label">Magnitude: <span id="magnitude-value">0</span></label>';
+                $battleContainerHTML .= '<input type="range" id="magnitude-slider" min="0" max="10" value="0" step="1" oninput="document.getElementById(\'magnitude-value\').innerText = this.value">';
+            $battleContainerHTML .= '</div>';
             // Solo Menu Buttons
             $battleContainerHTML .= '<div class="battle-button-locked battle-button-solo" data-echelon="0" data-type="Any">Random</div>';
             $battleContainerHTML .= '<div class="battle-button-locked battle-button-solo" data-echelon="0" data-type="Fortress">Locked</div>';
