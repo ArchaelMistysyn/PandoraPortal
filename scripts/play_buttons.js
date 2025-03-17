@@ -15,6 +15,7 @@ const loreMenu = document.getElementById("lore-menu");
 const battleContainer = document.getElementById("battle-container");
 const battleScreen = document.getElementById("battle-screen");
 const battleMenu = document.getElementById("battle-menu");
+const magnitudeSlider = document.getElementById("magnitude-slider");
 const slotTypes = {"W": "Weapon", "A": "Armour", "V": "Greaves", "Y": "Amulet", "R": "Ring", "G": "Wings", "C": "Crest"};
 
 document.getElementById("lightbox-screen").addEventListener("click", function(event) {
