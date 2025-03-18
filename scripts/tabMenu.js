@@ -59,6 +59,7 @@ function initializeTabMenu() {
 }
 
 function selectSubTab(mainTab, subTabElement) {
+  document.getElementById("filter-input").value = "";
   const tabContent = document.getElementById("tab-content");
   const currentSelected = tabMenu.querySelector(".selected");
   if (currentSelected) {
@@ -109,11 +110,14 @@ function filterItems() {
     // Filter images
     images.forEach((img) => {
       const altText = img.alt.toUpperCase();
+      const previewDiv = img.closest(".preview-div");
       if (altText.indexOf(input) > -1 || categoryName.indexOf(input) > -1) {
         img.style.display = "";
+        previewDiv.style.display = "";
         categoryMatch = true;
       } else {
         img.style.display = "none";
+        previewDiv.style.display = "none";
       }
     });
 
