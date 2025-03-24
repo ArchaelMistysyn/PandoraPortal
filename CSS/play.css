@@ -758,10 +758,35 @@
     z-index: 99;
   }
   #battle-screen {
+    position: relative;
     height: 100%;
     width: 100%;
     background-size: cover;
     display: none;
+  }
+
+  #action-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 200px;
+    width: 500px;
+  }
+  #action-box-name, #action-box-value {
+    font-size: 2rem;
+    color: red
+  }
+
+  #battle-detail-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 700px;
+    width: 300px;
+    color: white;
+    font-size: 1.4rem;
   }
 
   .battle-button-special {

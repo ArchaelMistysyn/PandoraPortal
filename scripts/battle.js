@@ -1,3 +1,14 @@
+const battleScreen = document.getElementById("battle-screen");
+const battleMenu = document.getElementById("battle-menu");
+const actionBox = document.getElementById("action-box");
+const actionBoxName = document.getElementById("action-box-name");
+const actionBoxValue = document.getElementById("action-box-value");
+const battleDetailBox = document.getElementById("battle-detail-box");
+const battleBossName = document.getElementById("battle-boss-name");
+const battleBossHp = document.getElementById("battle-boss-hp");
+const battleBossLog = document.getElementById("battle-boss-log");
+const magnitudeSlider = document.getElementById("magnitude-slider");
+
 const soloTypes = ["Any", "Fortress", "Dragon", "Demon", "Paragon", "Arbiter"];
 const battleLabels = {
     "Any": "Random", "Fortress": "Fortress", "Dragon": "Dragon", "Demon": "Demon",
@@ -94,7 +105,7 @@ function confirmBattle(callType) {
     });
 }
 
-function triggerBattle(callType,) {
+function triggerBattle(callType) {
     const magnitude = parseInt(magnitudeSlider.value);
     blockingScreen.style.display = "flex";
     fetch('./fetch_handler.php', {
@@ -105,10 +116,16 @@ function triggerBattle(callType,) {
     .then(response => response.json())
     .then(data => {
         if (data.success) {
-            battleScreen.style.backgroundImage = `url("${data.boss['boss_image']}")`; // Improve loading, and display cropped vers where needed.
+            battleScreen.style.backgroundImage = `url("${data.boss_image}")`; // Improve loading, and display cropped vers where needed.
+            battleBossName.innerText = data.boss['boss_name'];
+            let currentHP = numberConversion(data.boss['boss_cHP']);
+            let maxHP = numberConversion(data.boss['boss_mHP']);
+            battleBossHp.innerText = currentHP + ' / ' + maxHP;
             battleScreen.style.display = "flex";
             battleMenu.style.display = "none";
-            runBoss(data.boss);
+            setTimeout(() => {
+                runBoss(data);
+            }, 20000);
         } else {
             alert(data.message || "Failed to start battle.");
         }
@@ -159,24 +176,78 @@ function unlockButtons(playerData) {
 }
 
 let battleInterval = null;
-function runBoss(bossData) {/*
+let battleHP = { current: 0n, max: 0n };
+function runBoss(bossData) {
+    battleHP.max = numberConversion(bossData.boss['boss_mHP']);
+    battleHP.current = bossData.boss['boss_mHP'];
+    battleBossHp.innerText = numberConversion(battleHP.current) + ' / ' + battleHP.max;
+    triggerCycle(bossData);
     battleInterval = setInterval(() => {
-        fetch('./battle_handler.php', {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ action: "runCycle", boss_id: bossData.bossID })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                alert(data.boss_response);
-                if (data.boss_dead) {
-                    clearInterval(battleInterval);
-                    alert("Boss defeated!");
-                }
-            } else {
-                alert("Cycle failed: " + data.message);
-            }
-        });
-    }, 61000);*/
+        triggerCycle(bossData);
+    }, 60000);
 }
+
+function triggerCycle(bossData) {
+    fetch('./fetch_handler.php', {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action: "runCycle", encounter_id: bossData["encounter_id"] })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            animateCycleActions(data);
+        } else {
+            alert("Cycle failed: " + data.message);
+        }
+    });
+}
+
+function animateCycleActions(bossData) {
+    const bossActions = bossData.cycle_data.filter(row => row.action_type.includes("boss"));
+    const playerActions = bossData.cycle_data.filter(row => !row.action_type.includes("boss"));
+
+    const bossInterval = 2000;
+    const playerInterval = 2000;
+    // Run Boss Actions
+    bossActions.forEach((row, index) => {
+        setTimeout(() => {
+            actionBoxName.className = `action-entry ${row.action_type}`;
+            actionBoxValue.className = `action-entry ${row.action_type}`;
+            actionBoxName.innerText = row.action_name; 
+            actionBoxValue.innerText = numberConversion(row.damage_value);
+            // battleHP.current = (BigInt(battleHP.current) - BigInt(row.damage_value)); handle regen and player damage here later.
+            battleBossHp.innerText = numberConversion(battleHP.current) + ' / ' + battleHP.max;
+        }, 2000 + index * bossInterval);
+    });
+    // Run Player Actions after delay
+    playerActions.forEach((row, index) => {
+        setTimeout(() => {
+            actionBoxName.className = `action-entry ${row.action_type}`;
+            actionBoxValue.className = `action-entry ${row.action_type}`;
+            actionBoxName.innerText = row.action_name; 
+            actionBoxValue.innerText = numberConversion(row.damage_value);
+            battleHP.current = (BigInt(battleHP.current) - BigInt(row.damage_value));
+            battleBossHp.innerText = numberConversion(battleHP.current) + ' / ' + battleHP.max;
+        }, 12000 + index * playerInterval);
+    });
+
+    // Handle Death fix later.
+    if (bossData.battleStatus != 'continue' && (battleHP.current <= 0 || battleHP.current <= 0)) { // fix player condition later
+        if (bossData.battle_status === "player_dead") {
+            clearInterval(battleInterval);
+            alert("Slain!");
+            // display death screen or popup?
+            // reset screen
+        } else if (bossData.battle_status === "boss_dead") {
+            clearInterval(battleInterval);
+            alert("Boss defeated!");
+            // display cycle animation until boss dead
+            // reward popup
+            // reset screen
+        } else{
+            // display cycle animation
+        }
+    }
+}
+
