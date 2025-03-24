@@ -4,6 +4,7 @@
 	session_start();
 	include_once('./bot_php/db_queries.php');
 	include_once('./bot_php/player.php');
+	include_once('./bot_php/shared_methods.php');
 	$player_data = null;
 	$player_id = null;
 	$search_data = false;
@@ -103,27 +104,6 @@
 		return $fields[$field]['render']($data, $icon_html ?? null);
 	}	
 	
-	// Scale numeric values
-	function number_conversion($input_number) {
-		$labels = ['', 'K', 'M', 'B', 'T', 'Q', 'Qt', 'Z', 'Z+', 'Z++', 'Z+++', 
-				   'ZZ', 'ZZ+', 'ZZ++', 'ZZ+++', 'ZZZ', 'ZZZ+', 'ZZZ++', 'ZZZ+++'];
-		if ($input_number < 1000) {
-			return (string)$input_number;
-		}
-		$idx = floor(log($input_number, 1000));
-		$scaled_number = $input_number / pow(1000, $idx);
-		$truncated_scaled_number = floor($scaled_number * 100) / 100.0;
-		$number_msg = ($scaled_number == (int)$scaled_number) 
-			? (string)(int)$scaled_number 
-			: number_format($truncated_scaled_number, 2);
-		if ($idx > 0 && isset($labels[$idx])) {
-			$number_msg .= ' ' . $labels[$idx];
-		}
-		return $number_msg;
-	}
-	
-	
-
 	function get_max_exp($player_level) {
 		return ($player_level < 100) 
 			? 1000 * $player_level 

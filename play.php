@@ -183,7 +183,14 @@
             $battleContainerHTML .= '<div class="battle-button-placeholder battle-button-special"></div>';
             $battleContainerHTML .= '<div class="battle-button-placeholder battle-button-special"></div>';
         $battleContainerHTML .= '</div>';
-        $battleContainerHTML .= '<div id="battle-screen"></div>';
+        $battleContainerHTML .= '<div id="battle-screen">';
+            $battleContainerHTML .= '<div id="action-box"><div id="action-box-name"></div><div id="action-box-value"></div></div>';
+            $battleContainerHTML .= '<div id="battle-detail-box">';
+                $battleContainerHTML .= '<div id="battle-boss-name" class="highlight-text"></div>';
+                $battleContainerHTML .= '<div id="battle-boss-hp"></div>';
+                $battleContainerHTML .= '<div id="battle-boss-log"></div>';
+            $battleContainerHTML .= '</div>';
+        $battleContainerHTML .= '</div>';
     $battleContainerHTML .= '</div>';
 
     // Interfaces - Lore Container

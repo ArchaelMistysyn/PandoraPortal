@@ -14,6 +14,10 @@ include_once('./bot_php/itemrolls.php');
 include_once('./bot_php/boss.php');
 include_once('./bot_php/forge.php');
 
+// Handler Inclusions
+include_once('./bot_php/battle_handler.php');
+
+// Data Verification
 if (!isset($_SESSION['player_id'])) {
     echo json_encode(["success" => false, "message" => "Unauthorized access"]);
     exit();
@@ -25,6 +29,7 @@ $slot_type = isset($input['slot_type']) && $input['slot_type'] !== 'null' ? $inp
 $boss_calltype = isset($input['boss_calltype']) && $input['boss_calltype'] !== 'null' ? $input['boss_calltype'] : null;
 $element = isset($input['element']) && $input['element'] !== 'null' ? $input['element'] : null;
 $magnitude = isset($input['magnitude']) && $input['magnitude'] !== 'null' ? $input['magnitude'] : null;
+$encounter_id = isset($input['encounter_id']) && $input['encounter_id'] !== 'null' ? $input['encounter_id'] : null;
 $item_id = isset($input['item_id']) && $input['item_id'] !== 'null' ? $input['item_id'] : null;
 if (!$action) {
     echo json_encode(["success" => false, "message" => "No action provided"]);
@@ -48,6 +53,10 @@ if ($element !== null && $element !== '' && (!ctype_digit((string) $element) || 
 }
 if ($magnitude !== null && $magnitude !== '' && (!ctype_digit((string) $magnitude) || $magnitude < 0 || $magnitude > 10)) {
     echo json_encode(["success" => false, "message" => "Invalid magnitude provided: " . $magnitude]);
+    exit();
+}
+if ($encounter_id !== null && $encounter_id !== '' && (!ctype_digit((string) $encounter_id) || $encounter_id < 0)) {
+    echo json_encode(["success" => false, "message" => "Invalid encounter_id provided: " . $encounter_id]);
     exit();
 }
 
@@ -115,48 +124,10 @@ if (in_array($action, $forge_actions)) {
                 : ["success" => false, "message" => "Player not found"];
             break;
         case "runBoss":
-            $player_profile = get_player_by_id($verified_player_id);
-            // Handle Costs
-            $requires_stamina = in_array($boss_calltype, ["Any", "Fortress", "Dragon", "Demon", "Paragon", "Arbiter"]);
-            $has_stamina = !$requires_stamina || $player_profile->player_stamina >= 200;
-            $required_item = $battleItemCost[$boss_calltype] ?? null;
-            $has_item = true;
-            if ($required_item) {
-                $item_result = get_inventory_by_player_id($verified_player_id, $required_item);
-                $has_item = $item_result["success"] && $item_result["item"]["item_qty"] >= 1;
-            }
-            if (!$has_stamina || !$has_item) {
-                $response = ["success" => false, "message" => "Insufficient stamina/materials."];
-                break;
-            }
-            if ($requires_stamina) $player_profile->player_stamina -= 200;
-            $player_profile->update_player_data();
-            if ($required_item) {
-                $query = "UPDATE BasicInventory SET item_qty = item_qty - 1 WHERE player_id = $verified_player_id AND item_id = '$required_item' AND item_qty >= 1";
-                run_query($query, false);
-            }
-            // Handle Boss
-            $boss_type = $boss_calltype;
-            if ($boss_type === "Any") {
-                $max_spawn_index = 0;
-                foreach ($spawn_dict as $key => $value) {
-                    if ($key <= $player_profile->player_echelon && $value > $max_spawn_index) { $max_spawn_index = $value; }
-                }
-                $boss_type = $boss_list[rand(0, $max_spawn_index)];
-            }
-            $boss_level = $player_profile->player_level;
-            if (strpos($boss_type, "Palace")) {
-                $boss_level = ($boss_type == "Palace1") ? 300 : (($boss_type == "Palace2") ? 600 : 999);
-            }
-            $boss_tier = $boss_tier_dict[$boss_type];
-            if ($boss_tier == 0) {
-                $boss_tier = getBossTier($boss_type);
-            }
-            $boss_profile = makeBoss($verified_player_id, $boss_type, $boss_tier, $boss_level, $magnitude);
-            $boss_profile->setBoss($verified_player_id);
-            $response = $player_profile
-                ? ["success" => true, "player" => $player_profile, "boss" => $boss_profile]
-                : ["success" => false, "message" => "Player not found"];
+            $response = run_boss($verified_player_id, $boss_calltype, $magnitude);
+            break;
+        case "runCycle":
+            $response = run_cycle($verified_player_id, $encounter_id);
             break;
         case "displaygear":
             $player_profile = get_player_by_id($verified_player_id);

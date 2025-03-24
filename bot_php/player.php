@@ -84,7 +84,7 @@ class PlayerProfile {
 
         $this->player_damage_min = 0;
         $this->player_damage_max = 0;
-        $this->total_damage = 0.0;
+        $this->total_damage = '0.0';
 
         $this->elemental_damage = array_fill(0, 9, 0);
         $this->elemental_mult = array_fill(0, 9, 0.0);

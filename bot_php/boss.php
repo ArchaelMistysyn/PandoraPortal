@@ -23,7 +23,7 @@ $all_names_dict = [
     "Dragon" => [
         ["Zelphyros, Wind", "Sahjvadiir, Earth", "Cyries'vael, Ice"],
         ["Arkadrya, Lightning", "Phyyratha, Fire", "Elyssrya, Water"],
-        ["Y'thana, Light", "Rahk'vath, Shadow"],
+        ["Y\'thana, Light", "Rahk'vath, Shadow"],
         ["VII - Astratha, The Dimensional"]
     ],
     "Demon" => [
@@ -54,13 +54,13 @@ class CurrentBoss {
     public int $boss_level = 0;
     public string $boss_name = "";
     public string $boss_image = "";
-    public int $boss_cHP = 0;
-    public int $boss_mHP = 0;
+    public string $boss_cHP = '0';
+    public string $boss_mHP = '0';
     public array $boss_typeweak = [];
     public array $boss_eleweak = [];
     public array $curse_debuffs = [];
     public int $boss_element = 0;
-    public int $damage_cap = -1;
+    public string $damage_cap = '-1';
     public int $stun_cycles = 0;
     public string $stun_status = "";
     public string $boss_thumbnail = "";
@@ -72,7 +72,7 @@ class CurrentBoss {
     }
 
     public function generateBossNameImage() {
-        global $all_names_dict, $raid_bosses, $raid_element_dict, $fortress_elements, $demon_colours, $element_names, $web_url_base;
+        global $all_names_dict, $raid_bosses, $raid_element_dict, $fortress_elements, $element_special_names, $demon_colours, $element_names, $web_url_base;
         $web_url = $web_url_base . 'botimages/';
     
         if ($this->boss_type === "Ruler") {
@@ -86,11 +86,11 @@ class CurrentBoss {
     
         switch ($this->boss_type) {
             case "Fortress":
-                $this->boss_image = "{$web_url}Tarot/Arbiter/XVI - Aurora, The Fortress.webp";
+                $this->boss_image = "{$web_url_base}gallery/Tarot/Paragon/XVI - Aurora, The Fortress.webp";
                 if ($this->boss_tier !== 4) {
                     $this->boss_element = rand(0, 8);
                     $extension = ($this->boss_element >= 6) ? "" : "the ";
-                    $suffix = $fortress_elements[$this->boss_element];
+                    $suffix = $element_special_names[$this->boss_element];
                     $this->boss_name = "{$suffix} {$this->boss_name} of {$extension}{$fortress_elements[$this->boss_element]}";
                     $this->boss_image = "{$web_url}bosses/Fortress/{$element_names[$this->boss_element]}_Fortress.png";
                 }
@@ -99,9 +99,10 @@ class CurrentBoss {
             case "Arbiter":
             case "Incarnate":
                 $boss_numeral = explode(" ", $this->boss_name)[0];
-                $this->boss_image = "{$web_url}tarot/{$boss_numeral}/{$boss_numeral}_8.png";
+                $this->boss_image = "{$web_url_base}Tarot/{$boss_numeral}/{$boss_numeral}_8.png";
                 break;
             case "Demon":
+                $this->boss_image = "{$web_url_base}gallery/Tarot/Paragon/XV - Diabla, The Primordial.webp";
                 if ($this->boss_tier !== 4) {
                     $this->boss_element = rand(0, 8);
                     $boss_colour = $demon_colours[$this->boss_element];
@@ -110,14 +111,15 @@ class CurrentBoss {
                 }
                 break;
             case "Dragon":
+                $this->boss_image = "{$web_url_base}gallery/Tarot/Paragon/VII - Astratha, The Dimensional.webp";
                 $temp_name_split = explode(" ", $this->boss_name);
                 $boss_element = $temp_name_split[1];
                 $this->boss_element = 8;
                 if ($this->boss_tier !== 4) {
                     $this->boss_element = array_search($boss_element, $element_names);
                     $this->boss_name .= " Dragon";
+                    $this->boss_image = "{$web_url}bosses/Dragon/{$element_names[$this->boss_element]}_Dragon.png";
                 }
-                $this->boss_image = "{$web_url}bosses/Dragon/{$element_names[$this->boss_element]}_Dragon.png";
                 break;
             default:
                 break;
@@ -133,9 +135,10 @@ class CurrentBoss {
         $insert_query = "INSERT INTO OnlineBosses (time_stamp, player_id, encounter, boss_info, boss_data, boss_weakness) ";
         $insert_query .= "VALUES (CURRENT_TIMESTAMP, $player_id, 'solo', '$boss_info', '$boss_data', '$boss_weakness')";
         run_query($insert_query, false);
+        $fetch_query = "SELECT * FROM OnlineBosses WHERE player_id = $player_id ORDER BY encounter_id DESC LIMIT 1";
+        $boss_row = run_query($fetch_query)[0];
+        return $boss_row;
     }
-    
-    
 }
 
 function makeBoss($player_id, $boss_type, $boss_tier, $boss_level, $magnitude = 0) {
@@ -157,14 +160,14 @@ function makeBoss($player_id, $boss_type, $boss_tier, $boss_level, $magnitude = 
     $boss->generateBossNameImage();
     $boss->boss_eleweak = assignRandomWeaknesses(9, 3);
     $boss->boss_typeweak = assignRandomWeaknesses(7, 2);
-    $boss->boss_mHP = calculateBossHP($boss_level, $boss_tier, $magnitude);
+    $boss->boss_mHP = (string) calculateBossHP($boss_level, $boss_tier, $magnitude);
     $boss->boss_cHP = $boss->boss_mHP;
     if ($boss_tier <= 4) {
-        $boss->damage_cap = (int) ($boss->boss_mHP / 10) - 1;
+        $boss->damage_cap = big_sub(big_div($boss->boss_mHP, 10), 1);
     } elseif ($boss_type === "Ruler") {
-        $boss->damage_cap = (int) ($boss->boss_mHP / 1000) - 1;
+        $boss->damage_cap = big_sub(big_div($boss->boss_mHP, 1000), 1);
     } elseif ($boss_type === "Incarnate") {
-        $boss->damage_cap = -1;
+        $boss->damage_cap = '-1';
     }
     return $boss;
 }
@@ -176,15 +179,17 @@ function assignRandomWeaknesses($total, $count) {
     }
     return $weaknesses;
 }
-
 function calculateBossHP($level, $tier, $magnitude) {
-    $base_hp = pow(10, min(100, $level) / 10 + 5) * pow(10, $magnitude);
+    $exp = bcadd(bcdiv((string)min(100, $level), '10', 4), '5', 4);
+    $base_hp = bcpow('10', $exp, 0);
+    $base_hp = bcmul($base_hp, bcpow('10', (string)$magnitude, 0), 0);
     if ($level >= 100) {
         $multiplier = floor(($level - 100) / 100) + 1;
-        $base_hp *= pow(10, $multiplier);
+        $base_hp = bcmul($base_hp, bcpow('10', (string)$multiplier, 0), 0);
     }
-    return (int)$base_hp;
+    return $base_hp;
 }
+
 
 function getBossTier($b_type) {
     $tiers = ($b_type === "Arbiter") ? [1, 2, 3, 4, 5, 6] : [1, 2, 3, 4];
@@ -204,4 +209,18 @@ function weightedRandomChoice($values, $weights) {
     }
 }
 
+function build_boss_from_row($row) {
+    $boss = new CurrentBoss();
+    list($boss->boss_name, $boss->boss_image, $boss->boss_type_num) = explode(";", $row['boss_info']);
+    list($boss->boss_level, $boss->boss_tier, $boss->boss_cHP, $boss->boss_mHP) = explode(";", $row['boss_data']);
+    $weakness_parts = explode("/", $row['boss_weakness']);
+    $boss->boss_typeweak = array_map('intval', explode(";", $weakness_parts[0]));
+    $boss->boss_eleweak = array_map('intval', explode(";", $weakness_parts[1]));
+    return $boss;
+}
+
+function clear_boss($player_id) {
+    $query = "DELETE FROM OnlineBosses WHERE player_id = " . intval($player_id);
+    run_query($query, false);
+}
 ?>
