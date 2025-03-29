@@ -23,7 +23,7 @@ $all_names_dict = [
     "Dragon" => [
         ["Zelphyros, Wind", "Sahjvadiir, Earth", "Cyries'vael, Ice"],
         ["Arkadrya, Lightning", "Phyyratha, Fire", "Elyssrya, Water"],
-        ["Y\'thana, Light", "Rahk'vath, Shadow"],
+        ["Y'thana, Light", "Rahk'vath, Shadow"],
         ["VII - Astratha, The Dimensional"]
     ],
     "Demon" => [
@@ -130,10 +130,10 @@ class CurrentBoss {
         $clear_query = "DELETE FROM OnlineBosses WHERE player_id = " . intval($player_id);
         run_query($clear_query, false);
         $boss_info = $this->boss_name . ";" . $this->boss_image . ";" . $this->boss_type_num;
-        $boss_data = $this->boss_level . ";" . $this->boss_tier . ";" . $this->boss_cHP . ";" . $this->boss_mHP;
+        $boss_data = $this->boss_level . ";" . $this->boss_tier . ";" . $this->boss_cHP . ";" . $this->boss_mHP . ";" . $this->boss_element;
         $boss_weakness = implode(";", $this->boss_typeweak) . "/" . implode(";", $this->boss_eleweak);
         $insert_query = "INSERT INTO OnlineBosses (time_stamp, player_id, encounter, boss_info, boss_data, boss_weakness) ";
-        $insert_query .= "VALUES (CURRENT_TIMESTAMP, $player_id, 'solo', '$boss_info', '$boss_data', '$boss_weakness')";
+        $insert_query .= 'VALUES (CURRENT_TIMESTAMP, ' . $player_id . ', "solo", "' . $boss_info . '", "' . $boss_data . '", "' . $boss_weakness . '")';
         run_query($insert_query, false);
         $fetch_query = "SELECT * FROM OnlineBosses WHERE player_id = $player_id ORDER BY encounter_id DESC LIMIT 1";
         $boss_row = run_query($fetch_query)[0];
@@ -212,7 +212,7 @@ function weightedRandomChoice($values, $weights) {
 function build_boss_from_row($row) {
     $boss = new CurrentBoss();
     list($boss->boss_name, $boss->boss_image, $boss->boss_type_num) = explode(";", $row['boss_info']);
-    list($boss->boss_level, $boss->boss_tier, $boss->boss_cHP, $boss->boss_mHP) = explode(";", $row['boss_data']);
+    list($boss->boss_level, $boss->boss_tier, $boss->boss_cHP, $boss->boss_mHP, $boss->boss_element) = explode(";", $row['boss_data']);
     $weakness_parts = explode("/", $row['boss_weakness']);
     $boss->boss_typeweak = array_map('intval', explode(";", $weakness_parts[0]));
     $boss->boss_eleweak = array_map('intval', explode(";", $weakness_parts[1]));
