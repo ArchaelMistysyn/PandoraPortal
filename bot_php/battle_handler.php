@@ -74,6 +74,7 @@ class CombatTracker {
 function run_boss($verified_player_id, $boss_calltype, $magnitude) {
     global $battleItemCost, $spawn_dict, $boss_list, $boss_tier_dict;
     $player_profile = get_player_by_id($verified_player_id);
+    $player_profile->get_player_multipliers();
     // Handle Costs
     $requires_stamina = in_array($boss_calltype, ["Any", "Fortress", "Dragon", "Demon", "Paragon", "Arbiter"]);
     $has_stamina = !$requires_stamina || $player_profile->player_stamina >= 200;
@@ -140,7 +141,7 @@ function run_cycle($verified_player_id, $encounter_id) {
         clear_boss($verified_player_id);
     }
     return ["success" => true, "cycle_data" => $raw_cycle_data[0], "combat_tracker" => $raw_cycle_data[1], 
-        "battle_status" => $raw_cycle_data[2], "boss_data" => $raw_cycle_data[3]];
+        "battle_status" => $raw_cycle_data[2], "player" => $raw_cycle_data[3], "boss" => $raw_cycle_data[4]];
 }
 
 function process_cycle($verified_player_id, $boss_row, $encounter_id) {
@@ -156,7 +157,10 @@ function process_cycle($verified_player_id, $boss_row, $encounter_id) {
         return [$action_rows, $combat_tracker, "player_dead"];
     }
     $action_rows = handle_player_actions($player_profile, $boss_profile, $combat_tracker, $action_rows);
-    if ($boss_profile->boss_cHP <= 0) { $battle_status = "boss_dead"; }
+    if ($boss_profile->boss_cHP <= 0) { 
+        $boss_profile ->boss_cHP = 0;
+        $battle_status = "boss_dead"; 
+    }
     // Handle Tracker
     $total_damage = 0;
     foreach ($action_rows as &$row) {
@@ -172,7 +176,7 @@ function process_cycle($verified_player_id, $boss_row, $encounter_id) {
     unset($row);
     $combat_tracker->total_dps = big_add($combat_tracker->total_dps, $total_damage);
     update_boss_details($boss_profile, $combat_tracker, $encounter_id);
-    return [$action_rows, $combat_tracker, $battle_status, $boss_profile];
+    return [$action_rows, $combat_tracker, $battle_status, $player_profile, $boss_profile];
 }
 
 function get_combat_tracker($player, $boss_row) {
@@ -226,7 +230,7 @@ function update_boss_details($boss, $tracker, $encounter_id) {
         $tracker->time_damage,
         $tracker->bleed_tracker
     ]);
-    $updated_boss_data = "{$boss->boss_level};{$boss->boss_tier};{$boss->boss_cHP};{$boss->boss_mHP}";
+    $updated_boss_data = "{$boss->boss_level};{$boss->boss_tier};{$boss->boss_cHP};{$boss->boss_mHP};{$boss->boss_element}";
     $now = date('Y-m-d H:i:s');
     $query = "UPDATE OnlineBosses 
               SET boss_data = '$updated_boss_data', combat_tracker = '$tracker_data', time_stamp = '$now' 
@@ -248,10 +252,10 @@ function handle_boss_actions($player, &$boss, &$tracker, $rows) {
         $boss_regen = big_mul($boss->boss_mHP, $regen_percent);
         $boss->boss_cHP = big_cmp(big_add($boss->boss_cHP, $boss_regen), $boss->boss_mHP) > 0
             ? $boss->boss_mHP : big_add($boss->boss_cHP, $boss_regen);
-        $rows[] = ["action_type" => "boss_regen", "action_name" => "Regenerate", "damage_value" => $boss_regen, "new_hp" => $boss->boss_cHP];
+        $rows[] = ["action_type" => "boss_regen", "action_name" => "Boss: Regenerate", "damage_value" => $boss_regen, "new_hp" => $boss->boss_cHP];
     }
     // Handle Boss Attack Skill
-    if ($boss->boss_type_num == 1) { return $rows; }
+    if ($boss->boss_type_num == 0) { return $rows; }
     $attack_list = isset($boss_attack_dict[$boss->boss_type]) ? $boss_attack_dict[$boss->boss_type] : ["boss_skill_undefined"];
     foreach ($boss_attack_dict as $key => $list) {
         if (str_contains($boss->boss_name, $key)) {
@@ -278,7 +282,7 @@ function handle_boss_actions($player, &$boss, &$tracker, $rows) {
     $damage_set = [$base[0] * $boss->boss_level * $bonus, $base[1] * $boss->boss_level * $bonus];
     $damage_set = handle_evasions($player->block, $player->dodge, $damage_set, $bypass1, $bypass2);
     $damage = take_combat_damage($player, $tracker, $damage_set, $boss_element);
-    $rows[] = ["action_type" => "boss_skill_" . $skill_index . " " . $skill_class, "action_name" => $skill_name, "damage_value" => $damage, "new_hp" => $tracker->player_cHP];
+    $rows[] = ["action_type" => "boss_skill_" . $skill_class . " element_" . $element_names[$boss_element], "action_name" => $skill_name, "damage_value" => $damage, "new_hp" => $tracker->player_cHP];
     return $rows;
 }
 
@@ -333,7 +337,7 @@ function handle_player_actions($player, &$boss, &$tracker, $rows) {
     $regen = ($tracker->player_cHP > 0) ? $tracker->hp_regen : 0;
     if ($regen > 0) {
         $tracker->player_cHP = min($player->player_mHP, $tracker->player_cHP + $regen);
-        $rows[] = ["action_type" => "player_regen", "action_name" => "Regenerate", "damage_value" => $regen, "new_hp" => $tracker->player_cHP];
+        $rows[] = ["action_type" => "player_regen", "action_name" => "Player: Regenerate", "damage_value" => $regen, "new_hp" => $tracker->player_cHP];
     }
     // Player Actions
     $combo = 1;
@@ -356,8 +360,6 @@ function handle_player_actions($player, &$boss, &$tracker, $rows) {
         if ($tracker->solar_stacks >= 35) {
             $rows = array_merge($rows, trigger_flare($player, $boss, $tracker));
         }        
-        // Ultimate Bleed
-        $rows = array_merge($rows, handle_bleed($player, $boss, $tracker, $weapon, true));
     }
     // Player Basic Bleeds
     $rows = array_merge($rows, handle_bleed($player, $boss, $tracker, $weapon, false));
@@ -426,6 +428,8 @@ function handle_ultimate($player, &$boss, &$tracker, $combo_count, $weapon) {
     limit_and_calc($boss, $damage);
     $rows[] = ["action_type" => "ultimate" . ($triggers ? " " . implode(" ", $triggers) : ""), "action_name" => $skill_name, 
         "damage_value" => $damage, "new_hp" => $boss->boss_cHP];
+    // Ultimate Bleed Proc
+    $rows = array_merge($rows, handle_bleed($player, $boss, $tracker, $weapon, true));
     return $rows;
 }
 
