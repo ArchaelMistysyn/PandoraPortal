@@ -207,7 +207,6 @@ function process_cycle($boss_row, $encounter_id) {
         $boss_profile->boss_cHP = '0';
         $battle_status = "boss_dead";
     }
-    /*
     // Handle Tracker
     $total_damage = 0;
     foreach ($action_rows as &$row) {
@@ -220,6 +219,7 @@ function process_cycle($boss_row, $encounter_id) {
         }
         $row['damage_value'] = str_strip_decimal($row['damage_value']);
     }
+    /*
     $combat_tracker->total_dps = big_add($combat_tracker->total_dps, $total_damage);
     $reward_data = '';
     if ($battle_status == "boss_dead") {
