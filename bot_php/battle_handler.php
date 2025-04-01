@@ -186,7 +186,6 @@ function run_cycle($encounter_id) {
     if ($raw_cycle_data[2] != "continue") {
         clear_boss($verified_player_id);
     }
-    return ["success" => true];
     return ["success" => true, "cycle_data" => $raw_cycle_data[0], "combat_tracker" => $raw_cycle_data[1], 
         "battle_status" => $raw_cycle_data[2], "player" => $raw_cycle_data[3], "boss" => $raw_cycle_data[4], "reward_data" => $raw_cycle_data[5]];
 }
@@ -197,9 +196,9 @@ function process_cycle($boss_row, $encounter_id) {
     $boss_profile = build_boss_from_row($boss_row);
     $player_profile = get_player_by_id($verified_player_id);
     $player_profile->get_player_multipliers();
+    /*
     $combat_tracker = get_combat_tracker($player_profile, $boss_row);
     $combat_tracker->total_cycles++;
-    $action_rows = [];
     $action_rows = handle_boss_actions($player_profile, $boss_profile, $combat_tracker, $action_rows);
     if ($combat_tracker->player_cHP <= 0 && $combat_tracker->stun_status !== "stunned") {
         return [$action_rows, $combat_tracker, "player_dead"];
@@ -226,8 +225,9 @@ function process_cycle($boss_row, $encounter_id) {
     if ($battle_status == "boss_dead") {
         $reward_data = handle_rewards($player_profile, $boss_profile, $combat_tracker);
     }
-    update_boss_details($boss_profile, $combat_tracker, $encounter_id);
-    return [$action_rows, $combat_tracker, $battle_status, $player_profile, $boss_profile, $reward_data];
+    update_boss_details($boss_profile, $combat_tracker, $encounter_id);*/
+    return [[], new CombatTracker(), "continue", null, null, ''];
+    // return [$action_rows, $combat_tracker, $battle_status, $player_profile, $boss_profile, $reward_data];
 }
 
 function get_combat_tracker($player, $boss_row) {
