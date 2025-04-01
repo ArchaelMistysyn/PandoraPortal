@@ -308,7 +308,7 @@ function handle_boss_actions($player, &$boss, &$tracker, $rows) {
     if ($boss->boss_type_num == 0) { return $rows; }
     $attack_list = isset($boss_attack_dict[$boss->boss_type]) ? $boss_attack_dict[$boss->boss_type] : ["boss_skill_undefined"];
     foreach ($boss_attack_dict as $key => $list) {
-        if (str_contains($boss->boss_name, $key)) {
+        if (strpos($boss->boss_name, $key)) {
             $attack_list = $list;
             break;
         }
@@ -667,7 +667,7 @@ function handle_rewards($player_profile, $boss_profile, $combat_tracker, $gauntl
     $base_total = (1000 + $type_bonus + $level_bonus) * $multiplier_bonus;
     $exp_amount = $base_total * (1 + 2 * $boss_profile->magnitude);
     $coin_amount = $base_total * $boss_profile->boss_tier * (1 + $boss_profile->magnitude);
-    if (str_contains($boss_profile->boss_name, "XXX")) {
+    if (strpos($boss_profile->boss_name, "XXX")) {
         $exp_amount = 200000;
     }
     // Update Coins
@@ -725,7 +725,7 @@ function handle_rewards($player_profile, $boss_profile, $combat_tracker, $gauntl
     $fae_id = "Fae" . (($boss_profile->boss_element != 9) ? $boss_profile->boss_element : rand(0, 8));
     $reward_items[$fae_id] = ($reward_items[$fae_id] ?? 0) + rand(5, max(5, min(100, $boss_profile->boss_level))) * $multiplier_bonus;
     // Tarot Essence Drops
-    if (str_contains($boss_profile->boss_name, ' - ') && !str_contains($boss_profile->boss_name, "XXX")) {
+    if (strpos($boss_profile->boss_name, ' - ') && !strpos($boss_profile->boss_name, "XXX")) {
         $essence_id = "Essence" . explode(" ", $boss_profile->boss_name, 2)[0];
         $essence_qty = 0;
         for ($i = 0; $i < $multiplier_bonus; $i++) {
@@ -738,7 +738,7 @@ function handle_rewards($player_profile, $boss_profile, $combat_tracker, $gauntl
     // Shard Drops
     $min_shards = ($boss_profile->magnitude > 0) ? 1 : 0;
     $max_shards = $boss_profile->magnitude;
-    if (str_contains($boss_profile->boss_name, "XXX")) {
+    if (strpos($boss_profile->boss_name, "XXX")) {
         $min_shards += 1 * $multiplier_bonus;
         $max_shards += 5 * $multiplier_bonus;
     }
@@ -752,14 +752,14 @@ function handle_rewards($player_profile, $boss_profile, $combat_tracker, $gauntl
     }
     // Gauntlet Lotus Rewards
     if ($gauntlet && rand(1, 100) <= 5) {
-        if (str_contains($boss_profile->boss_name, "XXVIII")) {
+        if (strpos($boss_profile->boss_name, "XXVIII")) {
             $reward_items["Lotus1"] = ($reward_items["Lotus1"] ?? 0) + 1;
-        } elseif (str_contains($boss_profile->boss_name, "XXV")) {
+        } elseif (strpos($boss_profile->boss_name, "XXV")) {
             $reward_items["Lotus9"] = ($reward_items["Lotus9"] ?? 0) + 1;
         }
     }
     // Hammer Fragment 
-    if (str_contains($boss_profile->boss_name, "Pandora") && random_int(1, 100) <= 1) {
+    if (strpos($boss_profile->boss_name, "Pandora") && random_int(1, 100) <= 1) {
         $reward_items["Pandora"] = ($reward_items["Pandora"] ?? 0) + 1;
     }    
     // Update Souls
