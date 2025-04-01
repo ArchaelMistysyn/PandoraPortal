@@ -182,7 +182,6 @@ function run_cycle($encounter_id) {
     if ($elapsed < 60) {
         return ["success" => false, "message" => "Cycle time error intercept."];
     }
-    return ["success" => true];
     $raw_cycle_data = process_cycle($boss_row, $encounter_id);
     if ($raw_cycle_data[2] != "continue") {
         clear_boss($verified_player_id);
