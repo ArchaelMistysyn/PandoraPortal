@@ -28,7 +28,15 @@ function onLore(storyKey = null) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ action: "player" })
     })
-    .then(response => response.json())
+    .then(async response => {
+        const text = await response.text(); // read full response
+        try {
+            return JSON.parse(text); // manually parse
+        } catch (err) {
+            console.error("Invalid JSON response:\n", text);
+            throw new Error("JSON parse error: " + err.message);
+        }
+    })
     .then(data => {
         if (data.success) {
             updateLoreButtons(data.player);
@@ -48,12 +56,12 @@ function onLore(storyKey = null) {
                 loreScreen.innerHTML = readHTML;
                 loreToggle();
             }
+            loreContainer.style.display = 'flex';
         } else {
             alert(data.message || "Failed to load player data.");
         }
     })
     .catch(error => console.error('Error:', error));
-    document.getElementById("lore-container").style.display = 'flex';
 }
 
 function updateLoreButtons(playerData) {
