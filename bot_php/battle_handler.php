@@ -213,13 +213,13 @@ function process_cycle($boss_row, $encounter_id) {
         if (!str_contains($action_rows[$i]['action_type'], 'boss') &&
             !str_contains($action_rows[$i]['action_type'], 'stun') &&
             !str_contains($action_rows[$i]['action_type'], 'regen')) {
-            $dmg = (string) $action_rows[$i]['damage_value'];
-            $total_damage = big_add($total_damage, $dmg);
-            if (big_cmp($dmg, $combat_tracker->highest_damage) > 0) {
-                $combat_tracker->highest_damage = $dmg;
-            }
+            //$dmg = (string) $action_rows[$i]['damage_value'];
+            //$total_damage = big_add($total_damage, $dmg);
+            //if (big_cmp($dmg, $combat_tracker->highest_damage) > 0) {
+               // $combat_tracker->highest_damage = $dmg;
+          //  }
         }
-        $action_rows[$i]['damage_value'] = str_strip_decimal($action_rows[$i]['damage_value']);
+        //$action_rows[$i]['damage_value'] = str_strip_decimal($action_rows[$i]['damage_value']);
     }    
     $combat_tracker->total_dps = big_add($combat_tracker->total_dps, $total_damage);
     $reward_data = '';
