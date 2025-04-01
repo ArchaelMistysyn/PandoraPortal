@@ -198,7 +198,6 @@ function process_cycle($boss_row, $encounter_id) {
     $player_profile->get_player_multipliers();
     $combat_tracker = get_combat_tracker($player_profile, $boss_row);
     $combat_tracker->total_cycles++;
-    /*
     $action_rows = handle_boss_actions($player_profile, $boss_profile, $combat_tracker, $action_rows);
     if ($combat_tracker->player_cHP <= 0 && $combat_tracker->stun_status !== "stunned") {
         return [$action_rows, $combat_tracker, "player_dead"];
@@ -207,7 +206,8 @@ function process_cycle($boss_row, $encounter_id) {
     if (big_cmp($boss_profile->boss_cHP, '0') <= 0) {
         $boss_profile->boss_cHP = '0';
         $battle_status = "boss_dead";
-    }    
+    }
+    /*
     // Handle Tracker
     $total_damage = 0;
     foreach ($action_rows as &$row) {
