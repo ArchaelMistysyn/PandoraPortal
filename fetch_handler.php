@@ -1,7 +1,5 @@
 <?php
 session_start();
-
-// Web Inclusions
 include_once('./bot_php/db_queries.php');
 include_once('./bot_php/globals.php');
 include_once('./bot_php/player.php');
@@ -13,8 +11,7 @@ include_once('./bot_php/inventory.php');
 include_once('./bot_php/itemrolls.php');
 include_once('./bot_php/boss.php');
 include_once('./bot_php/forge.php');
-
-// Handler Inclusions
+include_once('./bot_php/shared_methods.php');
 include_once('./bot_php/battle_handler.php');
 
 // Data Verification
@@ -167,6 +164,9 @@ if (in_array($action, $forge_actions)) {
         default:
             $response["message"] = "Invalid action";
     }
+}
+if (!$response || !is_array($response)) {
+    $response = ["success" => false, "message" => "Empty or invalid response foramat"];
 }
 echo json_encode($response, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
 exit();

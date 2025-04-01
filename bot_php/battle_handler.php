@@ -1,5 +1,4 @@
 <?php
-include_once('./bot_php/shared_methods.php');
 
 $skill_name_list = [
     "Knight" => ["Destructive Cleave", "Merciless Blade", "Ruinous Slash", "Destiny Divider"],
