@@ -212,7 +212,8 @@ function process_cycle($boss_row, $encounter_id) {
     $copy = array_map(fn($row) => $row, $action_rows);
     foreach ($copy as $i => $row) {
         if (!str_contains($row['action_type'], 'boss') && !str_contains($row['action_type'], 'stun') && !str_contains($row['action_type'], 'regen')) {
-            $dmg = (string) $row['damage_value'];
+            //$dmg = (string) $row['damage_value'];
+            $dmg = '111111';
             $total_damage = big_add($total_damage, $dmg);
             if (big_cmp($dmg, $combat_tracker->highest_damage) > 0) {
                 $combat_tracker->highest_damage = $dmg;
