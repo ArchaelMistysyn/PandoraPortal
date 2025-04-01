@@ -795,4 +795,3 @@ function handle_rewards($player_profile, $boss_profile, $combat_tracker, $gauntl
     }
     return $reward_html;
 }
-?>
