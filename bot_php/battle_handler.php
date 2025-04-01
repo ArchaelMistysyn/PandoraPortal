@@ -211,13 +211,13 @@ function process_cycle($boss_row, $encounter_id) {
     $total_damage = 0;
     for ($i = 0; $i < count($action_rows); $i++) {
         $type = $action_rows[$i]['action_type'] ?? '';
-        //if (is_string($type) && !str_contains($type, 'boss') && !str_contains($type, 'stun') && !str_contains($type, 'regen')) {
+        if (strpos($type, 'boss') === false && strpos($type, 'stun') === false && strpos($type, 'regen') === false) {
             $dmg = (string) $action_rows[$i]['damage_value'];
             $total_damage = big_add($total_damage, $dmg);
             if (big_cmp($dmg, $combat_tracker->highest_damage) > 0) {
                 $combat_tracker->highest_damage = $dmg;
             }
-        //}
+        }
         $action_rows[$i]['damage_value'] = str_strip_decimal($action_rows[$i]['damage_value']);
     }    
     $combat_tracker->total_dps = big_add($combat_tracker->total_dps, $total_damage);
