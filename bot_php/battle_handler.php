@@ -339,7 +339,7 @@ function handle_boss_actions($player, &$boss, &$tracker, $rows) {
         "action_name" => $skill_name, "damage_value" => $damage, "new_hp" => $tracker->player_cHP];
     return $rows;
 }
-
+*/
 function handle_evasions($block_rate, $dodge_rate, $damage_set, $bypass1 = false, $bypass2 = false) {
     if (!$bypass1 && !$bypass2 && rand(1, 100) <= $dodge_rate * 100) {
         return [0, 0];
@@ -348,7 +348,7 @@ function handle_evasions($block_rate, $dodge_rate, $damage_set, $bypass1 = false
     }
     return $damage_set;
 }
-*/
+
 function take_combat_damage($player, &$tracker, $damage_set, $element, $bypass_immortal = false, $no_trigger = false) {
     global $element_status_list;
     $damage = rand($damage_set[0], $damage_set[1]);
