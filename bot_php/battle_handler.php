@@ -186,6 +186,7 @@ function run_cycle($encounter_id) {
     if ($raw_cycle_data[2] != "continue") {
         clear_boss($verified_player_id);
     }
+    return ["success" => true];
     return ["success" => true, "cycle_data" => $raw_cycle_data[0], "combat_tracker" => $raw_cycle_data[1], 
         "battle_status" => $raw_cycle_data[2], "player" => $raw_cycle_data[3], "boss" => $raw_cycle_data[4], "reward_data" => $raw_cycle_data[5]];
 }
