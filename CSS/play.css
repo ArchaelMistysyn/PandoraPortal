@@ -385,7 +385,7 @@
     justify-content: center;
     gap: 10px;
   }
-  #lightbox-menu button {
+  #lightbox-menu button, #action-box-menu button {
     color: white;
     border: none;
     padding: 8px 12px;
@@ -397,7 +397,8 @@
     border-radius: 5px;
     transition: all 0.3s;
   }
-  #lightbox-menu button:hover, #inlay-gear-select button:hover {
+  #lightbox-menu button:hover, #inlay-gear-select button:hover,
+  #action-box-menu button:hover {
     filter: brightness(1.3);
   }
   .lightbox-button-green {
@@ -494,6 +495,7 @@
     align-items: center;
     gap: 10px;
     margin-bottom: 10px;
+    /* margin-bottom: 0; was elsewhere in the code */    
   }
 
   select {
@@ -706,6 +708,12 @@
     gap: 25px;
     padding: 90px;
   }
+  #battle-cover {
+    position: absolute;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+  }
   #battle-slider-container{
     display: flex;
     flex-direction: column;
@@ -767,19 +775,48 @@
     background-size: cover;
     display: none;
   }
+  .screen-grayscale {
+    filter: grayscale(100%);
+  }
+  .final-entry-title {
+    font-size: 1.4rem;
+    color: red;
+  }
 
+  .final-entry-victory {
+    font-size: 2rem;
+    color: green;
+  }
+  .final-entry-defeat {
+    font-size: 2rem;
+    color: red;
+  }
+
+  .log-row {
+    font-size: 1rem;
+  }
   #action-box {
     position: absolute;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 200px;
-    width: 500px;
+    padding: 10px;
+    z-index: 10;
   }
   #action-box-name, #action-box-value{
-    font-size:2.2rem;
+    font-size:2rem;
     color: red
+  }
+  #action-box-menu {
+    display: none;
+  }
+  .reward-icon {
+    width: 24px;
+    height: 24px;
+  }
+  #action-box-value .reward-row {
+    font-size: 1.4rem;
   }
   /* Trigger Text */
   #action-box-name.calamity, #action-box-value.calamity {
@@ -927,20 +964,46 @@
   -webkit-text-stroke: 2px black;
 }
 
-
   #battle-detail-box {
     margin-left: 50px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     height: 600px;
-    width: 450px;
-    background-color: rgba(0, 0, 0, 0.7);
+    width: 500px;
+    background-color: rgba(0, 0, 0, 0.9);
     color: white;
-    border: 2px solid white;
     font-size: 1.2rem;
     padding: 10px;
     overflow-y: auto;
+  }
+
+  .detail-box-tier-1 {
+    border: 2px solid #028a0f;
+  }
+  .detail-box-tier-2 {
+    border: 2px solid #6a6aff;
+  }
+  .detail-box-tier-3 {
+    border: 2px solid #9b59b6;
+  }
+  .detail-box-tier-4 {
+    border: 2px solid #007fff;
+  }
+  .detail-box-tier-5 {
+    border: 2px solid #ffc609;
+  }
+  .detail-box-tier-6 {
+    border: 2px solid #ffa6c9;
+  }
+  .detail-box-tier-7 {
+    border: 2px solid #008080;
+  }
+  .detail-box-tier-8 {
+    border: 2px solid #e8e8e8;
+  }
+  .detail-box-tier-9 {
+    border: 2px solid #c20c0c;
   }
 
   #battle-detail-box .style-line {
@@ -965,9 +1028,9 @@
     gap: 3px;
   }
 
-  #log-top, #log-mid, #log-boss-section, #log-player-section {
+  #log-top, #log-mid, #log-boss-section, #log-player-section, #log-actions-section {
     padding-bottom: 10px;
-    padding-left: 40px;
+    padding-left: 25px;
   }
   .battle-button-special {
     display: none;
@@ -1446,9 +1509,6 @@
     height: 35px;
     width: 170px;
   }
-  .action-row {
-    margin-bottom: 0;
-  }
   .forge-button, .sub-forge-button, .final-forge-button, .disabled-button {
     padding: 5px;
     font-size: 1rem;
@@ -1507,7 +1567,35 @@
     filter: brightness(1) drop-shadow(0 0 0px transparent);
   }
 }
+/*
+.attack-hit {
+  animation: FlashBlackOuter 1s ease-in-out;
+}
+@keyframes FlashBlackOuter {
+  0% { 
+    filter: drop-shadow(0 0 3px black);
+  }
+  10% { 
+    filter:  drop-shadow(0 0 8px black);
+  }
+  30% { 
+    filter: drop-shadow(0 0 8px black);
+  }
+  40% { 
+    filter: drop-shadow(0 0 0px transparent);
+  }
+  100% { 
+    filter: drop-shadow(0 0 0px transparent);
+  }
+}*/
 
+@keyframes fadeOut {
+  0% { opacity: 1; }
+  100% { opacity: 0; }
+}
+.fade-out {
+  animation: fadeOut 0.7s forwards;
+}
 
 /* Overrides */
 .active-menu {

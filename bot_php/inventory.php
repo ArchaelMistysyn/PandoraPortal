@@ -919,4 +919,39 @@
 		return $element_display;
 	}
 
+	class BasicItem {
+		public string $item_id;
+		public string $item_name;
+		public int $item_tier;
+		public string $item_category;
+		public string $item_description;
+		public string $image_link;
+	
+		public function __construct(string $item_id) {
+			global $itemData, $web_url_base;
+			$this->item_id = $item_id;
+			$item_info = $itemData[$item_id] ?? [];
+			$this->item_name = $item_info['name'] ?? '';
+			$this->item_tier = $item_info['tier'] ?? 0;
+			$this->item_category = $item_info['category'] ?? '';
+			$this->item_description = $item_info['description'] ?? '';
+			$this->image_link = $item_info['image_link'] ?? '';
+		}
+	}
+	
+
+	function update_reward_stock($player_id, $reward_items) {
+		if (empty($reward_items)) return;
+		$values = array_map(
+			fn($id, $qty) => '(' . $player_id . ", '" . $id . "', " . $qty . ')',
+			array_keys($reward_items),
+			$reward_items
+		);
+		$value_str = implode(',', $values);
+		$query = "INSERT INTO BasicInventory (player_id, item_id, item_qty)
+				  VALUES $value_str
+				  ON DUPLICATE KEY UPDATE item_qty = item_qty + VALUES(item_qty)";
+		run_query($query, false);
+	}
+	
 ?>

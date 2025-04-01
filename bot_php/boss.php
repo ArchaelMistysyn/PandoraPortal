@@ -52,6 +52,7 @@ class CurrentBoss {
     public int $boss_type_num = 0;
     public int $boss_tier = 0;
     public int $boss_level = 0;
+    public int $magnitude = 0;
     public string $boss_name = "";
     public string $boss_image = "";
     public string $boss_cHP = '0';
@@ -129,9 +130,10 @@ class CurrentBoss {
     public function setBoss($player_id) {
         $clear_query = "DELETE FROM OnlineBosses WHERE player_id = " . intval($player_id);
         run_query($clear_query, false);
-        $boss_info = $this->boss_name . ";" . $this->boss_image . ";" . $this->boss_type_num;
-        $boss_data = $this->boss_level . ";" . $this->boss_tier . ";" . $this->boss_cHP . ";" . $this->boss_mHP . ";" . $this->boss_element;
-        $boss_weakness = implode(";", $this->boss_typeweak) . "/" . implode(";", $this->boss_eleweak);
+        $boss_info = $this->boss_name . ";" . $this->boss_image . ";" . $this->boss_type_num . ";" . $this->magnitude;
+        $boss_data = $this->boss_level . ";" . $this->boss_tier . ";" . $this->boss_cHP . ";" . $this->boss_mHP . ";";
+        $boss_data .=  $this->boss_element . ";" . $this->damage_cap;
+        $boss_weakness = implode(";", $this->boss_typeweak) . "/" . implode(";", $this->boss_eleweak) . "/" . implode(";", $this->curse_debuffs);
         $insert_query = "INSERT INTO OnlineBosses (time_stamp, player_id, encounter, boss_info, boss_data, boss_weakness) ";
         $insert_query .= 'VALUES (CURRENT_TIMESTAMP, ' . $player_id . ', "solo", "' . $boss_info . '", "' . $boss_data . '", "' . $boss_weakness . '")';
         run_query($insert_query, false);
@@ -157,14 +159,14 @@ function makeBoss($player_id, $boss_type, $boss_tier, $boss_level, $magnitude = 
     $boss->boss_type_num = array_search($boss_type, $boss_list);
     $boss->boss_tier = $boss_tier;
     $boss->boss_level = $boss_level;
+    $boss->magnitude = $magnitude;
     $boss->generateBossNameImage();
     $boss->boss_eleweak = assignRandomWeaknesses(9, 3);
     $boss->boss_typeweak = assignRandomWeaknesses(7, 2);
     $boss->boss_mHP = (string) calculateBossHP($boss_level, $boss_tier, $magnitude);
     $boss->boss_cHP = $boss->boss_mHP;
-    if ($boss_tier <= 4) {
-        $boss->damage_cap = big_sub(big_div($boss->boss_mHP, 10), 1);
-    } elseif ($boss_type === "Ruler") {
+    $boss->damage_cap = big_sub(big_div($boss->boss_mHP, 10), 1);
+    if ($boss_type === "Ruler") {
         $boss->damage_cap = big_sub(big_div($boss->boss_mHP, 1000), 1);
     } elseif ($boss_type === "Incarnate") {
         $boss->damage_cap = '-1';
@@ -210,12 +212,15 @@ function weightedRandomChoice($values, $weights) {
 }
 
 function build_boss_from_row($row) {
+    global $boss_list;
     $boss = new CurrentBoss();
-    list($boss->boss_name, $boss->boss_image, $boss->boss_type_num) = explode(";", $row['boss_info']);
-    list($boss->boss_level, $boss->boss_tier, $boss->boss_cHP, $boss->boss_mHP, $boss->boss_element) = explode(";", $row['boss_data']);
+    list($boss->boss_name, $boss->boss_image, $boss->boss_type_num, $boss->magnitude) = explode(";", $row['boss_info']);
+    list($boss->boss_level, $boss->boss_tier, $boss->boss_cHP, $boss->boss_mHP, $boss->boss_element, $boss->damage_cap) = explode(";", $row['boss_data']);
     $weakness_parts = explode("/", $row['boss_weakness']);
     $boss->boss_typeweak = array_map('intval', explode(";", $weakness_parts[0]));
     $boss->boss_eleweak = array_map('intval', explode(";", $weakness_parts[1]));
+    $boss->curse_debuffs = array_map('floatval', explode(";", $weakness_parts[2]));
+    $boss->boss_type = $boss_list[$boss->boss_type_num];
     return $boss;
 }
 

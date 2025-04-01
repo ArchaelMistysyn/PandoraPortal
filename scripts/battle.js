@@ -1,9 +1,11 @@
 const battleScreen = document.getElementById("battle-screen");
+const battleCover = document.getElementById("battle-cover");
 const battleMenu = document.getElementById("battle-menu");
 const actionBox = document.getElementById("action-box");
 const actionBoxName = document.getElementById("action-box-name");
 const actionBoxValue = document.getElementById("action-box-value");
 const actionBoxImage = document.getElementById("action-box-image");
+const actionBoxMenu = document.getElementById("action-box-menu");
 const magnitudeSlider = document.getElementById("magnitude-slider");
 
 // Log elements
@@ -16,11 +18,10 @@ const logBossWeaknesses = document.getElementById("log-boss-weakness");
 const logCycles = document.getElementById("log-cycles");
 const logDps = document.getElementById("log-dps");
 const logBossStatus = document.getElementById("log-boss-status");
-const logBossActions = document.getElementById("log-boss-actions");
 const logPlayerHp = document.getElementById("log-player-hp");
 const logPlayerRecovery = document.getElementById("log-player-recovery");
 const logPlayerStatus = document.getElementById("log-player-status");
-const logPlayerActions = document.getElementById("log-player-actions");
+const logActions = document.getElementById("log-actions-section");
 
 const soloTypes = ["Any", "Fortress", "Dragon", "Demon", "Paragon", "Arbiter"];
 const battleLabels = {
@@ -118,7 +119,7 @@ function confirmBattle(callType) {
     });
 }
 
-let battleHP = { current: 0n, max: 0n, player_cHP: 0n, player_mHP: 0n };
+let battleTracker = { current: 0n, max: 0n, player_cHP: 0n, player_mHP: 0n , recovery: 0n, boss_status: ''};
 function triggerBattle(callType) {
     const magnitude = parseInt(magnitudeSlider.value);
     blockingScreen.style.display = "flex";
@@ -135,17 +136,18 @@ function triggerBattle(callType) {
             let maxHP = numberConversion(data.boss['boss_mHP']);
             logBossHp.innerText = currentHP + ' / ' + maxHP;
             battleScreen.style.display = "flex";
+            battleDetailBox.classList.add("detail-box-tier-" + data.boss['boss_tier']);
+            battleDetailBox.style.display = "flex";
             battleMenu.style.display = "none";
-            battleHP.max = numberConversion(data.boss['boss_mHP']);
-            battleHP.current = data.boss['boss_mHP'];
-            battleHP.player_cHP = data.player['player_mHP'];
-            battleHP.player_mHP = data.player['player_mHP'];
-            logBossHp.innerText = numberConversion(battleHP.current) + ' / ' + battleHP.max;
+            battleTracker.max = numberConversion(data.boss['boss_mHP']);
+            battleTracker.current = data.boss['boss_mHP'];
+            battleTracker.player_cHP = data.player['player_mHP'];
+            battleTracker.player_mHP = data.player['player_mHP'];
+            battleTracker.recovery = data.player['recovery'];
+            logBossHp.innerText = numberConversion(battleTracker.current) + ' / ' + battleTracker.max;
             assignWeakness(data);
             updateBattleLog(data);
-            setTimeout(() => {
-                runBoss(data);
-            }, 5000);
+            runBoss(data);
         } else {
             alert(data.message || "Failed to start battle.");
         }
@@ -196,15 +198,28 @@ function unlockButtons(playerData) {
 }
 
 let battleInterval = null;
+let continue_status = true;
 function runBoss(bossData) {
-    triggerCycle(bossData);
-    battleInterval = setInterval(() => {
-        let continue_status = triggerCycle(bossData);
-        if (!continue_status) {
-            clearInterval(battleInterval);
-            battleInterval = null;
-        }
-    }, 61000);
+    setTimeout(() => {
+        triggerCycle(bossData);
+        battleInterval = setInterval(() => {
+            if (check_abort()) { return; }
+            triggerCycle(bossData);
+        }, 60100);
+        setTimeout(() => {
+            if (check_abort()) { return; }
+        }, 5000); 
+    }, 5000);
+}
+
+function check_abort(){
+    if (!continue_status) {
+        continue_status = true;
+        clearInterval(battleInterval);
+        battleInterval = null;
+        return true;
+    }
+    return false;
 }
 
 function triggerCycle(bossData) {
@@ -231,101 +246,158 @@ function animateCycleActions(bossData) {
     const playerInterval = 3000;
     updateBattleLog(bossData);
     // Run Boss Actions
-    bossActions.forEach((row, index) => {
+    if (battleTracker.boss_status != '' && battleTracker.boss_status !== "Enraged") {
+        // Stunned
         setTimeout(() => {
-            actionBox.style.display = "none";
-            actionBox.style.left = "50%";
-            actionBox.style.top = "50%";
-            actionBox.style.transform = "translate(-50%, -50%)";
-            actionBoxName.className = `action-entry ${row.action_type}`;
-            actionBoxValue.className = `action-entry ${row.action_type}`;
-            actionBoxName.innerText = row.action_name; 
-            actionBoxValue.innerText = numberConversion(row.damage_value);
-            actionBox.style.display = "flex";
-            if (row.action_type.includes("regen")){
-                battleHP.current += row.damage_value;
-                if(battleHP.current >= battleHP.max) {
-                    battleHP.current = battleHP.max;
+            animation_box('', '', `action-entry ${battleTracker.boss_status}`, battleTracker.boss_status.toUpperCase());
+        }, bossInterval);
+        battleTracker.boss_status = bossData.combat_tracker['boss_stun_status']?.trim();
+    } else {
+        // Boss Actions
+        bossActions.forEach((row, index) => {
+            setTimeout(() => {
+                animation_box(`action-entry ${row.action_type}`, row.action_name, `action-entry ${row.action_type}`, numberConversion(row.damage_value));
+                if (row.action_type =="boss_regen"){
+                    battleTracker.current += row.damage_value;
+                    if(battleTracker.current >= battleTracker.max) {
+                        battleTracker.current = battleTracker.max;
+                    }
+                } else {
+                    battleTracker.player_cHP -= row.damage_value;
+                    if (battleTracker.player_cHP <= 0) {
+                        // add proper recovery and immortality checks here.
+                        battleTracker.player_cHP = 0;
+                    }
                 }
-            } else {
-                battleHP.player_cHP -= row.damage_value;
-                if (battleHP.player_cHP <= 0) {
-                    // add proper recovery and immortality checks here.
-                    battleHP.player_cHP = 0;
-                }
-            }
-            updateBattleLog(bossData, row, true);
-        }, 2000 + index * bossInterval);
-    });
+                updateBattleLog(bossData, row);
+            }, (1 + index) * bossInterval);
+        });
+    }
     // Run Player Actions after delay
     playerActions.forEach((row, index) => {
         setTimeout(() => {
-            actionBox.style.display = "none";
-            //const randX = Math.floor(Math.random() * 41) + 30;
-            //const randY = Math.floor(Math.random() * 41) + 30;
-            //actionBox.style.left = `${randX}%`;
-            //actionBox.style.top = `${randY}%`;
-            actionBox.style.left = "50%";
-            actionBox.style.top = "50%";
-            actionBox.style.transform = "translate(-50%, -50%)";
-            actionBoxName.className = `action-entry ${row.action_type}`;
-            actionBoxValue.className = `action-entry ${row.action_type}`;
-            actionBoxName.innerText = row.action_name; 
-            actionBoxValue.innerText = numberConversion(row.damage_value);
-            actionBox.style.display = "flex";
-            battleHP.current = (BigInt(battleHP.current) - BigInt(row.damage_value));
-            updateBattleLog(bossData, row, false);
-        }, 12000 + index * playerInterval);
+            animation_box(`action-entry ${row.action_type}`, row.action_name, `action-entry ${row.action_type}`, numberConversion(row.damage_value));
+            // Player regen
+            if (row.action_type != "player_regen"){
+                battleTracker.current = (BigInt(battleTracker.current) - BigInt(row.damage_value));
+                if (battleTracker.current <= 0) {
+                    battleTracker.current = 0;
+                }
+            } else {
+                battleTracker.player_cHP = battleTracker.player_cHP + row.damage_value;
+                if (battleTracker.player_cHP > battleTracker.player_mHP) {
+                    battleTracker.player_cHP = battleTracker.player_mHP;
+                }
+            }
+            updateBattleLog(bossData, row);
+        }, 10000 + index * playerInterval);
     });
-
-    // Handle Death fix later.
-    if (bossData.battle_status !== 'continue' && (battleHP.current <= 0 || bossData.combat_tracker['player_cHP'] <= 0)) {
-        if (bossData.battle_status === "player_dead") {
-            alert("Slain!");
-            // display death screen or popup?
-            // reset screen
-            return false;
-        } else if (bossData.battle_status === "boss_dead") {
-            alert("Boss defeated!");
-            // display cycle animation until boss dead
-            // reward popup
-            // reset screen
-            return false;
-        } else{
-            // display cycle animation
-            return true;
+    setTimeout(() => {
+        // update status for the next cycle.
+        battleTracker.boss_status = bossData.combat_tracker['boss_stun_status'];
+        // Handle Death fix later.
+        if (bossData.battle_status !== 'continue' && (battleTracker.current <= 0 || bossData.combat_tracker['player_cHP'] <= 0)) {
+            continue_status = false;
+            battleDetailBox.style.display = "none";
+            battleCover.classList.add("screen-grayscale");
+            if (bossData.battle_status === "player_dead") {
+                battle_menu_box('final-entry-title', 'red', bossData.boss['boss_name'], "Defeat!");
+            } else if (bossData.battle_status === "boss_dead") {
+                battle_menu_box('final-entry-title', 'green', bossData.boss['boss_name'], "Defeat!", bossData.reward_data);
+            }
+            return;
         }
-    }
+        continue_status = true;
+        return;
+    }, 55000);
 }
 
-function updateBattleLog(data, row = null, bossAction = false) {
+function reset_boss(){
+    battleScreen.style.backgroundImage = "";
+    battleCover.classList.remove("screen-grayscale");
+    battleMenu.style.display = "flex";
+    actionBox.style.display = "none";
+    actionBox.style.backgroundColor = "";
+    actionBox.style.border = "";
+    actionBoxMenu.style.display = "none";
+}
+
+function battle_menu_box(title_class, button_class, menu_title, menu_text, reward = null){
+    battleCover.classList.add("screen-grayscale");
+    actionBox.style.backgroundColor = "rgba(0, 0, 0, 0.9)";
+    actionBox.style.left = "50%";
+    actionBox.style.top = "50%";
+    actionBox.style.transform = "translate(-50%, -50%)";
+    actionBoxName.className = title_class;
+    actionBoxValue.className = 'battle-rewards';
+    actionBoxName.innerText = menu_title;
+    if (reward) {
+        actionBox.style.border = "2px solid green";
+        actionBoxValue.innerHTML = reward;
+        actionBoxMenu.innerHTML = `<button class="lightbox-button-${button_class} lightbox-btn" onclick="reset_boss()">Claim</button>`;
+    } else {
+        actionBox.style.border = "2px solid red";
+        actionBoxValue.innerHTML = "";
+        actionBoxMenu.innerHTML = `<button class="lightbox-button-${button_class} lightbox-btn" onclick="reset_boss()">Retreat</button>`;
+    }
+    actionBoxMenu.style.display = "flex";
+    actionBox.style.display = "flex";
+}
+
+function animation_box(name_class, name_text, value_class, value_text, position = "center") {
+    let left_pos = "50%";
+    let right_pos = "50%";
+    let translate_pos = "translate(-50%, -50%)";
+    if (position == "random") {
+        const randX = Math.floor(Math.random() * 41) + 30;
+        const randY = Math.floor(Math.random() * 41) + 30;
+        left_pos = `${randX}%`;
+        right_pos = `${randY}%`;
+        translate_pos = "";
+    }
+    actionBox.style.left = left_pos;
+    actionBox.style.top = right_pos;
+    actionBox.style.transform = translate_pos;
+    actionBoxName.className = name_class;
+    actionBoxValue.className = value_class;
+    actionBoxName.innerText = name_text; 
+    actionBoxValue.innerText = value_text;
+    actionBox.style.display = "flex";
+    actionBox.classList.add("attack-hit");
+    setTimeout(() => {
+        actionBox.classList.add("fade-out");
+    }, 1500);
+    setTimeout(() => {
+        actionBox.style.display = "none";
+        actionBox.classList.remove("fade-out");
+        actionBox.classList.remove("attack-hit");
+    }, 1800);
+}
+
+function updateBattleLog(data, row = null) {
     if (row == null) {
-        logBossActions.innerText = "";
-        logPlayerActions.innerText = "";
+        logActions.innerText = "";
     }
     // add magnitude?
     logBossName.innerText = data.boss['boss_name'];
     logBossLvl.innerText = " Lv" + data.boss['boss_level'];
-    logBossHp.innerText = "HP: " + numberConversion(battleHP.current) + ' / ' + battleHP.max;
+    logBossHp.innerText = "HP: " + numberConversion(battleTracker.current) + ' / ' + battleTracker.max;
     logCycles.innerText = `Cycle Count: ${data.combat_tracker?.total_cycles ?? "0"}`;
     let total_dps = 0;
     if (data.combat_tracker?.total_dps) {
         total_dps = numberConversion(data.combat_tracker['total_dps'] / data.combat_tracker['total_cycles']) + " / min";
     }
     logDps.innerText = `Cyclic DPS: ${total_dps}`;
-    let newStatus = `Boss Status: ${data.combat_tracker?.boss_stun_status ?? "---"}`;
-    if (data.boss['boss_type_num'] >= 2 && battleHP.current <= battleHP.max / 2) {
+    let newStatus = `Boss Status: ${battleTracker.boss_status?.trim() || "Stable"}`;
+    if (data.boss['boss_type_num'] >= 2 && battleTracker.current <= battleTracker.max / 2) {
         newStatus = "Boss Status: Enraged";
     }
     logBossStatus.innerText = newStatus;
-    if (row !== null && bossAction) {
-        logBossActions.innerText += row.action_name + ' ' + row.damage_value;
-    }
-    logPlayerHp.innerText = `Player HP: ${numberConversion(battleHP.player_cHP)} / ${numberConversion(battleHP.player_mHP)}`;
-    logPlayerRecovery.innerText = `Recovery: ${data.combat_tracker?.total_cycles ?? "0"}`;
-    logPlayerStatus.innerText = `Player Status: ${data.combat_tracker?.stun_status ?? "---"}`;
-    if (row !== null && !bossAction) {
-        logPlayerActions.innerHTML += "<div>" + row.action_name + ' ' + numberConversion(row.damage_value) + "</div>";
+    logPlayerHp.innerText = `Player HP: ${numberConversion(battleTracker.player_cHP)} / ${numberConversion(battleTracker.player_mHP)}`;
+    logPlayerRecovery.innerText = `Recovery: ${battleTracker.recovery}`;
+    logPlayerStatus.innerText = `Player Status: ${data.combat_tracker?.stun_status?.trim() || "Stable"}`;
+    if (row !== null) {
+        logActions.innerHTML += "<div class='log-row'>" + row.action_name + ' ' + numberConversion(row.damage_value) + " " + row.triggers + "</div>";
     }
 }
 

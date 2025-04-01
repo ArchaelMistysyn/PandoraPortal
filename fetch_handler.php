@@ -124,10 +124,10 @@ if (in_array($action, $forge_actions)) {
                 : ["success" => false, "message" => "Player not found"];
             break;
         case "runBoss":
-            $response = run_boss($verified_player_id, $boss_calltype, $magnitude);
+            $response = run_boss($boss_calltype, $magnitude);
             break;
         case "runCycle":
-            $response = run_cycle($verified_player_id, $encounter_id);
+            $response = run_cycle($encounter_id);
             break;
         case "displaygear":
             $player_profile = get_player_by_id($verified_player_id);
@@ -189,6 +189,7 @@ function get_inventory_by_player_id($player_id, $specific_item_id = null) {
         return ["success" => false, "message" => "Item not found"];
     }
     foreach ($inventory as &$item) {
+        // Update with BasicItem Later
         $category = $itemData[$item["item_id"]]["category"];
         $item["name"] = $itemData[$item["item_id"]]["name"];
         if ($category === "Fish") {
