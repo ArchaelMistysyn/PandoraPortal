@@ -28,15 +28,7 @@ function onLore(storyKey = null) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ action: "player" })
     })
-    .then(async response => {
-        const text = await response.text(); // read full response
-        try {
-            return JSON.parse(text); // manually parse
-        } catch (err) {
-            console.error("Invalid JSON response:\n", text);
-            throw new Error("JSON parse error: " + err.message);
-        }
-    })
+    .then(response => response.json())
     .then(data => {
         if (data.success) {
             updateLoreButtons(data.player);

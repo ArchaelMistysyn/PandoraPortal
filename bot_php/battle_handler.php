@@ -1,5 +1,4 @@
 <?php
-
 $skill_name_list = [
     "Knight" => ["Destructive Cleave", "Merciless Blade", "Ruinous Slash", "Destiny Divider"],
     "Ranger" => ["Viper Shot", "Comet Arrow", "Meteor Volley", "Blitz Barrage"],
@@ -796,5 +795,4 @@ function handle_rewards($player_profile, $boss_profile, $combat_tracker, $gauntl
     }
     return $reward_html;
 }
-
 ?>
