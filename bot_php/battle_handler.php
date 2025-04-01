@@ -348,7 +348,7 @@ function handle_evasions($block_rate, $dodge_rate, $damage_set, $bypass1 = false
     }
     return $damage_set;
 }
-
+*/
 function take_combat_damage($player, &$tracker, $damage_set, $element, $bypass_immortal = false, $no_trigger = false) {
     global $element_status_list;
     $damage = rand($damage_set[0], $damage_set[1]);
@@ -444,7 +444,7 @@ function handle_regular_skill($player, &$boss, &$tracker, $combo_count, $weapon)
         "action_name" => "Combo (" . $combo_count . "x): " . $skill_name, "damage_value" => $str_dmg, "new_hp" => $boss->boss_cHP];
     return $rows;
 }
-*/
+
 function handle_ultimate($player, &$boss, &$tracker, $combo_count, $weapon) {
     global $skill_name_list;
     $rows = [];
