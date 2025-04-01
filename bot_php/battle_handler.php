@@ -289,7 +289,7 @@ function update_boss_details($boss, $tracker, $encounter_id) {
               WHERE encounter_id = $encounter_id";
     run_query($query, false);
 }
-/*
+
 function handle_boss_actions($player, &$boss, &$tracker, $rows) {
     global $boss_attack_dict, $skill_multiplier_list, $skill_multiplier_list_high, $element_names;
     if ($tracker->boss_stun_status != '') {
@@ -322,10 +322,11 @@ function handle_boss_actions($player, &$boss, &$tracker, $rows) {
     $bonus = ($boss->boss_level < 500) ? $skill_multiplier_list[$skill_index] : $skill_multiplier_list_high[$skill_index];
     $bypass1 = ($skill_class === "signature");
     $bypass2 = ($skill_class === "ultimate");
-    $base = match($skill_class) {
-        "ultimate" => [100, 100],
-        default => [25, 50]
-    };
+    if ($skill_class === "ultimate") {
+        $base = [100, 100];
+    } else {
+        $base = [25, 50];
+    }    
     // Handle Enrage
     if ($boss->boss_type_num >= 2 && big_cmp($boss->boss_cHP, big_div($boss->boss_mHP, '2')) < 0) {
         $base[0] *= 2;
@@ -339,7 +340,7 @@ function handle_boss_actions($player, &$boss, &$tracker, $rows) {
         "action_name" => $skill_name, "damage_value" => $damage, "new_hp" => $tracker->player_cHP];
     return $rows;
 }
-*/
+
 function handle_evasions($block_rate, $dodge_rate, $damage_set, $bypass1 = false, $bypass2 = false) {
     if (!$bypass1 && !$bypass2 && rand(1, 100) <= $dodge_rate * 100) {
         return [0, 0];
