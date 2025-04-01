@@ -11,8 +11,8 @@ include_once('./bot_php/inventory.php');
 include_once('./bot_php/itemrolls.php');
 include_once('./bot_php/boss.php');
 include_once('./bot_php/forge.php');
-include_once('./bot_php/shared_methods.php');
-include_once('./bot_php/battle_handler.php');
+//include_once('./bot_php/shared_methods.php');
+//include_once('./bot_php/battle_handler.php');
 
 // Data Verification
 if (!isset($_SESSION['player_id'])) {
