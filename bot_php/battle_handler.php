@@ -164,7 +164,7 @@ function run_boss($boss_calltype, $magnitude) {
         : ["success" => false, "message" => "Player not found"];
     return $response;
 }
-
+*/
 function run_cycle($encounter_id) {
     global $verified_player_id;
     $query = "SELECT * FROM OnlineBosses WHERE player_id = $verified_player_id LIMIT 1";
@@ -794,5 +794,5 @@ function handle_rewards($player_profile, $boss_profile, $combat_tracker, $gauntl
         $reward_html .= '</div>';
     }
     return $reward_html;
-}*/
+}
 ?>
