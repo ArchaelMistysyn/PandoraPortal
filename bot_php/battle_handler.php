@@ -209,7 +209,8 @@ function process_cycle($boss_row, $encounter_id) {
     }
     // Handle Tracker
     $total_damage = 0;
-    foreach ($action_rows as &$row) {
+    $copy = $action_rows;
+    foreach ($copy as $i => $row) {
         if (!str_contains($row['action_type'], 'boss') && !str_contains($row['action_type'], 'stun') && !str_contains($row['action_type'], 'regen')) {
             $dmg = (string) $row['damage_value'];
             $total_damage = big_add($total_damage, $dmg);
@@ -217,17 +218,15 @@ function process_cycle($boss_row, $encounter_id) {
                 $combat_tracker->highest_damage = $dmg;
             }
         }
-        $row['damage_value'] = str_strip_decimal($row['damage_value']);
+        $action_rows[$i]['damage_value'] = str_strip_decimal($row['damage_value']);
     }
-    /*
     $combat_tracker->total_dps = big_add($combat_tracker->total_dps, $total_damage);
     $reward_data = '';
     if ($battle_status == "boss_dead") {
         $reward_data = handle_rewards($player_profile, $boss_profile, $combat_tracker);
     }
-    update_boss_details($boss_profile, $combat_tracker, $encounter_id);*/
-    return [[], new CombatTracker(), "continue", null, null, ''];
-    // return [$action_rows, $combat_tracker, $battle_status, $player_profile, $boss_profile, $reward_data];
+    update_boss_details($boss_profile, $combat_tracker, $encounter_id);
+    return [$action_rows, $combat_tracker, $battle_status, $player_profile, $boss_profile, $reward_data];
 }
 
 function get_combat_tracker($player, $boss_row) {
