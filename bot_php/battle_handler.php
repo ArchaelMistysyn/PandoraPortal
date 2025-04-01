@@ -218,7 +218,7 @@ function process_cycle($boss_row, $encounter_id) {
                 $combat_tracker->highest_damage = $dmg;
             }
         }
-        $action_rows[$i]['damage_value'] = str_strip_decimal($row['damage_value']);
+        $action_rows[$i]['damage_value'] = '11111111';
     }
     $combat_tracker->total_dps = big_add($combat_tracker->total_dps, $total_damage);
     $reward_data = '';
