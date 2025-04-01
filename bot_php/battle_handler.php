@@ -209,7 +209,13 @@ function process_cycle($boss_row, $encounter_id) {
     }
     // Handle Tracker
     $total_damage = 0;
+    if (!is_array($action_rows)) {
+        return ["success" => false, "message" => "action_rows is not array"];
+    }
     for ($i = 0; $i < count($action_rows); $i++) {
+        if (!isset($action_rows[$i]['action_type'], $action_rows[$i]['damage_value'])) {
+            return ["success" => false, "message" => "Malformed row at index $i"];
+        }
         if (!str_contains($action_rows[$i]['action_type'], 'boss') &&
             !str_contains($action_rows[$i]['action_type'], 'stun') &&
             !str_contains($action_rows[$i]['action_type'], 'regen')) {
