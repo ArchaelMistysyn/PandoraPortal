@@ -115,7 +115,7 @@ class CombatTracker {
     public string $time_damage = '0.0';
     public float $bleed_tracker = 0.0;
 }
-/*
+
 function run_boss($boss_calltype, $magnitude) {
     global $battleItemCost, $spawn_dict, $boss_list, $boss_tier_dict, $verified_player_id;
     $player_profile = get_player_by_id($verified_player_id);
@@ -164,7 +164,7 @@ function run_boss($boss_calltype, $magnitude) {
         : ["success" => false, "message" => "Player not found"];
     return $response;
 }
-*/
+/*
 function run_cycle($encounter_id) {
     global $verified_player_id;
     $query = "SELECT * FROM OnlineBosses WHERE player_id = $verified_player_id LIMIT 1";
@@ -230,7 +230,7 @@ function process_cycle($boss_row, $encounter_id) {
     update_boss_details($boss_profile, $combat_tracker, $encounter_id);
     return [$action_rows, $combat_tracker, $battle_status, $player_profile, $boss_profile, $reward_data];
 }
-
+*/
 function get_combat_tracker($player, $boss_row) {
     $tracker = new CombatTracker();
     if ($boss_row['combat_tracker'] === '') {
