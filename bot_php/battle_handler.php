@@ -261,7 +261,7 @@ function get_combat_tracker($player, $boss_row) {
     }
     return $tracker;
 }
-
+/*
 function update_boss_details($boss, $tracker, $encounter_id) {
     $tracker_data = implode(';', [
         $tracker->player_cHP,
@@ -383,7 +383,6 @@ function take_combat_damage($player, &$tracker, $damage_set, $element, $bypass_i
     }
     return $damage;
 }
-
 
 function handle_player_actions($player, &$boss, &$tracker, $rows) {
     $weapon = read_custom_item($player->player_equipped[0]);
@@ -658,7 +657,7 @@ function trigger_flare($player, &$boss, &$tracker) {
     return [["action_type" => "flare", "action_name" => $player->flare_type . " Flare", 
         "damage_value" => $str_dmg, "new_hp" => $boss->boss_cHP]];
 }
-/*
+*/
 function handle_rewards($player_profile, $boss_profile, $combat_tracker, $gauntlet=false){
     global $web_url_base, $boss_loot_dict, $verified_player_id;
     // Base Coin & Exp Calcs
@@ -794,5 +793,5 @@ function handle_rewards($player_profile, $boss_profile, $combat_tracker, $gauntl
         $reward_html .= '</div>';
     }
     return $reward_html;
-}*/
+}
 ?>
