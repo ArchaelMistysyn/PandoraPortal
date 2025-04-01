@@ -444,7 +444,7 @@ function handle_regular_skill($player, &$boss, &$tracker, $combo_count, $weapon)
         "action_name" => "Combo (" . $combo_count . "x): " . $skill_name, "damage_value" => $str_dmg, "new_hp" => $boss->boss_cHP];
     return $rows;
 }
-
+*/
 function handle_ultimate($player, &$boss, &$tracker, $combo_count, $weapon) {
     global $skill_name_list;
     $rows = [];
@@ -657,7 +657,7 @@ function trigger_flare($player, &$boss, &$tracker) {
     return [["action_type" => "flare", "action_name" => $player->flare_type . " Flare", 
         "damage_value" => $str_dmg, "new_hp" => $boss->boss_cHP]];
 }
-*/
+
 function handle_rewards($player_profile, $boss_profile, $combat_tracker, $gauntlet=false){
     global $web_url_base, $boss_loot_dict, $verified_player_id;
     // Base Coin & Exp Calcs
