@@ -184,12 +184,16 @@
             $battleContainerHTML .= '<div class="battle-button-placeholder battle-button-special"></div>';
         $battleContainerHTML .= '</div>';
         $battleContainerHTML .= '<div id="battle-screen">';
-            $battleContainerHTML .= '<div id="action-box"><div id="action-box-name"></div><div id="action-box-value"></div><div id="action-box-image"></div></div>';
+            $battleContainerHTML .= '<div id="action-box">';
+                $battleContainerHTML .= '<div id="action-box-name"></div><div id="action-box-value"></div><div id="action-box-image"></div>';
+                $battleContainerHTML .= '<div id="action-box-menu"></div>';
+            $battleContainerHTML .= '</div>';
             $battleContainerHTML .= '<div id="battle-detail-box">';
                 $battleContainerHTML .= '<div id="log-boss-header"><span id="log-boss-name" class="highlight-text"></span><span id="log-boss-lvl"></span></div>';
                 $battleContainerHTML .= '<div class="style-line"></div>';
                 $battleContainerHTML .= '<div id="log-top">';
                     $battleContainerHTML .= '<div id="log-boss-hp"></div>';
+                    $battleContainerHTML .= '<div id="log-boss-status"></div>';
                     $battleContainerHTML .= '<div id="log-boss-weakness"></div>';
                 $battleContainerHTML .= '</div>';
                 $battleContainerHTML .= '<div class="style-line"></div>';
@@ -198,19 +202,16 @@
                     $battleContainerHTML .= '<div id="log-dps"></div>';
                 $battleContainerHTML .= '</div>';
                 $battleContainerHTML .= '<div class="style-line"></div>';
-                $battleContainerHTML .= '<div id="log-boss-section">';
-                    $battleContainerHTML .= '<div id="log-boss-status"></div>';
-                    $battleContainerHTML .= '<div id="log-boss-actions"></div>';
-                $battleContainerHTML .= '</div>';
-                $battleContainerHTML .= '<div class="style-line"></div>';
                 $battleContainerHTML .= '<div id="log-player-section">';
                     $battleContainerHTML .= '<div id="log-player-hp"></div>';
                     $battleContainerHTML .= '<div id="log-player-recovery"></div>';
                     $battleContainerHTML .= '<div id="log-player-status"></div>';
-                    $battleContainerHTML .= '<div id="log-player-actions"></div>';
                 $battleContainerHTML .= '</div>';
+                $battleContainerHTML .= '<div class="style-line"></div>';
+                $battleContainerHTML .= '<div id="log-actions-section"></div>';
             $battleContainerHTML .= '</div>';
         $battleContainerHTML .= '</div>';
+        $battleContainerHTML .= '<div id="battle-cover"></div>';
     $battleContainerHTML .= '</div>';
 
     // Interfaces - Lore Container

@@ -210,7 +210,7 @@ class PlayerProfile {
 		$glyph_name = null;
 		$exp = $this->player_exp;
 		$level = $this->player_level;
-		$max_exp = $level < 100 ? 1000 * $level : 100000 + (50000 * floor($level / 100));
+		$max_exp = get_max_exp($level);
 		$formatted_exp = number_format($exp);
 		$formatted_max_exp = number_format($max_exp);
 		$exp_percent = $exp / $max_exp;
@@ -323,12 +323,16 @@ class PlayerProfile {
 					}
 				}
 			}
+			$equalize_damage = false;
 			foreach ($e_item as $e_obj) {
 				if ($e_obj->item_id != 0) {
-					$this->player_damage_min += $e_obj->base_damage_min;
-					$this->player_damage_max += $e_obj->base_damage_max;
+					$this->player_damage_min += $e_obj->item_damage_min;
+					$this->player_damage_max += $e_obj->item_damage_max;
 					if (in_array($e_obj->item_base_type, $sovereign_item_list)) {
 						$e_obj->assign_sovereign_values($this);
+						if ($e_obj->item_type == 'W') {
+							$equalize_damage = true;
+						}
 					} else {
 						assign_roll_values($this, $e_obj);
 					}
@@ -505,6 +509,11 @@ class PlayerProfile {
 
 		// Attack speed hard cap
 		$this->attack_speed = min(10, $this->attack_speed);
+
+		// Sovereign equalizer
+		if ($equalize_damage) {
+			$this->player_damage_min = $this->player_damage_max;
+		}
 	}
 	
 	public function display_element_stats($w_item = null) {
@@ -652,7 +661,7 @@ class PlayerProfile {
 		// Bloom exception, because it's not an application
 		$bloom_is_active = $this->trigger_rate["Bloom"] > 0;
 		$bloom_html = "<div id='section-bloom' class='detail-section appBox-Bloom" . ($bloom_is_active ? "" : " inactive-element") . "'>";
-		$bloom_html .= "<div><h1 class='appli-highlight-Bloom'>Bloom: N/A</h1></div>";
+		$bloom_html .= "<div><h1 class='appli-highlight-Bloom'>Bloom (Special)</h1></div>";
 		$bloom_html .= "</div>";
 		$bloom_side_html = "<div id='side-box-bloom' class='side-detail-list appli-highlight-Bloom appBox-Bloom'>";
 		$bloom_side_html .= "<div class='detail-item app-item player-table-stat'>
@@ -912,6 +921,10 @@ function apply_singularity($data_list, $bonus) {
 
 function show_num($input_number, $adjust = 100) {
     return intval(round($input_number * $adjust));
+}
+
+function get_max_exp($level) {
+    return ($level < 100) ? 1000 * $level : 100000 + (50000 * floor($level / 100));
 }
 
 ?>

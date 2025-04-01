@@ -22,7 +22,7 @@
       ["Vermilion Dawn", null, 40],
       ["Scarlet Sunset", null, 60],
       ["Ruby Skies", "Bleed Penetration is Doubled", 80],
-      ["Scarlet Divide", "Bleed Damage applies to all hits", 100]
+      ["Scarlet Divide", "Bleed Damage/Penetration applies to all hits", 100]
     ],
     "Eclipse": [
       ["Ultimate Application +X", 1],

@@ -46,6 +46,53 @@ $boss_attack_dict = [
         ["Unmaking", "ultimate"], ["Transcendence", "ultimate"], ["Total Collapse", "ultimate"], ["All To Nothing", "signature"]])
 ];
 
+$boss_loot_dict = [
+    "All" => [
+        [0, "Chest", 25], [0, "Matrix", 15], [0, "Crystal1", 1], [0, "Catalyst", 1],
+        [0, "Skull4", 0.005], [0, "Skull3", 0.05], [0, "Skull2", 0.5], [0, "Skull1", 5],
+        [0, "Hammer", 25], [0, "Pearl", 15], [0, "Heart1", 2], [0, "Heart2", 1],
+        [1, "Ore1", 25], [2, "Ore2", 25], [3, "Ore3", 25], [4, "Ore4", 25],
+        [1, "Potion1", 5], [2, "Potion2", 5], [3, "Potion3", 5], [4, "Potion4", 5],
+        [5, "Potion4", 10], [6, "Potion4", 15], [7, "Potion4", 25], [8, "Potion4", 25],
+        [6, "Crystal2", 1], [7, "Crystal3", 1], [8, "Crystal4", 1],
+        [5, "Fragment1", 75], [6, "Fragment2", 75], [7, "Fragment3", 99], [8, "Fragment4", 99]
+    ],
+    "Fortress" => [
+        [0, "Scrap", 100], [0, "Stone1", 60],
+        [1, "Trove1", 5], [2, "Trove2", 5], [3, "Trove3", 5], [4, "Trove4", 5], [0, "Ore5", 5]
+    ],
+    "Dragon" => [
+        [0, "Unrefined1", 25], [0, "Stone2", 55],
+        [1, "Gem1", 10], [2, "Gem1", 20], [3, "Gem1", 30], [4, "Jewel1", 40]
+    ],
+    "Demon" => [
+        [0, "Flame1", 10], [0, "Flame2", 1], [0, "Stone3", 50], [0, "Unrefined2", 25],
+        [1, "Gem2", 10], [2, "Gem2", 20], [3, "Gem2", 30], [4, "Jewel2", 40]
+    ],
+    "Paragon" => [
+        [0, "Summon1", 5], [0, "Summon2", 1], [0, "Unrefined3", 25], [0, "Stone4", 45],
+        [1, "Gem3", 10], [2, "Gem3", 20], [3, "Gem3", 30],
+        [4, "Jewel3", 40], [5, "Jewel3", 50], [6, "Jewel3", 60], [6, "Gemstone10", 5]
+    ],
+    "Arbiter" => [
+        [0, "Summon3", 5], [0, "Stone5", 40], [7, "Lotus5", 5],
+        [1, "Token1", 5], [2, "Token2", 5], [3, "Token3", 5], [4, "Token4", 5],
+        [5, "Token5", 5], [6, "Token6", 5], [7, "Token7", 5],
+        [1, "Jewel4", 10], [2, "Jewel4", 20], [3, "Jewel4", 30], [4, "Jewel4", 40],
+        [5, "Jewel4", 50], [6, "Jewel4", 60], [7, "Jewel4", 70]
+    ],
+    "Incarnate" => [
+        [8, "Crystal3", 10], [8, "Crystal4", 5], [8, "Jewel5", 80], [8, "Trove8", 99],
+        [8, "Lotus2", 5], [8, "Lotus3", 5], [8, "Lotus4", 5], [8, "Lotus5", 5],
+        [8, "Lotus6", 5], [8, "Lotus7", 5], [8, "Lotus8", 5], [8, "Lotus9", 5],
+        [8, "Lotus1", 5], [8, "Lotus10", 1], [8, "DarkStar", 2], [8, "Nephilim", 1], [8, "EssenceXXX", 99]
+    ],
+    "Ruler" => [
+        [9, "Stone6", 33], [9, "Crystal4", 1], [9, "Lotus4", 0.1],
+        [9, "Salvation", 0.2], [9, "Ruler", 0.01], [9, "Sacred", 0.05]
+    ]
+];
+
 $boss_attack_exceptions = array_keys($boss_attack_dict);
 $skill_multiplier_list = [1, 2, 3, 5, 7, 10, 15, 20, 50];
 $skill_multiplier_list_high = [4, 6, 8, 10, 15, 25, 50, 99, 999];
@@ -71,8 +118,8 @@ class CombatTracker {
     public float $bleed_tracker = 0.0;
 }
 
-function run_boss($verified_player_id, $boss_calltype, $magnitude) {
-    global $battleItemCost, $spawn_dict, $boss_list, $boss_tier_dict;
+function run_boss($boss_calltype, $magnitude) {
+    global $battleItemCost, $spawn_dict, $boss_list, $boss_tier_dict, $verified_player_id;
     $player_profile = get_player_by_id($verified_player_id);
     $player_profile->get_player_multipliers();
     // Handle Costs
@@ -112,6 +159,7 @@ function run_boss($verified_player_id, $boss_calltype, $magnitude) {
         $boss_tier = getBossTier($boss_type);
     }
     $boss_profile = makeBoss($verified_player_id, $boss_type, $boss_tier, $boss_level, $magnitude);
+    $boss_profile->curse_debuffs = $player_profile->elemental_curse;
     $boss_row = $boss_profile->setBoss($verified_player_id);
     $response = $player_profile
         ? ["success" => true, "player" => $player_profile, "boss" => $boss_profile, "boss_image" => $boss_profile->boss_image, "encounter_id" => $boss_row['encounter_id']]
@@ -119,7 +167,8 @@ function run_boss($verified_player_id, $boss_calltype, $magnitude) {
     return $response;
 }
 
-function run_cycle($verified_player_id, $encounter_id) {
+function run_cycle($encounter_id) {
+    global $verified_player_id;
     $query = "SELECT * FROM OnlineBosses WHERE player_id = $verified_player_id LIMIT 1";
     $rows = run_query($query);
     if (!$rows) {
@@ -136,15 +185,16 @@ function run_cycle($verified_player_id, $encounter_id) {
     if ($elapsed < 60) {
         return ["success" => false, "message" => "Cycle time error intercept."];
     }
-    $raw_cycle_data = process_cycle($verified_player_id, $boss_row, $encounter_id);
+    $raw_cycle_data = process_cycle($boss_row, $encounter_id);
     if ($raw_cycle_data[2] != "continue") {
         clear_boss($verified_player_id);
     }
     return ["success" => true, "cycle_data" => $raw_cycle_data[0], "combat_tracker" => $raw_cycle_data[1], 
-        "battle_status" => $raw_cycle_data[2], "player" => $raw_cycle_data[3], "boss" => $raw_cycle_data[4]];
+        "battle_status" => $raw_cycle_data[2], "player" => $raw_cycle_data[3], "boss" => $raw_cycle_data[4], "reward_data" => $raw_cycle_data[5]];
 }
 
-function process_cycle($verified_player_id, $boss_row, $encounter_id) {
+function process_cycle($boss_row, $encounter_id) {
+    global $verified_player_id;
     $battle_status = "continue";
     $boss_profile = build_boss_from_row($boss_row);
     $player_profile = get_player_by_id($verified_player_id);
@@ -157,10 +207,10 @@ function process_cycle($verified_player_id, $boss_row, $encounter_id) {
         return [$action_rows, $combat_tracker, "player_dead"];
     }
     $action_rows = handle_player_actions($player_profile, $boss_profile, $combat_tracker, $action_rows);
-    if ($boss_profile->boss_cHP <= 0) { 
-        $boss_profile ->boss_cHP = 0;
-        $battle_status = "boss_dead"; 
-    }
+    if (big_cmp($boss_profile->boss_cHP, '0') <= 0) {
+        $boss_profile->boss_cHP = '0';
+        $battle_status = "boss_dead";
+    }    
     // Handle Tracker
     $total_damage = 0;
     foreach ($action_rows as &$row) {
@@ -171,12 +221,16 @@ function process_cycle($verified_player_id, $boss_row, $encounter_id) {
                 $combat_tracker->highest_damage = $dmg;
             }
         }
-        $row['damage_value'] = big_round($row['damage_value']);
+        $row['damage_value'] = str_strip_decimal($row['damage_value']);
     }
     unset($row);
     $combat_tracker->total_dps = big_add($combat_tracker->total_dps, $total_damage);
+    $reward_data = '';
+    if ($battle_status == "boss_dead") {
+        $reward_data = handle_rewards($player_profile, $boss_profile, $combat_tracker);
+    }
     update_boss_details($boss_profile, $combat_tracker, $encounter_id);
-    return [$action_rows, $combat_tracker, $battle_status, $player_profile, $boss_profile];
+    return [$action_rows, $combat_tracker, $battle_status, $player_profile, $boss_profile, $reward_data];
 }
 
 function get_combat_tracker($player, $boss_row) {
@@ -230,7 +284,7 @@ function update_boss_details($boss, $tracker, $encounter_id) {
         $tracker->time_damage,
         $tracker->bleed_tracker
     ]);
-    $updated_boss_data = "{$boss->boss_level};{$boss->boss_tier};{$boss->boss_cHP};{$boss->boss_mHP};{$boss->boss_element}";
+    $updated_boss_data = "{$boss->boss_level};{$boss->boss_tier};{$boss->boss_cHP};{$boss->boss_mHP};{$boss->boss_element};{$boss->damage_cap}";
     $now = date('Y-m-d H:i:s');
     $query = "UPDATE OnlineBosses 
               SET boss_data = '$updated_boss_data', combat_tracker = '$tracker_data', time_stamp = '$now' 
@@ -246,13 +300,13 @@ function handle_boss_actions($player, &$boss, &$tracker, $rows) {
     }
     $boss_element = ($boss->boss_element !== 9) ? $boss->boss_element : rand(0, 8);
     // Handle Boss Regen
-    $boss_regen = 0;
     if ($boss->boss_type_num >= 3) {
         $regen_percent = 0.001 * $boss->boss_tier;
         $boss_regen = big_mul($boss->boss_mHP, $regen_percent);
         $boss->boss_cHP = big_cmp(big_add($boss->boss_cHP, $boss_regen), $boss->boss_mHP) > 0
             ? $boss->boss_mHP : big_add($boss->boss_cHP, $boss_regen);
-        $rows[] = ["action_type" => "boss_regen", "action_name" => "Boss: Regenerate", "damage_value" => $boss_regen, "new_hp" => $boss->boss_cHP];
+        $rows[] = ["action_type" => "boss_regen", "action_name" => "Boss: Regenerate", "damage_value" => $boss_regen, 
+        "triggers"=> '', "new_hp" => $boss->boss_cHP];
     }
     // Handle Boss Attack Skill
     if ($boss->boss_type_num == 0) { return $rows; }
@@ -275,14 +329,16 @@ function handle_boss_actions($player, &$boss, &$tracker, $rows) {
         default => [25, 50]
     };
     // Handle Enrage
-    if ($boss->boss_type_num >= 2 && $boss->boss_cHP <= ($boss->boss_mHP / 2)) {
+    if ($boss->boss_type_num >= 2 && big_cmp($boss->boss_cHP, big_div($boss->boss_mHP, '2')) < 0) {
         $base[0] *= 2;
         $base[1] *= 2;
     }
     $damage_set = [$base[0] * $boss->boss_level * $bonus, $base[1] * $boss->boss_level * $bonus];
     $damage_set = handle_evasions($player->block, $player->dodge, $damage_set, $bypass1, $bypass2);
     $damage = take_combat_damage($player, $tracker, $damage_set, $boss_element);
-    $rows[] = ["action_type" => "boss_skill_" . $skill_class . " element_" . $element_names[$boss_element], "action_name" => $skill_name, "damage_value" => $damage, "new_hp" => $tracker->player_cHP];
+    $trigger_data = ($skill_class === "signature") ? "SIGNATURE" : (($skill_class === "ultimate") ? "ULTIMATE" : "");
+    $rows[] = ["action_type" => "boss_skill_" . $skill_class . " element_" . $element_names[$boss_element],  "triggers" => $trigger_data,
+        "action_name" => $skill_name, "damage_value" => $damage, "new_hp" => $tracker->player_cHP];
     return $rows;
 }
 
@@ -337,7 +393,8 @@ function handle_player_actions($player, &$boss, &$tracker, $rows) {
     $regen = ($tracker->player_cHP > 0) ? $tracker->hp_regen : 0;
     if ($regen > 0) {
         $tracker->player_cHP = min($player->player_mHP, $tracker->player_cHP + $regen);
-        $rows[] = ["action_type" => "player_regen", "action_name" => "Player: Regenerate", "damage_value" => $regen, "new_hp" => $tracker->player_cHP];
+        $rows[] = ["action_type" => "player_regen", "action_name" => "Player: Regenerate", "damage_value" => $regen, 
+        "triggers"=> '', "new_hp" => $tracker->player_cHP];
     }
     // Player Actions
     $combo = 1;
@@ -369,7 +426,7 @@ function handle_player_actions($player, &$boss, &$tracker, $rows) {
 function handle_regular_skill($player, &$boss, &$tracker, $combo_count, $weapon) {
     global $skill_name_list;
     $rows = [];
-    $combo_mult = (1 + ($player->combo_mult * $combo_count)) * (1 + $player->combo_pen);
+    $combo_mult = (1 + $player->combo_mult * $combo_count) * (1 + $player->combo_pen);
     $ult_mult = (1 + $player->ultimate_mult) * (1 + $player->ultimate_pen);
     $tier_index = ($combo_count < 3) ? 0 : (($combo_count < 5) ? 1 : 2);
     $skill_bonus = $player->skill_damage_bonus[$tier_index];
@@ -377,16 +434,38 @@ function handle_regular_skill($player, &$boss, &$tracker, $combo_count, $weapon)
         ? ["Sea of Subjugation", "Ocean of Oppression", "Deluge of Domination"][$tier_index]
         : $skill_name_list[$player->player_class][$tier_index];
     get_player_initial_damage($player, $boss, $weapon, $tracker);
-    $damage = (int) ($player->total_damage * $combo_mult * (0.5 + $skill_bonus));
+    $damage = big_mul($player->total_damage, $combo_mult * (0.5 + $skill_bonus));
     if ($player->unique_glyph_ability[3]) {
-        $damage = (int) ($player->total_damage * $ult_mult);
+        $damage = big_mul($damage, $ult_mult);
     }
     $tracker->charges += 1 + $player->charge_generation;
     $tracker->solar_stacks += ($player->flare_type !== "") ? 1 : 0;
     $triggers = apply_triggers($player, $tracker, $damage);
-    limit_and_calc($boss, $damage);
-    $rows[] = ["action_type" => "skill_" . $tier_index . ($triggers ? " " . implode(" ", $triggers) : ""), 
-        "action_name" => $skill_name, "damage_value" => $damage, "new_hp" => $boss->boss_cHP];
+    $str_dmg = limit_and_calc($boss, $damage);
+    $trigger_data = implode(" ", $triggers);
+    $rows[] = ["action_type" => "skill_" . $tier_index . ($triggers ? " " . $trigger_data : ""), "triggers" => strtoupper($trigger_data),
+        "action_name" => "Combo (" . $combo_count . "x): " . $skill_name, "damage_value" => $str_dmg, "new_hp" => $boss->boss_cHP];
+    return $rows;
+}
+
+function handle_ultimate($player, &$boss, &$tracker, $combo_count, $weapon) {
+    global $skill_name_list;
+    $rows = [];
+    if ($tracker->charges < 20 || $boss->boss_cHP <= 0) return [];
+    $tracker->charges -= 20;
+    $combo_mult = (1 + $player->combo_mult * $combo_count) * (1 + $player->combo_pen);
+    $ult_mult = (1 + $player->ultimate_mult) * (1 + $player->ultimate_pen);
+    $skill_bonus = $player->skill_damage_bonus[3];
+    $skill_name = $player->aqua_points >= 100 ? "Tides of Annihilation" : $skill_name_list[$player->player_class][3];
+    get_player_initial_damage($player, $boss, $weapon, $tracker);
+    $damage = big_mul($player->total_damage, ($combo_mult * $ult_mult * (2 + $skill_bonus)));
+    $triggers = apply_triggers($player, $tracker, $damage);
+    $str_dmg = limit_and_calc($boss, $damage);
+    $trigger_data = implode(" ", $triggers);
+    $rows[] = ["action_type" => "ultimate" . ($triggers ? " " . $trigger_data : ""), "triggers" => strtoupper($trigger_data), 
+        "action_name" => "Ultimate: " . $skill_name, "damage_value" => $str_dmg, "new_hp" => $boss->boss_cHP];
+    // Ultimate Bleed Proc
+    $rows = array_merge($rows, handle_bleed($player, $boss, $tracker, $weapon, true));
     return $rows;
 }
 
@@ -400,58 +479,37 @@ function handle_bleed($player, &$boss, &$tracker, $weapon, $is_ultimate = false)
     get_player_initial_damage($player, $boss, $weapon, $tracker);
     $tracker->bleed_tracker += 0.05 * $count;
     $tracker->bleed_tracker = min(1, $tracker->bleed_tracker);
-    $damage = $player->total_damage * $tracker->bleed_tracker * (1 + $player->bleed_mult) * (1 + $player->bleed_pen) * (1 + $count);
+    $damage = big_mul($player->total_damage, $tracker->bleed_tracker * (1 + $player->bleed_mult) * (1 + $player->bleed_pen) * (1 + $count) * $base);
     // Hyperbleed check
     $triggers = ["bleed"];
     if (rand(1, 100) <= $player->trigger_rate["Hyperbleed"]) {
-        $damage *= (1 + $player->bleed_mult);
+        $damage = big_mul($damage, 1 + $player->bleed_mult);
         $triggers = ["hyperbleed"];
     }
-    $triggers = array_merge($triggers, apply_triggers($player, $tracker, $damage, true));
-    limit_and_calc($boss, $damage);
-    $rows[] = ["action_type" => $type . ($triggers ? " " . implode(" ", $triggers) : ""), "action_name" => "$label_prefix Rupture [$count_label]", "damage_value" => $damage, "new_hp" => $boss->boss_cHP];
+    $str_dmg = limit_and_calc($boss, $damage);
+    $trigger_data = implode(" ", $triggers);
+    $rows[] = ["action_type" => $type . ($triggers ? " " . $trigger_data : ""), "triggers" => strtoupper($trigger_data), 
+        "action_name" => "$label_prefix Rupture [$count_label]", "damage_value" => $str_dmg, "new_hp" => $boss->boss_cHP];
     return $rows;
 }
 
-function handle_ultimate($player, &$boss, &$tracker, $combo_count, $weapon) {
-    global $skill_name_list;
-    $rows = [];
-    if ($tracker->charges < 20 || $boss->boss_cHP <= 0) return [];
-    $tracker->charges -= 20;
-    $combo_mult = (1 + ($player->combo_mult * $combo_count)) * (1 + $player->combo_pen);
-    $ult_mult = (1 + $player->ultimate_mult) * (1 + $player->ultimate_pen);
-    $skill_bonus = $player->skill_damage_bonus[3];
-    $skill_name = $player->aqua_points >= 100 ? "Tides of Annihilation" : $skill_name_list[$player->player_class][3];
-    get_player_initial_damage($player, $boss, $weapon, $tracker);
-    $damage = (int) ($player->total_damage * $combo_mult * $ult_mult * (2 + $skill_bonus));
-    $triggers = apply_triggers($player, $tracker, $damage);
-    limit_and_calc($boss, $damage);
-    $rows[] = ["action_type" => "ultimate" . ($triggers ? " " . implode(" ", $triggers) : ""), "action_name" => $skill_name, 
-        "damage_value" => $damage, "new_hp" => $boss->boss_cHP];
-    // Ultimate Bleed Proc
-    $rows = array_merge($rows, handle_bleed($player, $boss, $tracker, $weapon, true));
-    return $rows;
-}
-
-function limit_and_calc($boss, &$damage) {
-    $damage = (string)$damage;
+function limit_and_calc($boss, $damage) {
     if ($boss->damage_cap !== '-1' && big_cmp($damage, $boss->damage_cap) > 0) {
-        $damage = (string)$boss->damage_cap;
+        $str_dmg = $boss->damage_cap;
+    } else {
+        $str_dmg = strval($damage);
     }
-    $boss->boss_cHP = big_sub($boss->boss_cHP, $damage);
+    $boss->boss_cHP = big_sub($boss->boss_cHP, $str_dmg);
     if (big_cmp($boss->boss_cHP, '0') < 0) {
         $boss->boss_cHP = '0';
     }
+    return $str_dmg;
 }
 
 
 function get_player_initial_damage($player, $boss, $weapon, &$tracker) {
-    global $sovereign_item_list;
-    if (!$weapon || in_array($weapon->item_base_type, $sovereign_item_list)) {
-        $player->player_damage_min = $player->player_damage_max;
-    }
-    $base_damage = rand($player->player_damage_min, $player->player_damage_max);
-    $adjusted = big_mul($base_damage, big_mul(big_add(1, $player->total_class_mult), big_add(1, $player->final_damage)));
+    $base_damage = big_rand($player->player_damage_min, $player->player_damage_max);
+    $adjusted = big_mul($base_damage, ((1 + $player->total_class_mult) * (1 + $player->final_damage)));
     $player->total_damage = boss_adjustments($player, $boss, $weapon, $adjusted, $tracker);
 }
 
@@ -491,8 +549,7 @@ function boss_adjustments($player, $boss, $weapon, $player_damage, &$tracker) {
     }
     $stun_status = $element_status_list[$highest] ?? null;
     if ($stun_status !== null && rand(1, 100) <= $player->trigger_rate["Status"]) {
-        $tracker->stun_status = $stun_status;
-        $tracker->stun_cycles += 1;
+        $tracker->boss_stun_status = $stun_status;
     }
     $total_elemental = '0';
     foreach ($player->elemental_damage as $val) {
@@ -504,7 +561,7 @@ function boss_adjustments($player, $boss, $weapon, $player_damage, &$tracker) {
 
 function boss_defences($method, $player, $boss, $location, $weapon) {
     global $class_names;
-    $mult = 1 - (0.05 * $boss->boss_tier - 1);
+    $mult = 1 - (0.05 * ($boss->boss_tier - 1));
     if ($method === "Element" && $boss->boss_eleweak[$location] !== 1) {
         return $mult;
     }
@@ -522,7 +579,7 @@ function boss_true_mitigation($level) {
     return $b - ($b - $c) * ($level - 100) / 899;
 }
 
-function apply_triggers($player, &$tracker, &$damage, $is_bleed = false) {
+function apply_triggers($player, &$tracker, &$damage) {
     $triggers = [];
     $damage = (string)$damage;
     // Bloom Triggers
@@ -534,20 +591,20 @@ function apply_triggers($player, &$tracker, &$damage, $is_bleed = false) {
             $triggers[] = "heavenly";
         }
     } elseif (rand(1, 100) <= round($player->spec_conv["Stygian"] * 100)) {
-        $bloom_bonus = $player->bloom_mult * 3; // seperation mandatory for bcmath
+        $bloom_bonus = $player->bloom_mult * 3;
         $damage = big_mul($damage, $bloom_bonus);
         $triggers[] = "stygian";
     } elseif (rand(1, 100) <= round($player->spec_conv["Calamity"] * 100)) {
         $damage = big_mul($damage, '9.99');
         $triggers[] = "calamity";
     }
-    if ($is_bleed) {
-        return $triggers;
+    if($player->unique_glyph_ability[2]) {
+        $damage = big_mul($damage, ((1 + $player->bleed_mult) * (1 + $player->bleed_pen)));
     }
     // Critical Triggers
     $crit_roll = rand(1, 100);
-    $crit_bonus = 1 + $player->critical_mult; // seperation mandatory for bcmath
-    $crit_pen_bonus = 1 + $player->critical_pen; // seperation mandatory for bcmath
+    $crit_bonus = 1 + $player->critical_mult;
+    $crit_pen_bonus = 1 + $player->critical_pen;
     if ($crit_roll <= $player->trigger_rate["Fractal"]) {
         $ele_count = array_sum(limit_elements($player, read_custom_item($player->player_equipped[0])));
         $damage = big_mul($damage, $ele_count);
@@ -599,10 +656,146 @@ function trigger_flare($player, &$boss, &$tracker) {
     $tracker->solar_stacks = 0;
     $flare_rate = ($player->flare_type === "Solar") ? 0.10 : 0.25;
     $damage = big_mul($boss->boss_cHP, $flare_rate);
-    limit_and_calc($boss, $damage);
+    $str_dmg = limit_and_calc($boss, $damage);
     return [["action_type" => "flare", "action_name" => $player->flare_type . " Flare", 
-        "damage_value" => $damage, "new_hp" => $boss->boss_cHP]];
+        "damage_value" => $str_dmg, "new_hp" => $boss->boss_cHP]];
 }
 
+function handle_rewards($player_profile, $boss_profile, $combat_tracker, $gauntlet=false){
+    global $web_url_base, $boss_loot_dict, $verified_player_id;
+    // Base Coin & Exp Calcs
+    $pact = new Pact($player_profile);
+    $multiplier_bonus = 2; // default multiplier for solo bosses 
+    $type_bonus = ($boss_profile->boss_type_num + 1) * 100;
+    $level_bonus = rand($boss_profile->boss_level, $boss_profile->boss_level * 10);
+    $base_total = (1000 + $type_bonus + $level_bonus) * $multiplier_bonus;
+    $exp_amount = $base_total * (1 + 2 * $boss_profile->magnitude);
+    $coin_amount = $base_total * $boss_profile->boss_tier * (1 + $boss_profile->magnitude);
+    if (str_contains($boss_profile->boss_name, "XXX")) {
+        $exp_amount = 200000;
+    }
+    // Update Coins
+    $coin_gain = $coin_amount;
+    $coin_msg = "";
+    if ($pact->pact_variant === "Greed") {
+        $coin_gain *= 2;
+        $coin_msg = " [Greed Bonus]";
+    } elseif ($pact->pact_variant === "Gluttony") {
+        $coin_gain = (int) round($coin_gain / 2);
+        $coin_msg = " [Gluttony Penalty]";
+    }
+    $player_profile->player_coins += (int) $coin_gain;
+    // Update Exp
+    $exp_msg = "";
+    if ($pact->pact_variant === "Gluttony") {
+        $exp_amount *= 2;
+        $exp_msg = " [Gluttony Bonus]";
+    } elseif ($pact->pact_variant === "Greed") {
+        $exp_amount = (int) round($exp_amount / 2);
+        $exp_msg = " [Greed Penalty]";
+    }
+    $player_profile->player_exp += (int) $exp_amount;
+    // Update Level
+    $lvl_msg = "";
+    $max_level = ($player_profile->player_quest > 53) ? 999 : (($player_profile->player_quest > 52) ? 200 : (($player_profile->player_quest > 50) ? 150 : 100));
+    $level_increase = 0;
+    while ($player_profile->player_exp >= get_max_exp($player_profile->player_level) && $player_profile->player_level < $max_level) {
+        $player_profile->player_exp -= get_max_exp($player_profile->player_level);
+        $player_profile->player_level++;
+        $level_increase++;
+        $lvl_msg = "[Level +" . $level_increase . "]";
+    }
+    // Update Data
+    $player_profile->update_player_data();
+    // Calculate Table Reward Items
+    $boss_loot_all = $boss_loot_dict['All'];
+    $boss_loot_specific = $boss_loot_dict[$boss_profile->boss_type];
+    $combined_loot = array_merge($boss_loot_specific, $boss_loot_all);
+    $valid_loot = array_filter($combined_loot, fn($item) => $item[0] === $boss_profile->boss_tier || $item[0] === 0);
+    $reward_items = [];
+    foreach ($valid_loot as [$tier, $item_id, $drop_rate]) {
+        $drop_chance = $drop_rate * 1000;
+        $qty = 0;
+        for ($i = 0; $i < $multiplier_bonus; $i++) {
+            if (random_int(1, 100000) <= $drop_chance) {
+                $qty++;
+            }
+        }
+        if ($qty > 0) {
+            $reward_items[$item_id] = ($reward_items[$item_id] ?? 0) + $qty;
+        }
+    }
+    // Fae Core Drops
+    $fae_id = "Fae" . (($boss_profile->boss_element != 9) ? $boss_profile->boss_element : rand(0, 8));
+    $reward_items[$fae_id] = ($reward_items[$fae_id] ?? 0) + rand(5, max(5, min(100, $boss_profile->boss_level))) * $multiplier_bonus;
+    // Tarot Essence Drops
+    if (str_contains($boss_profile->boss_name, ' - ') && !str_contains($boss_profile->boss_name, "XXX")) {
+        $essence_id = "Essence" . explode(" ", $boss_profile->boss_name, 2)[0];
+        $essence_qty = 0;
+        for ($i = 0; $i < $multiplier_bonus; $i++) {
+            if (rand(1, 100) <= 25) $essence_qty++;
+        }
+        if ($essence_qty > 0) {
+            $reward_items[$essence_id] = ($reward_items[$essence_id] ?? 0) + $essence_qty;
+        }
+    }    
+    // Shard Drops
+    $min_shards = ($boss_profile->magnitude > 0) ? 1 : 0;
+    $max_shards = $boss_profile->magnitude;
+    if (str_contains($boss_profile->boss_name, "XXX")) {
+        $min_shards += 1 * $multiplier_bonus;
+        $max_shards += 5 * $multiplier_bonus;
+    }
+    if ($gauntlet) {
+        $min_shards += 1;
+        $max_shards += 5;
+    }
+    if ($min_shards > 0) {
+        $shard_qty = rand($min_shards, $max_shards);
+        $reward_items["Shard"] = ($reward_items["Shard"] ?? 0) + $shard_qty;
+    }
+    // Gauntlet Lotus Rewards
+    if ($gauntlet && rand(1, 100) <= 5) {
+        if (str_contains($boss_profile->boss_name, "XXVIII")) {
+            $reward_items["Lotus1"] = ($reward_items["Lotus1"] ?? 0) + 1;
+        } elseif (str_contains($boss_profile->boss_name, "XXV")) {
+            $reward_items["Lotus9"] = ($reward_items["Lotus9"] ?? 0) + 1;
+        }
+    }
+    // Hammer Fragment 
+    if (str_contains($boss_profile->boss_name, "Pandora") && random_int(1, 100) <= 1) {
+        $reward_items["Pandora"] = ($reward_items["Pandora"] ?? 0) + 1;
+    }    
+    // Update Souls
+    if ($player_profile->player_equipped[4] != 0) {
+        $ring = read_custom_item($player_profile->player_equipped[4]);
+        if ($ring->item_base_type === "Crown of Skulls") {
+            $ring->roll_values[1] = strval(intval($ring->roll_values[1]) + 1);
+            $ring->update_stored_item();
+        }
+    }
+    // Update Stock
+    update_reward_stock($verified_player_id, $reward_items);
+    // Build Reward HTML display
+    $reward_html  = '<div class="reward-row">';
+        $reward_html .= '<img src="' . $web_url_base . 'gallery/Icons/Misc/Exp.webp" alt="Experience" class="reward-icon">';
+        $reward_html .= '<span class="reward-name"> EXP </span>';
+        $reward_html .= '<span class="reward-quantity">' . number_format((int)$exp_amount) . 'x' . $exp_msg . $lvl_msg . '</span>';
+    $reward_html .= '</div>';
+    $reward_html .= '<div class="reward-row">';
+        $reward_html .= '<img src="' . $web_url_base . 'gallery/Icons/Misc/Lotus Coin.webp" alt="Lotus Coins" class="reward-icon">';
+        $reward_html .= '<span class="reward-name"> Lotus Coins </span>';
+        $reward_html .= '<span class="reward-quantity">' . number_format((int)$coin_gain) . 'x' . $coin_msg . '</span>';
+    $reward_html .= '</div>';
+    foreach ($reward_items as $item_id => $qty) {
+        $item = new BasicItem($item_id);
+        $reward_html .= '<div class="reward-row">';
+            $reward_html .= '<img src="' . $item->image_link . '" alt="' . $item->item_name . '" class="reward-icon">';
+            $reward_html .= '<span class="reward-name"> ' . $item->item_name . ' </span>';
+            $reward_html .= '<span class="reward-quantity">' . $qty . 'x</span>';
+        $reward_html .= '</div>';
+    }
+    return $reward_html;
+}
 
 ?>
