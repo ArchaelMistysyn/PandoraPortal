@@ -164,7 +164,7 @@ function run_boss($boss_calltype, $magnitude) {
         : ["success" => false, "message" => "Player not found"];
     return $response;
 }
-/*
+
 function run_cycle($encounter_id) {
     global $verified_player_id;
     $query = "SELECT * FROM OnlineBosses WHERE player_id = $verified_player_id LIMIT 1";
@@ -230,7 +230,7 @@ function process_cycle($boss_row, $encounter_id) {
     update_boss_details($boss_profile, $combat_tracker, $encounter_id);
     return [$action_rows, $combat_tracker, $battle_status, $player_profile, $boss_profile, $reward_data];
 }
-*/
+
 function get_combat_tracker($player, $boss_row) {
     $tracker = new CombatTracker();
     if ($boss_row['combat_tracker'] === '') {
@@ -658,7 +658,7 @@ function trigger_flare($player, &$boss, &$tracker) {
     return [["action_type" => "flare", "action_name" => $player->flare_type . " Flare", 
         "damage_value" => $str_dmg, "new_hp" => $boss->boss_cHP]];
 }
-
+/*
 function handle_rewards($player_profile, $boss_profile, $combat_tracker, $gauntlet=false){
     global $web_url_base, $boss_loot_dict, $verified_player_id;
     // Base Coin & Exp Calcs
@@ -794,5 +794,5 @@ function handle_rewards($player_profile, $boss_profile, $combat_tracker, $gauntl
         $reward_html .= '</div>';
     }
     return $reward_html;
-}
+}*/
 ?>
