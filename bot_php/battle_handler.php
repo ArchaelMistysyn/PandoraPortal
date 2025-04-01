@@ -261,7 +261,7 @@ function get_combat_tracker($player, $boss_row) {
     }
     return $tracker;
 }
-/*
+
 function update_boss_details($boss, $tracker, $encounter_id) {
     $tracker_data = implode(';', [
         $tracker->player_cHP,
@@ -289,7 +289,7 @@ function update_boss_details($boss, $tracker, $encounter_id) {
               WHERE encounter_id = $encounter_id";
     run_query($query, false);
 }
-*/
+/*
 function handle_boss_actions($player, &$boss, &$tracker, $rows) {
     global $boss_attack_dict, $skill_multiplier_list, $skill_multiplier_list_high, $element_names;
     if ($tracker->boss_stun_status != '') {
@@ -348,7 +348,7 @@ function handle_evasions($block_rate, $dodge_rate, $damage_set, $bypass1 = false
     }
     return $damage_set;
 }
-
+*/
 function take_combat_damage($player, &$tracker, $damage_set, $element, $bypass_immortal = false, $no_trigger = false) {
     global $element_status_list;
     $damage = rand($damage_set[0], $damage_set[1]);
