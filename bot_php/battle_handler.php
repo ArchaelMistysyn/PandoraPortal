@@ -183,7 +183,6 @@ function run_cycle($encounter_id) {
         return ["success" => false, "message" => "Cycle time error intercept."];
     }
     $raw_cycle_data = process_cycle($boss_row, $encounter_id);
-    return ["success" => true];
     if ($raw_cycle_data[2] != "continue") {
         clear_boss($verified_player_id);
     }
@@ -221,7 +220,6 @@ function process_cycle($boss_row, $encounter_id) {
         }
         $row['damage_value'] = str_strip_decimal($row['damage_value']);
     }
-    unset($row);
     $combat_tracker->total_dps = big_add($combat_tracker->total_dps, $total_damage);
     $reward_data = '';
     if ($battle_status == "boss_dead") {
