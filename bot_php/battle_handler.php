@@ -1,4 +1,5 @@
 <?php
+/*
 $skill_name_list = [
     "Knight" => ["Destructive Cleave", "Merciless Blade", "Ruinous Slash", "Destiny Divider"],
     "Ranger" => ["Viper Shot", "Comet Arrow", "Meteor Volley", "Blitz Barrage"],
@@ -95,7 +96,7 @@ $boss_attack_exceptions = array_keys($boss_attack_dict);
 $skill_multiplier_list = [1, 2, 3, 5, 7, 10, 15, 20, 50];
 $skill_multiplier_list_high = [4, 6, 8, 10, 15, 25, 50, 99, 999];
 $element_status_list = [null, null, "paralyzed", "petrified", null, "frozen", null, "blinded", "disoriented"];
-
+*/
 class CombatTracker {
     public int $player_cHP = 0;
     public int $current_mana = 0;
@@ -795,3 +796,4 @@ function handle_rewards($player_profile, $boss_profile, $combat_tracker, $gauntl
     }
     return $reward_html;
 }
+?>
