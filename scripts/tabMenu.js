@@ -84,7 +84,7 @@ function selectSubTab(mainTab, subTabElement) {
     });
 }
 
-function filterItems() {
+function filterItems(mode="table") {
   const input = document.getElementById("filter-input").value.toUpperCase();
   const categories = document.querySelectorAll(".search-category");
   categories.forEach((category) => {
@@ -94,32 +94,36 @@ function filterItems() {
     let categoryMatch = false;
 
     // Filter rows in tables
-    rows.forEach((row) => {
-      const cells = Array.from(row.getElementsByTagName("td"));
-      const cellMatch = cells.some(
-        (cell) => cell.textContent.toUpperCase().indexOf(input) > -1
-      );
-      if (cellMatch || categoryName.indexOf(input) > -1) {
-        row.style.display = "";
-        categoryMatch = true;
-      } else {
-        row.style.display = "none";
-      }
-    });
+    if (mode === "table") {
+      rows.forEach((row) => {
+        const cells = Array.from(row.getElementsByTagName("td"));
+        const cellMatch = cells.some(
+          (cell) => cell.textContent.toUpperCase().indexOf(input) > -1
+        );
+        if (cellMatch || categoryName.indexOf(input) > -1) {
+          row.style.display = "";
+          categoryMatch = true;
+        } else {
+          row.style.display = "none";
+        }
+      });
+    }
 
     // Filter images
-    images.forEach((img) => {
-      const altText = img.alt.toUpperCase();
-      const previewDiv = img.closest(".preview-div");
-      if (altText.indexOf(input) > -1 || categoryName.indexOf(input) > -1) {
-        img.style.display = "";
-        previewDiv.style.display = "";
-        categoryMatch = true;
-      } else {
-        img.style.display = "none";
-        previewDiv.style.display = "none";
-      }
-    });
+    if (mode === "images") {
+      images.forEach((img) => {
+        const altText = img.alt.toUpperCase();
+        const previewDiv = img.closest(".preview-div");
+        if (altText.indexOf(input) > -1 || categoryName.indexOf(input) > -1) {
+          img.style.display = "";
+          previewDiv.style.display = "";
+          categoryMatch = true;
+        } else {
+          img.style.display = "none";
+          previewDiv.style.display = "none";
+        }
+      });
+    }
 
     // Set category visibility based on matches
     category.style.display = categoryMatch ? "" : "none";

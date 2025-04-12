@@ -19,7 +19,7 @@
     <div id="gallery-main-container">
       <div id="gallery-top-container">
         <div id="tab-menu">
-          <input type="text" id="filter-input" placeholder="Filter Content" oninput="filterItems()">
+          <input type="text" id="filter-input" placeholder="Filter Content" oninput="filterItems('images')">
           <div class="tab-menu" id="tabMenu"></div>
         </div>
         <div id="display-container">

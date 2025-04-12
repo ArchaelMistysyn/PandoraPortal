@@ -198,7 +198,7 @@ function process_cycle($boss_row, $encounter_id) {
     $player_profile->get_player_multipliers();
     $combat_tracker = get_combat_tracker($player_profile, $boss_row);
     $combat_tracker->total_cycles++;
-    $action_rows = handle_boss_actions($player_profile, $boss_profile, $combat_tracker, $action_rows);
+    $action_rows = handle_boss_actions($player_profile, $boss_profile, $combat_tracker);
     if ($combat_tracker->player_cHP <= 0 && $combat_tracker->stun_status !== "stunned") {
         return [$action_rows, $combat_tracker, "player_dead"];
     }
@@ -288,8 +288,9 @@ function update_boss_details($boss, $tracker, $encounter_id) {
     run_query($query, false);
 }
 
-function handle_boss_actions($player, &$boss, &$tracker, $rows) {
+function handle_boss_actions($player, &$boss, &$tracker) {
     global $boss_attack_dict, $skill_multiplier_list, $skill_multiplier_list_high, $element_names;
+    $rows = [];
     if ($tracker->boss_stun_status != '') {
         $tracker->boss_stun_status = '';
         return $rows; 
