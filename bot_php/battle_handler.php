@@ -139,20 +139,37 @@ function run_boss($boss_calltype, $magnitude) {
         $query = "UPDATE BasicInventory SET item_qty = item_qty - 1 WHERE player_id = $verified_player_id AND item_id = '$required_item' AND item_qty >= 1";
         run_query($query, false);
     }
-    // Handle Boss
-    $boss_type = $boss_calltype;
-    if ($boss_type === "Any") {
-        $max_spawn_index = 0;
-        foreach ($spawn_dict as $key => $value) {
-            if ($key <= $player_profile->player_echelon && $value > $max_spawn_index) { $max_spawn_index = $value; }
-        }
-        $boss_type = $boss_list[rand(0, $max_spawn_index)];
+    // Normalize boss type
+    switch ($boss_calltype) {
+        case "Any":
+        case "Gauntlet":
+            $max_spawn_index = 0;
+            foreach ($spawn_dict as $key => $value) {
+                if ($key <= $player_profile->player_echelon && $value > $max_spawn_index) {
+                    $max_spawn_index = $value;
+                }
+            }
+            $boss_type = $boss_list[rand(0, $max_spawn_index)];
+            break;
+        case "Palace1":
+        case "Palace2":
+        case "Palace3":
+            $boss_type = "Incarnate";
+            $boss_level = ($boss_type == "Palace1") ? 300 : (($boss_type == "Palace2") ? 600 : 999);
+            break;
+        case "Summon1":
+        case "Summon2":
+            $boss_type = "Paragon";
+            break;
+        case "Summon3":
+            $boss_type = "Arbiter";
+            break;
+        default:
+            $boss_type = $boss_calltype;
+            break;
     }
     $boss_level = $player_profile->player_level;
-    if (strpos($boss_type, "Palace")) {
-        $boss_level = ($boss_type == "Palace1") ? 300 : (($boss_type == "Palace2") ? 600 : 999);
-    }
-    $boss_tier = $boss_tier_dict[$boss_type];
+    $boss_tier = $boss_tier_dict[$boss_calltype];
     if ($boss_tier == 0) {
         $boss_tier = getBossTier($boss_type);
     }
@@ -202,7 +219,14 @@ function process_cycle($boss_row, $encounter_id) {
     if ($combat_tracker->player_cHP <= 0 && $combat_tracker->stun_status !== "stunned") {
         return [$action_rows, $combat_tracker, "player_dead"];
     }
-    $action_rows = handle_player_actions($player_profile, $boss_profile, $combat_tracker, $action_rows);
+    if ($combat_tracker->stun_cycles > 0) {
+        $combat_tracker->stun_cycles -= 1;
+        if ($combat_tracker->stun_cycles == 0) {
+            $combat_tracker->stun_status = '';
+        }
+    } else {
+        $action_rows = handle_player_actions($player_profile, $boss_profile, $combat_tracker, $action_rows);
+    }
     if (big_cmp($boss_profile->boss_cHP, '0') <= 0) {
         $boss_profile->boss_cHP = '0';
         $battle_status = "boss_dead";
@@ -333,7 +357,7 @@ function handle_boss_actions($player, &$boss, &$tracker) {
     }
     $damage_set = [$base[0] * $boss->boss_level * $bonus, $base[1] * $boss->boss_level * $bonus];
     $damage_set = handle_evasions($player->block, $player->dodge, $damage_set, $bypass1, $bypass2);
-    $damage = take_combat_damage($player, $tracker, $damage_set, $boss_element);
+    $damage = take_combat_damage($player, $tracker, $damage_set, $boss_element, $boss->magnitude);
     $trigger_data = ($skill_class === "signature") ? "SIGNATURE" : (($skill_class === "ultimate") ? "ULTIMATE" : "");
     $rows[] = ["action_type" => "boss_skill_" . $skill_class . " element_" . $element_names[$boss_element],  "triggers" => $trigger_data,
         "action_name" => $skill_name, "damage_value" => $damage, "new_hp" => $tracker->player_cHP];
@@ -349,7 +373,7 @@ function handle_evasions($block_rate, $dodge_rate, $damage_set, $bypass1 = false
     return $damage_set;
 }
 
-function take_combat_damage($player, &$tracker, $damage_set, $element, $bypass_immortal = false, $no_trigger = false) {
+function take_combat_damage($player, &$tracker, $damage_set, $element, $magnitude, $bypass_immortal = false, $no_trigger = false) {
     global $element_status_list;
     $damage = rand($damage_set[0], $damage_set[1]);
     // Elemental resistance
@@ -365,6 +389,9 @@ function take_combat_damage($player, &$tracker, $damage_set, $element, $bypass_i
         }
     }
     $damage -= $damage * $resist;
+    if ($magnitude > 0) {
+        $damage *= ((1 + $magnitude) ^ 2);
+    } 
     $damage = (int) ($damage - ($damage * $player->damage_mitigation * 0.01));
     $tracker->player_cHP -= $damage;
     if ($tracker->player_cHP > 0) {
@@ -700,7 +727,7 @@ function handle_rewards($player_profile, $boss_profile, $combat_tracker, $gauntl
         $player_profile->player_exp -= get_max_exp($player_profile->player_level);
         $player_profile->player_level++;
         $level_increase++;
-        $lvl_msg = "[Level +" . $level_increase . "]";
+        $lvl_msg = " [Level +" . $level_increase . "]";
     }
     // Update Data
     $player_profile->update_player_data();
