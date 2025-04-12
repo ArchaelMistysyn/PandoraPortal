@@ -184,6 +184,7 @@
             $battleContainerHTML .= '<div class="battle-button-placeholder battle-button-special"></div>';
         $battleContainerHTML .= '</div>';
         $battleContainerHTML .= '<div id="battle-screen">';
+            $battleContainerHTML .= '<div id="battle-screen-bg"></div>';
             $battleContainerHTML .= '<div id="action-box">';
                 $battleContainerHTML .= '<div id="action-box-name"></div><div id="action-box-value"></div><div id="action-box-image"></div>';
                 $battleContainerHTML .= '<div id="action-box-menu"></div>';
@@ -193,7 +194,9 @@
                 $battleContainerHTML .= '<div class="style-line"></div>';
                 $battleContainerHTML .= '<div id="log-top">';
                     $battleContainerHTML .= '<div id="log-boss-hp"></div>';
+                    $battleContainerHTML .= '<div id="log-boss-details"></div>';
                     $battleContainerHTML .= '<div id="log-boss-status"></div>';
+                    $battleContainerHTML .= '<div id="weakness-tag"><u>Weakness Types</u></div>';
                     $battleContainerHTML .= '<div id="log-boss-weakness"></div>';
                 $battleContainerHTML .= '</div>';
                 $battleContainerHTML .= '<div class="style-line"></div>';

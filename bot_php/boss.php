@@ -41,9 +41,7 @@ foreach ($tarot_data as $entry) {
     $boss_type = $entry["type"];
     $boss_tier = $entry["tier"];
     $boss_name = $entry["Numeral"] . " - " . $entry["Name"];
-    if (isset($all_names_dict[$boss_type][$boss_tier - 1])) {
-        $all_names_dict[$boss_type][$boss_tier - 1][] = $boss_name;
-    }
+    $all_names_dict[$boss_type][$boss_tier - 1][] = $boss_name;
 }
 
 class CurrentBoss {
@@ -100,7 +98,7 @@ class CurrentBoss {
             case "Arbiter":
             case "Incarnate":
                 $boss_numeral = explode(" ", $this->boss_name)[0];
-                $this->boss_image = "{$web_url_base}Tarot/{$boss_numeral}/{$boss_numeral}_8.png";
+                $this->boss_image = "{$web_url_base}gallery/Tarot/{$this->boss_type}/{$this->boss_name}.webp";
                 break;
             case "Demon":
                 $this->boss_image = "{$web_url_base}gallery/Tarot/Paragon/XV - Diabla, The Primordial.webp";

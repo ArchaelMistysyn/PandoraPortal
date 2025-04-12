@@ -1,4 +1,5 @@
 const battleScreen = document.getElementById("battle-screen");
+const battleScreenBg = document.getElementById("battle-screen-bg");
 const battleCover = document.getElementById("battle-cover");
 const battleMenu = document.getElementById("battle-menu");
 const actionBox = document.getElementById("action-box");
@@ -14,6 +15,7 @@ const logBossHeader = document.getElementById("log-boss-header");
 const logBossName = document.getElementById("log-boss-name");
 const logBossHp = document.getElementById("log-boss-hp");
 const logBossLvl = document.getElementById("log-boss-lvl");
+const logBossDetails = document.getElementById("log-boss-details");
 const logBossWeaknesses = document.getElementById("log-boss-weakness");
 const logCycles = document.getElementById("log-cycles");
 const logDps = document.getElementById("log-dps");
@@ -131,7 +133,7 @@ function triggerBattle(callType) {
     .then(response => response.json())
     .then(data => {
         if (data.success) {
-            battleScreen.style.backgroundImage = `url("${data.boss_image}")`; // Improve loading, and display cropped vers where needed.
+            battleScreenBg.style.backgroundImage = `url("${data.boss_image}")`; // Improve loading, and display cropped vers where needed.
             let currentHP = numberConversion(data.boss['boss_cHP']);
             let maxHP = numberConversion(data.boss['boss_mHP']);
             logBossHp.innerText = currentHP + ' / ' + maxHP;
@@ -139,12 +141,12 @@ function triggerBattle(callType) {
             battleDetailBox.classList.add("detail-box-tier-" + data.boss['boss_tier']);
             battleDetailBox.style.display = "flex";
             battleMenu.style.display = "none";
-            battleTracker.max = numberConversion(data.boss['boss_mHP']);
+            battleTracker.max = data.boss['boss_mHP'];
             battleTracker.current = data.boss['boss_mHP'];
             battleTracker.player_cHP = data.player['player_mHP'];
             battleTracker.player_mHP = data.player['player_mHP'];
             battleTracker.recovery = data.player['recovery'];
-            logBossHp.innerText = numberConversion(battleTracker.current) + ' / ' + battleTracker.max;
+            logBossHp.innerText = numberConversion(battleTracker.current) + ' / ' + numberConversion(battleTracker.max);
             assignWeakness(data);
             updateBattleLog(data);
             runBoss(data);
@@ -256,20 +258,23 @@ function animateCycleActions(bossData) {
         // Boss Actions
         bossActions.forEach((row, index) => {
             setTimeout(() => {
-                animation_box(`action-entry ${row.action_type}`, row.action_name, `action-entry ${row.action_type}`, numberConversion(row.damage_value));
                 if (row.action_type =="boss_regen"){
-                    battleTracker.current += row.damage_value;
+                    battleTracker.current = BigInt(battleTracker.current) + BigInt(row.damage_value);
                     if(battleTracker.current >= battleTracker.max) {
                         battleTracker.current = battleTracker.max;
+                    } else {
+                        animation_box(`action-entry ${row.action_type}`, row.action_name, `action-entry ${row.action_type}`, numberConversion(row.damage_value));
+                        updateBattleLog(bossData, row);
                     }
                 } else {
+                    animation_box(`action-entry ${row.action_type}`, row.action_name, `action-entry ${row.action_type}`, numberConversion(row.damage_value));
                     battleTracker.player_cHP -= row.damage_value;
                     if (battleTracker.player_cHP <= 0) {
-                        // add proper recovery and immortality checks here.
-                        battleTracker.player_cHP = 0;
+                        battleTracker.player_cHP = row.new_hp;
+                        battleScreenBg.classList.add("screen-grayscale");
                     }
+                    updateBattleLog(bossData, row);
                 }
-                updateBattleLog(bossData, row);
             }, (1 + index) * bossInterval);
         });
     }
@@ -282,6 +287,7 @@ function animateCycleActions(bossData) {
                 battleTracker.current = (BigInt(battleTracker.current) - BigInt(row.damage_value));
                 if (battleTracker.current <= 0) {
                     battleTracker.current = 0;
+                    battleScreenBg.classList.add("screen-grayscale");
                 }
             } else {
                 battleTracker.player_cHP = battleTracker.player_cHP + row.damage_value;
@@ -299,7 +305,6 @@ function animateCycleActions(bossData) {
         if (bossData.battle_status !== 'continue' && (battleTracker.current <= 0 || bossData.combat_tracker['player_cHP'] <= 0)) {
             continue_status = false;
             battleDetailBox.style.display = "none";
-            battleCover.classList.add("screen-grayscale");
             if (bossData.battle_status === "player_dead") {
                 battle_menu_box('final-entry-title', 'red', bossData.boss['boss_name'], "Defeat!");
             } else if (bossData.battle_status === "boss_dead") {
@@ -313,8 +318,8 @@ function animateCycleActions(bossData) {
 }
 
 function reset_boss(){
-    battleScreen.style.backgroundImage = "";
-    battleCover.classList.remove("screen-grayscale");
+    battleScreenBg.style.backgroundImage = "";
+    battleScreenBg.classList.remove("screen-grayscale");
     battleMenu.style.display = "flex";
     actionBox.style.display = "none";
     actionBox.style.backgroundColor = "";
@@ -323,7 +328,6 @@ function reset_boss(){
 }
 
 function battle_menu_box(title_class, button_class, menu_title, menu_text, reward = null){
-    battleCover.classList.add("screen-grayscale");
     actionBox.style.backgroundColor = "rgba(0, 0, 0, 0.9)";
     actionBox.style.left = "50%";
     actionBox.style.top = "50%";
@@ -378,10 +382,12 @@ function updateBattleLog(data, row = null) {
     if (row == null) {
         logActions.innerText = "";
     }
-    // add magnitude?
+    // ADD HP BAR LATER
+    // add magnitude & tier
     logBossName.innerText = data.boss['boss_name'];
     logBossLvl.innerText = " Lv" + data.boss['boss_level'];
-    logBossHp.innerText = "HP: " + numberConversion(battleTracker.current) + ' / ' + battleTracker.max;
+    logBossDetails.innerText = "Danger Class: T" + data.boss['boss_tier'] + '-M' + data.boss['magnitude'];
+    logBossHp.innerText = "HP: " + numberConversion(battleTracker.current) + ' / ' + numberConversion(battleTracker.max);
     logCycles.innerText = `Cycle Count: ${data.combat_tracker?.total_cycles ?? "0"}`;
     let total_dps = 0;
     if (data.combat_tracker?.total_dps) {
@@ -402,7 +408,7 @@ function updateBattleLog(data, row = null) {
 }
 
 function assignWeakness(data){
-    logBossWeaknesses.innerHTML = "Weakness: ";
+    logBossWeaknesses.innerHTML = "";
     // Type (class-based) weaknesses
     const typeNames = ["Knight", "Ranger", "Assassin", "Mage", "Weaver", "Rider", "Summoner"];
     data.boss?.boss_typeweak?.forEach((val, i) => {
