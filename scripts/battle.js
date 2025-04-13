@@ -132,6 +132,13 @@ function initializeBattleTracker(player, boss) {
         boss_status: ''
     };
 }
+function initializeBattleDetails(boss) {
+    battleScreen.style.display = "flex";
+    battleDetailBox.classList.add("detail-box-tier-" + boss['boss_tier']);
+}
+function loadBossImage(boss){
+    battleScreenBg.style.backgroundImage = `url("${boss.boss_image}")`;
+}
 
 function triggerBattle(callType) {
     const magnitude = parseInt(magnitudeSlider.value);
@@ -144,10 +151,9 @@ function triggerBattle(callType) {
     .then(response => response.json())
     .then(data => {
         if (data.success) {
-            battleScreenBg.style.backgroundImage = `url("${data.boss_image}")`; // Improve loading, and display cropped vers where needed.
+            loadBossImage(data.boss);
             logBossHp.innerText = numberConversion(data.boss['boss_cHP']) + ' / ' + numberConversion(data.boss['boss_mHP']);
-            battleScreen.style.display = "flex";
-            battleDetailBox.classList.add("detail-box-tier-" + data.boss['boss_tier']);
+            initializeBattleDetails(data.boss);
             battleDetailBox.style.display = "flex";
             battleMenu.style.display = "none";
             initializeBattleTracker(data.player, data.boss);
@@ -239,6 +245,8 @@ function triggerCycle(bossData) {
     .then(data => {
         if (data.success) {
             if (!battleTracker) {
+                loadBossImage(data.boss);
+                initializeBattleDetails(data.boss);
                 initializeBattleTracker(data.player, data.boss);
             }
            return animateCycleActions(data);
@@ -276,7 +284,7 @@ function animateCycleActions(bossData) {
                     }
                 } else {
                     animation_box(`action-entry ${row.action_type}`, row.action_name, `action-entry ${row.action_type}`, numberConversion(row.damage_value));
-                    battleTracker.player_cHP -= row.damage_value;
+                    battleTracker.player_cHP = BigInt(battleTracker.player_cHP) - BigInt(row.damage_value);
                     if (battleTracker.player_cHP <= 0) {
                         battleTracker.player_cHP = row.new_hp;
                         battleScreenBg.classList.add("screen-grayscale");
