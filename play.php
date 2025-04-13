@@ -173,12 +173,12 @@
             $battleContainerHTML .= '<div class="battle-button-locked battle-button-solo" data-echelon="9" data-type="Arbiter">Locked</div>';
             $battleContainerHTML .= '<div class="battle-button-locked battle-button-solo" data-quest="48" data-type="Summon3">Locked</div>';
             // Special Modes Buttons
-            $battleContainerHTML .= '<div class="battle-button-locked battle-button-special" data-echelon="1" data-type="Arena">Locked</div>';
+            // $battleContainerHTML .= '<div class="battle-button-locked battle-button-special" data-echelon="1" data-type="Arena">Locked</div>';
             $battleContainerHTML .= '<div class="battle-button-locked battle-button-special" data-quest="49" data-type="Palace1">Locked</div>';
             $battleContainerHTML .= '<div class="battle-button-locked battle-button-special" data-quest="50" data-type="Palace2">Locked</div>';
             $battleContainerHTML .= '<div class="battle-button-locked battle-button-special" data-level="200" data-type="Palace3">Locked</div>';
             $battleContainerHTML .= '<div class="battle-button-locked battle-button-special" data-quest="36" data-type="Gauntlet">Locked</div>';
-            $battleContainerHTML .= '<div class="battle-button-locked battle-button-special" data-echelon="5" data-type="Ruler">Locked</div>';
+            // $battleContainerHTML .= '<div class="battle-button-locked battle-button-special" data-echelon="5" data-type="Ruler">Locked</div>';
             $battleContainerHTML .= '<div class="battle-button-placeholder battle-button-special"></div>';
             $battleContainerHTML .= '<div class="battle-button-placeholder battle-button-special"></div>';
             $battleContainerHTML .= '<div class="battle-button-placeholder battle-button-special"></div>';

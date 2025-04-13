@@ -122,6 +122,17 @@ function confirmBattle(callType) {
 }
 
 let battleTracker = { current: 0n, max: 0n, player_cHP: 0n, player_mHP: 0n , recovery: 0n, boss_status: ''};
+function initializeBattleTracker(player, boss) {
+    battleTracker = {
+        max: boss.boss_mHP,
+        current: boss.boss_mHP,
+        player_cHP: player.player_mHP,
+        player_mHP: player.player_mHP,
+        recovery: player.recovery,
+        boss_status: ''
+    };
+}
+
 function triggerBattle(callType) {
     const magnitude = parseInt(magnitudeSlider.value);
     blockingScreen.style.display = "flex";
@@ -134,18 +145,12 @@ function triggerBattle(callType) {
     .then(data => {
         if (data.success) {
             battleScreenBg.style.backgroundImage = `url("${data.boss_image}")`; // Improve loading, and display cropped vers where needed.
-            let currentHP = numberConversion(data.boss['boss_cHP']);
-            let maxHP = numberConversion(data.boss['boss_mHP']);
-            logBossHp.innerText = currentHP + ' / ' + maxHP;
+            logBossHp.innerText = numberConversion(data.boss['boss_cHP']) + ' / ' + numberConversion(data.boss['boss_mHP']);
             battleScreen.style.display = "flex";
             battleDetailBox.classList.add("detail-box-tier-" + data.boss['boss_tier']);
             battleDetailBox.style.display = "flex";
             battleMenu.style.display = "none";
-            battleTracker.max = data.boss['boss_mHP'];
-            battleTracker.current = data.boss['boss_mHP'];
-            battleTracker.player_cHP = data.player['player_mHP'];
-            battleTracker.player_mHP = data.player['player_mHP'];
-            battleTracker.recovery = data.player['recovery'];
+            initializeBattleTracker(data.player, data.boss);
             logBossHp.innerText = numberConversion(battleTracker.current) + ' / ' + numberConversion(battleTracker.max);
             assignWeakness(data);
             updateBattleLog(data);
@@ -233,6 +238,9 @@ function triggerCycle(bossData) {
     .then(response => response.json())
     .then(data => {
         if (data.success) {
+            if (!battleTracker) {
+                initializeBattleTracker(data.player, data.boss);
+            }
            return animateCycleActions(data);
         } else {
             alert("Cycle failed: " + data.message);
@@ -301,16 +309,25 @@ function animateCycleActions(bossData) {
     setTimeout(() => {
         // update status for the next cycle.
         battleTracker.boss_status = bossData.combat_tracker['boss_stun_status'];
-        // Handle Death fix later.
         if (bossData.battle_status !== 'continue' && (battleTracker.current <= 0 || bossData.combat_tracker['player_cHP'] <= 0)) {
-            continue_status = false;
-            battleDetailBox.style.display = "none";
             if (bossData.battle_status === "player_dead") {
+                continue_status = false;
+                battleDetailBox.style.display = "none";
                 battle_menu_box('final-entry-title', 'red', bossData.boss['boss_name'], "Defeat!");
+                return;
             } else if (bossData.battle_status === "boss_dead") {
-                battle_menu_box('final-entry-title', 'green', bossData.boss['boss_name'], "Defeat!", bossData.reward_data);
+                if (bossData.mode === "Gauntlet" && bossData.boss_tier < 6) {
+                    battleTracker = null;
+                    battleScreenBg.style.backgroundImage = "";
+                    battleScreenBg.classList.remove("screen-grayscale");
+                } else {
+                    continue_status = false;
+                    battleDetailBox.style.display = "none";
+                    battle_menu_box('final-entry-title', 'green', bossData.boss['boss_name'], "Defeat!", bossData.reward_data);
+                    return;
+                }
+                
             }
-            return;
         }
         continue_status = true;
         return;
