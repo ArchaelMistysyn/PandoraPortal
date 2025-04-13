@@ -292,13 +292,13 @@ function animateCycleActions(bossData) {
             animation_box(`action-entry ${row.action_type}`, row.action_name, `action-entry ${row.action_type}`, numberConversion(row.damage_value));
             // Player regen
             if (row.action_type != "player_regen"){
-                battleTracker.current = (BigInt(battleTracker.current) - BigInt(row.damage_value));
+                battleTracker.current = BigInt(battleTracker.current) - BigInt(row.damage_value);
                 if (battleTracker.current <= 0) {
                     battleTracker.current = 0;
                     battleScreenBg.classList.add("screen-grayscale");
                 }
             } else {
-                battleTracker.player_cHP = battleTracker.player_cHP + row.damage_value;
+                battleTracker.player_cHP = BigInt(battleTracker.player_cHP) + BigInt(row.damage_value);
                 if (battleTracker.player_cHP > battleTracker.player_mHP) {
                     battleTracker.player_cHP = battleTracker.player_mHP;
                 }
@@ -316,7 +316,7 @@ function animateCycleActions(bossData) {
                 battle_menu_box('final-entry-title', 'red', bossData.boss['boss_name'], "Defeat!");
                 return;
             } else if (bossData.battle_status === "boss_dead") {
-                if (bossData.mode === "Gauntlet" && bossData.boss_tier < 6) {
+                if (bossData.boss['mode'] === "Gauntlet" && bossData.boss['boss_tier'] < 6) {
                     battleTracker = null;
                     battleScreenBg.style.backgroundImage = "";
                     battleScreenBg.classList.remove("screen-grayscale");
