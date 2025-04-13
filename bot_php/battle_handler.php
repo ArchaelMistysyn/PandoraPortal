@@ -182,7 +182,7 @@ function run_boss($boss_calltype, $magnitude) {
     $boss_profile->curse_debuffs = $player_profile->elemental_curse;
     $boss_row = $boss_profile->setBoss($verified_player_id);
     $response = $player_profile
-        ? ["success" => true, "player" => $player_profile, "boss" => $boss_profile, "boss_image" => $boss_profile->boss_image, "encounter_id" => $boss_row['encounter_id']]
+        ? ["success" => true, "player" => $player_profile, "boss" => $boss_profile, "encounter_id" => $boss_row['encounter_id']]
         : ["success" => false, "message" => "Player not found"];
     return $response;
 }
@@ -228,10 +228,11 @@ function process_cycle($boss_row, $encounter_id) {
         $boss_profile = makeBoss($verified_player_id, getGauntletType($new_tier), $new_tier, $player_profile->player_level, $load_boss->magnitude, "Gauntlet");
         $boss_profile->curse_debuffs = $player_profile->elemental_curse;
         update_boss_details($boss_profile, null, $encounter_id);
+        $combat_tracker = get_combat_tracker($player_profile, $boss_row, true);
     } else {
         $boss_profile = $load_boss;
+        $combat_tracker = get_combat_tracker($player_profile, $boss_row, false);
     }
-    $combat_tracker = get_combat_tracker($player_profile, $boss_row);
     $combat_tracker->total_cycles++;
     $action_rows = handle_boss_actions($player_profile, $boss_profile, $combat_tracker);
     if ($combat_tracker->player_cHP <= 0 && $combat_tracker->stun_status !== "stunned") {
@@ -272,9 +273,9 @@ function process_cycle($boss_row, $encounter_id) {
     return [$action_rows, $combat_tracker, $battle_status, $player_profile, $boss_profile, $reward_data];
 }
 
-function get_combat_tracker($player, $boss_row) {
+function get_combat_tracker($player, $boss_row, $reset_tracker = false) {
     $tracker = new CombatTracker();
-    if ($boss_row['combat_tracker'] === '') {
+    if ($boss_row['combat_tracker'] === '' || $reset_tracker) {
         $tracker->player_cHP = $player->player_mHP;
         $tracker->current_mana = $player->start_mana;
         $tracker->mana_limit = $player->mana_limit;
