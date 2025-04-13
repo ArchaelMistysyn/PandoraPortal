@@ -227,7 +227,7 @@ function process_cycle($boss_row, $encounter_id) {
         $new_tier = $load_boss->boss_tier + 1;
         $boss_profile = makeBoss($verified_player_id, getGauntletType($new_tier), $new_tier, $player_profile->player_level, $load_boss->magnitude, "Gauntlet");
         $boss_profile->curse_debuffs = $player_profile->elemental_curse;
-        update_boss_details($boss_profile, null, $encounter_id);
+        update_boss_details($boss_profile, null, $encounter_id, true);
         $combat_tracker = get_combat_tracker($player_profile, $boss_row, true);
     } else {
         $boss_profile = $load_boss;
@@ -304,7 +304,7 @@ function get_combat_tracker($player, $boss_row, $reset_tracker = false) {
     return $tracker;
 }
 
-function update_boss_details($boss, $tracker, $encounter_id) {
+function update_boss_details($boss, $tracker, $encounter_id, $full_update = false) {
     $tracker_data = '';
     if ($tracker){
         $tracker_data = implode(';', [
@@ -332,6 +332,13 @@ function update_boss_details($boss, $tracker, $encounter_id) {
     $query = "UPDATE OnlineBosses 
               SET boss_data = '$updated_boss_data', combat_tracker = '$tracker_data', time_stamp = '$now' 
               WHERE encounter_id = $encounter_id";
+    if ($full_update) {
+        $updated_boss_info = $boss->boss_name . ";" . $boss->boss_image . ";" . $boss->boss_type_num . ";" . $boss->magnitude . ";" . $boss->mode;
+        $updated_boss_weakness = implode(";", $boss->boss_typeweak) . "/" . implode(";", $boss->boss_eleweak) . "/" . implode(";", $boss->curse_debuffs);
+        $query = "UPDATE OnlineBosses 
+                SET boss_info = '$updated_boss_info', boss_data = '$updated_boss_data', combat_tracker = '$tracker_data', time_stamp = '$now', boss_weakness = '$updated_boss_weakness'
+                WHERE encounter_id = $encounter_id";
+        }
     run_query($query, false);
 }
 

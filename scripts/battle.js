@@ -137,7 +137,12 @@ function initializeBattleDetails(boss) {
     battleDetailBox.classList.add("detail-box-tier-" + boss['boss_tier']);
 }
 function loadBossImage(boss){
-    battleScreenBg.style.backgroundImage = `url("${boss.boss_image}")`;
+    const img = new Image();
+    img.onload = () => {
+        battleScreenBg.style.backgroundImage = `url("${boss.boss_image}")`;
+        battleScreenBg.classList.remove("bg-hidden");
+    };
+    img.src = boss.boss_image;
 }
 
 function triggerBattle(callType) {
@@ -327,6 +332,7 @@ function animateCycleActions(bossData) {
                 if (bossData.boss['mode'] === "Gauntlet" && bossData.boss['boss_tier'] < 6) {
                     battleTracker = null;
                     battleScreenBg.style.backgroundImage = "";
+                    battleScreenBg.classList.add("bg-hidden");
                     battleScreenBg.classList.remove("screen-grayscale");
                 } else {
                     continue_status = false;
@@ -345,6 +351,7 @@ function animateCycleActions(bossData) {
 function reset_boss(){
     battleScreenBg.style.backgroundImage = "";
     battleScreenBg.classList.remove("screen-grayscale");
+    battleScreenBg.classList.add("bg-hidden");
     battleMenu.style.display = "flex";
     actionBox.style.display = "none";
     actionBox.style.backgroundColor = "";
