@@ -114,6 +114,7 @@ class CombatTracker {
     public int $time_lock = 0;
     public string $time_damage = '0.0';
     public float $bleed_tracker = 0.0;
+    public string $mode = '';
 }
 
 function run_boss($boss_calltype, $magnitude) {
@@ -140,9 +141,9 @@ function run_boss($boss_calltype, $magnitude) {
         run_query($query, false);
     }
     // Normalize boss type
+    $mode = '';
     switch ($boss_calltype) {
         case "Any":
-        case "Gauntlet":
             $max_spawn_index = 0;
             foreach ($spawn_dict as $key => $value) {
                 if ($key <= $player_profile->player_echelon && $value > $max_spawn_index) {
@@ -150,6 +151,10 @@ function run_boss($boss_calltype, $magnitude) {
                 }
             }
             $boss_type = $boss_list[rand(0, $max_spawn_index)];
+            break;
+        case "Gauntlet":
+            $boss_type = getGauntletType(1);
+            $mode = $boss_calltype;
             break;
         case "Palace1":
         case "Palace2":
@@ -173,13 +178,18 @@ function run_boss($boss_calltype, $magnitude) {
     if ($boss_tier == 0) {
         $boss_tier = getBossTier($boss_type);
     }
-    $boss_profile = makeBoss($verified_player_id, $boss_type, $boss_tier, $boss_level, $magnitude);
+    $boss_profile = makeBoss($verified_player_id, $boss_type, $boss_tier, $boss_level, $magnitude, $mode);
     $boss_profile->curse_debuffs = $player_profile->elemental_curse;
     $boss_row = $boss_profile->setBoss($verified_player_id);
     $response = $player_profile
         ? ["success" => true, "player" => $player_profile, "boss" => $boss_profile, "boss_image" => $boss_profile->boss_image, "encounter_id" => $boss_row['encounter_id']]
         : ["success" => false, "message" => "Player not found"];
     return $response;
+}
+
+function getGauntletType($tier) {
+    $pool = ($tier < 4) ? ["Fortress", "Dragon", "Demon", "Paragon"] : ["Paragon", "Arbiter"];
+    return $pool[array_rand($pool)];
 }
 
 function run_cycle($encounter_id) {
@@ -200,7 +210,7 @@ function run_cycle($encounter_id) {
         return ["success" => false, "message" => "Cycle time error intercept."];
     }
     $raw_cycle_data = process_cycle($boss_row, $encounter_id);
-    if ($raw_cycle_data[2] != "continue") {
+    if ($raw_cycle_data[2] != "continue" && !($raw_cycle_data[4]->mode === "Gauntlet" && $raw_cycle_data[4]->boss_tier < 6)) {
         clear_boss($verified_player_id);
     }
     return ["success" => true, "cycle_data" => $raw_cycle_data[0], "combat_tracker" => $raw_cycle_data[1], 
@@ -210,9 +220,17 @@ function run_cycle($encounter_id) {
 function process_cycle($boss_row, $encounter_id) {
     global $verified_player_id;
     $battle_status = "continue";
-    $boss_profile = build_boss_from_row($boss_row);
     $player_profile = get_player_by_id($verified_player_id);
     $player_profile->get_player_multipliers();
+    $load_boss = build_boss_from_row($boss_row);
+    if (big_cmp($load_boss->boss_cHP, '0') <= 0) {
+        $new_tier = $load_boss->boss_tier + 1;
+        $boss_profile = makeBoss($verified_player_id, getGauntletType($new_tier), $new_tier, $player_profile->player_level, $load_boss->magnitude, "Gauntlet");
+        $boss_profile->curse_debuffs = $player_profile->elemental_curse;
+        update_boss_details($boss_profile, null, $encounter_id);
+    } else {
+        $boss_profile = $load_boss;
+    }
     $combat_tracker = get_combat_tracker($player_profile, $boss_row);
     $combat_tracker->total_cycles++;
     $action_rows = handle_boss_actions($player_profile, $boss_profile, $combat_tracker);
@@ -246,8 +264,9 @@ function process_cycle($boss_row, $encounter_id) {
     }    
     $combat_tracker->total_dps = big_add($combat_tracker->total_dps, $total_damage);
     $reward_data = '';
-    if ($battle_status == "boss_dead") {
-        $reward_data = handle_rewards($player_profile, $boss_profile, $combat_tracker);
+    $is_gauntlet = $boss_profile->mode === "Gauntlet";
+    if ($battle_status == "boss_dead" && (!$is_gauntlet || $boss_profile->boss_tier >= 6)) {
+        $reward_data = handle_rewards($player_profile, $boss_profile, $combat_tracker, $is_gauntlet);
     }
     update_boss_details($boss_profile, $combat_tracker, $encounter_id);
     return [$action_rows, $combat_tracker, $battle_status, $player_profile, $boss_profile, $reward_data];
@@ -279,31 +298,34 @@ function get_combat_tracker($player, $boss_row) {
         $tracker->solar_stacks = (int) $values[13];
         $tracker->time_lock = (int) $values[14];
         $tracker->time_damage = (string) $values[15];
-        $tracker->bleed_tracker = (float) $values[16];    
+        $tracker->bleed_tracker = (float) $values[16]; 
     }
     return $tracker;
 }
 
 function update_boss_details($boss, $tracker, $encounter_id) {
-    $tracker_data = implode(';', [
-        $tracker->player_cHP,
-        $tracker->current_mana,
-        $tracker->mana_limit,
-        $tracker->charges,
-        $tracker->remaining_hits,
-        $tracker->total_dps,
-        $tracker->highest_damage,
-        $tracker->recovery,
-        $tracker->hp_regen,
-        $tracker->total_cycles,
-        $tracker->stun_cycles,
-        $tracker->stun_status,
-        $tracker->boss_stun_status,
-        $tracker->solar_stacks,
-        $tracker->time_lock,
-        $tracker->time_damage,
-        $tracker->bleed_tracker
-    ]);
+    $tracker_data = '';
+    if ($tracker){
+        $tracker_data = implode(';', [
+            $tracker->player_cHP,
+            $tracker->current_mana,
+            $tracker->mana_limit,
+            $tracker->charges,
+            $tracker->remaining_hits,
+            $tracker->total_dps,
+            $tracker->highest_damage,
+            $tracker->recovery,
+            $tracker->hp_regen,
+            $tracker->total_cycles,
+            $tracker->stun_cycles,
+            $tracker->stun_status,
+            $tracker->boss_stun_status,
+            $tracker->solar_stacks,
+            $tracker->time_lock,
+            $tracker->time_damage,
+            $tracker->bleed_tracker
+        ]);
+    }
     $updated_boss_data = "{$boss->boss_level};{$boss->boss_tier};{$boss->boss_cHP};{$boss->boss_mHP};{$boss->boss_element};{$boss->damage_cap}";
     $now = date('Y-m-d H:i:s');
     $query = "UPDATE OnlineBosses 
@@ -685,7 +707,7 @@ function trigger_flare($player, &$boss, &$tracker) {
         "damage_value" => $str_dmg, "new_hp" => $boss->boss_cHP]];
 }
 
-function handle_rewards($player_profile, $boss_profile, $combat_tracker, $gauntlet=false){
+function handle_rewards($player_profile, $boss_profile, $combat_tracker, $gauntlet = false){
     global $web_url_base, $boss_loot_dict, $verified_player_id;
     // Base Coin & Exp Calcs
     $pact = new Pact($player_profile);

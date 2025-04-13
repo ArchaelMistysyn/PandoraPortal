@@ -63,6 +63,7 @@ class CurrentBoss {
     public int $stun_cycles = 0;
     public string $stun_status = "";
     public string $boss_thumbnail = "";
+    public string $mode = '';
 
     public function __construct() {
         $this->boss_typeweak = array_fill(0, 7, 0);
@@ -128,7 +129,7 @@ class CurrentBoss {
     public function setBoss($player_id) {
         $clear_query = "DELETE FROM OnlineBosses WHERE player_id = " . intval($player_id);
         run_query($clear_query, false);
-        $boss_info = $this->boss_name . ";" . $this->boss_image . ";" . $this->boss_type_num . ";" . $this->magnitude;
+        $boss_info = $this->boss_name . ";" . $this->boss_image . ";" . $this->boss_type_num . ";" . $this->magnitude . ";" . $this->mode;
         $boss_data = $this->boss_level . ";" . $this->boss_tier . ";" . $this->boss_cHP . ";" . $this->boss_mHP . ";";
         $boss_data .=  $this->boss_element . ";" . $this->damage_cap;
         $boss_weakness = implode(";", $this->boss_typeweak) . "/" . implode(";", $this->boss_eleweak) . "/" . implode(";", $this->curse_debuffs);
@@ -141,7 +142,7 @@ class CurrentBoss {
     }
 }
 
-function makeBoss($player_id, $boss_type, $boss_tier, $boss_level, $magnitude = 0) {
+function makeBoss($player_id, $boss_type, $boss_tier, $boss_level, $magnitude = 0, $mode = '') {
     global $boss_list;
     if ($boss_type === "Ruler") {
     } elseif ($boss_tier == 7) {
@@ -169,6 +170,7 @@ function makeBoss($player_id, $boss_type, $boss_tier, $boss_level, $magnitude = 
     } elseif ($boss_type === "Incarnate") {
         $boss->damage_cap = '-1';
     }
+    $boss->mode = $mode;
     return $boss;
 }
 
@@ -212,7 +214,7 @@ function weightedRandomChoice($values, $weights) {
 function build_boss_from_row($row) {
     global $boss_list;
     $boss = new CurrentBoss();
-    list($boss->boss_name, $boss->boss_image, $boss->boss_type_num, $boss->magnitude) = explode(";", $row['boss_info']);
+    list($boss->boss_name, $boss->boss_image, $boss->boss_type_num, $boss->magnitude, $boss->mode) = explode(";", $row['boss_info']);
     list($boss->boss_level, $boss->boss_tier, $boss->boss_cHP, $boss->boss_mHP, $boss->boss_element, $boss->damage_cap) = explode(";", $row['boss_data']);
     $weakness_parts = explode("/", $row['boss_weakness']);
     $boss->boss_typeweak = array_map('intval', explode(";", $weakness_parts[0]));
