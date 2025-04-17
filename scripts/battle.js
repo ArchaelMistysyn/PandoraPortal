@@ -337,7 +337,8 @@ function animateCycleActions(bossData) {
                 } else {
                     continue_status = false;
                     battleDetailBox.style.display = "none";
-                    battle_menu_box('final-entry-title', 'green', bossData.boss['boss_name'], "Defeat!", bossData.reward_data);
+                    battle_menu_box('final-entry-title', 'green', bossData.boss['boss_name'], "Victory!", bossData.reward_data);
+                    showAchievements(bossData.achievement_data);
                     return;
                 }
                 

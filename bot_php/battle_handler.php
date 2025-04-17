@@ -142,6 +142,7 @@ function run_boss($boss_calltype, $magnitude) {
     }
     // Normalize boss type
     $mode = '';
+    $boss_level = $player_profile->player_level;
     switch ($boss_calltype) {
         case "Any":
             $max_spawn_index = 0;
@@ -160,7 +161,7 @@ function run_boss($boss_calltype, $magnitude) {
         case "Palace2":
         case "Palace3":
             $boss_type = "Incarnate";
-            $boss_level = ($boss_type == "Palace1") ? 300 : (($boss_type == "Palace2") ? 600 : 999);
+            $boss_level = ($boss_calltype == "Palace1") ? 300 : (($boss_calltype == "Palace2") ? 600 : 999);
             break;
         case "Summon1":
         case "Summon2":
@@ -173,7 +174,6 @@ function run_boss($boss_calltype, $magnitude) {
             $boss_type = $boss_calltype;
             break;
     }
-    $boss_level = $player_profile->player_level;
     $boss_tier = $boss_tier_dict[$boss_calltype];
     if ($boss_tier == 0) {
         $boss_tier = getBossTier($boss_type);
@@ -213,8 +213,8 @@ function run_cycle($encounter_id) {
     if ($raw_cycle_data[2] != "continue" && !($raw_cycle_data[4]->mode === "Gauntlet" && $raw_cycle_data[4]->boss_tier < 6)) {
         clear_boss($verified_player_id);
     }
-    return ["success" => true, "cycle_data" => $raw_cycle_data[0], "combat_tracker" => $raw_cycle_data[1], 
-        "battle_status" => $raw_cycle_data[2], "player" => $raw_cycle_data[3], "boss" => $raw_cycle_data[4], "reward_data" => $raw_cycle_data[5]];
+    return ["success" => true, "cycle_data" => $raw_cycle_data[0], "combat_tracker" => $raw_cycle_data[1], "battle_status" => $raw_cycle_data[2], 
+    "player" => $raw_cycle_data[3], "boss" => $raw_cycle_data[4], "reward_data" => $raw_cycle_data[5], "achievement_data" => $raw_cycle_data[6]];
 }
 
 function process_cycle($boss_row, $encounter_id) {
@@ -264,13 +264,13 @@ function process_cycle($boss_row, $encounter_id) {
         $action_rows[$i]['damage_value'] = str_strip_decimal($action_rows[$i]['damage_value']);
     }    
     $combat_tracker->total_dps = big_add($combat_tracker->total_dps, $total_damage);
-    $reward_data = '';
+    $reward_data = ['', []];
     $is_gauntlet = $boss_profile->mode === "Gauntlet";
     if ($battle_status == "boss_dead" && (!$is_gauntlet || $boss_profile->boss_tier >= 6)) {
         $reward_data = handle_rewards($player_profile, $boss_profile, $combat_tracker, $is_gauntlet);
     }
     update_boss_details($boss_profile, $combat_tracker, $encounter_id);
-    return [$action_rows, $combat_tracker, $battle_status, $player_profile, $boss_profile, $reward_data];
+    return [$action_rows, $combat_tracker, $battle_status, $player_profile, $boss_profile, $reward_data[0], $reward_data[1]];
 }
 
 function get_combat_tracker($player, $boss_row, $reset_tracker = false) {
@@ -717,6 +717,7 @@ function trigger_flare($player, &$boss, &$tracker) {
 
 function handle_rewards($player_profile, $boss_profile, $combat_tracker, $gauntlet = false){
     global $web_url_base, $boss_loot_dict, $verified_player_id;
+    $achievement_list = [];
     // Base Coin & Exp Calcs
     $pact = new Pact($player_profile);
     $multiplier_bonus = 2; // default multiplier for solo bosses 
@@ -759,6 +760,9 @@ function handle_rewards($player_profile, $boss_profile, $combat_tracker, $gauntl
         $level_increase++;
         $lvl_msg = " [Level +" . $level_increase . "]";
     }
+    if ($level_increase > 0) {
+        handle_achievement($player_profile, "Level", $achievement_list);
+    }   
     // Update Data
     $player_profile->update_player_data();
     // Calculate Table Reward Items
@@ -843,12 +847,13 @@ function handle_rewards($player_profile, $boss_profile, $combat_tracker, $gauntl
     $reward_html .= '</div>';
     foreach ($reward_items as $item_id => $qty) {
         $item = new BasicItem($item_id);
+        handle_achievement($player_profile, "Item", $achievement_list, $item_id);
         $reward_html .= '<div class="reward-row">';
             $reward_html .= '<img src="' . $item->image_link . '" alt="' . $item->item_name . '" class="reward-icon">';
             $reward_html .= '<span class="reward-name"> ' . $item->item_name . ' </span>';
             $reward_html .= '<span class="reward-quantity">' . $qty . 'x</span>';
         $reward_html .= '</div>';
     }
-    return $reward_html;
+    return [$reward_html, $achievement_list];
 }
 ?>

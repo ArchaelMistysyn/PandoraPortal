@@ -939,6 +939,12 @@
 		}
 	}
 	
+	function update_stock($player_id, $item_id, $qty) {
+		$query = "INSERT INTO BasicInventory (player_id, item_id, item_qty)
+				  VALUES ($player_id, '$item_id', $qty)
+				  ON DUPLICATE KEY UPDATE item_qty = item_qty + VALUES(item_qty)";
+		run_query($query, false);
+	}	
 
 	function update_reward_stock($player_id, $reward_items) {
 		if (empty($reward_items)) return;
