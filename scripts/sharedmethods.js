@@ -1,3 +1,5 @@
+bannerScreen = document.getElementById("banner-screen");
+
 function setActiveButton(buttonClass, selectedValue) {
     document.querySelectorAll(buttonClass).forEach(button => {
         if (button.getAttribute("data-value") === selectedValue) {
@@ -54,3 +56,55 @@ function numberConversion(inputNumber) {
     const label = labels[idx + 1] || '';
     return `${result} ${label}`.trim();
 }
+
+function buildAchievementBanner(banner_type, message, title, image_url = null) {
+    const bannerUrls = {
+        "achievement": "https://pandoraportal.ca/botimages/banners/achievement_banner.png",
+        "blank1": "https://pandoraportal.ca/botimages/banners/blank_banner_1.png",
+        "blank2": "https://pandoraportal.ca/botimages/banners/blank_banner_2.png",
+        "blank3": "https://pandoraportal.ca/botimages/banners/blank_banner_3.png"
+    };
+    let banner = document.createElement("div");
+    let titleContent = document.createElement("div");
+    let rowContainer = document.createElement("div");
+    let imgContent = document.createElement("div");
+    let msgContent = document.createElement("div");
+    banner.style.backgroundImage = `url(${bannerUrls[banner_type] || bannerUrls['achievement']})`;
+    banner.classList.add("hideItem");
+    rowContainer.classList.add("row-container");
+    titleContent.classList.add("highlight-text");
+    titleContent.classList.add("achievement-title");
+    imgContent.classList.add("achievement-image");
+    msgContent.classList.add("achievement-text");
+    titleContent.innerText = title;
+    msgContent.innerText = message;
+    if (image_url) {
+        imgContent.style.backgroundImage = `url(${image_url})`;
+    }
+    rowContainer.appendChild(imgContent);
+    rowContainer.appendChild(msgContent);
+    banner.appendChild(titleContent);
+    banner.appendChild(rowContainer);
+    return banner;
+}
+
+function showAchievements(achievement_data) {
+    if (achievement_data.length == 0) {
+        return;
+    }
+    bannerScreen.innerHTML = "";
+    achievement_data.forEach((data, index) => {
+        const { banner_type, message, title, image_url } = data;
+        const banner = buildAchievementBanner(banner_type, message, title, image_url);
+        bannerScreen.appendChild(banner);
+        setTimeout(() => {
+            banner.classList.add("achievement-banner");
+            banner.classList.remove("hideItem");
+        }, index * 1500);
+        setTimeout(() => {
+            banner.classList.add("fade-out");
+            setTimeout(() => banner.remove(), 1000);
+        }, 8000 + index * 1500);
+    });
+}
+

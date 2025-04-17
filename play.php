@@ -248,6 +248,7 @@
     <div id="lightbox-screen"><div id="lightbox-container"><div id="lightbox-display"></div><div id="lightbox-menu"></div></div></div>
     <div id="blocking-screen"></div>
     <div id="interface-screen"></div>
+    <div id="banner-screen"></div>
     <main id="play-main">   
         <div id="main-interface">
             <div id="primary-content">

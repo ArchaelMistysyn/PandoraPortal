@@ -303,6 +303,13 @@
 	$path_names = ["Storms", "Frostfire", "Horizon", "Eclipse", "Stars", "Solar Flux", "Lunar Tides", "Terrestria", "Confluence"];
 	$class_names = ["Knight", "Ranger", "Mage", "Assassin", "Weaver", "Rider", "Summoner"];
 	$scaling_rings = ["Crown of Skulls", "Chromatic Tears"];
+	$ultra_id_list = array_merge(["Skull3", "EssenceXXX"], array_map(function($x) {
+		return "Lotus" . $x;
+	}, range(1, 9)));
+	$uber_id_list = ["Gemstone11", "DarkStar", "LightStar", "Nadir", "Lotus10"];
+	$ultimate_id_list = ["Skull4", "Nephilim", "Sacred", "Ruler", "Salvation", "Pandora", "Lotus11"];
+	$u_rarity_id_list = array_merge($ultra_id_list, $uber_id_list, $ultimate_id_list);
+	
 	
 	// Sovereign Data List
 	$sov_item = [
@@ -343,7 +350,8 @@
 	// Artist Data List
 	$artist_numerals = [
 		"Daerun" => ["III", "VI", "XIV", "XIII", "XXIV"],
-		"Heng Ming Chiun" => ["IV", "XV"],
+		"Heng Ming Chiun" => ["IV", "VIII", "XV", "XVI", "XXII", "XXVI"],
+		"Quan Bui" => ["X", "XI", "XII"],
 		"Alina Arkhipova" => ["XXVIII"]
 	];	
 ?>
