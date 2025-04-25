@@ -135,6 +135,21 @@
         $forgeContainerHTML .= '</div>';
     $forgeContainerHTML .= '</div>';
 
+    // Interfaces - Quest Container
+    $questContainerHTML = '<div id="quest-container" style="display: none;">';
+        $questContainerHTML .= '<div id="quest-left-panel">';
+            $questContainerHTML .= '<div id="quest-box"></div>';
+            $questContainerHTML .= '<div id="quest-button-group">';
+                $questContainerHTML .= '<button id="quest-action-btn-1" class="lightbox-button-gray"></button>';
+                $questContainerHTML .= '<button id="quest-action-btn-2" class="lightbox-button-gray"></button>';
+                $questContainerHTML .= '<button id="quest-action-btn-3" class="lightbox-button-gray"></button>';
+            $questContainerHTML .= '</div>';
+        $questContainerHTML .= '</div>';
+        $questContainerHTML .= '<div id="quest-right-panel">';
+            $questContainerHTML .= '<img id="quest-character-image" src="" alt="Character" />';
+        $questContainerHTML .= '</div>';
+    $questContainerHTML .= '</div>';
+
     // Interfaces - Login
     $login_form = '<div id="login-container">';
         $login_form .= '<div id="login-header">Login Required</div>';
@@ -234,7 +249,7 @@
     $loreContainerHTML .= '</div>';
 
     // Default Containers
-    $containersHTML = $inventoryContainerHTML . $gearContainerHTML . $forgeContainerHTML . $loreContainerHTML . $battleContainerHTML;
+    $containersHTML = $inventoryContainerHTML . $gearContainerHTML . $forgeContainerHTML . $loreContainerHTML . $battleContainerHTML . $questContainerHTML;
 
 ?>
 <head>
@@ -290,6 +305,7 @@
     <script src="./scripts/gear_button.js"></script>
     <script src="./scripts/forge.js"></script>
     <script src="./scripts/battle.js"></script>
+    <script src="./scripts/quest.js"></script>
     <script src="./scripts/lore.js"></script>
     <script src="./scripts/play_buttons.js"></script>
 </body>

@@ -352,7 +352,11 @@
 }
 
 .achievement-title {
-  padding-left: 30px;;
+  margin-left: 60px;
+  font-size: 1.7rem;
+}
+.achievement-title-shifted {
+  margin-left: 180px;
   font-size: 1.7rem;
 }
 
@@ -363,6 +367,13 @@
 }
 
 .achievement-text {
+  font-size: 1.6rem;
+  color: white;
+  text-shadow: 1px 1px 2px black;
+}
+
+.achievement-text-shifted {
+  margin-left: 80px;
   font-size: 1.6rem;
   color: white;
   text-shadow: 1px 1px 2px black;
@@ -871,11 +882,11 @@
   #action-box-menu {
     display: none;
   }
-  .reward-icon {
+  .reward-icon, .quest-icon {
     width: 24px;
     height: 24px;
   }
-  #action-box-value .reward-row {
+  .reward-row{
     display: flex;
     align-items: center;
     justify-content: flex-start;
@@ -1115,6 +1126,77 @@
     padding: 10px;
     margin: 5px 0;
     height: 41px;
+  }
+
+  /* Quest */
+  #quest-container {
+    position: relative;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    gap: 50px;
+    padding: 90px;
+  }
+  
+  #quest-left-panel {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 450px;
+    height: 600px;
+    background-color: #111;
+    border: 1px solid white;
+    padding: 50px 35px;
+    font-size: 1rem;
+  }
+
+  #quest-right-panel {
+    width: 400px;
+    height: 600px;
+    border: 2px solid red; /* temp */
+  }
+
+  #quest-box {
+    height: 500px;
+    width: 100%;
+  }
+
+  #quest-button-group {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+  }
+
+  #quest-action-btn-1, #quest-action-btn-2, #quest-action-btn-3 {
+    height: 45px;
+    width: 120px;
+  }
+
+  #quest-character-image {
+    width: 400px;
+    height: 600px;
+    object-fit: contain;
+    border: 1px solid white;
+  }  
+
+  .quest-title {
+    font-size: 1.8rem;
+    text-align: center;
+  }
+  .quest-giver{
+    font-size: 1.2rem;
+    text-align: center;
+  }
+  .quest-message{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    font-size: 1rem;
+    padding: 0px 20px;
+    gap: 5px;
   }
 
   /* Lore */

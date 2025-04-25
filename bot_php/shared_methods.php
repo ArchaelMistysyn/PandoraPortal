@@ -98,6 +98,7 @@ function number_conversion($input_number) {
 function handle_achievement($player_profile, $type, &$achievement_list, $value = null) {
     global $verified_player_id, $ultimate_id_list, $uber_id_list, $ultra_id_list, $u_rarity_id_list;
     $image = '';
+    $type_map = [];
     $rarity_map = ["Ultimate Rare" => ["banner" => "blank3", "coins" => 50], "Uber Rare" => ["banner" => "blank2", "coins" => 25], 
         "Ultra Rare" => ["banner" => "blank1", "coins" => 5]];
     if ($type === "Item") {
@@ -106,7 +107,19 @@ function handle_achievement($player_profile, $type, &$achievement_list, $value =
         $item = new BasicItem($value);
         $image = $item->image_link;
     }
-    $type_map = [
+    if ($type === "Item") {
+        if (!in_array($value, $u_rarity_id_list)) return;
+        $rarity = in_array($value, $ultimate_id_list) ? "Ultimate Rare" : (in_array($value, $uber_id_list) ? "Uber Rare" : "Ultra Rare");
+        $item = new BasicItem($value);
+        $image = $item->image_link;
+        $type_map["Item"] = [
+            "banner" => $rarity_map[$rarity]['banner'],
+            "coins"  => $rarity_map[$rarity]['coins'],
+            "title"  => $player_profile->player_username . " Obtained: " . $rarity . " Item",
+            "message" => $item->item_name
+        ];
+    }
+    $type_map += [
         "Level" => [
             "banner" => "blank1", "coins"  => 1,
             "title"  => "Congratulations " . $player_profile->player_username, "message" => "Reached Level: " . $player_profile->player_level
@@ -114,7 +127,7 @@ function handle_achievement($player_profile, $type, &$achievement_list, $value =
         "Achievement" => [
             "banner" => "achievement", "coins"  => 20,
             "title"  => $player_profile->player_username . " Unlocked",
-            "message" => (strlen($value) > 24) ? $value : "Achievement: " . $value            
+            "message" => (is_string($value) && strlen($value) > 24) ? $value : "Achievement: " . $value           
         ],
         "Sovereign" => [
             "banner" => "blank2", "coins"  => 10,
@@ -123,15 +136,47 @@ function handle_achievement($player_profile, $type, &$achievement_list, $value =
         "Sacred" => [
             "banner" => "blank3", "coins"  => 100, 
             "title"  => $player_profile->player_username . " Obtained Sacred Item", "message" => $value            
-        ],
-        "Item" => [
-            "banner" => $rarity_map[$rarity]['banner'], "coins"  => $rarity_map[$rarity]['coins'],
-            "title"  => $player_profile->player_username . " Obtained: " . $rarity . " Item", "message" => $item->item_name
         ]
     ];
     $map = $type_map[$type];
     update_stock($verified_player_id, "RoyalCoin", $map["coins"]);
     $achievement_list[] = ["banner_type" => $map['banner'], "message" => $map['message'], "title" => $map['title'], "image_url" => $image];
+}
+
+function calculate_exp_gain($base_amount, $pact_variant, &$msg_out = "") {
+    if ($pact_variant === "Gluttony") {
+        $base_amount *= 2;
+        $msg_out = " [Gluttony Bonus]";
+    } elseif ($pact_variant === "Greed") {
+        $base_amount = (int) round($base_amount / 2);
+        $msg_out = " [Greed Penalty]";
+    }
+    return (int) $base_amount;
+}
+
+function calculate_coin_gain($base_amount, $pact_variant, &$msg_out = "") {
+    if ($pact_variant === "Greed") {
+        $base_amount *= 2;
+        $msg_out = " [Greed Bonus]";
+    } elseif ($pact_variant === "Gluttony") {
+        $base_amount = (int) round($base_amount / 2);
+        $msg_out = " [Gluttony Penalty]";
+    }
+    return (int) $base_amount;
+}
+
+function apply_level_up(&$player_profile) {
+    $max_level = ($player_profile->player_quest > 53) ? 999 : (($player_profile->player_quest > 52) ? 200 : (($player_profile->player_quest > 50) ? 150 : 100));
+    $level_increase = 0;
+    while (
+        $player_profile->player_exp >= get_max_exp($player_profile->player_level) &&
+        $player_profile->player_level < $max_level
+    ) {
+        $player_profile->player_exp -= get_max_exp($player_profile->player_level);
+        $player_profile->player_level++;
+        $level_increase++;
+    }
+    return [$level_increase, $level_increase > 0 ? " [Level +$level_increase]" : ""];
 }
 
 ?>

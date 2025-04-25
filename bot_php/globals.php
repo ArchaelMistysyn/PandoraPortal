@@ -162,13 +162,19 @@
 	];
 
 	
-	// Skill data lists
+	// Data lists
 	$skill_data = json_decode(file_get_contents('./bot_php/skills.json'), true);
 	$ring_skill_data = json_decode(file_get_contents('./bot_php/ring_skill_data.json'), true);
 	$tarot_data = json_decode(file_get_contents('./bot_php/tarot.json'), true);
 	$pact_data = json_decode(file_get_contents('./bot_php/pact_data.json'), true);
 	$path_data = json_decode(file_get_contents('./bot_php/path_data.json'), true);
 	$keyword_data = json_decode(file_get_contents('./bot_php/keyword_data.json'), true);
+	$quest_data = json_decode(file_get_contents('./bot_php/questdata.json'), true);
+	$quest_exceptions = json_decode(file_get_contents('./bot_php/questexceptions.json'), true);
+
+	$tarot_map = [];
+	foreach ($tarot_data as $entry) { $tarot_map[$entry['Name']] = ['type' => $entry['type'], 'numeral' => $entry['Numeral']]; }
+
 	$glyph_data = $path_data['glyph_data'];
 	$path_perks = $path_data['path_perks'];
 	
@@ -346,6 +352,9 @@
 		"Bathyal, Enigmatic Chasm Bauble" => ["Critical", "Fractal", "Temporal", "Hyperbleed", "Combo", "Bloom"],
 		"Pandora's Universe Hammer" => array_merge($element_names, array_slice($path_names, 0, -4), ["Omni"])
 	];
+
+	// Quest
+	$ring_check = ["Twin Rings of Divergent Stars", "Crown of Skulls", "Chromatic Tears"];
 
 	// Artist Data List
 	$artist_numerals = [
