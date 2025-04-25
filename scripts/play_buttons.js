@@ -12,6 +12,7 @@ const blockingScreen = document.getElementById("blocking-screen");
 const loreContainer = document.getElementById("lore-container");
 const loreScreen = document.getElementById("lore-screen");
 const loreMenu = document.getElementById("lore-menu");
+const questContainer = document.getElementById("quest-container");
 const battleContainer = document.getElementById("battle-container");
 const slotTypes = {"W": "Weapon", "A": "Armour", "V": "Greaves", "Y": "Amulet", "R": "Ring", "G": "Wings", "C": "Crest"};
 
@@ -34,8 +35,5 @@ function clearScreens() {
     forgeContainer.style.display = "none";
     loreContainer.style.display = "none";
     battleContainer.style.display = "none";
-}
-
-function onQuest() {
-    clearScreens();
+    questContainer.style.display = "none";
 }

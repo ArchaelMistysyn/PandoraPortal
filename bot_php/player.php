@@ -175,6 +175,7 @@ class PlayerProfile {
 		$query = "UPDATE PlayerList SET";
 		$query .= " player_equipped = '" . implode(';', $this->player_equipped);
 		$query .= "', player_exp = " . intval($this->player_exp);
+		$query .= ", player_quest = " . intval($this->player_quest);
 		$query .= ", player_level = " . intval($this->player_level);
 		$query .= ", player_echelon = " . intval($this->player_echelon);
 		$query .= ", player_coins = " . intval($this->player_coins);
@@ -200,6 +201,12 @@ class PlayerProfile {
             }
         }
     }
+
+	public function update_misc_data() {
+		$query = "UPDATE MiscPlayerData SET oath_data = '" . $this->misc_data['oath_data'] . "', monument_data = '" . $this->misc_data['monument_data'] . "'
+				WHERE player_id = " . intval($this->player_id);
+		run_query($query, false);
+	}	
 	
 	public function display_player($w_item, $gear_score) {
 		global $path_names, $glyph_data, $path_perks;	

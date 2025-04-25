@@ -73,9 +73,14 @@ function buildAchievementBanner(banner_type, message, title, image_url = null) {
     banner.classList.add("hideItem");
     rowContainer.classList.add("row-container");
     titleContent.classList.add("highlight-text");
-    titleContent.classList.add("achievement-title");
+    if (banner_type == "achievement") {
+        titleContent.classList.add("achievement-title-shifted");
+        msgContent.classList.add("achievement-text-shifted");
+    } else {
+        titleContent.classList.add("achievement-title");
+        msgContent.classList.add("achievement-text");
+    }
     imgContent.classList.add("achievement-image");
-    msgContent.classList.add("achievement-text");
     titleContent.innerText = title;
     msgContent.innerText = message;
     if (image_url) {

@@ -25,6 +25,7 @@ $action = isset($input['action']) && $input['action'] !== 'null' ? $input['actio
 $slot_type = isset($input['slot_type']) && $input['slot_type'] !== 'null' ? $input['slot_type'] : null;
 $boss_calltype = isset($input['boss_calltype']) && $input['boss_calltype'] !== 'null' ? $input['boss_calltype'] : null;
 $element = isset($input['element']) && $input['element'] !== 'null' ? $input['element'] : null;
+$quest_choice = isset($input['quest_choice']) && $input['quest_choice'] !== 'null' ? $input['quest_choice'] : null;
 $magnitude = isset($input['magnitude']) && $input['magnitude'] !== 'null' ? $input['magnitude'] : null;
 $encounter_id = isset($input['encounter_id']) && $input['encounter_id'] !== 'null' ? $input['encounter_id'] : null;
 $item_id = isset($input['item_id']) && $input['item_id'] !== 'null' ? $input['item_id'] : null;
@@ -46,6 +47,10 @@ if ($slot_type && !isset($slot_types[$slot_type])){
 }
 if ($element !== null && $element !== '' && (!ctype_digit((string) $element) || $element < 0 || $element > 8)) {
     echo json_encode(["success" => false, "message" => "Invalid element provided: " . $element]);
+    exit();
+}
+if ($quest_choice !== null && $quest_choice !== '' && (!ctype_digit((string) $quest_choice) || $quest_choice < 0 || $quest_choice > 3)) {
+    echo json_encode(["success" => false, "message" => "Invalid quest choice provided: " . $quest_choice]);
     exit();
 }
 if ($magnitude !== null && $magnitude !== '' && (!ctype_digit((string) $magnitude) || $magnitude < 0 || $magnitude > 10)) {
@@ -160,7 +165,19 @@ if (in_array($action, $forge_actions)) {
             } else {
                 $response = getForgeItemDetails($verified_player_id, $slot_type);
             }
-            break;  
+            break; 
+        case "getQuest":
+            $player_profile = get_player_by_id($verified_player_id);
+            if (!$player_profile) { $response = ["success" => false, "message" => "Player not found"]; }
+            $quest_obj = get_current_quest($player_profile);
+            $response = handle_get_quest($player_profile, $quest_obj);
+            break;
+        case "completeQuest":
+            $player_profile = get_player_by_id($verified_player_id);
+            if (!$player_profile) { $response = ["success" => false, "message" => "Player not found"]; }
+            $quest_obj = get_current_quest($player_profile);
+            $response = handle_complete_quest($player_profile, $quest_obj, $quest_choice);
+            break;
         default:
             $response["message"] = "Invalid action";
     }
@@ -433,6 +450,258 @@ function checkUserStock($player_id, $item_ids) {
         }
     }
     return $stock;
+}
+
+class Quest {
+    public int $quest_num;
+    public int $quest_type;
+    public string $quest_title;
+    public string $quest_giver;
+    public string $story_message;
+    public string $html;
+    public $cost;
+    public $token_num;
+    public $item_handin;
+    public string $quest_message;
+    public array $award_items;
+    public $award_role;
+    public string $image;
+    public int $progress;
+    public $quest_options;
+
+    public function __construct(array $data, $oath_index) {
+        global $web_url_base, $tarot_map, $quest_exceptions;
+        $this->quest_num = $data['quest_num'];
+        $this->quest_type = $data['quest_type'];
+        $this->quest_title = $data['quest_title'];
+        $temp_giver = $data['quest_giver'];
+        $this->story_message = $data['story_message'];
+        $this->html = "";
+        $this->cost = $data['cost'];
+        $this->token_num = $data['token_num'];
+        $this->item_handin = $data['item_handin'];
+        $this->quest_message = $data['quest_message'];
+        $this->award_items = $data['award_items'] ?? [];
+        $this->award_role = $data['award_role'];
+        $this->quest_giver = $temp_giver;
+        $temp_giver = str_replace("Echo of ", "", $temp_giver);
+        if ($temp_giver === '[OATH]') {
+            $oath_names = ["Pandora, The Celestial", "Thana, the Death", "Eleuia, the Wish"];
+            $this->quest_giver = $temp_giver = $oath_names[$oath_index];
+        }
+        $tarot_type = $tarot_map[$temp_giver]['type'];
+        $numeral = $tarot_map[$temp_giver]['numeral'];
+        $this->image = $web_url_base . "gallery/Tarot/" . $tarot_type . "/" . $numeral . " - " . $this->quest_giver . ".webp";
+        $this->progress = 0;
+        $this->quest_options = [];
+        // Set Exception Options
+        if (isset($quest_exceptions['quest_options'][$this->quest_num])) {
+            $this->quest_options = $quest_exceptions['quest_options'][$this->quest_num];
+        }
+    }
+
+    public function generate_html() {
+        $this->html  = '<div class="quest-title highlight-text">' . $this->quest_title . '</div>';
+        $this->html .= '<div class="quest-giver">' . $this->quest_giver . '</div>';
+        $this->html .= '<div class="style-line"></div>';
+        $this->html .= '<div class="quest-story">' . nl2br($this->story_message) . '</div>';
+        if ($this->quest_num >= 55) {
+            return;
+        }
+        $this->html .= '<div class="style-line"></div>';
+        $this->html .= '<div class="quest-message">' . $this->quest_message . ": ";
+        if ($this->quest_type === 2 && $this->item_handin) {
+            $item = new BasicItem($this->item_handin);
+            $this->html .= '<img src="' . $item->image_link . '" alt="' . $item->item_name . '" class="quest-icon"> <span class="quest-span">x' . $this->cost . "</span>";
+        } else {
+            $this->html .= $this->progress . " / " . $this->cost;
+        }
+        $this->html .= '</div>';
+    }
+    
+    public function check_conditions($player) {
+        global $verified_player_id, $ring_check;
+        // Special Quest Cases
+        if ($this->quest_num === 20) return ($this->progress = ($player->insignia !== ""));
+        if ($this->quest_num === 21) return ($this->progress = ($player->pact !== ""));
+        if ($this->quest_num === 22) return ($this->progress = ($player->player_equipped[2] != 0));
+        if ($this->quest_num === 28) return ($this->progress = ($player->player_equipped[5] != 0));
+        if ($this->quest_num === 31) return ($this->progress = ($player->equipped_tarot !== ""));
+        if ($this->quest_num === 51) {
+            $this->progress = get_tarot_collection_count($verified_player_id);
+            return $this->progress === 31;
+        }
+        if ($this->quest_num === 55) return false;
+        // Token/Boss Token Quests
+        if ($this->quest_type === 0 || $this->quest_type === 3) {
+            $this->progress = $player->quest_tokens[$this->token_num] ?? 0;
+            return $this->progress >= $this->cost;
+        }
+        // Level Quests
+        if ($this->quest_type === 1) {
+            $this->progress = $player->player_level;
+            return $this->progress >= $this->cost;
+        }
+        // Hand-In Quests
+        if ($this->quest_type === 2) {
+            $item_result = get_inventory_by_player_id($verified_player_id, $this->item_handin);
+            $this->progress = isset($item_result["item"]["item_qty"]) ? (int)$item_result["item"]["item_qty"] : 0;
+            return $this->progress >= $this->cost;
+        }
+        return false;
+    }
+    
+}
+
+function get_current_quest($player_profile) {
+    global $quest_data;
+    $quest_num = $player_profile->player_quest;
+    if ($quest_num > 55) $quest_num = 55;
+    $data = $quest_data[$quest_num - 1];
+    return new Quest($data, $player_profile->player_oath_num);
+}
+
+function handle_get_quest($player_profile, $quest) {
+    $gain = 0;
+    $ready_status = verify_quest_option_unlocks($quest, $player_profile, 0, $gain);
+    return ["success" => true, "quest" => $quest, "ready_status" => $ready_status];
+}
+
+function handle_complete_quest($player_profile, $quest, $selected_option) {
+    $index = $selected_option - 1;
+    $choice_reward = null;
+    $gain = 0;
+    $ready_status = verify_quest_option_unlocks($quest, $player_profile, $index, $gain);
+    if (!$ready_status) { return ["success" => false, "message" => "Invalid hand in request"];}
+    if ($index >= 0) {
+        if (empty($quest->quest_options[$index][3])) {
+            return ["success" => false, "message" => "Selected quest option is not available"];
+        }
+        $choice_reward = $quest->quest_options[$index][1];
+    }
+    $reward_data = process_quest_completion($player_profile, $quest, $choice_reward, $index, $gain);
+    return ["success" => true, "reward_html" => $reward_data[0], "achievement_data" => $reward_data[1]];
+}
+
+function verify_quest_option_unlocks($quest, $player_profile, $selected_option, &$gain) {
+    global $quest_exceptions;
+    $ready_status = $quest->check_conditions($player_profile);
+    // Handle Regular Quest
+    if (empty($quest->quest_options)) {
+        $quest->generate_html();
+        return $ready_status;
+    }
+    // Handle Exception Quest
+    $oath_data = array_map('intval', explode(';', $player_profile->misc_data['oath_data']));
+    if (isset($quest_exceptions['eligibility_dict'][$quest->quest_num])) {
+        [$oath_slot, $adjustment_map] = $quest_exceptions['eligibility_dict'][$quest->quest_num];
+        foreach ($quest->quest_options as $i => &$opt) {
+            if (($selected_option - 1) == $i) {
+                $gain = $adjustment_map[(string)$i] ?? 0;
+            }
+            $opt[3] = $ready_status && ((int)$oath_data[$oath_slot] >= ($adjustment_map[(string)$i] ?? 0));
+        }
+    } elseif ($quest->quest_num == 54) {
+        $gain = 1;
+        $ring_check = ["Twin Rings of Divergent Stars", "Crown of Skulls", "Chromatic Tears"];
+        $equipped_id = $player_profile->player_equipped[4] ?? 0;
+        if ($equipped_id) {
+            $equipped_ring = read_custom_item($equipped_id);
+            $matched_index = array_search($equipped_ring->item_base_type, $ring_check, true);
+            if ($matched_index !== false && $oath_data[$matched_index] === 2) {
+                $quest->progress = 1;
+                $ready_status = true;
+                foreach ($quest->quest_options as $i => &$opt) {
+                    $opt[3] = ($i === $matched_index);
+                }
+            }
+        }
+    }
+    $quest->generate_html();
+    return $ready_status;
+}
+
+function process_quest_completion($player_profile, $quest, $choice_reward = null, $choice_num = -1, $gain = 0) {
+    global $web_url_base, $quest_exceptions;
+    $achievement_data = [];
+    // EXP & Coins
+    $exp_msg = "";
+    $coin_msg = "";
+    $exp_gain = (int)(floor(($quest->quest_num + 4) / 5) * 1000);
+    $coin_gain = (int)(floor(($quest->quest_num + 4) / 5) * 5000);
+    if (!empty($player_profile->player_pact)) {
+        $pact = new Pact($player_profile);
+        $exp_gain = calculate_exp_gain($exp_gain, $pact->pact_variant, $exp_msg);
+        $coin_gain = calculate_coin_gain($coin_gain, $pact->pact_variant, $coin_msg);
+    }
+    $player_profile->player_exp += $exp_gain;
+    $player_profile->player_coins += $coin_gain;
+    // Update Level
+    $lvl_data = apply_level_up($player_profile);
+    $level_increase = $lvl_data[0];
+    $lvl_msg = $lvl_data[1];
+    if ($level_increase > 0) {
+        handle_achievement($player_profile, "Level", $achievement_data);
+    }   
+    $reward_html = "<div class='quest-title highlight-text'>" . $quest->quest_title . "</div>";
+    $reward_html .= "<div class='quest-giver'>Quest Completed</div>";
+    $reward_html .= '<div class="style-line"></div>';
+    // Update Exceptions
+    $oath_data = array_map('intval', explode(';', $player_profile->misc_data['oath_data']));
+    if ($choice_num !== -1) {
+        if (isset($quest_exceptions['eligibility_dict'][$quest->quest_num])){
+            $slot = $quest_exceptions['eligibility_dict'][$quest->quest_num][0];
+        } else {
+            $slot = $choice_num;
+        }
+        $oath_data[$slot] += $gain;
+        $player_profile->misc_data['oath_data'] = implode(';', $oath_data);
+        $player_profile->update_misc_data();
+        foreach ($choice_reward as [$item_id, $qty]) {
+            if (isset($quest->award_items[$item_id])) {
+                $quest->award_items[$item_id] += $qty;
+            } else {
+                $quest->award_items[$item_id] = $qty;
+            }
+        }
+    }    
+    if ($choice_num !== -1) {
+        $exception_lines = $quest_exceptions['quest_options'][$quest->quest_num][$choice_num][2];
+        $reward_html .= "<div class='quest-completion-message'>";
+        foreach ($exception_lines as $line) {
+            $reward_html .= $line;
+        }
+        $reward_html .= '</div><div class="style-line"></div>';
+    }    
+    // Build Reward HTML display
+    $reward_html  .= '<div class="reward-row">';
+        $reward_html .= '<img src="' . $web_url_base . 'gallery/Icons/Misc/Exp.webp" alt="Experience" class="reward-icon">';
+        $reward_html .= '<span class="reward-name"> EXP </span>';
+        $reward_html .= '<span class="reward-quantity">' . number_format((int)$exp_gain) . 'x' . $exp_msg . $lvl_msg . '</span>';
+    $reward_html .= '</div>';
+    $reward_html .= '<div class="reward-row">';
+        $reward_html .= '<img src="' . $web_url_base . 'gallery/Icons/Misc/Lotus Coin.webp" alt="Lotus Coins" class="reward-icon">';
+        $reward_html .= '<span class="reward-name"> Lotus Coins </span>';
+        $reward_html .= '<span class="reward-quantity">' . number_format((int)$coin_gain) . 'x' . $coin_msg . '</span>';
+    $reward_html .= '</div>';
+    // Item Rewards
+    foreach ($quest->award_items as $item_id => $qty) {
+        $item = new BasicItem($item_id);
+        handle_achievement($player_profile, "Item", $achievement_data, $item_id);
+        $reward_html .= '<div class="reward-row">';
+            $reward_html .= '<img src="' . $item->image_link . '" alt="' . $item->item_name . '" class="reward-icon">';
+            $reward_html .= '<span class="reward-name"> ' . $item->item_name . ' </span>';
+            $reward_html .= '<span class="reward-quantity">' . $qty . 'x</span>';
+        $reward_html .= '</div>';
+    }
+    if ($quest->award_role) {
+        $player_profile->player_echelon += 1;
+        handle_achievement($player_profile, "Achievement", $achievement_data, "Echelon " . $player_profile->player_echelon);
+        // discord will not update currently - adjust on bot end
+    }
+    $player_profile->player_quest += 1;
+    $player_profile->update_player_data();
+    return ["<div class='quest-reward-box'>{$reward_html}</div>", $achievement_data];
 }
 
 ?>

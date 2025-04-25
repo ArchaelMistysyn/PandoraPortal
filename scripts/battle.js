@@ -422,9 +422,10 @@ function updateBattleLog(data, row = null) {
     logBossDetails.innerText = "Danger Class: T" + data.boss['boss_tier'] + '-M' + data.boss['magnitude'];
     logBossHp.innerText = "HP: " + numberConversion(battleTracker.current) + ' / ' + numberConversion(battleTracker.max);
     logCycles.innerText = `Cycle Count: ${data.combat_tracker?.total_cycles ?? "0"}`;
-    let total_dps = 0;
+    let total_dps = "0 / min";
     if (data.combat_tracker?.total_dps) {
-        total_dps = numberConversion(data.combat_tracker['total_dps'] / data.combat_tracker['total_cycles']) + " / min";
+        let roundedDps = BigInt(data.combat_tracker['total_dps']) / BigInt(data.combat_tracker['total_cycles']);
+        total_dps = numberConversion(roundedDps.toString()) + " / min";
     }
     logDps.innerText = `Cyclic DPS: ${total_dps}`;
     let newStatus = `Boss Status: ${battleTracker.boss_status?.trim() || "Stable"}`;

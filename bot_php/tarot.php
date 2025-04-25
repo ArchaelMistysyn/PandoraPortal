@@ -101,6 +101,12 @@
 			return null;
 		}
 	}
+
+	function get_tarot_collection_count($player_id) {
+		$query = "SELECT COUNT(*) as count FROM TarotInventory WHERE player_id = " . intval($player_id);
+		$result = run_query($query);
+		return $result ? (int)$result[0]['count'] : 0;
+	}
 	
 	function display_tarot($tarot_card) {
 		global $card_variant, $path_names;

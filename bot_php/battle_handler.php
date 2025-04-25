@@ -730,36 +730,17 @@ function handle_rewards($player_profile, $boss_profile, $combat_tracker, $gauntl
         $exp_amount = 200000;
     }
     // Update Coins
-    $coin_gain = $coin_amount;
     $coin_msg = "";
-    if ($pact->pact_variant === "Greed") {
-        $coin_gain *= 2;
-        $coin_msg = " [Greed Bonus]";
-    } elseif ($pact->pact_variant === "Gluttony") {
-        $coin_gain = (int) round($coin_gain / 2);
-        $coin_msg = " [Gluttony Penalty]";
-    }
+    $coin_gain = calculate_coin_gain($coin_amount, $pact->pact_variant, $coin_msg);
     $player_profile->player_coins += (int) $coin_gain;
     // Update Exp
     $exp_msg = "";
-    if ($pact->pact_variant === "Gluttony") {
-        $exp_amount *= 2;
-        $exp_msg = " [Gluttony Bonus]";
-    } elseif ($pact->pact_variant === "Greed") {
-        $exp_amount = (int) round($exp_amount / 2);
-        $exp_msg = " [Greed Penalty]";
-    }
+    $exp_amount = calculate_exp_gain($exp_amount, $pact->pact_variant, $exp_msg);
     $player_profile->player_exp += (int) $exp_amount;
     // Update Level
-    $lvl_msg = "";
-    $max_level = ($player_profile->player_quest > 53) ? 999 : (($player_profile->player_quest > 52) ? 200 : (($player_profile->player_quest > 50) ? 150 : 100));
-    $level_increase = 0;
-    while ($player_profile->player_exp >= get_max_exp($player_profile->player_level) && $player_profile->player_level < $max_level) {
-        $player_profile->player_exp -= get_max_exp($player_profile->player_level);
-        $player_profile->player_level++;
-        $level_increase++;
-        $lvl_msg = " [Level +" . $level_increase . "]";
-    }
+    $lvl_data = apply_level_up($player_profile);
+    $level_increase = $lvl_data[0];
+    $lvl_msg = $lvl_data[1];
     if ($level_increase > 0) {
         handle_achievement($player_profile, "Level", $achievement_list);
     }   
