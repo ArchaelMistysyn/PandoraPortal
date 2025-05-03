@@ -244,7 +244,7 @@ function triggerCycle(bossData) {
     fetch('./fetch_handler.php', {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ action: "runCycle", encounter_id: bossData["encounter_id"] })
+        body: JSON.stringify({ action: "runCycle", numeric_id: bossData["encounter_id"] })
     })
     .then(response => response.json())
     .then(data => {

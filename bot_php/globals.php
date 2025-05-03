@@ -361,6 +361,8 @@
 		"Daerun" => ["III", "VI", "XIV", "XIII", "XXIV"],
 		"Heng Ming Chiun" => ["IV", "VIII", "XV", "XVI", "XXII", "XXVI"],
 		"Quan Bui" => ["X", "XI", "XII"],
+		"Denny Rasyid Salam" => ["IX"],
+		"Martin Steffen" => ["I"],
 		"Alina Arkhipova" => ["XXVIII"]
 	];	
 ?>

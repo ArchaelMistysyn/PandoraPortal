@@ -27,7 +27,7 @@ $boss_calltype = isset($input['boss_calltype']) && $input['boss_calltype'] !== '
 $element = isset($input['element']) && $input['element'] !== 'null' ? $input['element'] : null;
 $quest_choice = isset($input['quest_choice']) && $input['quest_choice'] !== 'null' ? $input['quest_choice'] : null;
 $magnitude = isset($input['magnitude']) && $input['magnitude'] !== 'null' ? $input['magnitude'] : null;
-$encounter_id = isset($input['encounter_id']) && $input['encounter_id'] !== 'null' ? $input['encounter_id'] : null;
+$numeric_id = isset($input['numeric_id']) && $input['numeric_id'] !== 'null' ? $input['numeric_id'] : null;
 $item_id = isset($input['item_id']) && $input['item_id'] !== 'null' ? $input['item_id'] : null;
 if (!$action) {
     echo json_encode(["success" => false, "message" => "No action provided"]);
@@ -57,8 +57,8 @@ if ($magnitude !== null && $magnitude !== '' && (!ctype_digit((string) $magnitud
     echo json_encode(["success" => false, "message" => "Invalid magnitude provided: " . $magnitude]);
     exit();
 }
-if ($encounter_id !== null && $encounter_id !== '' && (!ctype_digit((string) $encounter_id) || $encounter_id < 0)) {
-    echo json_encode(["success" => false, "message" => "Invalid encounter_id provided: " . $encounter_id]);
+if ($numeric_id !== null && $numeric_id !== '' && (!ctype_digit((string) $numeric_id) || $numeric_id < 0)) {
+    echo json_encode(["success" => false, "message" => "Invalid numeric_id provided: " . $numeric_id]);
     exit();
 }
 
@@ -119,17 +119,20 @@ if (in_array($action, $forge_actions)) {
         case "showInventoryItem":
             $response = create_inventory_lightbox($verified_player_id, $item_id);
             break;
+        case "playerExtra":
+            $player_profile = get_player_by_id($verified_player_id);
+            $gear_score = calculate_gear_score($player_profile);
+            $response = $player_profile ? ["success" => true, "player" => $player_profile, "player_gear_score" => $gear_score] : ["success" => false, "message" => "Player not found"];
+            break;
         case "player":
             $player_profile = get_player_by_id($verified_player_id);
-            $response = $player_profile
-                ? ["success" => true, "player" => $player_profile]
-                : ["success" => false, "message" => "Player not found"];
+            $response = $player_profile ? ["success" => true, "player" => $player_profile] : ["success" => false, "message" => "Player not found"];
             break;
         case "runBoss":
             $response = run_boss($boss_calltype, $magnitude);
             break;
         case "runCycle":
-            $response = run_cycle($encounter_id);
+            $response = run_cycle($numeric_id);
             break;
         case "displaygear":
             $player_profile = get_player_by_id($verified_player_id);
@@ -177,6 +180,15 @@ if (in_array($action, $forge_actions)) {
             if (!$player_profile) { $response = ["success" => false, "message" => "Player not found"]; }
             $quest_obj = get_current_quest($player_profile);
             $response = handle_complete_quest($player_profile, $quest_obj, $quest_choice);
+            break;
+        case "checkMonument":
+            $player_profile = get_player_by_id($verified_player_id);
+            if (!$player_profile) { $response = ["success" => false, "message" => "Player not found"]; }
+            if ($numeric_id > 5) { $response = ["success" => false, "message" => "Invalid id"]; }
+            $monument_data = explode(';', $player_profile->misc_data['monument_data']);
+            $is_claimable = $monument_data[$numeric_id - 1] !== "1";
+            if (!$is_claimable) { $response = [ "success" => false, "message" => "Invalid claim attempt"]; }
+            $response = handle_monument($player_profile, $numeric_id, $monument_data, $is_claimable);
             break;
         default:
             $response["message"] = "Invalid action";
@@ -702,6 +714,56 @@ function process_quest_completion($player_profile, $quest, $choice_reward = null
     $player_profile->player_quest += 1;
     $player_profile->update_player_data();
     return ["<div class='quest-reward-box'>{$reward_html}</div>", $achievement_data];
+}
+
+function handle_monument($player_profile, $monument_id, &$monument_data, $is_claimable) {
+    $titles = [
+        1 => "Monument of Beginnings",
+        2 => "Monument of Journeys",
+        3 => "Monument of Providence",
+        4 => "Monument of Endings",
+        5 => "Monument of Apotheosis"
+    ];
+    $rewards = [
+        1 => ["item" => "Hammer",     "qty" => 10,  "exp" => 25000],
+        2 => ["item" => "Fragment1",  "qty" => 20,  "exp" => 50000],
+        3 => ["item" => "Stone5",     "qty" => 10,  "exp" => 75000],
+        4 => ["item" => "Skull2",     "qty" => 5,   "exp" => 100000],
+        5 => ["item" => "Sacred",     "qty" => 1,   "exp" => 1000000]
+    ];
+    $title = $titles[$monument_id];
+    $reward = $rewards[$monument_id];
+    // Update Data
+    $monument_data[$monument_id - 1] = "1";
+    $player_profile->misc_data['monument_data'] = implode(';', $monument_data);
+    $player_profile->update_misc_data();
+    // Grant EXP
+    $achievement_data = [];
+    $exp_msg = "";
+    $exp_gain = 0;
+    if (!empty($player_profile->player_pact)) {
+        $pact = new Pact($player_profile);
+        $exp_gain = calculate_exp_gain($reward['exp'], $pact->pact_variant, $exp_msg);
+    }
+    $player_profile->player_exp += $exp_gain;
+    // Update Level
+    $lvl_data = apply_level_up($player_profile);
+    $level_increase = $lvl_data[0];
+    $lvl_msg = $lvl_data[1];
+    if ($level_increase > 0) {
+        handle_achievement($player_profile, "Level", $achievement_data);
+    }   
+    // Grant Item
+    $item_html = '<div class="highlight-text lightbox-header">' . $title . '</div>';
+    $item_html .= '<div class="style-line"></div>';
+    $item = new BasicItem($reward['item']);
+    handle_achievement($player_profile, "Item", $achievement_data, $reward['item']);
+    $item_html .= '<div class="reward-row">';
+    $item_html .= '<img src="' . $item->image_link . '" alt="' . $item->item_name . '" class="reward-icon">';
+    $item_html .= '<span class="reward-name">' . $item->item_name . '</span>';
+    $item_html .= '<span class="reward-quantity">' . $reward['qty'] . 'x</span>';
+    $item_html .= '</div>';
+    return ["success" => true, "reward_html" => $item_html, "title" => $title, "achievement_data" => $achievement_data];
 }
 
 ?>

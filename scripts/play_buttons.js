@@ -12,6 +12,7 @@ const blockingScreen = document.getElementById("blocking-screen");
 const loreContainer = document.getElementById("lore-container");
 const loreScreen = document.getElementById("lore-screen");
 const loreMenu = document.getElementById("lore-menu");
+const travelContainer = document.getElementById("travel-container");
 const questContainer = document.getElementById("quest-container");
 const battleContainer = document.getElementById("battle-container");
 const slotTypes = {"W": "Weapon", "A": "Armour", "V": "Greaves", "Y": "Amulet", "R": "Ring", "G": "Wings", "C": "Crest"};
@@ -36,4 +37,5 @@ function clearScreens() {
     loreContainer.style.display = "none";
     battleContainer.style.display = "none";
     questContainer.style.display = "none";
+    travelContainer.style.display = "none";
 }

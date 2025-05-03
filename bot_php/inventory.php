@@ -959,5 +959,30 @@
 				  ON DUPLICATE KEY UPDATE item_qty = item_qty + VALUES(item_qty)";
 		run_query($query, false);
 	}
+
+	function calculate_gear_score($player_profile) {
+		$score = 0;	
+		$equipped_items = [];
+		$equipped_gems = [];
+		$gem_ids = [];
+		// Score Items
+		$equipped_items = read_custom_item(null, implode(',', $player_profile->player_equipped));
+		if(empty($equipped_items)) { return $score; }
+		foreach ($equipped_items as $item) {
+			$score += $item->get_gear_score();
+			if ($item->item_inlaid_gem_id != 0) {
+				$gem_ids[] = $item->item_inlaid_gem_id;
+			}
+		}
+		// Score Gems
+		$equipped_gems = read_custom_item(null, implode(',', $gem_ids));
+		if(empty($equipped_gems)) { return $score; }
+		foreach ($equipped_gems as $gem) {
+			$score += $gem->get_gear_score();
+		}
+		return $score;
+	}
+	
+	
 	
 ?>
