@@ -118,6 +118,22 @@
         $gearContainerHTML .= '</div>';
     $gearContainerHTML .= '</div>';
 
+    // Interfaces - Travel
+    $travelContainerHTML = '<div id="travel-container">';
+        $travelContainerHTML .= '<div id="travel-menu">';
+            $travelContainerHTML .= '<button class="travel-button lightbox-button-gray" data-plane="exploration">Locked</button>';
+            $travelContainerHTML .= '<button class="travel-button lightbox-button-gray" data-plane="mortal">Locked</button>';
+            $travelContainerHTML .= '<button class="travel-button lightbox-button-gray" data-plane="celestial">Locked</button>';
+            $travelContainerHTML .= '<button class="travel-button lightbox-button-gray" data-plane="divine">Locked</button>';
+            $travelContainerHTML .= '<button class="travel-button lightbox-button-gray" data-plane="abyss">Locked</button>';
+        $travelContainerHTML .= '</div>';
+        $travelContainerHTML .= '<div id="travel-submenu"></div>';
+        $travelContainerHTML .= '<div id="travel-screen-a">';
+            $travelContainerHTML .= '<div id="travel-image"></div>';
+            $travelContainerHTML .= '<div id="travel-message"></div>';
+        $travelContainerHTML .= '</div>';
+        $travelContainerHTML .= '<div id="travel-screen-b"></div>';
+    $travelContainerHTML .= '</div>';
 
     // Interfaces - Forge Container
     $forgeContainerHTML = '<div id="forge-container">';
@@ -250,6 +266,7 @@
 
     // Default Containers
     $containersHTML = $inventoryContainerHTML . $gearContainerHTML . $forgeContainerHTML . $loreContainerHTML . $battleContainerHTML . $questContainerHTML;
+    $containersHTML .= $travelContainerHTML;
 
 ?>
 <head>
@@ -277,7 +294,7 @@
             </div>
             <div id="bottom-menu">
                 <?php if ($logged_in){
-                    $menu = '<a href="#" class="button-green" onclick="onForge()"><span>Travel</span></a>'; // Temporarily skip to forge.
+                    $menu = '<a href="#" class="button-green" onclick="onTravel()"><span>Travel</span></a>';
                     $menu .= '<a href="#" class="button-amethyst" onclick="onQuest()"><span>Quest</span></a>';
                     $menu .= '<a href="#" class="button-ruby" onclick="onBattle()"><span>Battle</span></a>';
                     $menu .= '<a href="#" class="button-azure" onclick="onGear()"><span>Gear</span></a>';
@@ -306,6 +323,7 @@
     <script src="./scripts/forge.js"></script>
     <script src="./scripts/battle.js"></script>
     <script src="./scripts/quest.js"></script>
+    <script src="./scripts/travel.js"></script>
     <script src="./scripts/lore.js"></script>
     <script src="./scripts/play_buttons.js"></script>
 </body>
