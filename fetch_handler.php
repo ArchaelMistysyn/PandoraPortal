@@ -66,7 +66,8 @@ $forge_actions = [
     "Fae Enchant", "Gemstone Enchant", "Reinforce Quality", "Create Socket", "Hellfire Reforge",
     "Abyssfire Reforge", "Mutate Reforge", "Attune Rolls", "Star Fusion (Add/Reroll)",
     "Radiant Fusion (Defensive)", "Chaos Fusion (All)", "Void Fusion (Damage)",
-    "Wish Fusion (Penetration)", "Abyss Fusion (Curse)", "Divine Fusion (Unique)", "Salvation (Class Skill)", "Implant"
+    "Wish Fusion (Penetration)", "Abyss Fusion (Curse)", "Divine Fusion (Unique)", "Salvation (Class Skill)", "Implant",
+    "Wish Purification", "Abyss Purification", "Divine Purification", "Blood Purification", "Blood Extraction"
 ];
 
 $boss_calltypes = ["Any", "Fortress", "Dragon", "Demon", "Paragon", "Arbiter", 

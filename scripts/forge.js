@@ -1,4 +1,6 @@
-function onForge(selectedItem = 'W') {
+const purify_labels = { 5: "Wish Purification", 6: "Abyss Purification", 7: "Divine Purification", 8: "Blood Purification", 9: "Blood Extraction" };
+
+function onForge(selectedItem = 'W', abyss = false) {
     clearScreens();
     fetch('./fetch_handler.php', {
         method: "POST",
@@ -9,8 +11,11 @@ function onForge(selectedItem = 'W') {
         .then(data => {
             if (data.success) {
                 forgeItemScreen.innerHTML = data.item_html;
-                displayForgeMenu(data.item_data);
+                displayForgeMenu(data.item_data, abyss);
                 setActiveButton(".sort-button", selectedItem);
+                document.querySelectorAll(".sort-button").forEach(button => {
+                    button.setAttribute("onclick", `onForge('${button.getAttribute("data-value")}', ${abyss})`);
+                });
             } else {
                 alert(data.message || "Failed to load forge.");                
             }
@@ -18,7 +23,7 @@ function onForge(selectedItem = 'W') {
         .catch(error => console.error('Error:', error));
 }
 
-function displayForgeMenu(itemData) {
+function displayForgeMenu(itemData, abyss=false) {
     const options = [
         { name: "Enhancement", action: null },
         { name: "Astral Augment", action: itemData.item_num_rolls < 6 ? "Star Fusion (Add/Reroll)" : null },
@@ -28,12 +33,19 @@ function displayForgeMenu(itemData) {
         { name: "Reforging", action: null },
         { name: "Implant Element", action: null }
     ];
-    let menu_html = options.map(option =>
-        option.action
+    let menu_html = options.map(option => {
+        return option.action
             ? `<button class="forge-button" onclick="setAction('${option.action}', '', '${itemData.item_type}')">${option.name}</button>`
-            : `<button class="forge-button" onclick="handleForgeOption('${option.name}', '${itemData.item_type}')">${option.name}</button>`
-    ).join('') + "<div id='sub-forge-menu'></div>";
-    forgeMenu.innerHTML = menu_html;
+            : `<button class="forge-button" onclick="handleForgeOption('${option.name}', '${itemData.item_type}')">${option.name}</button>`;
+    }).join('');
+    if (abyss) {
+        if (itemData.tier >= 5) {
+            menu_html += `<button class="abyss-button" onclick="setAction('${purify_labels[itemData.tier]}', '', '${itemData.item_type}')">${purify_labels[itemData.tier]}</button>`;
+        } else {
+            menu_html += `<button class="abyss-button abyss-button-disabled">Unknown</button>`;
+        }
+    }    
+    forgeMenu.innerHTML = menu_html + "<div id='sub-forge-menu'></div>";
     forgeContainer.style.display = "flex";
 }
 
@@ -117,7 +129,12 @@ const actionLabels = {
     "Abyssfire Reforge": "Reforge",
     "Mutate Reforge": "Reforge",
     "Reinforce Quality": "Augment",
-    "Create Socket": "Augment"
+    "Create Socket": "Augment",
+    "Wish Purification": "Purify",
+    "Abyss Purification": "Purify",
+    "Divine Purification": "Purify",
+    "Blood Purification": "Purify",
+    "Blood Extraction": "Extract"
 };
 
 
@@ -133,7 +150,7 @@ function setAction(action, method, itemType) {
     .catch(error => console.error("Error setting forge action:", error));
 }
 
-function executeForgeAction(action, method, itemType) {
+function executeForgeAction(action, method, itemType, abyss = false) {
     method = method === '' ? null : method;
     blockingScreen.style.display = "block";
     fetch('./fetch_handler.php', {
@@ -143,7 +160,12 @@ function executeForgeAction(action, method, itemType) {
     })
     .then(response => response.json())
     .then(data => {
-        updateForgeUI(data, action, method, itemType);
+        if (data.action_triggered && (action.includes("Purification") || action === "Blood Extraction")) {
+            displayForgeMenu(data.item_data, abyss);
+        } else {
+            updateForgeUI(data, action, method, itemType, abyss);
+        }
+        forgeItemScreen.innerHTML = data.item_html;
         animateForgeOutcome(data.action_triggered, itemType);
     })
     .catch(error => {
@@ -153,7 +175,7 @@ function executeForgeAction(action, method, itemType) {
     })
 }
 
-function updateForgeUI(data, action, method, itemType) {
+function updateForgeUI(data, action, method, itemType, abyss = false) {
     let subForgeMenu = document.getElementById('sub-forge-menu');
     let label = actionLabels[action] || "Forge";
     if (!data.success) {
@@ -161,8 +183,7 @@ function updateForgeUI(data, action, method, itemType) {
         return;
     }
     let menuHtml = `<h3 id='forge-sub-header' class='highlight-text'>~ ${action} ~</h3>`;
-    forgeItemScreen.innerHTML = data.item_html;
-    let hasStock = true; // Track if user has enough stock
+    let hasStock = true;
     if (data.cost && data.cost.length > 0) {
         data.cost.forEach(costItem => {
             const itemId = costItem.item_id;
@@ -180,20 +201,29 @@ function updateForgeUI(data, action, method, itemType) {
             `;
         });
     }
-    if (data.cost.length < 2) menuHtml += '<div class="cost-row"></div>';
+    if (label.includes('Extract')) {
+        menuHtml += '<div class="cost-row">Returns:</div>';
+        menuHtml += `<div class="cost-row">
+                        <img src="${itemData['Sacred'].image_link}" alt="${itemData['Sacred'].name}" class="cost-icon">
+                        <span class="cost-name">${itemData['Sacred'].name}</span>
+                        <span class="cost-quantity">1x</span>
+                    </div>`;
+    } else if (data.cost.length < 2) {
+        menuHtml += '<div class="cost-row"></div>';
+    }
     let buttonText = label;
     let buttonClass = "disabled-button";
     let buttonOnClick = "";
     if (!hasStock) {
         buttonText = "Out of Stock";
     } else if (!data.qualified) {
-        if (!label.includes("Reforge")){
+        if (!["Reforge", "Purify", "Extract"].some(word => label.includes(word))) {
             buttonText += " [MAX]";
-        }
+        }        
     } else {
         buttonText = `${label} (${data.success_rate}%)`;
         buttonClass = "final-forge-button";
-        buttonOnClick = `onclick="executeForgeAction('${action}', '${method}', '${itemType}')"`; 
+        buttonOnClick = `onclick="executeForgeAction('${action}', '${method}', '${itemType}', '${abyss}')"`; 
     }
     menuHtml += `<button id="confirmForgeButton" class="${buttonClass}" ${buttonOnClick}>${buttonText}</button>`;
     subForgeMenu.innerHTML = menuHtml;

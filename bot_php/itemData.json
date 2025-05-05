@@ -1407,7 +1407,7 @@
         "cost": 0,
         "success_rate": 100,
         "category": "Misc",
-        "image_link": ""
+        "image_link": "https://www.PandoraPortal.ca/gallery/Icons/Misc/Royal Coin.webp"
     },
     "Nephilim": {
         "item_id": "Nephilim",
@@ -1417,7 +1417,7 @@
         "cost": 0,
         "success_rate": 100,
         "category": "Misc",
-        "image_link": ""
+        "image_link": "https://www.PandoraPortal.ca/gallery/Items/Hearts/Nephilim's Wicked Heart.webp"
     },
     "Pandora": {
         "item_id": "Pandora",
@@ -1427,7 +1427,7 @@
         "cost": 0,
         "success_rate": 100,
         "category": "Misc",
-        "image_link": ""
+        "image_link": "https://www.PandoraPortal.ca/gallery/Items/Hearts/Pandora's Twinkling Heart.webp"
     },
     "Ruler": {
         "item_id": "Ruler",
@@ -1437,7 +1437,7 @@
         "cost": 0,
         "success_rate": 100,
         "category": "Misc",
-        "image_link": ""
+        "image_link": "https://www.PandoraPortal.ca/gallery/Items/Misc/Ruler's Crown Jewel.webp"
     },
     "Sacred": {
         "item_id": "Sacred",
@@ -1447,7 +1447,7 @@
         "cost": 0,
         "success_rate": 100,
         "category": "Misc",
-        "image_link": ""
+        "image_link": "https://www.PandoraPortal.ca/gallery/Items/Misc/Sacred Blood.webp"
     },
     "Salvation": {
         "item_id": "Salvation",

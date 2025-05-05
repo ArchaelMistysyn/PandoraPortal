@@ -57,8 +57,15 @@
             "Salvation (Class Skill)" => [
                 ["item_id" => "Salvation", "quantity" => 1]
             ],
-            "Implant" =>  [["item_id" => "Gemstone" . $element, "quantity" => 1]]
+            "Implant" =>  [["item_id" => "Gemstone" . $element, "quantity" => 1]],
+            "Wish Purification" => [["item_id" => "Crystal2", "quantity" => 1]],
+            "Abyss Purification" => [["item_id" => "Crystal3", "quantity" => 1]],
+            "Divine Purification" => [["item_id" => "Crystal4", "quantity" => 1]],
+            "Blood Purification" => [["item_id" => "Sacred", "quantity" => 1]]
         ];
+        if (!array_key_exists($action, $action_costs)) {
+            return [];
+        }
         return array_values(array_filter($action_costs[$action] ?? []));
     }
     
@@ -66,22 +73,25 @@
         global $max_enhancement, $sovereign_item_list;
         $response['qualified'] = true;
         $response['success_rate'] = 100;
-        if ($item->item_tier == 9 || in_array($item->item_base_type, $sovereign_item_list)) {
+        if ($action !== "Blood Extraction" && $item->item_tier == 9 || in_array($item->item_base_type, $sovereign_item_list)) {
             $response['qualified'] = false;
             return;
         }
-        foreach ($cost as $requirement) {
-            $item_id = $requirement['item_id'];
-            $required_qty = $requirement['quantity'];
-            $available_qty = $stock[$item_id] ?? 0;
-            if ($available_qty < $required_qty) {
-                $response['qualified'] = false;
+        $element = 0;
+        if (!empty($cost)) {
+            foreach ($cost as $requirement) {
+                $item_id = $requirement['item_id'];
+                $required_qty = $requirement['quantity'];
+                $available_qty = $stock[$item_id] ?? 0;
+                if ($available_qty < $required_qty) {
+                    $response['qualified'] = false;
+                }
             }
-        }
-        $element_str = substr($cost[0]['item_id'], -1);
-        if (ctype_digit($element_str)) {
-            $element = intval($element_str);
-        }
+            $element_str = substr($cost[0]['item_id'], -1);
+            if (ctype_digit($element_str)) {
+                $element = intval($element_str);
+            }
+        }        
         switch ($action) {
             case "Fae Enchant":
                 $response['success_rate'] = max(5, 100 - floor($item->item_enhancement / 10) * 5);
@@ -133,6 +143,21 @@
             case "Salvation (Class Skill)":
                 if ($item->item_type != 'Y') { $response['qualified'] = false; }
                 break;
+            case "Wish Purification":
+            case "Abyss Purification":
+            case "Divine Purification":
+            case "Blood Purification":
+                $ready = true;
+                $ready = $ready && $item->item_tier >= 5;
+                $ready = $ready && $item->item_enhancement >= $max_enhancement[$item->item_tier - 1];
+                $ready = $ready && $item->item_num_sockets >= 1;
+                $ready = $ready && $item->item_quality_tier >= 5;
+                $ready = $ready && checkAugment($item) >= ($item->item_tier * 6);
+                if (!$ready) { $response['qualified'] = false; }
+                break;
+            case "Blood Extraction":
+                if ($item->item_tier != 9) { $response['qualified'] = false; }
+                break;
             default:
                 $response['qualified'] = true;
         }
@@ -144,13 +169,15 @@
         }
         $response['action_triggered'] = false;
         if (!$response['qualified']) return $response;
-        foreach ($response['cost'] as $requirement) {
-            $item_id = $requirement['item_id'];
-            $required_qty = (int) $requirement['quantity'];
-            $response['stock'][$item_id] -= $required_qty;
-            $query = "UPDATE BasicInventory SET item_qty = item_qty - $required_qty WHERE player_id = $player_profile->player_id AND item_id = '$item_id'";
-            run_query($query);
-        }
+        if (!empty($response['cost'])) {
+            foreach ($response['cost'] as $requirement) {
+                $item_id = $requirement['item_id'];
+                $required_qty = (int) $requirement['quantity'];
+                $response['stock'][$item_id] -= $required_qty;
+                $query = "UPDATE BasicInventory SET item_qty = item_qty - $required_qty WHERE player_id = $player_profile->player_id AND item_id = '$item_id'";
+                run_query($query);
+            }
+        }        
         if (rand(1, 100) > $response['success_rate']) {
             return $response;
         }
@@ -202,6 +229,15 @@
             case "Implant":
                 implantElement($item, $element);
                 break;
+            case "Wish Purification":
+            case "Abyss Purification":
+            case "Divine Purification":
+            case "Blood Purification":
+                purifyItem($item);
+                break;
+            case "Blood Extraction":
+                extractBlood($item);
+                break;
             default:
                 return;
         }
@@ -251,7 +287,17 @@
         }
     }    
     
-    function addAugment($selected_item) {    
+    function addAugment($selected_item, $mode = "") {    
+        if ($mode === "All") {
+            foreach ($selected_item->item_roll_values as $i => $roll_id) {
+                $roll = new ItemRoll($roll_id);
+                if ($roll->roll_tier < $selected_item->item_tier) {
+                    $roll->roll_tier += 1;
+                    $selected_item->item_roll_values[$i] = $roll->roll_tier . "-" . $roll->roll_code;
+                }
+            }
+            return;
+        }
         $eligible_rolls = [];
         foreach ($selected_item->item_roll_values as $index => $roll_id) {
             $current_roll = new ItemRoll($roll_id);
@@ -265,6 +311,16 @@
         $roll_details = explode("-", $roll_to_upgrade->roll_id);
         $roll_details[0] = $new_roll_tier;
         $selected_item->item_roll_values[$random_index] = implode("-", $roll_details);
+    }
+
+    function reduceAugment(&$item) {
+        foreach ($item->item_roll_values as $i => $roll_id) {
+            $roll = new ItemRoll($roll_id);
+            if ($roll->roll_tier > 1) {
+                $roll->roll_tier -= 1;
+                $item->item_roll_values[$i] = $roll->roll_tier . "-" . $roll->roll_code;
+            }
+        }
     }
 
     function checkAugment($selected_item) {
@@ -312,6 +368,25 @@
     
     function openSocket(&$item) {
         $item->item_num_sockets = 1;
-    }   
+    }
+
+    function purifyItem(&$item) {
+        $item->item_tier += 1;
+        $item->item_quality_tier = 5;
+        reforgeStats($item);
+        if ($item->item_tier == 9) {
+            addAugment($item, "All");
+        }
+    }
+
+    function extractBlood(&$item) {
+        global $verified_player_id;
+        $item->item_tier -= 1;
+        $item->item_quality_tier = 5;
+        reforgeStats($item);
+        reduceAugment($item);
+        run_query("UPDATE BasicInventory SET item_qty = item_qty + 1 WHERE player_id = {$verified_player_id} AND item_id = 'Sacred'");
+    }
+    
     
 ?>
