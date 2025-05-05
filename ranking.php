@@ -103,12 +103,6 @@
 	function render_table_cell($field, $data, $icon_html, $fields) {
 		return $fields[$field]['render']($data, $icon_html ?? null);
 	}	
-	
-	function get_max_exp($player_level) {
-		return ($player_level < 100) 
-			? 1000 * $player_level 
-			: 100000 + (50000 * floor($player_level / 100));
-	}
 
 ?>
 <head>
