@@ -189,6 +189,7 @@
   }
   
   #bottom-menu a span {
+    text-shadow: 2px 2px black;
     position: relative;
     background-color: rgba(0, 0, 0, 0.3);
     width: 100%;
@@ -449,6 +450,7 @@
     gap: 10px;
   }
   #lightbox-menu button, #action-box-menu button {
+    text-shadow: 2px 2px black;
     color: white;
     border: none;
     padding: 8px 12px;
@@ -503,6 +505,7 @@
 }
 
 #travel-menu button, #travel-submenu button {
+  text-shadow: 2px 2px black;
   text-align: center;
   color: white;
   font-size: 1.2rem;
@@ -572,7 +575,7 @@
     flex-direction: column;
     align-items: center;
     background-color: #242424;
-    gap: 15px;
+    gap: 10px;
     padding: 20px 0px;
     width: 400px;
     height: 651px;
@@ -591,7 +594,9 @@
     font-weight: normal;
     text-align: center;
   }
-  .forge-button, .sub-forge-button, .final-forge-button, .disabled-button {
+  .forge-button, .sub-forge-button, .final-forge-button, .disabled-button,
+  .abyss-button, .abyss-button-disabled {
+    text-shadow: 2px 2px black;
     padding: 12px;
     font-size: 1.2rem;
     width: 280px;
@@ -602,8 +607,20 @@
     transition: background-color 0.3s;
     border-radius: 5px;
   }
-  .disabled-button {
+  .disabled-button, .abyss-button-disabled {
     cursor: default;
+  }
+  .abyss-button-disabled {
+    filter: grayscale(100%);
+  }
+  .abyss-button {
+    text-shadow: 
+    2px 2px 0px black, 
+    -2px -2px 0px black, 
+    2px -2px 0px black, 
+    -2px 2px 0px black;
+    background-image: url('https://www.PandoraPortal.ca/gallery/Displays/Banners/Abyss.webp');
+    background-size: cover;
   }
   .forge-button {
     background-color: rgb(160, 10, 10);
@@ -617,16 +634,19 @@
   .disabled-button {
     background-color: rgb(46, 46, 46);
   }
-  .forge-button:hover, .sub-button:hover, .final-forge-button:hover {
+  .forge-button:hover, .sub-button:hover, .final-forge-button:hover, .abyss-button:hover {
     filter: brightness(1.3);
   }
-
+  
   .action-row {
     display: flex;
     align-items: center;
     gap: 10px;
-    margin-bottom: 10px;
-    /* margin-bottom: 0; was elsewhere in the code */    
+    margin-bottom: 10px;  
+  }
+
+  #sub-forge-menu .action-row{
+    margin-bottom: 0px;
   }
 
   select {
@@ -1293,6 +1313,7 @@
   }
 
   .lore-button-locked, .battle-button-locked {
+    text-shadow: 2px 2px black;
     background: #333;
     text-align: center;
     color: white;
@@ -1305,6 +1326,7 @@
   }
 
   .lore-button-blue, .lore-button-red, .battle-button-red, .battle-button-blue {
+    text-shadow: 2px 2px black;
     text-align: center;
     color: white;
     font-size: 1.2rem;
@@ -1775,10 +1797,10 @@
 }
 @keyframes forgeFlashGoldOuter {
   0% { 
-    filter: brightness(1.5) drop-shadow(0 0 15px var(--brand-color-5));
+    filter: brightness(1) drop-shadow(0 0 10px var(--brand-color-5));
   }
   50% { 
-    filter: brightness(1.8) drop-shadow(0 0 25px var(--brand-color-5));
+    filter: brightness(1) drop-shadow(0 0 15px var(--brand-color-5));
   }
   100% { 
     filter: brightness(1) drop-shadow(0 0 0px transparent);
@@ -1789,10 +1811,10 @@
 }
 @keyframes forgeFlashRedOuter {
   0% { 
-    filter: brightness(0.6) drop-shadow(0 0 15px red);
+    filter: brightness(1) drop-shadow(0 0 10px red);
   }
   50% { 
-    filter: brightness(0.8) drop-shadow(0 0 25px red);
+    filter: brightness(1) drop-shadow(0 0 15px red);
   }
   100% { 
     filter: brightness(1) drop-shadow(0 0 0px transparent);

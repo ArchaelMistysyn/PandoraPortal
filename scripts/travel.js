@@ -63,7 +63,7 @@ const travelSubmenus = {
         { label: "Monument", level: 45, monument_id: 3, trigger: (e) => checkMonument(3, galleryURL + "Displays/Locations/Monument of Providence.webp", e.target) }
     ],
     abyss: [
-        { label: "Deep Void", threshold: 38, image: galleryURL + "Displays/Locations/Abyssal Plane.webp",message: zone_msg['abyss']},
+        { label: "Deep Void", threshold: 38, image: galleryURL + "Displays/Locations/Abyssal Plane.webp",message: zone_msg['abyss'], trigger: () => onForge('W', true)},
         { label: "Eleuia", threshold: 47, message: "", image: "" }, // Varies by visit count
         { label: "Monument", level: 60, monument_id: 4, trigger: (e) => checkMonument(4, galleryURL + "Displays/Locations/Monument of Endings.webp", e.target) },
         { label: "☆ Monument", level: 60, monument_id: 5, trigger: (e) => checkMonument(5, galleryURL + "Displays/Locations/Monument of Apotheosis.webp", e.target) }
