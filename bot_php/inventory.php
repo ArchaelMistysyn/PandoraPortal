@@ -489,8 +489,11 @@
 				$damage_values = [150000, 150000];
 			}
 			$damage_adjust = ($this->item_type === "W") ? 2 : 1;
-			$this->base_damage_min = rand($damage_values[0], $damage_values[1]) * $damage_adjust;
-			$this->base_damage_max = rand($damage_values[0], $damage_values[1]) * $damage_adjust;
+			// Generate two random damage values
+			$damage1 = rand($damage_values[0], $damage_values[1]) * $damage_adjust;
+			$damage2 = rand($damage_values[0], $damage_values[1]) * $damage_adjust;
+			$this->base_damage_min = min($damage1, $damage2);
+			$this->base_damage_max = max($damage1, $damage2);
 		}
 		
 		public function add_item_element($element) {
