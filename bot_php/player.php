@@ -266,15 +266,15 @@ class PlayerProfile {
 			} else if ($tier >= 1) {
 				$skill_color = ' tier-' . $tier;
 				$glyph_name = "Glyph of " . $path_names[$index];
-				$html .= '<div class="skill-circle' . $skill_color . '">';
-				$html .= '<div class="inner-skill-circle">';
-				$html .= '<span class="glyph-tooltip highlight-text">' . $title . '</span>';
-				if ($glyph_name) {
-					$html .= display_glyph($path_names[$index], $combined_point, $skill_color, $tier); 
-				}
-				$html .= '<div class="' . $skill_color . '">' . $combined_point . '</div>';
-				$html .= '</div></div>';
 			}
+			$html .= '<div class="skill-circle' . $skill_color . '">';
+			$html .= '<div class="inner-skill-circle">';
+			$html .= '<span class="glyph-tooltip highlight-text">' . $title . '</span>';
+			if ($glyph_name) {
+				$html .= display_glyph($path_names[$index], $combined_point, $skill_color, $tier); 
+			}
+			$html .= '<div class="' . $skill_color . '">' . $combined_point . '</div>';
+			$html .= '</div></div>';
 		}
 		$html .= '</div></div></div>';
 		return $html;
