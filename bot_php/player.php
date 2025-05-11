@@ -266,6 +266,8 @@ class PlayerProfile {
 				$skill_color = ' ultimate';
 			} else if ($tier >= 1) {
 				$skill_color = ' tier-' . $tier;
+			}
+			if ($tier >= 1) {
 				$glyph_name = "Glyph of " . $path_names[$index];
 				$glyph_display = display_glyph($path_names[$index], $combined_point, $skill_color, $tier);
 			}
