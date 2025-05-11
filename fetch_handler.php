@@ -62,6 +62,20 @@ if ($numeric_id !== null && $numeric_id !== '' && (!ctype_digit((string) $numeri
     exit();
 }
 
+$refine_map = [
+    "Unrefined1" => ["G", 4], "Void5" => ["G", 5],
+    "Unrefined2" => ["V", 4], "Void3" => ["V", 5],
+    "Unrefined3" => ["C", 4], "Void6" => ["C", 5],
+    "Void1" => ["W", 5], "Void2" => ["A", 5], "Void4" => ["Y", 5],
+    "Gem1" => ["D1", 4], "Gem2" => ["D2", 4], "Gem3" => ["D3", 4],
+    "Jewel1" => ["D1", 5], "Jewel2" => ["D2", 5], "Jewel3" => ["D3", 5],
+    "Jewel4" => ["D4", 6], "Jewel5" => ["D5", 7]
+];
+
+$refine_actions = [
+    "Unrefined1", "Unrefined2", "Unrefined3", "Void1",  "Void2", "Void3", "Void4", "Void5", "Void6", 
+    "Gem1", "Gem2", "Gem3", "Jewel1", "Jewel2", "Jewel3", "Jewel4", "Jewel5"
+];
 $forge_actions = [
     "Fae Enchant", "Gemstone Enchant", "Reinforce Quality", "Create Socket", "Hellfire Reforge",
     "Abyssfire Reforge", "Mutate Reforge", "Attune Rolls", "Star Fusion (Add/Reroll)",
@@ -106,6 +120,19 @@ if (in_array($action, $forge_actions)) {
         }
         
     }
+} else if (in_array($action, $refine_actions)) {
+    $player_profile = get_player_by_id($verified_player_id);
+    $stock = checkUserStock($verified_player_id, [$action]);
+    if (check_custom_inventory_capacity($verified_player_id, $refine_map[$action][0]) > 40) {
+        $response = ["success" => true, "stock_check" => true, "inventory_check" => false];
+    } else if ($stock[$action] < 1) {
+        $response = ["success" => true, "stock_check" => false, "inventory_check" => true];
+    } else {
+        $item_html = refine_item($action);
+        $response = ["success" => true, "stock_check" => true, "inventory_check" => true, "item_html" => $item_html];
+    }
+    echo json_encode($response, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+    exit();
 } else {
     switch ($action) {
         case "inventory":

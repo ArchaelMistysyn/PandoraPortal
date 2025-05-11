@@ -37,7 +37,7 @@ const travelSubmenus = {
         { label: "Manifest" }
     ],
     mortal: [
-        { label: "Refinery", image: galleryURL + "Displays/Locations/Refinery.webp" },
+        { label: "Refinery", image: galleryURL + "Displays/Locations/Refinery.webp", trigger: () => onRefine() },
         { label: "Alchemist", image:  galleryURL + "Displays/Locations/Alchemist Shop.webp" },
         { label: "Market", image: "" },
         { label: "Bazaar", image: "" },

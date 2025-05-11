@@ -387,6 +387,33 @@
         reduceAugment($item);
         run_query("UPDATE BasicInventory SET item_qty = item_qty + 1 WHERE player_id = {$verified_player_id} AND item_id = 'Sacred'");
     }
+
+    function refine_item($item_id) {
+        global $verified_player_id, $refine_map;
+        $update_query = "UPDATE BasicInventory SET item_qty = item_qty - 1 WHERE player_id = {$verified_player_id} AND item_id = '{$item_id}'";
+        run_query($update_query);
+        $new_item = try_refine($refine_map[$item_id][0], $refine_map[$item_id][1]);
+        if (!isset($new_item)) { return ''; }
+        $new_item->saveChanges("new");
+        return $new_item->display_item(strpos($new_item->item_type, "D") !== false, "basic");
+    }
     
-    
+    function try_refine($item_type, $target_tier) {
+        global $verified_player_id;
+        $new_tier = 0;
+        $check = random_int(1, 100);
+        if (strpos($item_type, "D") === false && $target_tier >= 5) {
+            $rolled = generate_random_tier();
+            $new_tier = ($rolled <= $target_tier) ? $target_tier : $rolled;
+            if ($item_type !== "W" && $check > 80) { $new_tier = 0; }
+        } else {
+            if ((strpos($item_type, "D") !== false && $target_tier >= 5 && $check <= 50) ||($target_tier <= 4 && $check <= 75)) {
+                $new_tier = ($target_tier == 4) ? generate_random_tier() : generate_random_tier($target_tier, 8);
+                if ($new_tier == 1) $new_tier = 2;
+            }
+        }
+        if ($new_tier == 0 ) { return null; }
+        return new CustomItem($verified_player_id, $item_type, $new_tier, "", false, true);
+    }
+
 ?>
