@@ -548,7 +548,7 @@
 }
 
 /* Forge */
-  #forge-container {
+  #forge-container, #refine-container {
     position: relative;
     display: none;
     flex-direction: column;
@@ -557,7 +557,7 @@
     width: 100%;
     padding-bottom: 80px;
   }
-  #forge-screen-container {
+  #forge-screen-container, #refine-screen-container {
     position: relative;
     display: flex;
     align-items: flex-start;
@@ -569,27 +569,31 @@
     gap: 50px;
     padding-bottom: 80px;
   }
-  #forge-menu {
+  #forge-menu, #refine-menu {
     position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
     background-color: #242424;
     gap: 10px;
-    padding: 20px 0px;
     width: 400px;
     height: 651px;
+    padding: 20px;
   }
-  #sub-forge-menu {
+  #sub-forge-menu, #sub-refine-menu {
     position: relative;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
     width: 100%;
+    padding: 10px;
     gap: 10px;
   }
-  #forge-sub-header {
+  .forge-submenu-border {
+    border: 2px solid rgba(58, 58, 58, 0.7);
+  }
+  #forge-sub-header, #refine-sub-header {
     font-size: 1.5rem;
     font-weight: normal;
     text-align: center;
@@ -599,8 +603,8 @@
     text-shadow: 2px 2px black;
     padding: 12px;
     font-size: 1.2rem;
-    width: 280px;
-    height: 45px;
+    width: 270px;
+    height: 42px;
     color: white;
     border: none;
     cursor: pointer;
@@ -678,8 +682,11 @@
     width: 32px;
     height: 32px;
   }
+  .cost-quantity {
+    text-wrap: nowrap;
+  }
   .cost-name, .cost-quantity {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
   }
 
 /* Inventory/Gear */
@@ -1712,7 +1719,8 @@
 }
 
 @media (max-height: 1170px) {
-  #forge-container, #inventory-container, #gear-container {
+  #forge-container, #inventory-container, #gear-container, #refine-container, 
+  #travelContainer, #lore-container, #battle-container {
     padding-bottom: 30px;
   }
   #status-id {
@@ -1721,40 +1729,40 @@
     padding: 2px;
     bottom: 5px;
   }
-  #forge-screen-container{
+  #forge-screen-container, #refine-screen-container{
     overflow-y: auto;
     padding: 8px;
   }
-  #forge-menu {
+  #forge-menu, #refine-menu {
     gap: 8px;
     width: 320px;
     height: 500px;
   }
-  #forge-container .item-slot {
+  #forge-container .item-slot, #refine-container .item-slot {
     min-height: 531px;
     max-height: 531px;
   }
-  #forge-container .item-thumbnail {
+  #forge-container .item-thumbnail, #refine-container .item-thumbnail {
     height: 84px;
     width: 84px;
   }
-  #forge-container .item-name {
+  #forge-container .item-name, #refine-container .item-name {
     margin: 5px auto 0 auto;
   }
-  #forge-container .skill-slot {
+  #forge-container .skill-slot, #refine-container .skill-slot {
     font-size: 1.1rem;
   }
-  #forge-container .stat-message {
+  #forge-container .stat-message, #refine-container .stat-message {
     font-size: 1.1rem;
   }
-  #forge-container .star-container {
+  #forge-container .star-container, #refine-container .star-container {
     margin-bottom: 4px;
   }
-  #forge-container .star-container img {
+  #forge-container .star-container img, #refine-container .star-container img {
     height: 24px;
     width: 24px;
   }
-  #forge-container .style-line {
+  #forge-container .style-line, #refine-container .style-line {
     margin: 5px auto;
   }
   select {

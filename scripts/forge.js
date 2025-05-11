@@ -166,7 +166,7 @@ function executeForgeAction(action, method, itemType, abyss = false) {
             updateForgeUI(data, action, method, itemType, abyss);
         }
         forgeItemScreen.innerHTML = data.item_html;
-        animateForgeOutcome(data.action_triggered, itemType);
+        animateForgeOutcome(data.action_triggered);
     })
     .catch(error => {
         console.error("Error executing forge action:", error);
@@ -226,10 +226,11 @@ function updateForgeUI(data, action, method, itemType, abyss = false) {
         buttonOnClick = `onclick="executeForgeAction('${action}', '${method}', '${itemType}', '${abyss}')"`; 
     }
     menuHtml += `<button id="confirmForgeButton" class="${buttonClass}" ${buttonOnClick}>${buttonText}</button>`;
+    subForgeMenu.classList.add('forge-submenu-border');
     subForgeMenu.innerHTML = menuHtml;
 }
 
-function animateForgeOutcome(success, itemType) {
+function animateForgeOutcome(success) {
     forgeItemScreen.classList.add(success ? "forge-success" : "forge-failure");
     setTimeout(() => {
         forgeItemScreen.classList.remove("forge-success", "forge-failure");

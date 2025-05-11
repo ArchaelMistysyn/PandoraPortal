@@ -69,8 +69,8 @@
 		public $base_damage_min, $base_damage_max, $item_damage_min, $item_damage_max;
 		public $item_num_sockets, $item_inlaid_gem_id, $item_damage_type;
 
-		public function __construct($player_id, $item_type, $item_tier, $item_base_type="", $is_sacred=false) {
-			global $sovereign_item_list, $ring_skill_data;
+		public function __construct($player_id, $item_type, $item_tier, $item_base_type="", $is_sacred=false, $random_enhance=false) {
+			global $sovereign_item_list, $ring_skill_data, $max_enhancement, $class_names;
 			$this->player_id = $player_id;
 			$this->item_type = $item_type;
 			$this->item_tier = $item_tier;
@@ -91,7 +91,7 @@
 			$this->item_damage_max = 0;
 			$this->item_num_sockets = $this->is_sacred ? 1 : 0;
 			$this->item_inlaid_gem_id = 0;
-			$this->item_damage_type = "";
+			$this->item_damage_type = $class_names[array_rand($class_names)];
 			$this->generate_base();
 			$this->get_tier_damage();
 			
@@ -109,32 +109,52 @@
 				$this->item_quality_tier = 0;
 				$this->build_sovereign_item();
 			}
+			if ($random_enhance && $this->item_tier > 0) {
+				$max = $max_enhancement[$this->item_tier - 1];
+				$roll = random_int(1, 1000);
+				if ($roll <= 1) {
+					$this->item_enhancement = $max;
+				} else {
+					$rare_bonus = ($roll >= 50) ? 1 : (($roll > 10) ? 2 : 4);
+					$tier_val = generate_random_tier(1, min($this->item_tier, 8));
+					$this->item_enhancement = min(($tier_val - 1) * 5 * $rare_bonus + random_int(5 * $rare_bonus, 15 * $rare_bonus), $max);
+				}
+			}
 			$this->update_damage();
 			$this->set_item_name();
 		}
 
-		public function saveChanges() {
+		public function saveChanges($method = "update") {
 			$updated_roll_values = implode(";", array_map('strval', $this->item_roll_values));
 			$updated_elements = implode(";", array_map('intval', $this->item_elements));
-			$query = "UPDATE CustomInventory SET 
-						player_id = " . intval($this->player_id) . ", 
-						item_name = '" . addslashes($this->item_name) . "',
-						item_type = '" . addslashes($this->item_type) . "',
-						item_base_type = '" . addslashes($this->item_base_type) . "',
-						item_damage_type = '" . addslashes($this->item_damage_type) . "',
-						item_tier = " . intval($this->item_tier) . ", 
-						item_enhancement = " . intval($this->item_enhancement) . ", 
-						item_quality_tier = " . intval($this->item_quality_tier) . ", 
-						item_elements = '" . addslashes($updated_elements) . "',
-						item_roll_values = '" . addslashes($updated_roll_values) . "', 
-						item_base_stat = " . number_format($this->item_base_stat, 2, '.', '') . ", 
-						item_bonus_stat = '" . addslashes(strval($this->item_bonus_stat)) . "', 
-						item_base_dmg_min = " . intval($this->base_damage_min) . ", 
-						item_base_dmg_max = " . intval($this->base_damage_max) . ", 
-						item_num_sockets = " . intval($this->item_num_sockets) . ", 
-						item_inlaid_gem_id = " . intval($this->item_inlaid_gem_id) . " 
-					  WHERE item_id = " . intval($this->item_id);
+			$fields = [
+				"player_id" => intval($this->player_id),
+				"item_name" => "'" . addslashes($this->item_name) . "'",
+				"item_type" => "'" . addslashes($this->item_type) . "'",
+				"item_base_type" => "'" . addslashes($this->item_base_type) . "'",
+				"item_damage_type" => "'" . addslashes($this->item_damage_type) . "'",
+				"item_tier" => intval($this->item_tier),
+				"item_enhancement" => intval($this->item_enhancement),
+				"item_quality_tier" => intval($this->item_quality_tier),
+				"item_elements" => "'" . addslashes($updated_elements) . "'",
+				"item_roll_values" => "'" . addslashes($updated_roll_values) . "'",
+				"item_base_stat" => number_format($this->item_base_stat, 2, '.', ''),
+				"item_bonus_stat" => "'" . addslashes(strval($this->item_bonus_stat)) . "'",
+				"item_base_dmg_min" => intval($this->base_damage_min),
+				"item_base_dmg_max" => intval($this->base_damage_max),
+				"item_num_sockets" => intval($this->item_num_sockets),
+				"item_inlaid_gem_id" => intval($this->item_inlaid_gem_id)
+			];
+			if ($method === "new") {
+				$columns = implode(", ", array_keys($fields));
+				$values = implode(", ", array_values($fields));
+				$query = "INSERT INTO CustomInventory ($columns) VALUES ($values)";
+			} else {
+				$assignments = implode(", ", array_map(fn($k, $v) => "$k = $v", array_keys($fields), $fields));
+				$query = "UPDATE CustomInventory SET $assignments WHERE item_id = " . intval($this->item_id);
+			}
 			run_query($query, false);
+			$this->item_id = fetchInsertedItemId($this);
 		}
 		
 		public function display_item($is_gem=false, $method=null) {
@@ -417,7 +437,11 @@
 		
 		
 		public function generate_base() {
-			global $weapon_type_dict;
+			global $weapon_type_dict, $armour_base_dict, $wing_base_dict, $crest_base_list;
+			// Skip weapons and gems
+			if ($this->item_type !== "W" && strpos($this->item_type, "D") === false) {
+				$this->assign_bonus_stat();
+			}
 			if ($this->item_type === "R") {
 				// Specific handling for rings
 				$this->item_roll_values = array_fill(0, 6, null);
@@ -431,11 +455,10 @@
 			}
 			// Handle base types for non-gem items
 			if ($this->item_base_type !== "") {
-				$this->assign_bonus_stat();
 				return;
 			}
 			// Add a roll and element to non-gem items
-			$this->add_roll(1);
+			add_roll($this, 1);
 			$this->add_item_element(9);
 			// Handle non-gem items
 			switch ($this->item_type) {
@@ -799,7 +822,19 @@
 			}
 		}
 	}
-	
+
+	function fetchInsertedItemId($item) {
+		$element_str = implode(";", array_map('intval', $item->item_elements ?? []));
+		$query  = "SELECT item_id FROM CustomInventory WHERE player_id = {$item->player_id}";
+		$query .= " AND item_name = '" . $item->item_name . "'";
+		$query .= " AND item_base_dmg_min = {$item->base_damage_min}";
+		$query .= " AND item_base_dmg_max = {$item->base_damage_max}";
+		$query .= " AND item_elements = '" . $element_str . "'";
+		$query .= " ORDER BY item_id DESC LIMIT 1";
+		$result = run_query($query);
+		return $result[0]['item_id'] ?? 0;
+	}
+
 	function get_resonance_text($index) {
 		global $tarot_data;
 		if (isset($tarot_data[$index])) {
@@ -986,6 +1021,33 @@
 		return $score;
 	}
 	
-	
+	function generate_random_tier($min = 1, $max = 8) {
+		$weights = [];
+		for ($tier = $min; $tier <= $max; $tier++) {
+			$weights[$tier] = pow(2, $max - $tier);
+		}
+		$total = array_sum($weights);
+		$rand = mt_rand(1, $total);
+		$cumulative = 0;
+		foreach ($weights as $tier => $weight) {
+			$cumulative += $weight;
+			if ($rand <= $cumulative) {
+				return $tier;
+			}
+		}
+		return $min;
+	}
+
+	function check_custom_inventory_capacity($player_id, $item_type) {
+		if ($item_type === 'D') {
+			$query = "SELECT COUNT(*) as count FROM CustomInventory";
+			$query .= " WHERE player_id = " . intval($player_id) . " AND (item_type = 'D1' OR item_type = 'D2' OR item_type = 'D3' OR item_type = 'D4' OR item_type = 'D5')";
+		} else {
+			$query = "SELECT COUNT(*) as count FROM CustomInventory WHERE player_id = " . intval($player_id) . " AND item_type = '" . $item_type . "'";
+		}
+		$result = run_query($query);
+		return $result[0]['count'] ?? 0;
+	}
+
 	
 ?>

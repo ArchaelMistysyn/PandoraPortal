@@ -151,6 +151,20 @@
         $forgeContainerHTML .= '</div>';
     $forgeContainerHTML .= '</div>';
 
+    // Interfaces - Refinery Container
+    $refineryContainerHTML = '<div id="refine-container">';
+        $refineryContainerHTML .= '<div id="gear-menu">';
+            $refineryContainerHTML .= '<button class="sort-button" data-value="Basic" onclick="onRefine(\'Basic\')">Basic Gear</button>';
+            $refineryContainerHTML .= '<button class="sort-button" data-value="Void" onclick="onRefine(\'Void\')">Void Gear</button>';
+            $refineryContainerHTML .= '<button class="sort-button" data-value="Gem" onclick="onRefine(\'Gem\')">Gem</button>';
+            $refineryContainerHTML .= '<button class="sort-button" data-value="Jewel" onclick="onRefine(\'Jewel\')">Jewel</button>';
+        $refineryContainerHTML .= '</div>';
+        $refineryContainerHTML .= '<div id="refine-screen-container">';
+            $refineryContainerHTML .= '<div id="refine-item-screen" class="item-slot"></div>';
+            $refineryContainerHTML .= '<div id="refine-menu"></div>';
+        $refineryContainerHTML .= '</div>';
+    $refineryContainerHTML .= '</div>';
+
     // Interfaces - Quest Container
     $questContainerHTML = '<div id="quest-container" style="display: none;">';
         $questContainerHTML .= '<div id="quest-left-panel">';
@@ -266,7 +280,7 @@
 
     // Default Containers
     $containersHTML = $inventoryContainerHTML . $gearContainerHTML . $forgeContainerHTML . $loreContainerHTML . $battleContainerHTML . $questContainerHTML;
-    $containersHTML .= $travelContainerHTML;
+    $containersHTML .= $travelContainerHTML .  $refineryContainerHTML;
 
 ?>
 <head>
@@ -321,6 +335,7 @@
     <script src="./scripts/inventory_button.js"></script>
     <script src="./scripts/gear_button.js"></script>
     <script src="./scripts/forge.js"></script>
+    <script src="./scripts/refine.js"></script>
     <script src="./scripts/battle.js"></script>
     <script src="./scripts/quest.js"></script>
     <script src="./scripts/travel.js"></script>
