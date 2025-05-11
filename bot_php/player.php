@@ -254,29 +254,27 @@ class PlayerProfile {
 		$html .= '<tr class="player-table-stat"><td><img src="./gallery/Icons/Misc/Lotus Coin.webp" alt="Coins" class="icon-small stat-icon"/>Lotus Coins:</td><td> ' . $formatted_coin_value . '</td></tr>';
 		$html .= '</table>';
 		// Skill Points & Glyphs
-    $html .= '<div class="player-table-title"><p>GLYPHS</p></div>';
+    	$html .= '<div class="player-table-title"><p>GLYPHS</p></div>';
 		$html .= '<div id="skill-points-section" class="skill-points">';
-    foreach ($this->player_stats as $index => $point) {
-      $combined_point = $point + $this->gear_points[$index];
-      $skill_color = '';
-      $title = "Path of " . $path_names[$index];
-      $tier = floor($combined_point / 20);
-      if ($tier >= 10) {
-        $skill_color = ' ultimate';
-      } else if ($tier >= 1) {
-        $skill_color = ' tier-' . $tier;
-      }
-      if ($tier >= 1) {
-        $glyph_name = "Glyph of " . $path_names[$index];
+		foreach ($this->player_stats as $index => $point) {
+			$combined_point = $point + $this->gear_points[$index];
+			$skill_color = '';
+			$title = "Path of " . $path_names[$index];
+			$tier = floor($combined_point / 20);
+			if ($tier >= 10) {
+				$skill_color = ' ultimate';
+			} else if ($tier >= 1) {
+				$skill_color = ' tier-' . $tier;
+				$glyph_name = "Glyph of " . $path_names[$index];
+				$html .= '<div class="skill-circle' . $skill_color . '">';
+				$html .= '<div class="inner-skill-circle">';
+				$html .= '<span class="glyph-tooltip highlight-text">' . $title . '</span>';
+				if ($glyph_name) {
+					$html .= display_glyph($path_names[$index], $combined_point, $skill_color, $tier); 
+				}
+				$html .= '<div class="' . $skill_color . '">' . $combined_point . '</div>';
+				$html .= '</div></div>';
 			}
-			$html .= '<div class="skill-circle' . $skill_color . '">';
-			$html .= '<div class="inner-skill-circle">';
-			$html .= '<span class="glyph-tooltip highlight-text">' . $title . '</span>';
-			if ($glyph_name) {
-        		$html .= display_glyph($path_names[$index], $combined_point, $skill_color, $tier); 
-			}
-			$html .= '<div class="' . $skill_color . '">' . $combined_point . '</div>';
-			$html .= '</div></div>';
 		}
 		$html .= '</div></div></div>';
 		return $html;
