@@ -257,6 +257,7 @@ class PlayerProfile {
     	$html .= '<div class="player-table-title"><p>GLYPHS</p></div>';
 		$html .= '<div id="skill-points-section" class="skill-points">';
 		foreach ($this->player_stats as $index => $point) {
+			$glyph_display = null;
 			$combined_point = $point + $this->gear_points[$index];
 			$skill_color = '';
 			$title = "Path of " . $path_names[$index];
