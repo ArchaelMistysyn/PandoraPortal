@@ -10,26 +10,6 @@ function setActiveButton(buttonClass, selectedValue) {
     });
 }
 
-/* not in use? not working? need later?
-function openCostMenu(itemCost = null, staminaCost = null, coinCost = null) {
-    fetch('./fetch_handler.php', {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ action: "costCheck", item_id: item.item_id })
-    })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                lightboxDisplay.innerHTML = data.html;
-                lightboxMenu.innerHTML = data.menu;
-                lightboxScreen.style.display = "flex"; 
-            } else {
-                alert(data.message || "Failed to fetch inventory item details.");
-            }
-        })
-        .catch(error => console.error("Error fetching inventory details:", error));
-}*/
-
 function numberConversion(inputNumber) {
     const labels = ['', 'K', 'M', 'B', 'T', 'Q', 'Qt', 'Z', 'Z+', 'Z++', 'Z+++', 
                     'ZZ', 'ZZ+', 'ZZ++', 'ZZ+++', 'ZZZ', 'ZZZ+', 'ZZZ++', 'ZZZ+++'];

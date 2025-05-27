@@ -278,9 +278,16 @@
     $loreContainerHTML .= '<div id="lore-screen"></div>';
     $loreContainerHTML .= '</div>';
 
+    // Shop Container
+    $shopContainerHTML  = '<div id="shop-container">';
+        $shopContainerHTML .= '<div id="shop-menu"></div>';
+        $shopContainerHTML .= '<div id="shop-screen"></div>';
+    $shopContainerHTML .= '</div>';
+
+
     // Default Containers
     $containersHTML = $inventoryContainerHTML . $gearContainerHTML . $forgeContainerHTML . $loreContainerHTML . $battleContainerHTML . $questContainerHTML;
-    $containersHTML .= $travelContainerHTML .  $refineryContainerHTML;
+    $containersHTML .= $travelContainerHTML .  $refineryContainerHTML . $shopContainerHTML;
 
 ?>
 <head>
@@ -340,6 +347,7 @@
     <script src="./scripts/quest.js"></script>
     <script src="./scripts/travel.js"></script>
     <script src="./scripts/lore.js"></script>
+    <script src="./scripts/shop.js"></script>
     <script src="./scripts/play_buttons.js"></script>
 </body>
 </html>

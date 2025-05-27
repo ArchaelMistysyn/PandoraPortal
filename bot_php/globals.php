@@ -363,6 +363,7 @@
 		"Quan Bui" => ["X", "XI", "XII"],
 		"Denny Rasyid Salam" => ["IX", "V"],
 		"Martin Steffen" => ["I"],
+		"Aiming Chen" => ["XXIII"],
 		"Alina Arkhipova" => ["XXVIII"]
 	];	
 ?>

@@ -4,7 +4,6 @@
     "skills": [
       {"name": "Fire Curse", "value": 200, "attr_name": "elemental_curse", "index": 0}
     ],
-    "resonance": 1,
     "element": [0]
   },
   "Elemental Signet of Water": {
@@ -12,7 +11,6 @@
     "skills": [
       {"name": "Water Curse", "value": 200, "attr_name": "elemental_curse", "index": 1}
     ],
-    "resonance": 14,
     "element": [1]
   },
   "Elemental Signet of Lightning": {
@@ -20,7 +18,6 @@
     "skills": [
       {"name": "Lightning Curse", "value": 200, "attr_name": "elemental_curse", "index": 2}
     ],
-    "resonance": 8,
     "element": [2]
   },
   "Elemental Signet of Earth": {
@@ -28,7 +25,6 @@
     "skills": [
       {"name": "Earth Curse", "value": 200, "attr_name": "elemental_curse", "index": 3}
     ],
-    "resonance": 16,
     "element": [3]
   },
   "Elemental Signet of Wind": {
@@ -36,7 +32,6 @@
     "skills": [
       {"name": "Wind Curse", "value": 200, "attr_name": "elemental_curse", "index": 4}
     ],
-    "resonance": 9,
     "element": [4]
   },
   "Elemental Signet of Ice": {
@@ -44,7 +39,6 @@
     "skills": [
       {"name": "Ice Curse", "value": 200, "attr_name": "elemental_curse", "index": 5}
     ],
-    "resonance": 13,
     "element": [5]
   },
   "Elemental Signet of Shadow": {
@@ -52,7 +46,6 @@
     "skills": [
       {"name": "Shadow Curse", "value": 200, "attr_name": "elemental_curse", "index": 6}
     ],
-    "resonance": 12,
     "element": [6]
   },
   "Elemental Signet of Light": {
@@ -60,7 +53,6 @@
     "skills": [
       {"name": "Light Curse", "value": 200, "attr_name": "elemental_curse", "index": 7}
     ],
-    "resonance": 11,
     "element": [7]
   },
   "Elemental Signet of Celestia": {
@@ -68,7 +60,6 @@
     "skills": [
       {"name": "Celestial Curse", "value": 200, "attr_name": "elemental_curse", "index": 8}
     ],
-    "resonance": 17,
     "element": [8]
   },
   "Ruby Ring of Incineration": {

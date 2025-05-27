@@ -145,7 +145,32 @@ if (in_array($action, $forge_actions)) {
             }
             break;        
         case "showInventoryItem":
-            $response = create_inventory_lightbox($verified_player_id, $item_id);
+            if (!$item_id) {
+                $response = ["success" => false, "message" => "Missing item ID"];
+            } else {
+                $response = create_inventory_lightbox($verified_player_id, $item_id);
+            }
+            break;
+        case "showItemPurchase":
+            if (!$item_id) {
+                $response = ["success" => false, "message" => "Missing item ID"];
+            } else {
+                $response = create_inventory_lightbox($verified_player_id, $item_id, true);
+            }
+            break;
+        case "exchangeEssence":
+            if (!$item_id) {
+                $response = ["success" => false, "message" => "Missing item ID"];
+            } else {
+                $response = exchangeEssence($item_id);
+            }
+            break;
+        case "purchaseShopItem":
+            if (!$item_id) {
+                $response = ["success" => false, "message" => "Missing item ID"];
+            } else {
+                $response = purchaseShopItem($item_id, $numeric_id);
+            }
             break;
         case "playerExtra":
             $player_profile = get_player_by_id($verified_player_id);
@@ -261,7 +286,7 @@ function get_inventory_by_player_id($player_id, $specific_item_id = null) {
     return $specific_item_id !== null ? ["success" => true, "item" => $inventory[0]] : ["success" => true, "items" => $inventory];
 }
 
-function create_inventory_lightbox($player_id, $item_id) {
+function create_inventory_lightbox($player_id, $item_id, $buy_view=false) {
     global $itemData;
     if (!isset($itemData[$item_id])) {
         return ["success" => false, "message" => "Invalid item ID"];
@@ -283,13 +308,84 @@ function create_inventory_lightbox($player_id, $item_id) {
     $item_html .= "<div class='inventory-description'>{$description}</div>";
     $item_html .= "<div class='style-line'></div>";
     $item_html .= "<div>Quantity: {$item["item_qty"]}</div>";
+    $menu_html = "<div id='lightbox-menu'>";
+    if ($buy_view) {
+        $purchase_button = getShopCostHTML($item_html, $item_id);
+        $menu_html .= $purchase_button;
+        if ($purchase_button === '') {
+            $menu_html .= "<button class='lightbox-button-red'><s>Purchase</s></button>";
+        }
+    }
     $item_html .= "</div>";
-    $menu_html = "<div class='lightbox-menu'>";
     $menu_html .= "<button class='lightbox-button-gray' onclick='closeLightbox()'><span class='symbol-height'>✖</span> Close</button>";
     $menu_html .= "</div>";
     return ["success" => true, "html" => $item_html, "menu" => $menu_html];
 }
 
+function getShopCostHTML(&$item_html, $item_id) {
+    global $itemData, $verified_player_id, $web_url_base;
+    $player_profile = get_player_by_id($verified_player_id);
+    $cost = $itemData[$item_id]["cost"] ?? 0;
+    $purchase_button = '';
+    $item_html .= '<div class="style-line"></div>';
+    $item_html .= '<div class="cost-row">';
+        if (strpos($item_id, "Essence") === 0) {
+            $cost = $itemData[$item_id]['tier'];
+            $token_qty = checkUserStock($verified_player_id, ['Token7'])['Token7'];
+            $item = new BasicItem("Token7");
+            $item_html .= '<img src="' . $item->image_link . '" alt="' . $item->item_name . '" class="cost-icon">';
+            $item_html .= '<span class="cost-name"> ' . $item->item_name . ' </span>';
+            $item_html .= '<span class="cost-quantity">' .  number_format((int)$token_qty) . ' / ' . $cost . '</span>';
+            if($token_qty >= $cost) {
+                $purchase_button = "<button class='lightbox-button-green' onclick=\"exchangeEssence('{$item_id}')\">Exchange</button>";
+            }
+            
+        } else if ($cost === 0) {
+            // Fish swap
+            $purchase_button = "<button class='lightbox-button-green' onclick=\"exchangeItem('{$item_id}')\">Exchange</button>";
+        } else {
+            $item_html .= '<img src="' . $web_url_base . 'gallery/Icons/Misc/Lotus Coin.webp" alt="Lotus Coins" class="cost-icon">';
+            $item_html .= '<span class="cost-name"> Lotus Coins </span>';
+            $item_html .= '<span class="cost-quantity">' .  number_format((int)$player_profile->player_coins) . ' / ' . number_format((int)$cost) . '</span>';
+            if($player_profile->player_coins >= $cost) {
+                $purchase_button = "<button class='lightbox-button-green' onclick=\"purchaseShopItem('{$item_id}')\">Buy 1</button>";
+            }
+            if($player_profile->player_coins >= $cost * 10) {
+                $purchase_button .= "<button class='lightbox-button-green' onclick=\"purchaseShopItem('{$item_id}', 10)\">Buy 10</button>";
+            }
+            if($player_profile->player_coins >= $cost * 100) {
+                $purchase_button .= "<button class='lightbox-button-green' onclick=\"purchaseShopItem('{$item_id}', 100)\">Buy 100</button>";
+            }
+        }
+    $item_html .= '</div>';
+    return $purchase_button;
+}
+
+function exchangeEssence($item_id) {
+    global $verified_player_id, $itemData;
+    if (strpos($item_id, "Essence") !== 0) {
+        return ["success" => false, "message" => "Invalid essence ID"];
+    }
+    $cost = $itemData[$item_id]['tier'] ?? 0;
+    $stock = checkUserStock($verified_player_id, ['Token7'])['Token7'];
+    if ($stock < $cost) {
+        return ["success" => false, "message" => "Not enough tokens"];
+    }
+    run_query("UPDATE BasicInventory SET item_qty = item_qty - $cost WHERE player_id = $verified_player_id AND item_id = 'Token7'", false);
+    update_stock($verified_player_id, $item_id, 1);
+    return create_inventory_lightbox($verified_player_id, $item_id, true);
+}
+
+function purchaseShopItem($item_id, $quantity = 1) {
+    global $verified_player_id, $itemData;
+    $cost = $itemData[$item_id]['cost'] ?? 0;
+    $player = get_player_by_id($verified_player_id);
+    if ($player->player_coins < $cost * $quantity) { return ["success" => false, "message" => "Not enough coins"]; }
+    $player->player_coins -= $cost * $quantity;
+    $player->update_player_data();
+    update_stock($verified_player_id, $item_id, $quantity);
+    return create_inventory_lightbox($verified_player_id, $item_id, true);
+}
 
 function handle_gear($player_profile) {
     $gearData = get_gear_by_player_id($player_profile->player_id);

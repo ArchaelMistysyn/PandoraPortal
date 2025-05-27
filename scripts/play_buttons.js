@@ -15,6 +15,8 @@ const blockingScreen = document.getElementById("blocking-screen");
 const loreContainer = document.getElementById("lore-container");
 const loreScreen = document.getElementById("lore-screen");
 const loreMenu = document.getElementById("lore-menu");
+const shopContainer = document.getElementById("shop-container");
+const shopMenu = document.getElementById("shop-menu");
 const travelContainer = document.getElementById("travel-container");
 const questContainer = document.getElementById("quest-container");
 const battleContainer = document.getElementById("battle-container");
@@ -42,4 +44,5 @@ function clearScreens() {
     questContainer.style.display = "none";
     travelContainer.style.display = "none";
     refineryContainer.style.display = "none";
+    shopContainer.style.display = "none";
 }

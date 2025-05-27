@@ -414,7 +414,7 @@
         "name": "Heavenly Ore",
         "tier": 5,
         "description": "Ore with 100% purity. Used for reinforcing gear items. Increasing the quality.",
-        "cost": 0,
+        "cost": 1000000,
         "success_rate": 100,
         "category": "Ore",
         "image_link": ""

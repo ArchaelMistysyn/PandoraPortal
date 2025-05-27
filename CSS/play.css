@@ -457,7 +457,7 @@
     margin: 3px;
     font-size: 1rem;
     height: 40px;
-    width: 85px;
+    width: 95px;
     cursor: pointer;
     border-radius: 5px;
     transition: all 0.3s;
@@ -496,7 +496,7 @@
   position: absolute;
   left: 50px;
   background-color:#111;
-  width: 250px;
+  width: 260px;
   display: flex;
   flex-direction: column;
   padding: 10px;
@@ -1294,6 +1294,35 @@
     gap: 5px;
   }
 
+  /* Shop */
+  #shop-container {
+    position: relative;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    gap: 25px;
+    padding: 90px 25px;
+    padding-left: 325px;
+  }
+
+  #shop-menu {
+    position: absolute;
+    left: 50px;
+    background-color:#111;
+    width: 290px;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    border: 1px solid white;
+    z-index: 99;
+  }
+  #shop-screen {
+    /*background-image: url('https://www.PandoraPortal.ca/gallery/Displays/Locations/Market.webp');*/
+    border: 2px solid red;
+  }
+
   /* Lore */
   #lore-container {
     position: relative;
@@ -1311,7 +1340,7 @@
     position: absolute;
     left: 50px;
     background-color:#111;
-    width: 250px;
+    width: 260px;
     display: flex;
     flex-direction: column;
     padding: 10px;
@@ -1319,8 +1348,9 @@
     z-index: 99;
   }
 
-  .lore-button-locked, .battle-button-locked {
+  .lore-button-locked, .battle-button-locked, .shop-button-locked {
     text-shadow: 2px 2px black;
+    text-wrap: nowrap;
     background: #333;
     text-align: center;
     color: white;
@@ -1332,8 +1362,10 @@
     height: 41px;
   }
 
-  .lore-button-blue, .lore-button-red, .battle-button-red, .battle-button-blue {
+  .lore-button-blue, .lore-button-red, .battle-button-red, .battle-button-blue,
+  .shop-button-blue, .shop-button-red {
     text-shadow: 2px 2px black;
+    text-wrap: nowrap;
     text-align: center;
     color: white;
     font-size: 1.2rem;
@@ -1344,14 +1376,15 @@
     height: 41px;
   }
 
-  .lore-button-blue, .battle-button-blue {
+  .lore-button-blue, .battle-button-blue, .shop-button-blue {
     background: #007bff;
   } 
-  .lore-button-red, .battle-button-red {
+  .lore-button-red, .battle-button-red, .shop-button-red {
     background: darkred;
   }
   .lore-button-blue:hover, .battle-button-blue:hover,
-  .lore-button-red:hover, .battle-button-red:hover {
+  .lore-button-red:hover, .battle-button-red:hover,
+  .shop-button-blue:hover, .shop-button-red:hover {
     filter: brightness(1.3);
   }
 
@@ -1800,6 +1833,20 @@
 }
 
 /* Animations */
+.animate-success {
+  animation: animateFlashGreenOuter 1s ease-in-out;
+}
+@keyframes animateFlashGreenOuter {
+  0% { 
+    filter: brightness(1) drop-shadow(0 0 10px green);
+  }
+  50% { 
+    filter: brightness(1) drop-shadow(0 0 15px green);
+  }
+  100% { 
+    filter: brightness(1) drop-shadow(0 0 0px transparent);
+  }
+}
 .forge-success {
   animation: forgeFlashGoldOuter 1s ease-in-out;
 }

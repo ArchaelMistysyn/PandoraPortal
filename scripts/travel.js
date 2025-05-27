@@ -39,7 +39,7 @@ const travelSubmenus = {
     mortal: [
         { label: "Refinery", image: galleryURL + "Displays/Locations/Refinery.webp", trigger: () => onRefine() },
         { label: "Alchemist", image:  galleryURL + "Displays/Locations/Alchemist Shop.webp" },
-        { label: "Market", image: "" },
+        { label: "Market", image: "", trigger: () => onShop("Market") },
         { label: "Bazaar", image: "" },
         { label: "Monument", level: 15, monument_id: 1, trigger: (e) => checkMonument(1, galleryURL + "Displays/Locations/Monument of Beginnings.webp", e.target) },
         { label: "Fishing" }
@@ -59,7 +59,7 @@ const travelSubmenus = {
         { label: "Vexia", threshold: 46, message: "We need not turn you away, mortal. \nThe oracle has already foretold your failure. Now it need only be written into truth.", 
             image: "" },
         { label: "Fleur", threshold: 48, message: zone_msg['fleur'], image: galleryURL + "Displays/Locations/Sanctuary.webp" },
-        { label: "Yubelle", threshold: 51, message: zone_msg['yubelle'], image: galleryURL + "Displays/Locations/Cathedral.webp" },
+        { label: "Yubelle", threshold: 51, message: zone_msg['yubelle'], image: galleryURL + "Displays/Locations/Cathedral.webp", trigger: () => onShop("Cathedral") },
         { label: "Monument", level: 45, monument_id: 3, trigger: (e) => checkMonument(3, galleryURL + "Displays/Locations/Monument of Providence.webp", e.target) }
     ],
     abyss: [
