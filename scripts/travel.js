@@ -46,7 +46,7 @@ const travelSubmenus = {
     ],
     celestial: [
         { label: "Forge", threshold: 1, image: galleryURL + "Displays/Locations/Celstial Forge.webp", trigger: () => onForge()},
-        { label: "Tarot", threshold: 1, image: galleryURL + "Displays/Locations/Planetarium.webp" },
+        { label: "Planetarium", threshold: 1, image: galleryURL + "Displays/Locations/Planetarium.webp", trigger: () => onShop("Tarot") },
         { label: "Thana", threshold: 1, message: "", image: galleryURL + "Tarot/Paragon/XIII - Thana, The Death.webp" }, // varies by visit count
         { label: "Monument", threshold: 30, monument_id: 2, trigger: (e) => checkMonument(2, galleryURL + "Displays/Locations/Monument of Journeys.webp", e.target) }
     ],

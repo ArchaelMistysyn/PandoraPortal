@@ -108,38 +108,62 @@
 		return $result ? (int)$result[0]['count'] : 0;
 	}
 	
-	function display_tarot($tarot_card) {
-		global $card_variant, $path_names;
+	function display_tarot($tarot_card, $menu_type = null) {
+		global $card_variant, $path_names, $tarot_rate_map;
 		$html = "<div class='item-slot hidden-tag tarot1 active' id='item-Tarot'>";
 		if (!$tarot_card) {
 			return $html . "</div>";
 		}
-		$html .= '<button type="button" class="slot-toggle input-button" onclick="toggleSlotDisplay(\'Tarot\')">Toggle</button>';
-		$html .= "<img class='item-thumbnail' src='" . $tarot_card->essence_link . "'>";
-		$html .= "<div class='style-line'></div>";
-		$html .= generate_stars($tarot_card->num_stars);
-		$html .= '<h1 class="item-name highlight-text">' . $tarot_card->card_numeral . ' - ' . $tarot_card->card_name . '</h1>';
-		$html .= "<div class='style-line'></div>";
-		$html .= "<div class='badge-container'>";
-		$html .= '<div class="item-id-badge">' . '[' . $card_variant[$tarot_card->num_stars] . ']' . '</div>';
-		$html .= $tarot_card->resonance == 1 ? "<div class='inactive-badge'>Dormant</div>" : "<div class='active-badge'>Resonating</div>";
-		$html .= '<div class="item-tier-badge">Tier: ' . $tarot_card->num_stars . '</div>';
-		$html .= "</div>";
-		$base_damage_min = number_format($tarot_card->card_damage * $tarot_card->resonance);
-		$base_damage_max = number_format($tarot_card->card_damage * $tarot_card->resonance);
-		$html .= "<div class='style-line'></div>";
-		$html .= "<div class='stat-message'>Base: {$base_damage_min} - {$base_damage_max}</div>";
-		$html .= "<div class='stat-message'>Path of " . $path_names[$tarot_card->card_path] . " +" . $tarot_card->path_points . "</div>";
-		$html .= "<div class='style-line'></div>";
-		$tarot_skills = $tarot_card->display_tarot_skills();
-		$html .= '<div id="tarot-skills">' . $tarot_skills . '</div>';
+		if ($menu_type === null) {
+			$html .= '<button type="button" class="slot-toggle input-button" onclick="toggleSlotDisplay(\'Tarot\')">Toggle</button>';
+		}
+		$artist_name = "Nong Dit";
+		if ($tarot_card->num_stars !== 0) {
+			$artist_name = get_artist_by_numeral($tarot_card->card_numeral);
+			$html .= "<img class='item-thumbnail' src='" . $tarot_card->essence_link . "'>";
+			$html .= "<div class='style-line'></div>";
+			$html .= generate_stars($tarot_card->num_stars);
+			$html .= '<h1 class="item-name highlight-text">' . $tarot_card->card_numeral . ' - ' . $tarot_card->card_name . '</h1>';
+			$html .= "<div class='style-line'></div>";
+			$html .= "<div class='badge-container'>";
+			$html .= '<div class="item-id-badge">' . '[' . $card_variant[$tarot_card->num_stars] . ']' . '</div>';
+			$html .= $tarot_card->resonance == 1 ? "<div class='inactive-badge'>Dormant</div>" : "<div class='active-badge'>Resonating</div>";
+			$html .= '<div class="item-tier-badge">Tier: ' . $tarot_card->num_stars . '</div>';
+			$html .= "</div>";
+			$base_damage_min = number_format($tarot_card->card_damage * $tarot_card->resonance);
+			$base_damage_max = number_format($tarot_card->card_damage * $tarot_card->resonance);
+			$html .= "<div class='style-line'></div>";
+			$html .= "<div class='stat-message'>Base: {$base_damage_min} - {$base_damage_max}</div>";
+			$html .= "<div class='stat-message'>Path of " . $path_names[$tarot_card->card_path] . " +" . $tarot_card->path_points . "</div>";
+			$html .= "<div class='style-line'></div>";
+			$tarot_skills = $tarot_card->display_tarot_skills();
+			$html .= '<div id="tarot-skills">' . $tarot_skills . '</div>';
+			if ($menu_type === 'Synthesize') {			
+				$rate = $tarot_rate_map[$tarot_card->num_stars] ?? 0;
+				$bind_rate = max(0, 90 - ($tarot_card->card_tier * 5));
+				$html .= "<div class='style-line'></div>";
+				$html .= "<div class='cost-row'>Duplicate Cards: " . max(0, $tarot_card->card_qty - 1) . "</div>";
+				$html .= "<div class='cost-row'>Binding Rate: {$bind_rate}%</div>";
+				if ($tarot_card->num_stars >= 8) {
+					$html .= "<div class='cost-row'>Synthesis Rate: [MAXED]</div>";
+				} else {
+					$html .= "<div class='cost-row'>Synthesis Rate: {$rate}%</div>";
+				}
+				if ($tarot_card->num_stars == 7) {
+					$item = new BasicItem("Lotus9");
+					$stock = checkUserStock($tarot_card->player_id, ['Lotus9'])['Lotus9'];
+					$html .= "<div class='cost-row'><img src='{$item->image_link}' class='cost-icon'> {$item->item_name}: {$stock} / 1</div>";
+				}
+			}
+		}
 		$html .= '</div>';
 		$html .= "<div id='image-tarot' class='item-slot tarot2'>";
-		$html .= '<button type="button" class="slot-toggle input-button" onclick="toggleSlotDisplay(\'Tarot\')">Toggle</button>';
+		if ($menu_type === null) {
+			$html .= '<button type="button" class="slot-toggle input-button" onclick="toggleSlotDisplay(\'Tarot\')">Toggle</button>';
+		}
 		$html .= "<div id='image-tarot-bg' style=\"background-image: url('" . $tarot_card->card_image_link . "');\"></div>";
-		$artist_name = get_artist_by_numeral($tarot_card->card_numeral);
 		$html .= "<div class='artist-name highlight-text'>Tarot Artist</div><div class='artist-name'>" . $artist_name . "</div>";
-		$html .= "</div>";
+		$html .= '</div>';
 		return $html;
 	}
 
@@ -177,6 +201,29 @@
 		}
 		$index = ($ring->item_base_type != "Crown of Skulls") ? $ring->item_roll_values[0] : $ring->item_roll_values[2];
 		return $index;
+	}
+
+	function get_tarot($player_id, $numeric_id){
+		global $tarot_data;
+		$player_profile = get_player_by_id($player_id);
+		$roman = $tarot_data[$numeric_id]['Numeral'];
+		$equipped_weapon_id = $player_profile->player_equipped[0] ?? 0;
+		$equipped_ring_id = $player_profile->player_equipped[4] ?? 0;
+		$weapon = $equipped_weapon_id ? read_custom_item($equipped_weapon_id) : null;
+		$ring = $equipped_ring_id ? read_custom_item($equipped_ring_id) : null;
+		$resonance = check_resonance($weapon, $ring);
+		$query = "SELECT * FROM TarotInventory WHERE player_id = $player_id AND card_numeral = '$roman'";
+		$result = run_query($query);
+		if (!$result || count($result) === 0) {
+			$card_qty = 0;
+			$num_stars = 0;
+			$enhancement = 0;
+		} else {
+			$card_qty = $result[0]['card_qty'];
+			$num_stars = $result[0]['num_stars'];
+			$enhancement = $result[0]['card_enhancement'];
+		}
+		return new TarotItem($player_id, $resonance, $roman, $card_qty, $num_stars, $enhancement);
 	}
 
 ?>

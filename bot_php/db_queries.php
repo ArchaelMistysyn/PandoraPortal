@@ -16,25 +16,30 @@ $DB_PASSWORD = getenv('DB_PASSWORD');
 $DB_NAME = getenv('DB_NAME');
 
 function run_query($query, $return_value = true) {
+    static $conn = null;
     global $DB_SERVER, $DB_USERNAME, $DB_PASSWORD, $DB_NAME;
-    $conn = new mysqli($DB_SERVER, $DB_USERNAME, $DB_PASSWORD, $DB_NAME);
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
+    if ($conn === null) {
+        $conn = new mysqli($DB_SERVER, $DB_USERNAME, $DB_PASSWORD, $DB_NAME);
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        }
     }
     $result = $conn->query($query);
+    if ($result === false) {
+        die("Query failed: " . $conn->error);
+    }
     if (!$return_value) {
-        $success = $result === true;
-        $conn->close();
-        return $success;
+        return $result === true;
     }
     $data = [];
-    if ($result !== true) {
+    if ($result instanceof mysqli_result) {
         while ($row = $result->fetch_assoc()) {
             $data[] = $row;
         }
+        $result->free();
     }
-    $conn->close();
     return $data;
 }
+
 ?>
 

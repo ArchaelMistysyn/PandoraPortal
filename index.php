@@ -15,7 +15,8 @@
 	$paragonFiles = getFilePaths('./gallery/Tarot/Paragon');
 	$arbiterFiles = getFilePaths('./gallery/Tarot/Arbiter');
 	$dragonFiles = getFilePaths('./gallery/Bosses/Dragon');
-	$allImageFiles = array_merge($dragonFiles, $paragonFiles, $arbiterFiles);
+	$specialFiles = getFilePaths('./gallery/Tarot/Special');
+	$allImageFiles = array_merge($dragonFiles, $paragonFiles, $arbiterFiles, $specialFiles);
 ?>
 <head>
     <meta charset="UTF-8">

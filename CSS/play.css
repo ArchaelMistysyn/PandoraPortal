@@ -1323,6 +1323,52 @@
     border: 2px solid red;
   }
 
+  #tarot-screen {
+    background-image: url('https://www.PandoraPortal.ca/gallery/Displays/Locations/Planetarium.webp');
+  }
+
+  #cathedral-screen {
+    background-image: url('https://www.PandoraPortal.ca/gallery/Displays/Locations/Cathedral.webp');
+  }
+
+  #shop-screen, #tarot-screen, #cathedral-screen {
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 700px;
+    width: 1200px;
+  }
+
+  #tarot-lightbox {
+    display: flex;
+    gap: 15px;
+    flex-direction: row;
+  }
+
+  #image-tarot{
+    padding-top: 0px;
+  }
+
+  #image-tarot-bg {
+    display: block;
+    border: none;
+    min-width: 398px;
+    max-width: 398px;
+    min-height: 558px;
+    max-height: 558px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  .artist-name {
+    width: 100%;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 2.3rem;
+    margin: 3px;
+  }
+
   /* Lore */
   #lore-container {
     position: relative;

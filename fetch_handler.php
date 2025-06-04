@@ -158,6 +158,58 @@ if (in_array($action, $forge_actions)) {
                 $response = create_inventory_lightbox($verified_player_id, $item_id, true);
             }
             break;
+        case "showTarotPurchase":
+            if ($numeric_id === null || $numeric_id < 0 || $numeric_id > 30) {
+                $response = ["success" => false, "message" => "Invalid tarot ID"];
+            } else {
+                $player_profile = get_player_by_id($verified_player_id);
+                if ($player_profile) {
+                    $tarot_card = get_tarot($verified_player_id, $numeric_id);
+                    $response = create_tarot_lightbox($player_profile, $tarot_card, $numeric_id);
+                } else {
+                    $response = ["success" => false, "message" => "Player not found"];
+                }
+            }
+            break;
+        case "synthesizeTarot":
+            if ($numeric_id === null || $numeric_id < 0 || $numeric_id > 30) {
+                $response = ["success" => false, "message" => "Invalid tarot ID"];
+            } else {
+                $player_profile = get_player_by_id($verified_player_id);
+                if ($player_profile) {
+                    $tarot_card = get_tarot($verified_player_id, $numeric_id);
+                    $response = synthesize_tarot($player_profile, $tarot_card, $numeric_id);
+                } else {
+                    $response = ["success" => false, "message" => "Player not found"];
+                }
+            }
+            break;
+        case "equipTarot":
+            if ($numeric_id === null || $numeric_id < 0 || $numeric_id > 30) {
+                $response = ["success" => false, "message" => "Invalid tarot ID"];
+            } else {
+                $player_profile = get_player_by_id($verified_player_id);
+                if ($player_profile) {
+                    $tarot_card = get_tarot($verified_player_id, $numeric_id);
+                    $response = equip_tarot($player_profile, $tarot_card, $numeric_id);
+                } else {
+                    $response = ["success" => false, "message" => "Player not found"];
+                }
+            }
+            break;
+        case "bindTarot":
+            if ($numeric_id === null || $numeric_id < 0 || $numeric_id > 30) {
+                $response = ["success" => false, "message" => "Invalid tarot ID"];
+            } else {
+                $player_profile = get_player_by_id($verified_player_id);
+                if ($player_profile) {
+                    $tarot_card = get_tarot($verified_player_id, $numeric_id);
+                    $response = bind_tarot($player_profile, $tarot_card, $numeric_id);
+                } else {
+                    $response = ["success" => false, "message" => "Player not found"];
+                }
+            }
+            break;
         case "exchangeEssence":
             if (!$item_id) {
                 $response = ["success" => false, "message" => "Missing item ID"];
@@ -248,7 +300,7 @@ if (in_array($action, $forge_actions)) {
     }
 }
 if (!$response || !is_array($response)) {
-    $response = ["success" => false, "message" => "Empty or invalid response foramat"];
+    $response = ["success" => false, "message" => "Empty or invalid response format"];
 }
 echo json_encode($response, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
 exit();
@@ -322,6 +374,104 @@ function create_inventory_lightbox($player_id, $item_id, $buy_view=false) {
     return ["success" => true, "html" => $item_html, "menu" => $menu_html];
 }
 
+function create_tarot_lightbox($player_profile, $tarot_card, $numeric_id) {
+    $html = "<div id='tarot-lightbox'>";
+        $html .= display_tarot($tarot_card, 'Synthesize');
+    $html .= "</div>";
+    $menu = "<div id='lightbox-menu'>";
+    $essence_id = "Essence" . $tarot_card->card_numeral;
+    $stock_map = checkUserStock($player_profile->player_id, [$essence_id, "Lotus9"]);
+    $essence_stock = $stock_map[$essence_id];
+    $lotus_stock = $stock_map["Lotus9"];
+    $can_equip = $player_profile->equipped_tarot !== $tarot_card->card_numeral && $tarot_card->num_stars >= 1;
+    $can_synthesize = ($tarot_card->card_qty >= 2 && $tarot_card->num_stars < 8 && $tarot_card->num_stars >= 1 && !($tarot_card->num_stars === 7 && $lotus_stock <= 0));
+    $can_bind = $essence_stock > 0;
+    $equip_class = $can_equip ? "green" : "gray";
+    $synth_class = $can_synthesize ? "blue" : "gray";
+    $bind_class = $can_bind ? "blue" : "gray";
+    $equip_onclick = $can_equip ? "onclick=\"equipTarot('{$numeric_id}')\"" : "";
+    $button_onclick = $can_synthesize ? "onclick=\"synthesizeTarot('{$numeric_id}')\"" : "";
+    $bind_onclick = $can_bind ? "onclick=\"bindTarot('{$numeric_id}')\"" : "";
+    $menu .= "<button class='lightbox-button-$equip_class' $equip_onclick>Equip</button>";
+    $menu .= "<button class='lightbox-button-$synth_class' $button_onclick>Synthesis</button>";
+    $menu .= "<button class='lightbox-button-$bind_class' $bind_onclick>Bind</button>";
+    $menu .= "<button class='lightbox-button-gray' onclick='closeLightbox()'><span class='symbol-height'>✖</span> Close</button>";
+    $menu .= "</div>";
+    return ["success" => true, "html" => $html, "menu" => $menu];
+}
+
+function synthesize_tarot($player_profile, $tarot_card, $numeric_id) {
+    global $tarot_rate_map;
+    $attempt_success = false;
+    if ($tarot_card->card_qty < 2) {
+        return ["success" => false, "message" => "Not enough cards to synthesize."];
+    }
+    if ($tarot_card->num_stars >= 8) {
+        return ["success" => false, "message" => "Card is already maxed."];
+    }
+    if ($tarot_card->num_stars === 7) {
+        $stock = checkUserStock($player_profile->player_id, ["Lotus9"])["Lotus9"];
+        if ($stock < 1) {
+            return ["success" => false, "message" => "Cannot pay cost."];
+        }
+        update_stock($player_profile, "Lotus9", -1);
+    }
+    $tarot_card->card_qty -= 1;
+    $success = rand(1, 100) <= ($tarot_rate_map[$tarot_card->num_stars] ?? 0);
+    if ($success) {
+        $update_query = "UPDATE TarotInventory SET num_stars = num_stars + 1, card_qty = card_qty - 1 ";
+        $update_query .= "WHERE player_id = " . $player_profile->player_id . " AND card_numeral = '" . $tarot_card->card_numeral . "'";
+        $tarot_card->num_stars += 1;
+        $attempt_success = true;
+    } else {
+        $update_query = "UPDATE TarotInventory SET card_qty = card_qty - 1 ";
+        $update_query .= "WHERE player_id = " . $player_profile->player_id . " AND card_numeral = '" . $tarot_card->card_numeral . "'";
+    }
+    run_query($update_query, false);
+    $new_tarot = new TarotItem($player_profile->player_id, null, $tarot_card->card_numeral, $tarot_card->card_qty, $tarot_card->num_stars, $tarot_card->card_enhancement);
+    $new_tarot->resonance = $tarot_card->resonance;
+    $response = create_tarot_lightbox($player_profile, $new_tarot, $numeric_id);
+    $response['attempt_success'] = $attempt_success;
+    return $response;
+}
+
+function bind_tarot($player_profile, $tarot_card, $numeric_id) {
+    $essence_id = "Essence" . $tarot_card->card_numeral;
+    $stock = checkUserStock($player_profile->player_id, [$essence_id])[$essence_id];
+    if ($stock < 1) {
+        return ["success" => false, "message" => "Insufficient essence."];
+    }
+    $rate = max(0, 90 - ($tarot_card->card_tier * 5));
+    $success = rand(1, 100) <= $rate;
+    if ($success) {
+        if ($tarot_card->num_stars == 0) {
+            $tarot_query = "INSERT INTO TarotInventory (player_id, card_numeral, card_name, card_qty, num_stars, card_enhancement)";
+            $tarot_query .= " VALUES (" . $player_profile->player_id . ", '" . $tarot_card->card_numeral . "','" . $tarot_card->card_name . "', 1, 1, 0)";
+            $resonance = $tarot_card->resonance;
+            $tarot_card = new TarotItem($player_profile->player_id, null, $tarot_card->card_numeral, 1, 1, $tarot_card->card_enhancement);
+            $tarot_card->resonance = $resonance;
+        } else {
+            $tarot_query = "UPDATE TarotInventory SET card_qty = card_qty + 1";
+            $tarot_query .= " WHERE player_id = " . $player_profile->player_id . " AND card_numeral = '" . $tarot_card->card_numeral . "'";
+            
+        }
+        run_query($tarot_query, false);
+    }
+    update_stock($player_profile->player_id, $essence_id, -1);
+    $response = create_tarot_lightbox($player_profile, $tarot_card, $numeric_id);
+    $response['attempt_success'] = $success;
+    return $response;
+}
+
+function equip_tarot($player_profile, $tarot_card, $numeric_id) {
+    $player_profile->equipped_tarot = $tarot_card->card_numeral;
+    $player_profile->update_player_data();
+    $response = create_tarot_lightbox($player_profile, $tarot_card, $numeric_id);
+    $response['attempt_success'] = true;
+    return $response;
+}
+
+
 function getShopCostHTML(&$item_html, $item_id) {
     global $itemData, $verified_player_id, $web_url_base;
     $player_profile = get_player_by_id($verified_player_id);
@@ -371,7 +521,8 @@ function exchangeEssence($item_id) {
     if ($stock < $cost) {
         return ["success" => false, "message" => "Not enough tokens"];
     }
-    run_query("UPDATE BasicInventory SET item_qty = item_qty - $cost WHERE player_id = $verified_player_id AND item_id = 'Token7'", false);
+    $update_query = "UPDATE BasicInventory SET item_qty = item_qty - " . $cost . " WHERE player_id = " . $verified_player_id . " AND item_id = 'Token7'";
+    run_query($update_query, false);
     update_stock($verified_player_id, $item_id, 1);
     return create_inventory_lightbox($verified_player_id, $item_id, true);
 }

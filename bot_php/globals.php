@@ -300,6 +300,7 @@
 	$tarot_hp = [0, 5000, 1000, 1500, 2000, 2500, 5000, 10000, 20000];
 	$tarot_fd = [0, 10, 20, 30, 40, 50, 70, 100, 200];
 	$tarot_point_values = [0, 1, 2, 3, 4, 5, 7, 10, 20];
+	$tarot_rate_map = [1 => 75, 2 => 50, 3 => 40, 4 => 30, 5 => 20, 6 => 10, 7 => 99];
 	$insignia_name_list = [null, "Monolith", "Dyadic", "Trinity", "Tetradic", "Pentagram", null, null, null, "Refraction"];
 	$insignia_description_list = [null, "One element: ", "Two elements: ", "Three elements: ", "Four elements: ", "Five elements: ", null, null, null, "All elements: "];
 	$insignia_multipliers = [[0, 0], [150, 25], [75, 25], [50, 25], [75, 10], [50, 10], [0, 0], [0, 0], [0, 0], [25, 10]];
@@ -358,7 +359,7 @@
 
 	// Artist Data List
 	$artist_numerals = [
-		"Daerun" => ["III", "VI", "XIV", "XIII", "XXIV"],
+		"Daerun" => ["III", "VI", "VII", "XIV", "XIII", "XXIV"],
 		"Heng Ming Chiun" => ["IV", "VIII", "XV", "XVI", "XXII", "XXVI"],
 		"Quan Bui" => ["X", "XI", "XII"],
 		"Denny Rasyid Salam" => ["IX", "V"],
