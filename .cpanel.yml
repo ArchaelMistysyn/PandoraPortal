@@ -1,5 +1,20 @@
 deployment:
   tasks:
+    # Debugging: Print current directory structure
+    - echo "DEBUG: Listing botimages/NonGear_Icon..."
+    - /bin/ls -la botimages/NonGear_Icon/
+
+    # Debugging: Verify Trove files exist in Git
+    - echo "DEBUG: Checking Trove files..."
+    - /bin/ls -la botimages/NonGear_Icon/Trove/ || echo "ERROR: Trove folder missing!"
+
+    # Debugging: Test folder creation
+    - echo "DEBUG: Creating NonGear_Icon/Trove..."
+    - /bin/mkdir -pv $DEPLOYPATH/botimages/NonGear_Icon/Trove
+
+    # Debugging: Test copy command
+    - echo "DEBUG: Copying Trove files..."
+    - /bin/cp -Rv botimages/NonGear_Icon/Trove/ $DEPLOYPATH/botimages/NonGear_Icon/ || echo "ERROR: Copy failed!"
     - export DEPLOYPATH=/home/kylep910/pandoraportal.ca
     - /bin/mkdir -p $DEPLOYPATH/CSS
     - /bin/mkdir -p $DEPLOYPATH/scripts
