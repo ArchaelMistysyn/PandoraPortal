@@ -10,7 +10,7 @@ deployment:
     - /bin/mkdir -p $DEPLOYPATH/bot_php
     - /bin/mkdir -p $DEPLOYPATH/image_display
     - /bin/cc -R CSS/* $DEPLOYPATH/CSS/
-    - /bin/find botimages -type f -exec /bin/cp --parents {} $DEPLOYPATH/ \;
+    - /usr/bin/rsync -a botimages/ $DEPLOYPATH/botimages/
     - /bin/cp -R scripts/* $DEPLOYPATH/scripts/
     - /bin/cp -R images/* $DEPLOYPATH/images/
     - /bin/cp -R gallery/* $DEPLOYPATH/gallery/
