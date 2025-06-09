@@ -10,7 +10,8 @@ deployment:
     - /bin/mkdir -p $DEPLOYPATH/bot_php
     - /bin/mkdir -p $DEPLOYPATH/image_display
     - /bin/mkdir -p $DEPLOYPATH/botimages
-    - /bin/cp -R botimages/* $DEPLOYPATH/botimages/
+    - /bin/mkdir -p $DEPLOYPATH/botimages/NonGear_Icon
+    - /bin/cp -R botimages/NonGear_Icon/ $DEPLOYPATH/botimages/
     - /bin/cc -R CSS/* $DEPLOYPATH/CSS/
     - /bin/cp -R scripts/* $DEPLOYPATH/scripts/
     - /bin/cp -R images/* $DEPLOYPATH/images/
