@@ -1,5 +1,6 @@
 deployment:
   tasks:
+    - /bin/date > /home/kylep910/pandoraportal.ca/deploy.log
     - /bin/mkdir -p /home/kylep910/pandoraportal.ca/CSS
     - /bin/mkdir -p /home/kylep910/pandoraportal.ca/scripts
     - /bin/mkdir -p /home/kylep910/pandoraportal.ca/images
