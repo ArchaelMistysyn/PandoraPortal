@@ -1,6 +1,5 @@
 deployment:
   tasks:
-    - /bin/date > /home/kylep910/pandoraportal.ca/deploy.log
     - /bin/mkdir -p /home/kylep910/pandoraportal.ca/CSS
     - /bin/mkdir -p /home/kylep910/pandoraportal.ca/scripts
     - /bin/mkdir -p /home/kylep910/pandoraportal.ca/images
@@ -11,6 +10,7 @@ deployment:
     - /bin/mkdir -p /home/kylep910/pandoraportal.ca/image_display
     - /bin/mkdir -p /home/kylep910/pandoraportal.ca/botimages
     - /bin/mkdir -p /home/kylep910/pandoraportal.ca/botimages/NonGear_Icon
+    - /bin/cp -R botimages/NonGear_Icon /home/kylep910/pandoraportal.ca/botimages/
     - /bin/cp -R CSS/* /home/kylep910/pandoraportal.ca/CSS/
     - /bin/cp -R scripts/* /home/kylep910/pandoraportal.ca/scripts/
     - /bin/cp -R images/* /home/kylep910/pandoraportal.ca/images/
