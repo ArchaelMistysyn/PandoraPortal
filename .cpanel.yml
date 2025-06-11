@@ -1,5 +1,6 @@
 deployment:
   tasks:
     - cd /home/kylep910/pandoraportal.ca && git fetch --all
-    - cd /home/kylep910/pandoraportal.ca && git reset --hard origin/restore-14.0  # Replace branchname as needed
+    - cd /home/kylep910/pandoraportal.ca && git reset --hard HEAD
     - cd /home/kylep910/pandoraportal.ca && git clean -f -d
+    - cd /home/kylep910/pandoraportal.ca && git pull origin restore-14.0  # Replace branchname as needed
