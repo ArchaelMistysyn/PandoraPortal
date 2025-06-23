@@ -75,7 +75,7 @@
 				$player_obj->attack_speed = ($player_obj->attack_speed != 0) ? round($player_obj->attack_speed / 2) : 0;
 				break;
 			case "Greed":
-				foreach (["Omega", "Hyperbleed", "Fractal", "Time Lock", "Bloom"] as $key) {
+				foreach (["Omega", "Hyperbleed", "Fractal", "Temporal", "Bloom"] as $key) {
 					$player_obj->trigger_rate[$key] *= 2;
 				}
 				$player_obj->charge_generation = round($player_obj->charge_generation / 2);
