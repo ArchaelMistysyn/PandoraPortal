@@ -297,7 +297,7 @@
         "cost": 0,
         "success_rate": 100,
         "category": "Trove",
-        "image_link": ""
+        "image_link": "https://www.PandoraPortal.ca/gallery/Items/Trove/Trove1.webp"
     },
     "Trove2": {
         "item_id": "Trove2",
@@ -307,7 +307,7 @@
         "cost": 0,
         "success_rate": 100,
         "category": "Trove",
-        "image_link": ""
+        "image_link": "https://www.PandoraPortal.ca/gallery/Items/Trove/Trove2.webp"
     },
     "Trove3": {
         "item_id": "Trove3",
@@ -317,7 +317,7 @@
         "cost": 0,
         "success_rate": 100,
         "category": "Trove",
-        "image_link": ""
+        "image_link": "https://www.PandoraPortal.ca/gallery/Items/Trove/Trove3.webp"
     },
     "Trove4": {
         "item_id": "Trove4",
@@ -327,7 +327,7 @@
         "cost": 0,
         "success_rate": 100,
         "category": "Trove",
-        "image_link": ""
+        "image_link": "https://www.PandoraPortal.ca/gallery/Items/Trove/Trove4.webp"
     },
     "Trove5": {
         "item_id": "Trove5",
@@ -337,7 +337,7 @@
         "cost": 0,
         "success_rate": 100,
         "category": "Trove",
-        "image_link": ""
+        "image_link": "https://www.PandoraPortal.ca/gallery/Items/Trove/Trove5.webp"
     },
     "Trove6": {
         "item_id": "Trove6",
@@ -347,7 +347,7 @@
         "cost": 0,
         "success_rate": 100,
         "category": "Trove",
-        "image_link": ""
+        "image_link": "https://www.PandoraPortal.ca/gallery/Items/Trove/Trove6.webp"
     },
     "Trove7": {
         "item_id": "Trove7",
@@ -357,7 +357,7 @@
         "cost": 0,
         "success_rate": 100,
         "category": "Trove",
-        "image_link": ""
+        "image_link": "https://www.PandoraPortal.ca/gallery/Items/Trove/Trove7.webp"
     },
     "Trove8": {
         "item_id": "Trove8",
@@ -367,7 +367,17 @@
         "cost": 0,
         "success_rate": 100,
         "category": "Trove",
-        "image_link": ""
+        "image_link": "https://www.PandoraPortal.ca/gallery/Items/Trove/Trove8.webp"
+    },
+    "Trove9": {
+        "item_id": "Trove8",
+        "name": "Sacred Lotus Trove",
+        "tier": 8,
+        "description": "Open to receive 1,000,000 - 10,000,000 lotus coins. Special Reward: 50% Base Lotus, 15% Seal of Salvation, 15% Sacred Blood, 15% Divine Lotus, 5% Rainbow Lotus",
+        "cost": 0,
+        "success_rate": 100,
+        "category": "Trove",
+        "image_link": "https://www.PandoraPortal.ca/gallery/Items/Trove/Trove9.webp"
     },
     "Ore1": {
         "item_id": "Ore1",
@@ -377,7 +387,7 @@
         "cost": 2500,
         "success_rate": 2,
         "category": "Ore",
-        "image_link": ""
+        "image_link": "https://www.PandoraPortal.ca/gallery/Items/Ore/Crude Ore.webp"
     },
     "Ore2": {
         "item_id": "Ore2",
@@ -387,7 +397,7 @@
         "cost": 5000,
         "success_rate": 5,
         "category": "Ore",
-        "image_link": ""
+        "image_link": "https://www.PandoraPortal.ca/gallery/Items/Ore/Cosmite Ore.webp"
     },
     "Ore3": {
         "item_id": "Ore3",
@@ -397,7 +407,7 @@
         "cost": 10000,
         "success_rate": 10,
         "category": "Ore",
-        "image_link": ""
+        "image_link": "https://www.PandoraPortal.ca/gallery/Items/Ore/Celestite Ore.webp"
     },
     "Ore4": {
         "item_id": "Ore4",
@@ -407,7 +417,7 @@
         "cost": 50000,
         "success_rate": 50,
         "category": "Ore",
-        "image_link": ""
+        "image_link": "https://www.PandoraPortal.ca/gallery/Items/Ore/Crystallite Ore.webp"
     },
     "Ore5": {
         "item_id": "Ore5",
@@ -417,7 +427,7 @@
         "cost": 1000000,
         "success_rate": 100,
         "category": "Ore",
-        "image_link": ""
+        "image_link": "https://www.PandoraPortal.ca/gallery/Items/Ore/Heavenly Ore.webp"
     },
     "Flame1": {
         "item_id": "Flame1",
@@ -1467,7 +1477,7 @@
         "cost": 0,
         "success_rate": 100,
         "category": "Misc",
-        "image_link": ""
+        "image_link": "https://www.PandoraPortal.ca/gallery/Items/Misc/Metamorphite.webp"
     },
     "Fish1": { "item_id": "Fish1", "name": "Sawshark", "tier": 1, "description": "Amazing! What a cute fish. So adorable!", "cost": 0, "success_rate": 100, "category": "Fish", "image_link": "" },
     "Fish2": { "item_id": "Fish2", "name": "Slippery Dick", "tier": 1, "description": "Amazing! What a cute fish. So adorable!", "cost": 0, "success_rate": 100, "category": "Fish", "image_link": "" },
