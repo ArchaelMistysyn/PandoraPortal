@@ -38,7 +38,7 @@ const travelSubmenus = {
     ],
     mortal: [
         { label: "Refinery", image: galleryURL + "Displays/Locations/Refinery.webp", trigger: () => onRefine() },
-        { label: "Alchemist", image:  galleryURL + "Displays/Locations/Alchemist Shop.webp" },
+        { label: "Alchemist", image:  galleryURL + "Displays/Locations/Alchemist Shop.webp", trigger: () => onShop("Infuse") },
         { label: "Market", image: "", trigger: () => onShop("Market") },
         { label: "Bazaar", image: "" },
         { label: "Monument", level: 15, monument_id: 1, trigger: (e) => checkMonument(1, galleryURL + "Displays/Locations/Monument of Beginnings.webp", e.target) },

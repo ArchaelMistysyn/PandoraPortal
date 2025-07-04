@@ -363,8 +363,8 @@
 		"Heng Ming Chiun" => ["IV", "VIII", "XV", "XVI", "XXII", "XXVI"],
 		"Quan Bui" => ["X", "XI", "XII"],
 		"Denny Rasyid Salam" => ["IX", "V"],
-		"Martin Steffen" => ["I"],
-		"Aiming Chen" => ["XXIII"],
+		"Martin Steffen" => ["I", "XXVI"],
+		"Aiming Chen" => ["XXIII", "XVIII", "XIX"],
 		"Alina Arkhipova" => ["XXVIII"]
 	];	
 ?>

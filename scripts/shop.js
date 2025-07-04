@@ -1,6 +1,4 @@
-const shopScreen = document.getElementById("shop-screen");
-const tarotScreen = document.getElementById("tarot-screen");
-const cathedralScreen = document.getElementById("cathedral-screen");
+let showGearInfuse = false;
 
 const shopOptions = {
     Market: [
@@ -30,15 +28,94 @@ const shopOptions = {
         { label: "Tier 5 Tarot", value: "t5t", quest: 0 },
         { label: "Tier 6 Tarot", value: "t6t", quest: 0 },
         { label: "Tier 7 Tarot", value: "t7t", quest: 0 }
+    ],
+    Infuse: [
+        { label: "Heavenly Infusion", value: "heavenly_infusion", quest: 0 },
+        { label: "Elemental Infusion", value: "elemental_infusion", quest: 0 },
+        { label: "Crystal Infusion", value: "crystal_infusion", quest: 0 },
+        { label: "Void Infusion", value: "void_infusion", quest: 0 },
+        { label: "Jewel Infusion", value: "jewel_infusion", quest: 0 },
+        { label: "Skull Infusion", value: "skull_infusion", quest: 0 }
+    ],
+    InfuseGear: [
+        { label: "Special Infusion", value: "special_infusion", quest: 0 },
+        { label: "Elemental Signet", value: "elemental_signet_infusion", quest: 0 },
+        { label: "Primordial Ring", value: "primordial_ring_infusion", quest: 0 },
+        { label: "Path Ring", value: "path_ring_infusion", quest: 0 },
+        { label: "Fabled Ring", value: "fabled_ring_infusion", quest: 0 },
+        { label: "Sovereign Ring", value: "sovereign_ring_infusion", quest: 0 },
+        { label: "Sovereign Gear", value: "sovereign_gear_infusion", quest: 0 }
     ]
 };
+
+const infuseRecipes = {
+    "heavenly_infusion": [
+        "Heavenly Ore (Crude)",
+        "Heavenly Ore (Cosmite)",
+        "Heavenly Ore (Celestite)",
+        "Heavenly Ore (Crystallite)"
+    ],
+    "elemental_infusion": [
+        "Ruby", "Sapphire", "Topaz", "Agate", "Emerald", "Zircon", "Obsidian", "Opal", "Amethyst"
+    ],
+    "crystal_infusion": [
+        "Crystallized Void (Fragment)",
+        "Crystallized Wish (Fragment)",
+        "Crystallized Abyss (Fragment)",
+        "Crystallized Divinity (Fragment)",
+        "Crystallized Wish (Upgrade)",
+        "Crystallized Abyss (Upgrade)",
+        "Crystallized Divinity (Upgrade)"
+    ],
+    "void_infusion": [
+        "Unrefined Void Item (Weapon)", "Unrefined Void Item (Armour)", "Unrefined Void Item (Greaves)",
+        "Unrefined Void Item (Amulet)", "Unrefined Void Item (Wing)", "Unrefined Void Item (Crest)"
+    ],
+    "jewel_infusion": [
+        "Unrefined Dragon Jewel", "Unrefined Demon Jewel", "Unrefined Paragon Jewel"
+    ],
+    "skull_infusion": [
+        "Haunted Golden Skull", "Radiant Golden Skull", "Prismatic Golden Skull"
+    ],
+    "special_infusion": [
+        "Radiant Heart", "Chaos Heart", "Abyss Flame", "Lotus of Serenity"
+    ],
+    "elemental_signet_infusion": [
+        "Elemental Signet of Fire", "Elemental Signet of Water", "Elemental Signet of Lightning",
+        "Elemental Signet of Earth", "Elemental Signet of Wind", "Elemental Signet of Ice",
+        "Elemental Signet of Shadow", "Elemental Signet of Light", "Elemental Signet of Celestial"
+    ],
+    "primordial_ring_infusion": [
+        "Ruby Ring of Incineration", "Sapphire Ring of Atlantis", "Topaz Ring of Dancing Thunder",
+        "Agate Ring of Seismic Tremors", "Emerald Ring of Wailing Winds", "Zircon Ring of the Frozen Castle",
+        "Obsidian Ring of Tormented Souls", "Opal Ring of Scintillation", "Amethyst Ring of Shifting Stars"
+    ],
+    "path_ring_infusion": [
+        "Invoking Ring of Storms", "Primordial Ring of Frostfire", "Boundary Ring of Horizon",
+        "Hidden Ring of Eclipse", "Cosmic Ring of Stars", "Orbital Ring of Solar Flux",
+        "Orbital Ring of Lunar Tides", "Orbital Ring of Terrestria", "Rainbow Ring of Confluence"
+    ],
+    "fabled_ring_infusion": [
+        "Dragon's Eye Diamond", "Bleeding Hearts", "Gambler's Masterpiece",
+        "Lonely Ring of the Dark Star", "Lonely Ring of the Light Star"
+    ],
+    "sovereign_ring_infusion": [
+        "Stygian Calamity", "Heavenly Calamity", "Hadal's Raindrop", "Twin Rings of Divergent Stars",
+        "Crown of Skulls", "Chromatic Tears"
+    ],
+    "sovereign_gear_infusion": [
+        "Pandora's Universe Hammer", "Fallen Lotus of Nephilim", "Solar Flare Blaster", "Bathyal, Enigmatic Chasm Bauble", "Ruler's Crest"
+    ]
+};
+
 
 function onShop(shopType, reload=true) {
     if (reload) {
         clearScreens();
     }
     swapShopScreen(shopType);
-    const options = shopOptions[shopType] || [];
+    shopMenu.className = (shopType === "Infuse") ? 'infuse-shop-menu' : 'basic-shop-menu';
+    const options = shopType === "Infuse" ? (showGearInfuse ? shopOptions.InfuseGear : shopOptions.Infuse) : (shopOptions[shopType] || []);
     shopMenu.innerHTML = ""
     fetch('./fetch_handler.php', {
         method: "POST",
@@ -49,6 +126,10 @@ function onShop(shopType, reload=true) {
     .then(data => {
         if (data.success) {
             const buttons = [];
+            if (shopType === "Infuse") {
+                const toggleText = showGearInfuse ? "Show Non-Gear" : "Show Gear";
+                buttons.push(`<button class="shop-button-red" onclick="toggleInfuseCategory()">${toggleText}</button>`);
+            }
             options.forEach(opt => {
                 const locked = data.player.quest < opt.quest;
                 const className = locked ? 'shop-button-locked' : 'shop-button-blue';
@@ -65,7 +146,7 @@ function onShop(shopType, reload=true) {
 }
 
 function swapShopScreen(shopType) {
-    const screens = {Market: '#shop-screen', Tarot: '#tarot-screen', Cathedral: '#cathedral-screen'};
+    const screens = {Infuse: '#infuse-screen', Market: '#shop-screen', Tarot: '#tarot-screen', Cathedral: '#cathedral-screen'};
     Object.values(screens).forEach(id => { document.querySelector(id).style.display = 'none'; });
     const target = screens[shopType];
     if (target) { document.querySelector(target).style.display = 'flex'; }
@@ -82,6 +163,21 @@ function selectOption(value, shopType = 'Market') {
         shopMenu.innerHTML = filtered.join('');
         return;
     }
+    if (shopType === 'Infuse') {
+        if (!value && shopType === 'Infuse') {
+            onShop('Infuse', false);
+            return;
+        }
+        const recipes = infuseRecipes[value] || [];
+        const buttons = recipes.map(recipe => {
+            const safeRecipe = recipe.replace(/'/g, "\\'");
+            return `<button class="shop-button-blue" onclick="selectInfusion('${value}', '${safeRecipe}')">${recipe}</button>`;
+        });
+        buttons.push(`<button class="shop-button-red" onclick="selectOption('', 'Infuse')">Back</button>`);
+        shopMenu.innerHTML = buttons.join('');
+        return;
+    }
+
     const shopFilters = {
         t1m: (_, id, item) => item.cost > 0 && item.tier === 1 && !id.startsWith("Fae"), t2m: item => item.cost > 0 && item.tier === 2, 
         t3m: item => item.cost > 0 && item.tier === 3, t4m: (_, id, item) => item.cost > 0 && item.tier === 4 && !id.startsWith("Skull"),
@@ -136,6 +232,60 @@ function selectTarot(tarotId, shopType, value) {
     })
     .catch(error => console.error("Tarot fetch error:", error));
 }
+
+function toggleInfuseCategory() {
+    showGearInfuse = !showGearInfuse;
+    onShop('Infuse', false);
+}
+
+function selectInfusion(categoryKey, recipeName) {
+    fetch('./fetch_handler.php', {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action: "showInfusion", recipe: recipeName })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            lightboxDisplay.innerHTML = data.html;
+            lightboxMenu.innerHTML = data.menu;
+            lightboxScreen.style.display = "flex";
+        } else {
+            alert(data.message || "Failed to load infusion.");
+        }
+    })
+    .catch(error => console.error("Infusion fetch error:", error));
+}
+
+function executeInfusion(recipeName) {
+    runInfusion("executeInfusion", recipeName);
+}
+
+function executeSacredInfusion(recipeName) {
+    runInfusion("executeSacredInfusion", recipeName);
+}
+
+function runInfusion(action, recipeName) {
+    blockingScreen.style.display = "block";
+    fetch('./fetch_handler.php', {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action, recipe: recipeName })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            lightboxDisplay.innerHTML = data.html;
+            lightboxMenu.innerHTML = data.menu;
+            animatePurchase(data.attempt_success);
+        } else {
+            alert(data.message || "Infusion failed.");
+        }
+    })
+    .catch(error => console.error("Infusion error:", error))
+    .finally(() => { blockingScreen.style.display = "none"; });
+}
+
 
 function handleTarotAction(action, tarotId) {
     blockingScreen.style.display = "block";

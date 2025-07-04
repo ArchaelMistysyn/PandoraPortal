@@ -416,6 +416,9 @@
       margin: 5px 0;
       color: #f0d264;
   } REMOVE IF NOT NEEDED? */
+  .infuse-header {
+    font-size: 1.8rem;
+  }
   .lightbox-header {
     font-size: 1.8rem;
     padding-top: 10px;
@@ -1311,16 +1314,25 @@
     position: absolute;
     left: 50px;
     background-color:#111;
-    width: 290px;
     display: flex;
     flex-direction: column;
     padding: 10px;
     border: 1px solid white;
     z-index: 99;
   }
+  .infuse-shop-menu {
+    width: 350px;
+  }
+  .basic-shop-menu {
+    width: 290px;
+  }
   #shop-screen {
     /*background-image: url('https://www.PandoraPortal.ca/gallery/Displays/Locations/Market.webp');*/
     border: 2px solid red;
+  }
+
+  #infuse-screen {
+    background-image: url('https://www.PandoraPortal.ca/gallery/Displays/Locations/Alchemist Shop.webp');
   }
 
   #tarot-screen {
@@ -1331,7 +1343,7 @@
     background-image: url('https://www.PandoraPortal.ca/gallery/Displays/Locations/Cathedral.webp');
   }
 
-  #shop-screen, #tarot-screen, #cathedral-screen {
+  #shop-screen, #tarot-screen, #cathedral-screen, #infuse-screen {
     background-size: cover;
     background-repeat: no-repeat;
     height: 700px;
@@ -1499,7 +1511,6 @@
     min-width: 400px;
     max-width: 400px;
     min-height: 400px;
-    max-height: 400px;
   }
 
   .item-displaybox-small {

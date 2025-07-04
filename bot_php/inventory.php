@@ -310,13 +310,16 @@
 			$skills = $ring_skill_data[$this->item_base_type]['skills'];
 			$final_damage = $this->item_tier * 10;
 			$attack_speed = $this->item_tier * 5;
-			$resonance_index = $ring_skill_data[$this->item_base_type]['resonance'];
-			if ($resonance_index == "Random") {
-				$resonance_roll_position = ($this->item_base_type == "Crown of Skulls" || $this->item_base_type == "Chromatic Tears") ? 2 : 0;
-				$resonance_roll = isset($this->item_roll_values[$resonance_roll_position]) ? $this->item_roll_values[$resonance_roll_position] : 'Unknown';
-				$resonance = get_resonance_text($resonance_roll);
-			} else {
-				$resonance = get_resonance_text($resonance_index);
+			$resonance = null;
+			if (isset($ring_skill_data[$this->item_base_type]['resonance'])) {
+				$resonance_index = $ring_skill_data[$this->item_base_type]['resonance'];
+				if ($resonance_index === "Random") {
+					$pos = ($this->item_base_type == "Crown of Skulls" || $this->item_base_type == "Chromatic Tears") ? 2 : 0;
+					$resonance_roll = $this->item_roll_values[$pos] ?? 'Unknown';
+					$resonance = get_resonance_text($resonance_roll);
+				} else {
+					$resonance = get_resonance_text($resonance_index);
+				}
 			}
 			$skill_display = "<div class=\"skill-slot tier-$this->item_tier\">Final Damage +$final_damage%</div>";
 			$skill_display .= "<div class=\"skill-slot tier-$this->item_tier\">Attack Speed +$attack_speed%</div>";
@@ -826,7 +829,7 @@
 	function fetchInsertedItemId($item) {
 		$element_str = implode(";", array_map('intval', $item->item_elements ?? []));
 		$query  = "SELECT item_id FROM CustomInventory WHERE player_id = {$item->player_id}";
-		$query .= " AND item_name = '" . $item->item_name . "'";
+		$query .= " AND item_name = '" . addslashes($item->item_name) . "'";
 		$query .= " AND item_base_dmg_min = {$item->base_damage_min}";
 		$query .= " AND item_base_dmg_max = {$item->base_damage_max}";
 		$query .= " AND item_elements = '" . $element_str . "'";
@@ -976,6 +979,22 @@
 			$this->image_link = $item_info['image_link'] ?? '';
 		}
 	}
+
+	function get_frame_image($item_id) {
+		global $itemData;
+		$filename = "";
+		$category = $itemData[$item_id]["category"] ?? "";
+		$tier = $itemData[$item_id]["tier"] ?? 0;
+		$filename = "Frame_{$item_id}.png";
+		if ($category === "Fish") {
+			$filename = "Frame_Fish_{$tier}.png";
+		}
+		if ($category === "Essence") {
+			$filename = "Frame_Essence_{$tier}.png";
+		}
+		$filename = htmlspecialchars("./botimages/NonGear_Icon/{$category}/{$filename}", ENT_QUOTES, 'UTF-8');
+		return $filename;
+	}
 	
 	function update_stock($player_id, $item_id, $qty) {
 		$query = "INSERT INTO BasicInventory (player_id, item_id, item_qty)
@@ -995,6 +1014,19 @@
 		$query = "INSERT INTO BasicInventory (player_id, item_id, item_qty)
 				  VALUES $value_str
 				  ON DUPLICATE KEY UPDATE item_qty = item_qty + VALUES(item_qty)";
+		run_query($query, false);
+	}
+
+	function pay_batch_cost($player_id, $cost_items) {
+		if (empty($cost_items)) return;
+		$cases = [];
+		$ids = [];
+		foreach ($cost_items as [$id, $qty]) {
+			$cases[] = "WHEN item_id = '" . addslashes($id) . "' THEN GREATEST(0, item_qty - " . intval($qty) . ")";
+			$ids[] = "'" . addslashes($id) . "'";
+		}
+		$query = "UPDATE BasicInventory SET item_qty = CASE " . implode(' ', $cases) . " END
+				WHERE player_id = " . intval($player_id) . " AND item_id IN (" . implode(',', $ids) . ")";
 		run_query($query, false);
 	}
 

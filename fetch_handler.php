@@ -13,6 +13,8 @@ include_once('./bot_php/boss.php');
 include_once('./bot_php/forge.php');
 include_once('./bot_php/shared_methods.php');
 include_once('./bot_php/battle_handler.php');
+include_once('./bot_php/infuse.php');
+
 
 // Data Verification
 if (!isset($_SESSION['player_id'])) {
@@ -29,6 +31,7 @@ $quest_choice = isset($input['quest_choice']) && $input['quest_choice'] !== 'nul
 $magnitude = isset($input['magnitude']) && $input['magnitude'] !== 'null' ? $input['magnitude'] : null;
 $numeric_id = isset($input['numeric_id']) && $input['numeric_id'] !== 'null' ? $input['numeric_id'] : null;
 $item_id = isset($input['item_id']) && $input['item_id'] !== 'null' ? $input['item_id'] : null;
+$recipe_name = isset($input['recipe']) && $input['recipe'] !== 'null' ? $input['recipe'] : null;
 if (!$action) {
     echo json_encode(["success" => false, "message" => "No action provided"]);
     exit();
@@ -59,6 +62,10 @@ if ($magnitude !== null && $magnitude !== '' && (!ctype_digit((string) $magnitud
 }
 if ($numeric_id !== null && $numeric_id !== '' && (!ctype_digit((string) $numeric_id) || $numeric_id < 0)) {
     echo json_encode(["success" => false, "message" => "Invalid numeric_id provided: " . $numeric_id]);
+    exit();
+}
+if ($recipe_name !== null && !isset($all_recipe_names[$recipe_name])) {
+    echo json_encode(["success" => false, "message" => "Invalid recipe name"]);
     exit();
 }
 
@@ -217,6 +224,36 @@ if (in_array($action, $forge_actions)) {
                 $response = exchangeEssence($item_id);
             }
             break;
+        case "showInfusion":
+            if (!$recipe_name) {
+                $response = ["success" => false, "message" => "Missing recipe name"];
+                break;
+            }
+            $player_profile = get_player_by_id($verified_player_id);
+            $recipe_obj = RecipeObject::from_name($recipe_name);
+            if (!$recipe_obj) {
+                $response = ["success" => false, "message" => "Recipe not found"];
+                break;
+            }
+            [$embed_html, $can_craft, $is_gear, $has_sacred] = $recipe_obj->create_cost_html($player_profile);
+            $menu_button = $recipe_obj->build_infusion_menu($can_craft, $has_sacred);
+            $response = ["success" => true, "html" => "<div class='item-displaybox'>$embed_html</div>", "menu" => $menu_button];
+            break;
+        case "executeInfusion":
+        case "executeSacredInfusion":
+            if (!$recipe_name) {
+                $response = ["success" => false, "message" => "Missing recipe name"];
+                break;
+            }
+            $player_profile = get_player_by_id($verified_player_id);
+            $recipe_obj = RecipeObject::from_name($recipe_name);
+            if (!$recipe_obj) {
+                $response = ["success" => false, "message" => "Recipe not found"];
+                break;
+            }
+            $result = $recipe_obj->execute_infusion($player_profile, $action === "executeSacredInfusion");
+            $response = ["success" => true, "html" => $result["html"], "menu" => $result["menu"]];
+            break;
         case "purchaseShopItem":
             if (!$item_id) {
                 $response = ["success" => false, "message" => "Missing item ID"];
@@ -323,17 +360,9 @@ function get_inventory_by_player_id($player_id, $specific_item_id = null) {
         return ["success" => false, "message" => "Item not found"];
     }
     foreach ($inventory as &$item) {
-        // Update with BasicItem Later
-        $category = $itemData[$item["item_id"]]["category"];
         $item["name"] = $itemData[$item["item_id"]]["name"];
-        if ($category === "Fish") {
-            $filename = "Frame_Fish_{$itemData[$item["item_id"]]["tier"]}.png";
-        } elseif ($category === "Essence") {
-            $filename = "Frame_Essence_{$itemData[$item["item_id"]]["tier"]}.png";
-        } else {
-            $filename = "Frame_{$item['item_id']}.png";
-        }
-        $item["icon"] = "./botimages/NonGear_Icon/{$category}/{$filename}";
+        $filepath = get_frame_image($item["item_id"]);
+        $item["icon"] = $filepath;
     }
     return $specific_item_id !== null ? ["success" => true, "item" => $inventory[0]] : ["success" => true, "items" => $inventory];
 }

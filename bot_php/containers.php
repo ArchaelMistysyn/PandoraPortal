@@ -201,6 +201,7 @@
         $shopContainerHTML .= '<div id="tarot-screen"></div>';
         $shopContainerHTML .= '<div id="cathedral-screen"></div>';
         $shopContainerHTML .= '<div id="shop-screen"></div>';
+        $shopContainerHTML .= '<div id="infuse-screen"></div>';
     $shopContainerHTML .= '</div>';
 
     // Default Containers

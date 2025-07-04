@@ -182,6 +182,7 @@
 	}
 
 	function reroll_roll(&$item, $method_type, $player_class = null) {
+		global $class_names;
         global $roll_structure_dict, $item_roll_master_dict;
         if ($method_type === "all") {
             $tier_list = array_map(fn($roll) => (new ItemRoll($roll))->roll_tier, $item->item_roll_values);
@@ -195,9 +196,7 @@
             return;
         }
         $method = ($method_type === "any") ? $roll_structure_dict[$item->item_type][array_rand($roll_structure_dict[$item->item_type])] : $method_type;
-        if ($method_type === "Salvation") {
-            $method = "unique";
-        }
+        if ($method_type === "Salvation") { $method = "unique"; }
         $eligible_rolls = [];
         $roll_index = null;
         foreach ($item->item_roll_values as $index => $roll_id) {
@@ -210,12 +209,22 @@
         $selected_index = array_rand($eligible_rolls);
         $selected_roll = $eligible_rolls[$selected_index];
         $roll_list = ($method === "unique") ? handle_unique($item, $player_class)[0] : $item_roll_master_dict[$method][0];
+		if ($method_type === "Salvation") {
+			$roll_list = array_filter($roll_list, function($k) use ($class_names) {
+				foreach ($class_names as $class) {
+					if (str_ends_with($k, '-' . $class)) return true;
+				}
+				return false;
+			}, ARRAY_FILTER_USE_KEY);
+		}
         $exclusions_list = [];
         $exclusions_weighting = [];
         foreach ($eligible_rolls as $roll) {
-            $exclusions_list[] = $roll->roll_code;
-            $exclusions_weighting[] = $roll_list[$roll->roll_code][2];
-        }
+			if (isset($roll_list[$roll->roll_code])) {
+				$exclusions_list[] = $roll->roll_code;
+				$exclusions_weighting[] = $roll_list[$roll->roll_code][2];
+			}
+		}
         $available_rolls = array_diff(array_keys($roll_list), $exclusions_list);
         $selected_roll_code = select_roll(array_sum(array_column($roll_list, 2)), $exclusions_weighting, $available_rolls, $roll_list);
         $tier = $selected_roll->roll_tier;
