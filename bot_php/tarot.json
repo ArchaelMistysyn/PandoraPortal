@@ -1,0 +1,345 @@
+{
+  "0": {
+    "Numeral": "0",
+    "Name": "Karma, The Reflection",
+    "tier": 1,
+    "type": "Paragon",
+    "path": 1,
+    "skills": [
+      {"bonus": "Arbiter Bane", "value": 25, "attribute": "banes", "index": 4},
+      {"bonus": "Paragon Bane", "value": 25, "attribute": "banes", "index": 3}
+    ]
+  },
+  "1": {
+    "Numeral": "I",
+    "Name": "Runa, The Magic",
+    "tier": 1,
+    "type": "Paragon",
+    "path": 1,
+    "skills": [
+      {"bonus": "Fire Damage", "value": 1, "attribute": "elemental_mult", "index": 0},
+      {"bonus": "Mana Damage", "value": 25, "attribute": "mana_mult", "index": 5}
+    ]
+  },
+  "2": {
+    "Numeral": "II",
+    "Name": "Pandora, The Celestial",
+    "tier": 4,
+    "type": "Paragon",
+    "path": 4,
+    "skills": [
+      {"bonus": "Celestial Penetration", "value": 20, "attribute": "elemental_pen", "index": 8},
+      {"bonus": "Celestial Curse", "value": 15, "attribute": "elemental_curse", "index": 8}
+    ]
+  },
+  "3": {
+    "Numeral": "III",
+    "Name": "Oblivia, The Void",
+    "tier": 5,
+    "type": "Paragon",
+    "path": 6,
+    "skills": [
+      {"bonus": "Mana Application", "value": 1, "attribute": "appli", "index": "Mana"},
+      {"bonus": "Critical Application", "value": 1, "attribute": "appli", "index": "Critical"}
+    ]
+  },
+  "4": {
+    "Numeral": "IV",
+    "Name": "Akasha, The Infinite",
+    "tier": 5,
+    "type": "Paragon",
+    "path": 5,
+    "skills": [
+      {"bonus": "Life Application", "value": 1, "attribute": "appli", "index": "Life"},
+      {"bonus": "Critical Application", "value": 1, "attribute": "appli", "index": "Critical"}
+    ]
+  },
+  "5": {
+    "Numeral": "V",
+    "Name": "Arkaya, The Duality",
+    "tier": 1,
+    "type": "Paragon",
+    "path": 2,
+    "skills": [
+      {"bonus": "Bleed Penetration", "value": 20, "attribute": "bleed_pen", "index": 6},
+      {"bonus": "Bleed Application", "value": 1, "attribute": "appli", "index": "Bleed"}
+    ]
+  },
+  "6": {
+    "Numeral": "VI",
+    "Name": "Kama, The Love",
+    "tier": 1,
+    "type": "Paragon",
+    "path": 4,
+    "skills": [
+      {"bonus": "Omni Damage", "value": 25, "attribute": "all_elemental_mult", "index": null},
+      {"bonus": "Human Bane", "value": 25, "attribute": "banes", "index": 5}
+    ]
+  },
+  "7": {
+    "Numeral": "VII",
+    "Name": "Astratha, The Dimensional",
+    "tier": 4,
+    "type": "Paragon",
+    "path": 7,
+    "skills": [
+      {"bonus": "Celestial Curse", "value": 15, "attribute": "elemental_curse", "index": 8},
+      {"bonus": "Dragon Bane", "value": 25, "attribute": "banes", "index": 1}
+    ]
+  },
+  "8": {
+    "Numeral": "VIII",
+    "Name": "Tyra, The Behemoth",
+    "tier": 4,
+    "type": "Paragon",
+    "path": 3,
+    "skills": [
+      {"bonus": "Lightning Curse", "value": 15, "attribute": "elemental_curse", "index": 2},
+      {"bonus": "Demon Bane", "value": 25, "attribute": "banes", "index": 2}
+    ]
+  },
+  "9": {
+    "Numeral": "IX",
+    "Name": "Alaya, The Memory",
+    "tier": 1,
+    "type": "Paragon",
+    "path": 5,
+    "skills": [
+      {"bonus": "Wind Penetration", "value": 20, "attribute": "elemental_pen", "index": 4},
+      {"bonus": "Wind Curse", "value": 15, "attribute": "elemental_curse", "index": 4}
+    ]
+  },
+  "10": {
+    "Numeral": "X",
+    "Name": "Chrona, The Temporal",
+    "tier": 3,
+    "type": "Paragon",
+    "path": 7,
+    "skills": [
+      {"bonus": "Temporal Application", "value": 1, "attribute": "appli", "index": "Temporal"},
+      {"bonus": "Ultimate Application", "value": 1, "attribute": "appli", "index": "Ultimate"}
+    ]
+  },
+  "11": {
+    "Numeral": "XI",
+    "Name": "Nua, The Heavens",
+    "tier": 3,
+    "type": "Paragon",
+    "path": 2,
+    "skills": [
+      {"bonus": "Earth Penetration", "value": 20, "attribute": "elemental_pen", "index": 3},
+      {"bonus": "Wind Penetration", "value": 20, "attribute": "elemental_pen", "index": 4}
+    ]
+  },
+  "12": {
+    "Numeral": "XII",
+    "Name": "Rua, The Abyss",
+    "tier": 3,
+    "type": "Paragon",
+    "path": 3,
+    "skills": [
+      {"bonus": "Shadow Penetration", "value": 20, "attribute": "elemental_pen", "index": 6},
+      {"bonus": "Light Penetration", "value": 20, "attribute": "elemental_pen", "index": 7}
+    ]
+  },
+  "13": {
+    "Numeral": "XIII",
+    "Name": "Thana, The Death",
+    "tier": 3,
+    "type": "Paragon",
+    "path": 6,
+    "skills": [
+      {"bonus": "Ice Penetration", "value": 20, "attribute": "elemental_pen", "index": 5},
+      {"bonus": "Ice Curse", "value": 15, "attribute": "elemental_curse", "index": 5}
+    ]
+  },
+  "14": {
+    "Numeral": "XIV",
+    "Name": "Arcelia, The Clarity",
+    "tier": 2,
+    "type": "Paragon",
+    "path": 6,
+    "skills": [
+      {"bonus": "Water Penetration", "value": 20, "attribute": "elemental_pen", "index": 1},
+      {"bonus": "Water Curse", "value": 15, "attribute": "elemental_curse", "index": 1}
+    ]
+  },
+  "15": {
+    "Numeral": "XV",
+    "Name": "Diabla, The Primordial",
+    "tier": 4,
+    "type": "Paragon",
+    "path": 1,
+    "skills": [
+      {"bonus": "Ice Penetration", "value": 20, "attribute": "elemental_pen", "index": 5},
+      {"bonus": "Fire Penetration", "value": 20, "attribute": "elemental_pen", "index": 0}
+    ]
+  },
+  "16": {
+    "Numeral": "XVI",
+    "Name": "Aurora, The Fortress",
+    "tier": 4,
+    "type": "Paragon",
+    "path": 2,
+    "skills": [
+      {"bonus": "Earth Curse", "value": 15, "attribute": "elemental_curse", "index": 3},
+      {"bonus": "Fortress Bane", "value": 25, "attribute": "banes", "index": 0}
+    ]
+  },
+  "17": {
+    "Numeral": "XVII",
+    "Name": "Nova, The Starlight",
+    "tier": 2,
+    "type": "Paragon",
+    "path": 4,
+    "skills": [
+      {"bonus": "Celestial Damage", "value": 25, "attribute": "elemental_mult", "index": 8},
+      {"bonus": "Celestial Damage", "value": 25, "attribute": "elemental_mult", "index": 8}
+    ]
+  },
+  "18": {
+    "Numeral": "XVIII",
+    "Name": "Luna, The Moon",
+    "tier": 2,
+    "type": "Paragon",
+    "path": 6,
+    "skills": [
+      {"bonus": "Water Penetration", "value": 20, "attribute": "elemental_pen", "index": 1},
+      {"bonus": "Ice Penetration", "value": 20, "attribute": "elemental_pen", "index": 5},
+      {"bonus": "Shadow Penetration", "value": 20, "attribute": "elemental_pen", "index": 6}
+    ]
+  },
+  "19": {
+    "Numeral": "XIX",
+    "Name": "Luma, The Sun",
+    "tier": 2,
+    "type": "Paragon",
+    "path": 5,
+    "skills": [
+      {"bonus": "Fire Penetration", "value": 20, "attribute": "elemental_pen", "index": 0},
+      {"bonus": "Wind Penetration", "value": 20, "attribute": "elemental_pen", "index": 4},
+      {"bonus": "Light Penetration", "value": 20, "attribute": "elemental_pen", "index": 7}
+    ]
+  },
+  "20": {
+    "Numeral": "XX",
+    "Name": "Aria, The Requiem",
+    "tier": 2,
+    "type": "Paragon",
+    "path": 0,
+    "skills": [
+      {"bonus": "Water Penetration", "value": 20, "attribute": "elemental_pen", "index": 0},
+      {"bonus": "Lightning Penetration", "value": 20, "attribute": "elemental_pen", "index": 2}
+    ]
+  },
+  "21": {
+    "Numeral": "XXI",
+    "Name": "Ultima, The Creation",
+    "tier": 3,
+    "type": "Paragon",
+    "path": 6,
+    "skills": [
+      {"bonus": "Singularity Penetration", "value": 20, "attribute": "singularity_pen", "index": null},
+      {"bonus": "Singularity Curse", "value": 15, "attribute": "singularity_curse", "index": null}
+    ]
+  },
+  "22": {
+    "Numeral": "XXII",
+    "Name": "Mysmir, The Changeling",
+    "tier": 1,
+    "type": "Arbiter",
+    "path": 7,
+    "skills": [
+      {"bonus": "X% Chance to trigger Bloom on hit", "value": 5, "attribute": "trigger_rate", "index": "Bloom"},
+      {"bonus": "Arbiter Bane", "value": 25, "attribute": "banes", "index": 4}
+    ]
+  },
+  "23": {
+    "Numeral": "XXIII",
+    "Name": "Avalon, The Pathwalker",
+    "tier": 2,
+    "type": "Arbiter",
+    "path": 3,
+    "skills": [
+      {"bonus": "X% Chance to trigger Bloom on hit", "value": 5, "attribute": "trigger_rate", "index": "Bloom"},
+      {"bonus": "Ultimate Application", "value": 1, "attribute": "appli", "index": "Ultimate"}
+    ]
+  },
+  "24": {
+    "Numeral": "XXIV",
+    "Name": "Isolde, The Soulweaver",
+    "tier": 3,
+    "type": "Arbiter",
+    "path": 8,
+    "skills": [
+      {"bonus": "X% Chance to trigger Bloom on hit", "value": 5, "attribute": "trigger_rate", "index": "Bloom"},
+      {"bonus": "Elemental Overflow", "value": 1, "attribute": "appli", "index": "Elemental"}
+    ]
+  },
+  "25": {
+    "Numeral": "XXV",
+    "Name": "Eleuia, The Wish",
+    "tier": 6,
+    "type": "Paragon",
+    "path": "All",
+    "skills": [
+      {"bonus": "Omni Damage", "value": 25, "attribute": "all_elemental_mult", "index": null},
+      {"bonus": "Omni Curse", "value": 25, "attribute": "all_elemental_curse", "index": null}
+    ]
+  },
+  "26": {
+    "Numeral": "XXVI",
+    "Name": "Kazyth, The Lifeblood",
+    "tier": 4,
+    "type": "Arbiter",
+    "path": 2,
+    "skills": [
+      {"bonus": "X% Chance to trigger Bloom on hit", "value": 5, "attribute": "trigger_rate", "index": "Bloom"},
+      {"bonus": "Bleed Application", "value": 1, "attribute": "appli", "index": "Bleed"}
+    ]
+  },
+  "27": {
+    "Numeral": "XXVII",
+    "Name": "Vexia, The Scribe",
+    "tier": 5,
+    "type": "Arbiter",
+    "path": 0,
+    "skills": [
+      {"bonus": "X% Chance to trigger Bloom on hit", "value": 5, "attribute": "trigger_rate", "index": "Bloom"},
+      {"bonus": "Critical Application", "value": 1, "attribute": "appli", "index": "Critical"}
+    ]
+  },
+  "28": {
+    "Numeral": "XXVIII",
+    "Name": "Fleur, The Oracle",
+    "tier": 6,
+    "type": "Arbiter",
+    "path": 7,
+    "skills": [
+      {"bonus": "X% Chance to trigger Bloom on hit", "value": 5, "attribute": "trigger_rate", "index": "Bloom"},
+      {"bonus": "Temporal Application", "value": 1, "attribute": "appli", "index": "Temporal"}
+    ]
+  },
+  "29": {
+    "Numeral": "XXIX",
+    "Name": "Yubelle, The Adjudicator",
+    "tier": 7,
+    "type": "Arbiter",
+    "path": "All",
+    "skills": [
+      {"bonus": "X% Chance to trigger Bloom on hit", "value": 5, "attribute": "trigger_rate", "index": "Bloom"},
+      {"bonus": "Bloom Damage", "value": 500, "attribute": "bloom_mult", "index": null}
+    ]
+  },
+  "30": {
+    "Numeral": "XXX",
+    "Name": "Nephilim, Incarnate of the Divine Lotus",
+    "tier": 8,
+    "type": "Incarnate",
+    "path": "All",
+    "skills": [
+      {"bonus": "X% Chance to trigger Bloom on hit", "value": 5, "attribute": "trigger_rate", "index": "Bloom"},
+      {"bonus": "Bloom Damage", "value": 1000, "attribute": "bloom_mult", "index": null}
+    ]
+  }
+}

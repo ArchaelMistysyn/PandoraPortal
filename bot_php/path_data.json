@@ -1,0 +1,150 @@
+{
+  "glyph_data": {
+    "Storms": [
+      ["Critical Application +X", 1],
+      ["Vortex", null, 20],
+      ["Typhoon", null, 40],
+      ["Cyclone", null, 60],
+      ["Tempest", "Critical Application is Doubled", 80],
+      ["Maelstrom", "Critical Application +10", 100]
+    ],
+    "Frostfire": [
+      ["Hybrid Penetration (Frostfire) X%", 0],
+      ["Iceburn", null, 20],
+      ["Glacial Flame", null, 40],
+      ["Snowy Blaze", null, 60],
+      ["Subzero Inferno", "Elemental Capacity becomes 3. Grants Cascade", 80],
+      ["Paradox", "Triple Hybrid Damage, Hybrid Penetration, and Hybrid Curse (Frostfire)", 100]
+    ],
+    "Horizon": [
+      ["Bleed Application +X", 1],
+      ["Red Boundary", null, 20],
+      ["Vermilion Dawn", null, 40],
+      ["Scarlet Sunset", null, 60],
+      ["Ruby Skies", "Bleed Penetration is Doubled", 80],
+      ["Scarlet Divide", "Bleed Damage/Penetration applies to all hits", 100]
+    ],
+    "Eclipse": [
+      ["Ultimate Application +X", 1],
+      ["Nightfall", null, 20],
+      ["Moonshadow", null, 40],
+      ["Umbra", null, 60],
+      ["Twilight", "Ultimate Application is Doubled", 80],
+      ["Eventide", "Ultimate Damage and Penetration are Applied to All Skills", 100]
+    ],
+    "Stars": [
+      ["Combo Application +X", 1],
+      ["Nebulas", null, 20],
+      ["Galaxies", null, 40],
+      ["Superclusters", null, 60],
+      ["Universes", "Combo Application is doubled", 80],
+      ["Cosmos", "Basic Attack 1 Bonus Applies to All Basic Attacks", 100]
+    ],
+    "Solar Flux": [
+      ["Life Application +X", 1],
+      ["Blue Giant", null, 20],
+      ["White Dwarf", null, 40],
+      ["Yellow Dwarf", null, 60],
+      ["Orange Dwarf", "Life Application is doubled", 80],
+      ["Red Dwarf", "HP Bonus is doubled", 100]
+    ],
+    "Lunar Tides": [
+      ["Mana Application +X", 1],
+      ["New Moon", null, 20],
+      ["Crescent Moon", null, 40],
+      ["Quarter Moon", null, 60],
+      ["Waxing Moon", "Mana Application is Doubled", 80],
+      ["Full Moon", "Mana Damage is Doubled", 100]
+    ],
+    "Terrestria": [
+      ["Temporal Application +X", 1],
+      ["Unity", null, 20],
+      ["Harmony", null, 40],
+      ["Synergy", null, 60],
+      ["Fast Forward", "Time Application is Doubled", 80],
+      ["Equilibrium", "Time Shatter is Applied Immediately", 100]
+    ],
+    "Confluence": [
+      ["Elemental Application +X", 2],
+      ["Unity", null, 20],
+      ["Harmony", null, 40],
+      ["Synergy", null, 60],
+      ["Equilibrium", "Omni Damage is Doubled", 80],
+      ["Convergence", "Omni Penetration and Omni Curse are Doubled", 100]
+    ],
+    "Waterfalls": [
+      ["Aqua Application +X", 1],
+      ["Waterfalls", null, 20],
+      ["Waterfalls", null, 40],
+      ["Waterfalls", null, 60],
+      ["Waterfalls", "Critical Rate Becomes 100%", 80],
+      ["Waterfalls", "Attack Skills are Changed", 100]
+    ]
+  },
+  "path_perks": {
+    "Storms": [
+      ["Water Damage X%", 5],
+      ["Lightning Damage X%", 5],
+      ["Water Resistance X%", 0.1],
+      ["Lightning Resistance X%", 0.1],
+      ["Critical Damage X%", 3]
+    ],
+    "Frostfire": [
+      ["Ice Damage X%", 5],
+      ["Fire Damage X%", 5],
+      ["Ice Resistance X%", 0.1],
+      ["Fire Resistance X%", 0.1],
+      ["Class Mastery X%", 1]
+    ],
+    "Horizon": [
+      ["Earth Damage X%", 5],
+      ["Wind Damage X%", 5],
+      ["Earth Resistance X%", 0.1],
+      ["Wind Resistance X%", 0.1],
+      ["Bleed Damage X%", 10]
+    ],
+    "Eclipse": [
+      ["Dark Damage X%", 5],
+      ["Light Damage X%", 5],
+      ["Hybrid Resistance X%", 0.1],
+      ["Light Resistance X%", 0.1],
+      ["Ultimate Damage X%", 10]
+    ],
+    "Stars": [
+      ["Celestial Damage X%", 7],
+      ["Celestial Resistance X%", 0.1],
+      ["Combo Damage X%", 3]
+    ],
+    "Solar Flux": [
+      ["Fire Damage X%", 3],
+      ["Wind Damage X%", 3],
+      ["Light Damage X%", 3],
+      ["Fire Resistance X%", 0.1],
+      ["Wind Resistance X%", 0.1],
+      ["Light Resistance X%", 0.1],
+      ["HP Multiplier X%", 1]
+    ],
+    "Lunar Tides": [
+      ["Water Damage X%", 3],
+      ["Ice Damage X%", 3],
+      ["Shadow Damage X%", 3],
+      ["Water Resistance X%", 0.1],
+      ["Ice Resistance X%", 0.1],
+      ["Shadow Resistance X%", 0.1],
+      ["Mana Damage X%", 10]
+    ],
+    "Terrestria": [
+      ["Singularity Damage X%", 10],
+      ["Singularity Penetration X%", 5],
+      ["Singularity Curse X%", 1]
+    ],
+    "Confluence": [
+      ["Omni Damage X%", 1],
+      ["Omni Curse X%", 1]
+    ],
+    "Waterfalls": [
+      ["Water Damage X%", 25],
+      ["Water Resistance X%", 0.2]
+    ]
+  }
+}

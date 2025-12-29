@@ -1,0 +1,68 @@
+{
+    "quest_options": {
+      "45": [
+        ["Accept", [["EssenceXXV", 1]], [
+          "I am a fake, a Paragon of curses. I need only wish you gone and it will be so. But, this is a false wish.",
+          "Have you any idea the disparity of a real wish and a desire? It is a cursed desire that cannot be reached.",
+          "Every passing moment I shed tears for a dream of freedom that I alone cannot make into reality.",
+          "I cannot tell you my wish yet. It is enough that you were willing to listen, Child of Celestia"
+        ]],
+        ["Refuse", [["Ore5", 1]], [
+          "It matters not. Although it pains me to hear you say that, the truth is that I cannot tell you anyways.",
+          "It is not your burden to cry my tears. It is not your duty to fulfill my wish.",
+          "Enough talk, I will see for myself if you are worthy of my blessing, Child of Celestia."
+        ]]
+      ],
+      "50": [
+        ["Request Help", [["Ore5", 1]], [
+          "Pandora is not dead, but her essence has been absorbed by the Divine Lotus.",
+          "I preside solely over the Samsara and have no means to restore my sister's lost essence.",
+          "Defeating Yubelle is also insufficient. Do you understand now? Let's not dwell on this any longer.",
+          "Finish what you started. I'll be watching."
+        ]],
+        ["Do Nothing", [["Gemstone10", 1]], [
+          "Very well. The time for talking is over.",
+          "Finish what you started. I'll be watching."
+        ]],
+        ["Profess Love", [["EssenceXIII", 1]], [
+          "Huh!? My sister is gone and that's what you have to say to me? This isn't the time or the place for jokes.",
+          "You're really serious? Fine, if you feel that way then restore my sister's essence and I will hear you out.",
+          "Until then don't talk to me."
+        ]]
+      ],
+      "54": [
+        ["Pandora's Gift", [["EssenceII", 1]], [
+          "Rings faceted with gems forged from the twin mystical stars.",
+          "It is said that the two stars used to be lovers, but were forced apart by god.",
+          "The star of light exists only at night in the physical world, meanwhile the star of darkness traverses the spiritual world during the daytime.",
+          "The misfortune they bring is a manifestation of their anguish as they cry amidst the lonely sky.",
+          "Now reunited, not a trace of malice remains. They radiate with the power of rebirth.",
+          "A lovely tale, isn't it? A shame that fantasy and reality are so divided."
+        ], [
+          "The Pandora you knew is gone, but I am no less Pandora than she was. My many parts rejoined as a whole.",
+          "Yet you still chose me, as I am. Even as they fought against you for themselves, you fought for us.",
+          "My decision is their decision, we will give you all of our love."
+        ]],
+        ["Thana's Gift", [["EssenceXIII", 1]], [
+          "This ring, a legacy of my subordinates long gone. Unable to find rest, but free from misuse.",
+          "They can continue to serve me for eternity, how very fitting. I will accept this gift, but are you certain?",
+          "You've fulfilled your promise and I have said my farewells, but I can't replace my sister.",
+          "Is it really me that you want? Can you accept who I am? Can you accept the things I've done?",
+          "...",
+          "I love you too."
+        ]],
+        ["Eleuia's Gift", [["EssenceXXV", 1]], [
+          "You chose... me? This ring is made from... how did you even get these?",
+          "Everything always seems so... colourless. To collect the remnants of a single teardrop is hardly feasible.",
+          "Just how far did you search to find and restore such vivid droplets.",
+          "I can no longer even remember the time when my tears held such vibrance and hope.",
+          "Thank you, hero, for returning my colour to me.",
+          "Maybe now, I need cry no longer."
+        ]]
+      ]
+    },
+    "eligibility_dict": {
+      "45": [2, {"0": 1, "1": 0}],
+      "50": [1, {"0": 0, "1": 0, "2": 1}]
+    }
+  }  

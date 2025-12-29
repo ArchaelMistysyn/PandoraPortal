@@ -1,0 +1,82 @@
+/* CSS Variables */
+/* Modify and reuse throughout stylesheet */
+:root {
+    --brand-color-primary: #007bff;
+    --brand-color-secondary: #780ac3;
+    --brand-color-3: #ff0000;
+    --brand-color-4: #ff1493;
+    --brand-color-5: #ffc107;
+    --brand-color-6: #da9932;
+  
+    --bg-gradient-primary: linear-gradient(#110eb8, #1c117e, #09086b);
+    --bg-gradient-secondary: linear-gradient(#1e1e1e, #111111);
+    --bg-gradient-tertiary: linear-gradient(#da9932, #ae7a28);
+  
+    --bg-gradient-dark: linear-gradient(#2f2f2f, black);
+    --border-primary-light: 1px solid rgba(255, 255, 255, 0.15);
+  }
+  
+
+#ranking-main-container {
+    display: flex;
+    width: 96%;
+    height: 100%;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+#leaderboard-container {
+    display: flex;
+    justify-content: center;
+    overflow-y: auto;
+}
+
+.rank-table {
+	display: none;
+}
+
+.rank-table.active {
+    margin-top: 10px;
+    width: 1300px;
+    color: white;
+	display: block;
+}
+
+.rank-table h3 {
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+	background-image: var(--bg-gradient-dark);
+    border: var(--border-primary-light);
+    background-clip: content-box;
+	width: 100%;
+	font-size: 1.6rem;
+	height: 40px;
+}
+
+.rank-table td:nth-child(7) {
+    word-wrap: break-word; /* For older browsers */
+    overflow-wrap: anywhere; /* Modern browsers */
+    max-width: 185px; /* Adjust to desired width */
+    min-width: 185px;
+    font-size: 1.1rem;
+    white-space: normal; /* Allows wrapping */
+}
+
+.exact-match {
+    position: relative;
+    z-index: 1;
+    background: var(--bg-gradient-secondary) !important;
+    border: 1px solid red !important;
+}
+
+#tab-menu {
+    width: 200px;
+}
+
+@media screen and (max-width: 1290px) {
+    /* Need to fix X-overflow on low screen width by fixing the header */
+    .table-box.active {
+        width: 100%;
+    }
+}

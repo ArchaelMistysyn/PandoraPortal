@@ -1,0 +1,109 @@
+/* CSS Variables */
+/* Modify and reuse throughout stylesheet */
+:root {
+    --brand-color-primary: #007bff;
+    --brand-color-secondary: #780ac3;
+    --brand-color-3: #ff0000;
+    --brand-color-4: #ff1493;
+    --brand-color-5: #ffc107;
+    --brand-color-6: #da9932;
+  
+    --bg-gradient-primary: linear-gradient(#110eb8, #1c117e, #09086b);
+    --bg-gradient-secondary: linear-gradient(#1e1e1e, #111111);
+    --bg-gradient-tertiary: linear-gradient(#da9932, #ae7a28);
+  
+    --bg-gradient-dark: linear-gradient(#2f2f2f, black);
+    --border-primary-light: 1px solid rgba(255, 255, 255, 0.15);
+  }
+  
+  #wiki-main {
+    overflow-y: scroll;
+  }
+  #wiki-main-container {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: flex-start;
+  }
+  
+  #wiki-menu {
+    position: sticky;
+    display: flex;
+    top: 10px;
+    width: 300px;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px;
+    margin-top: 0px;
+    background-color: #111;
+    border: 2px solid white;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+  
+  #wiki-content-container {
+    height: calc(100vh - 100px);
+    position: relative;
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    max-width: 70%;
+  }
+  
+  #wiki-content {
+    margin: 0 auto;
+    width: 1200px;
+    max-width: 1200px;
+  }
+  
+  /* Wiki Tables */
+  .wiki-table-scroll {
+    width: 100%;
+    overflow-x: auto;
+  }
+  .wiki-table-scroll td {
+    white-space: nowrap;
+  }
+  
+  .style-header tr th {
+    white-space: nowrap;
+  }
+  
+  .search-category {
+    background-color: #111;
+    padding: 8px;
+    margin-bottom: 5px;
+  }
+  .search-category h3 {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    background-image: var(--bg-gradient-dark);
+    border: var(--border-primary-light);
+    background-clip: content-box;
+    width: 100%;
+    font-size: 1.6rem;
+    height: 40px;
+  }  
+  
+  @media screen and (max-height: 1300px) {
+    #wiki-menu {
+      width: 200px;
+    }
+    .tab-menu {
+      overflow-y: auto;
+    }
+    .main-tab {
+      font-size: 1rem;
+    }
+    .arrow {
+      font-size: 15px;
+    }
+    .sub-tabs {
+      font-size: 0.8rem;
+    }
+    .sub-tabs li {
+      padding: 3px 0;
+      padding-left: 5px;
+    }
+  }

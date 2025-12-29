@@ -1,0 +1,819 @@
+<div class="search-category">
+    <h3 class="highlight-text">Monster Room [Default]</h3>
+    <table class="style-table" id="monster-room-table">
+        <thead class="style-header">
+            <tr>
+                <th><div>Monster</div></th>
+                <th><div>Fight Damage</div></th>
+				<th><div>Unscathed Rate</div></th>
+                <th><div>Stealth &lpar;Success&rpar;</div></th>
+                <th><div>Stealth &lpar;Fail&rpar;</div></th>
+                <th><div>Exp</div></th>
+				
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="tier-1"><td>Basic</td><td>100-300 x Map Tier</td><td>&lpar;2 x Luck&rpar;%</td><td>&lpar;50 + &lpar;Luck&rpar;&rpar;%</td><td>1.5x Damage Taken</td><td>500 + &lpar;100 x Map Tier&rpar; + &lpar;25 x Luck&rpar;</td></tr>
+            <tr class="tier-5"><td>Elite</td><td>200-600 x Map Tier</td><td>&lpar;Luck&rpar;%</td><td>&lpar;35 + &lpar;Luck / 2&rpar;&rpar;%</td><td>2.0x Damage Taken</td><td>1000 + &lpar;200 x Map Tier&rpar; + &lpar;50 x Luck&rpar;</td></tr>
+            <tr class="ultimate"><td>Legend</td><td>1500-4500 x Map Tier</td><td>&lpar;2 / 3 x Luck&rpar;%</td><td>&lpar;20 + &lpar;Luck / 3&rpar;&rpar;%</td><td>2.5x Damage Taken</td><td>1500 + &lpar;300 x Map Tier&rpar; + &lpar;75 x Luck&rpar;</td></tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="search-category">
+    <h3 class="highlight-text">Healing Room [Default]</h3>
+    <table class="style-table" id="healing-room-table">
+        <thead class="style-header">
+            <tr>
+                <th><div>Rest Type</div></th>
+                <th><div>Healing &lpar;%HP&rpar;</div></th>
+                <th><div>Failure Rate</div></th>
+                <th><div>Ambush Rate</div></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="tier-1"><td>Short Rest</td><td>[1-10] x Luck</td><td>&lpar;25 - Luck&rpar;%</td><td>N/A</td></tr>
+            <tr class="tier-4"><td>Long Rest</td><td>[1-10] x Luck x 2</td><td>N/A</td><td>&lpar;25 - Luck&rpar;%</td></tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="search-category">
+    <h3 class="highlight-text">Selection Room [Default]</h3>
+    <table class="style-table" id="selection-room-table">
+        <thead class="style-header">
+            <tr>
+                <th><div>Reward Pool</div></th>
+                <th><div>Luck Threshhold</div></th>
+				<th><div>Success Rate &lpar;Both&rpar;</div></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="tier-1"><td>1</td><td>N/A</td><td>&lpar;5 x Luck&rpar;% [Max: 75%]</td></tr>
+			<tr class="tier-2"><td>2</td><td>5</td><td>&lpar;5 x Luck&rpar;% [Max: 75%]</td></tr>
+			<tr class="tier-3"><td>3</td><td>10</td><td>&lpar;5 x Luck&rpar;% [Max: 75%]</td></tr>
+			<tr class="tier-4"><td>4</td><td>15</td><td>&lpar;5 x Luck&rpar;% [Max: 75%]</td></tr>
+			<tr class="tier-5"><td>5</td><td>20</td><td>&lpar;5 x Luck&rpar;% [Max: 75%]</td></tr>
+			<tr class="tier-6"><td>6</td><td>25</td><td>&lpar;5 x Luck&rpar;% [Max: 75%]</td></tr>
+			<tr class="ultimate"><td>7</td><td>&lpar;0.01 x Luck&rpar;%</td><td>&lpar;5 x Luck&rpar;% [Max: 75%]</td></tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="search-category">
+    <h3 class="highlight-text">Treasure Chamber Room [Default]</h3>
+    <table class="style-table" id="treasure-chamber-table">
+        <thead class="style-header">
+            <tr>
+                <th><div>Chamber Type</div></th>
+                <th><div>Reward &lpar;Armour&rpar;</div></th>
+                <th><div>Reward &lpar;Weapon&rpar;</div></th>
+                <th><div>Reward &lpar;Acc&rpar;</div></th>
+                <th><div>Mimic &lpar;Rate&rpar;</div></th>
+                <th><div>Mimic &lpar;Damage&rpar;</div></th>
+                <th><div>Bonus</div></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="tier-4">
+                <td>Lesser &lpar;Tier 1-4&rpar;</td>
+                <td>50%</td>
+                <td>30%</td>
+                <td>20%</td>
+                <td>&lpar;25 - Luck&rpar;%</td>
+                <td>[100 to 300] x Map Tier</td>
+                <td>+&lpar;0.1 x Luck&rpar;%</td>
+            </tr>
+            <tr class="tier-4">
+                <td>Greater &lpar;Tier 1-4&rpar;</td>
+                <td>35%</td>
+                <td>35%</td>
+                <td>30%</td>
+                <td>&lpar;15 - Luck&rpar;%</td>
+                <td>Fatal</td>
+                <td>+&lpar;0.1 x Luck&rpar;%</td>
+            </tr>
+            <tr class="tier-8">
+                <td>Lesser &lpar;Tier 5-8&rpar;</td>
+                <td>Qx Fragments</td>
+                <td>Qx Fragments</td>
+                <td>Qx Fragments</td>
+                <td>&lpar;25 - Luck&rpar;%</td>
+                <td>[100 to 300] x Map Tier</td>
+                <td>N/A</td>
+            </tr>
+            <tr class="tier-8">
+                <td>Greater Tier &lpar;Tier 5-8&rpar;</td>
+                <td>Qx Fragments</td>
+                <td>Qx Fragments</td>
+                <td>Qx Fragments</td>
+                <td>&lpar;15 - Luck&rpar;%</td>
+                <td>Fatal</td>
+                <td>+1 Reroll</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="search-category">
+    <h3 class="highlight-text">Penetralia Room [Default]</h3>
+    <table class="style-table" id="penetralia-rooms-table">
+        <thead class="style-header">
+            <tr>
+                <th><div>Type</div></th>
+                <th><div>Action</div></th>
+                <th><div>Success Rate</div></th>
+                <th><div>Reward &lpar;Tier 1-4&rpar;</div></th>
+				<th><div>Reward &lpar;Tier 5-8&rpar;</div></th>
+                <th><div>Trove Drop</div></th>
+				<th><div>Jackpot Entry</div></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="tier-1">
+                <td>Regular</td>
+                <td>Search</td>
+                <td>&lpar;10 + &lpar;5 x Luck&rpar;&rpar;% &lbrack;Max: 90%&rbrack;</td>
+                <td>Accessory Item</td>
+				<td>Qx Fragments</td>
+                <td>0%</td>
+				<td>N/A</td>
+            </tr>
+            <tr class="tier-1">
+                <td>Regular</td>
+                <td>Collect</td>
+                <td>N/A</td>
+                <td>&lpar;1000 - 2,000 x Luck&rpar; Lotus Coins</td>
+				<td>&lpar;1000 - 2,000 x Luck x 2&rpar; Lotus Coins</td>
+				<td>1%</td>
+                <td>&lpar;0.5 x Luck&rpar;%</td>
+            </tr>
+            <tr class="tier-5">
+                <td>Golden</td>
+                <td>Search</td>
+                <td>&lpar;15 + &lpar;10 x Luck&rpar;&rpar;% &lbrack;Max: 90%&rbrack;</td>
+                <td>Accessory Item</td>
+				<td>Qx Fragments</td>
+				<td>0%</td>
+                <td>N/A</td>
+            </tr>
+            <tr class="tier-5">
+                <td>Golden</td>
+                <td>Collect</td>
+				<td>N/A</td>
+                <td>&lpar;10,000 x Luck&rpar; Lotus Coins</td>
+				<td>&lpar;20,000 x Luck&rpar; Lotus Coins</td>
+				<td>5%</td>
+                <td>&lpar;5 x Luck&rpar;%</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="search-category">
+    <h3 class="highlight-text">Statue Room &lpar;Pray&rpar; [Default]</h3>
+    <table class="style-table" id="statue-pray-table">
+        <thead class="style-header">
+            <tr>
+                <th><div>Blessing</div></th>
+                <th><div>Trigger Rate</div></th>
+                <th><div>Statue</div></th>
+                <th><div>Item</div></th>
+                <th><div>Item Rate</div></th>
+                <th><div>Essence Rate</div></th>
+                <th><div>Luck Gain</div></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="tier-1">
+                <td>Heal [Map Tier - 10]%</td>
+                <td>&lpar;65 - Luck&rpar;% [Min: 10%]</td>
+				<td>N/A</td>
+                <td>N/A</td>
+                <td>0%</td>
+                <td>0%</td>
+                <td>+0</td>
+            </tr>
+            <tr class="tier-4">
+                <td>Paragon's</td>
+                <td>&lpar;25 + Luck&rpar;% [Max: 90%]</td>
+                <td>Any Paragon</td>
+                <td>Paragon Stone</td>
+                <td>80%</td>
+                <td>20%</td>
+                <td>+2</td>
+            </tr>
+            <tr class="tier-5">
+                <td>Deity's</td>
+                <td>&lpar;25 + Luck&rpar;% [Max: 90%]</td>
+                <td>Akasha / Oblivia</td>
+                <td>Summoning Relic</td>
+                <td>80%</td>
+                <td>20%</td>
+                <td>+3</td>
+            </tr>
+            <tr class="tier-6">
+                <td>Miraculous</td>
+                <td>&lpar;25 + Luck&rpar;% [Max: 90%]</td>
+                <td>Eleuia</td>
+                <td>Summoning Artifact</td>
+                <td>80%</td>
+                <td>20%</td>
+                <td>+5</td>
+            </tr>
+            <tr class="tier-7">
+                <td>Arbiter's</td>
+                <td>&lpar;25 + Luck&rpar;% [Max: 90%]</td>
+                <td>Any Arbiter</td>
+                <td>Arbiter Stone</td>
+                <td>80%</td>
+                <td>20%</td>
+                <td>+7</td>
+            </tr>
+            <tr class="uber">
+                <td>Prismatic</td>
+                <td>&lpar;25 + Luck&rpar;% [Max: 90%]</td>
+                <td>Yubelle</td>
+                <td>Summoning Prism</td>
+                <td>80%</td>
+                <td>20%</td>
+                <td>+10</td>
+            </tr>
+            <tr class="ultimate">
+                <td>Divine Blessing</td>
+                <td>&lpar;25 + Luck&rpar;% [Max: 90%]</td>
+                <td>Nephilim</td>
+                <td>Crystallized Divinity</td>
+                <td>80%</td>
+                <td>20%</td>
+                <td>+15</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="search-category">
+    <h3 class="highlight-text">Statue Room &lpar;Destroy&rpar; [Default]</h3>
+    <table class="style-table" id="statue-destroy-table">
+        <thead class="style-header">
+            <tr>
+                <th><div>Trigger</div></th>
+                <th><div>Trigger Rate</div></th>
+                <th><div>Statue</div></th>
+                <th><div>Outcome</div></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="tier-1">
+                <td>Excavate</td>
+                <td>&lpar;50 + Luck&rpar;% [Max: 90%]</td>
+                <td>Any</td>
+                <td>Receive chest item</td>
+            </tr>
+			<tr class="ultimate">
+                <td>Default Wrath</td>
+                <td>1%</td>
+                <td>Non-Specified</td>
+                <td>Instant Death</td>
+            </tr>
+            <tr class="tier-9">
+                <td>Pandora's Wrath</td>
+                <td>1%</td>
+                <td>Pandora, The Celestial</td>
+                <td>No Penalty</td>
+            </tr>
+            <tr class="tier-9">
+                <td>Kama's Wrath</td>
+                <td>1%</td>
+                <td>Kama</td>
+                <td>No Penalty</td>
+            </tr>
+            <tr class="tier-9">
+                <td>Luna's Wrath</td>
+                <td>1%</td>
+                <td>Luna</td>
+                <td>No Penalty</td>
+            </tr>
+            <tr class="tier-9">
+                <td>Arkaya's Wrath</td>
+                <td>1%</td>
+                <td>Arkaya</td>
+                <td>Take 5,000 damage</td>
+            </tr>
+            <tr class="tier-9">
+                <td>Aurora's Wrath</td>
+                <td>1%</td>
+                <td>Aurora</td>
+                <td>Take 5,000 damage</td>
+            </tr>
+            <tr class="tier-9">
+                <td>Luma's Wrath</td>
+                <td>1%</td>
+                <td>Luma</td>
+                <td>Take 10,000 damage</td>
+            </tr>
+            <tr class="tier-9">
+                <td>Chrona's Wrath</td>
+                <td>1%</td>
+                <td>Chrona</td>
+                <td>Trigger teleport</td>
+            </tr>
+            <tr class="tier-9">
+                <td>Tyra's Wrath</td>
+                <td>1%</td>
+                <td>Tyra</td>
+                <td>Trigger teleport</td>
+            </tr>
+            <tr class="tier-9">
+                <td>Alaya's Wrath</td>
+                <td>1%</td>
+                <td>Alaya</td>
+                <td>Trigger teleport</td>
+            </tr>
+            <tr class="tier-9">
+                <td>Avalon's Wrath</td>
+                <td>1%</td>
+                <td>Avalon</td>
+                <td>Trigger teleport</td>
+            </tr>
+            <tr class="tier-9">
+                <td>Akasha's Wrath</td>
+                <td>1%</td>
+                <td>Akasha</td>
+                <td>Take 999,999,999 damage</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="search-category">
+    <h3 class="highlight-text">Butterfae Sanctuary Room [Default]</h3>
+    <table class="style-table" id="butterfae-sanctuary-table">
+        <thead class="style-header">
+            <tr>
+                <th><div>Sanctuary Type</div></th>
+                <th><div>Award Type</div></th>
+                <th><div>Award Amount</div></th>
+                <th><div>Occurrence</div></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="tier-1">
+                <td>Regular</td>
+                <td>Fae Cores</td>
+                <td>[&lpar;1 + Luck&rpar; to &lpar;10 + Luck&rpar;]</td>
+                <td>Default</td>
+            </tr>
+            <tr class="ultimate">
+                <td>Special</td>
+                <td>Elemental Gemstone</td>
+                <td>1</td>
+                <td>&lpar;0.1 x Luck&rpar;%</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="search-category">
+    <h3 class="highlight-text">Epitaph Room [Default]</h3>
+    <table class="style-table" id="epitaph-room-table">
+        <thead class="style-header">
+            <tr>
+                <th><div>Option</div></th>
+                <th><div>Success Rate</div></th>
+                <th><div>Reward</div></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="tier-1">
+                <td>Decipher</td>
+                <td>&lpar;50 + Luck&rpar;% [Max: 90%]</td>
+                <td>Luck +[1-3]</td>
+            </tr>
+            <tr class="tier-1">
+                <td>Search</td>
+                <td>&lpar;75 + Luck&rpar;% [Max: 90%]</td>
+                <td>Treasure Chamber Loot &lpar;Lesser&rpar;</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="search-category">
+    <h3 class="highlight-text">Trial Room [Default]</h3>
+    <table class="style-table" id="trial-rooms-table">
+        <thead class="style-header">
+            <tr>
+                <th><div>Trial Type</div></th>
+                <th><div>Cost Type</div></th>
+                <th><div>Cost &lpar;Opt 1&rpar;</div></th>
+				<th><div>Cost &lpar;Opt 2&rpar;</div></th>
+				<th><div>Cost &lpar;Opt 3&rpar;</div></th>
+				<th><div>Award &lpar;Opt 1&rpar;</div></th>
+				<th><div>Award &lpar;Opt 2&rpar;</div></th>
+				<th><div>Award &lpar;Opt 3&rpar;</div></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="tier-1">
+                <td>Offering</td>
+                <td>Health Points</td>
+				<td>10%</td>
+				<td>30%</td>
+				<td>50%</td>
+                <td>Luck +1</td>
+				<td>Luck +3</td>
+				<td>Luck +5</td>
+            </tr>
+            <tr class="tier-1">
+                <td>Greed</td>
+                <td>Lotus Coins</td>
+                <td>1,000</td>
+				<td>5,000</td>
+				<td>10,000</td>
+                <td>Luck +1</td>
+				<td>Luck +3</td>
+				<td>Luck +5</td>
+            </tr>
+            <tr class="tier-1">
+                <td>Soul</td>
+                <td>Stamina</td>
+                <td>100</td>
+				<td>300</td>
+				<td>500</td>
+                <td>Luck +1</td>
+				<td>Luck +3</td>
+				<td>Luck +5</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="search-category">
+    <h3 class="highlight-text">Crystal Cave Room [Tier 3+]</h3>
+    <table class="style-table" id="crystal-cave-table">
+        <thead class="style-header">
+            <tr>
+                <th><div>Action</div></th>
+                <th><div>Success Rate</div></th>
+				<th><div>Reward Item</div></th>
+                <th><div>Luck Ante</div></th>
+                <th><div>Special Rate</div></th>
+                <th><div>Special Reward</div></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="tier-4">
+                <td>Resonate &lpar;Tier 1-4&rpar;</td>
+                <td>10% x Echelon</td>
+                <td>1x Equipment Scrap</td>
+                <td>1</td>
+                <td>0%</td>
+                <td>N/A</td>
+            </tr>
+			<tr class="tier-4">
+                <td>Search &lpar;Tier 1-4&rpar;</td>
+                <td>30 + (2 x Luck)%</td>
+                <td>1x Equipment Scrap</td>
+                <td>1</td>
+                <td>0%</td>
+                <td>N/A</td>
+            </tr>
+            <tr class="tier-8">
+                <td>Resonate &lpar;Tier 5-8&rpar;</td>
+                <td>10% x Echelon</td>
+                <td>2x Fragments</td>
+                <td>2</td>
+                <td>&lpar;0.01 x Luck&rpar;%</td>
+                <td>1x Crystal</td>
+            </tr>
+            <tr class="tier-8">
+                <td>Search &lpar;Tier 5-8&rpar;</td>
+                <td>30 + &lpar;2 x Luck&rpar;%</td>
+                <td>2x Fragments</td>
+                <td>2</td>
+                <td>&lpar;0.01 x Luck&rpar;%</td>
+                <td>1x Crystal</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="search-category">
+    <h3 class="highlight-text">Boss Shrines [Tier 3+]</h3>
+    <table class="style-table" id="boss-shrines-table">
+		<thead class="style-header">
+            <tr>
+                <th><div>Shrine</div></th>
+                <th><div>Ritual</div></th>
+				<th><div>Element</div></th>
+                <th><div>Success Rate</div></th>
+                <th><div>Greater Rate</div></th>
+                <th><div>Reward</div></th>
+                <th><div>Penalty</div></th>
+				<th><div>Greater Adjust</div></th>
+            </tr>
+        </thead>
+        <tbody>
+			<tr class="tier-4">
+                <td>Any</td>
+                <td>Chaos</td>
+				<td>Random</td>
+                <td>&lpar;Random Res + 5 + Luck&rpar;%</td>
+                <td>&lpar;5 x Luck&rpar;%</td>
+                <td>Luck +[1-3]</td>
+                <td>&lpar;[100-300] x Map Tier&rpar;, -1 Luck</td>
+				<td>2x, +1 reroll</td>
+            </tr>
+            <tr class="tier-4">
+                <td>Dragon &lpar;Any&rpar;</td>
+                <td>Land</td>
+                <td class="icon-cell"><div><img src="./gallery/Icons/Elements/Earth.webp" alt="Earth"></div></td>
+				<td>&lpar;Res + 5 + Luck&rpar;%</td>
+                <td>&lpar;5 x Luck&rpar;%</td>
+                <td>Qx Unrefined Dragon Gem</td>
+                <td>&lpar;[100-300] x Map Tier&rpar;, -1 Luck</td>
+				<td>2x, +1 reroll</td>
+            </tr>
+            <tr class="tier-4">
+                <td>Dragon &lpar;Any&rpar;</td>
+                <td>Sky</td>
+                <td class="icon-cell"><div><img src="./gallery/Icons/Elements/Wind.webp" alt="Wind"></div></td>
+				<td>&lpar;Res + 5 + Luck&rpar;%</td>
+                <td>&lpar;5 x Luck&rpar;%</td>
+                <td>Qx Unrefined Dragon Wings</td>
+                <td>&lpar;[100-300] x Map Tier&rpar;, -1 Luck</td>
+				<td>2x, +1 reroll</td>
+            </tr>
+            <tr class="tier-4">
+                <td>Demon &lpar;Any&rpar;</td>
+                <td>Fear</td>
+                <td class="icon-cell"><div><img src="./gallery/Icons/Elements/Shadow.webp" alt="Shadow"></div></td>
+				<td>&lpar;Res + 5 + Luck&rpar;%</td>
+                <td>&lpar;5 x Luck&rpar;%</td>
+                <td>Qx Unrefined Demon Gem</td>
+                <td>&lpar;[100-300] x Map Tier&rpar;, -1 Luck</td>
+				<td>2x, +1 reroll</td>
+            </tr>
+            <tr class="tier-4">
+                <td>Demon &lpar;Any&rpar;</td>
+                <td>Suffering</td>
+                <td class="icon-cell"><div><img src="./gallery/Icons/Elements/Fire.webp" alt="Fire"></div></td>
+				<td>&lpar;Res + 5 + Luck&rpar;%</td>
+                <td>&lpar;5 x Luck&rpar;%</td>
+                <td>Qx Unrefined Demon Greaves</td>
+                <td>&lpar;[100-300] x Map Tier&rpar;, -1 Luck</td>
+				<td>2x, +1 reroll</td>
+            </tr>
+            <tr class="tier-4">
+                <td>Paragon &lpar;Any&rpar;</td>
+                <td>Illumination</td>
+                <td class="icon-cell"><div><img src="./gallery/Icons/Elements/Light.webp" alt="Light"></div></td>
+				<td>&lpar;Res + 5 + Luck&rpar;%</td>
+                <td>&lpar;5 x Luck&rpar;%</td>
+                <td>Qx Unrefined Paragon Gem</td>
+                <td>&lpar;[100-300] x Map Tier&rpar;, -1 Luck</td>
+				<td>2x, +1 reroll</td>
+            </tr>
+            <tr class="tier-4">
+                <td>Paragon &lpar;Any&rpar;</td>
+                <td>Tranquility</td>
+                <td class="icon-cell"><div><img src="./gallery/Icons/Elements/Water.webp" alt="Water"></div></td>
+				<td>&lpar;Res + 5 + Luck&rpar;%</td>
+                <td>&lpar;5 x Luck&rpar;%</td>
+                <td>Qx Unrefined Paragon Crest</td>
+                <td>&lpar;[100-300] x Map Tier&rpar;, -1 Luck</td>
+				<td>2x, +1 reroll</td>
+            </tr>
+            <tr class="tier-5">
+                <td>Arbiter &lpar;Greater&rpar;</td>
+                <td>Retribution</td>
+                <td class="icon-cell"><div><img src="./gallery/Icons/Elements/Lightning.webp" alt="Lightning"></div></td>
+				<td>&lpar;Res + 5 + Luck&rpar;%</td>
+                <td>&lpar;5 x Luck&rpar;%</td>
+                <td>Qx Unrefined Arbiter Jewel</td>
+                <td>&lpar;[100-300] x Map Tier&rpar;, -1 Luck</td>
+				<td>2x, +1 reroll</td>
+            </tr>
+            <tr class="tier-5">
+                <td>Arbiter &lpar;Greater&rpar;</td>
+                <td>Imprisonment</td>
+                <td class="icon-cell"><div><img src="./gallery/Icons/Elements/Ice.webp" alt="Ice"></div></td>
+				<td>&lpar;Res + 5 + Luck&rpar;%</td>
+                <td>&lpar;5 x Luck&rpar;%</td>
+                <td>Qx Arbiter Token &lpar;Random Type&rpar;</td>
+                <td>&lpar;[100-300] x Map Tier&rpar;, -1 Luck</td>
+				<td>2x, +1 reroll</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="search-category">
+    <h3 class="highlight-text">Demonic Pact Tiers [Tier 5+]</h3>
+    <table class="style-table" id="demonic-pact-tiers-table">
+        <thead class="style-header">
+            <tr>
+                <th><div>Name</div></th>
+                <th><div>Tier</div></th>
+                <th><div>Cost &lpar;HP&rpar;</div></th>
+                <th><div>Spawn Rate</div></th>
+                <th><div>Refuse &lpar;Dmg&rpar;</div></th>
+                <th><div>Unscathed Rate</div></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="tier-1">
+                <td>Lesser Incubus</td>
+                <td>1</td>
+                <td>10%</td>
+                <td>50.2%</td>
+                <td>[100 - 300]</td>
+                <td>&lpar;10 + Luck&rpar;%</td>
+            </tr>
+            <tr class="tier-2">
+                <td>Shadow Fiend</td>
+                <td>2</td>
+                <td>20%</td>
+                <td>25.1%</td>
+                <td>200 to 600</td>
+                <td>&lpar;10 + Luck&rpar;%</td>
+            </tr>
+            <tr class="tier-3">
+                <td>Cursed Defiler</td>
+                <td>3</td>
+                <td>30%</td>
+                <td>12.5%</td>
+                <td>300 to 900</td>
+                <td>&lpar;10 + Luck&rpar;%</td>
+            </tr>
+            <tr class="tier-4">
+                <td>Death Shade</td>
+                <td>4</td>
+                <td>40%</td>
+                <td>6.27%</td>
+                <td>400 to 1,200</td>
+                <td>&lpar;10 + Luck&rpar;%</td>
+            </tr>
+            <tr class="tier-5">
+                <td>Void Devourer</td>
+                <td>5</td>
+                <td>50%</td>
+                <td>3.14%</td>
+                <td>500 to 1,500</td>
+                <td>&lpar;10 + Luck&rpar;%</td>
+            </tr>
+            <tr class="tier-6">
+                <td>Arch Demon</td>
+                <td>6</td>
+                <td>60%</td>
+                <td>1.57%</td>
+                <td>600 to 1,800</td>
+                <td>&lpar;10 + Luck&rpar;%</td>
+            </tr>
+            <tr class="tier-7">
+                <td>Abyssal Monarch</td>
+                <td>7</td>
+                <td>70%</td>
+                <td>0.784%</td>
+                <td>700 to 2,100</td>
+                <td>&lpar;10 + Luck&rpar;%</td>
+            </tr>
+            <tr class="tier-8">
+                <td>Stygian Reaver</td>
+                <td>8</td>
+                <td>80%</td>
+                <td>0.392%</td>
+                <td>800 to 2,400</td>
+                <td>&lpar;10 + Luck&rpar;%</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="search-category">
+    <h3 class="highlight-text">Judgment Room [Tier 5+]</h3>
+    <table class="style-table" id="judgment-room-table">
+        <thead class="style-header">
+            <tr>
+                <th><div>Selection</div></th>
+                <th><div>Success Rate</div></th>
+                <th><div>Reward</div></th>
+                <th><div>Luck Ante</div></th>
+                <th><div>Special Rate</div></th>
+                <th><div>Special Reward</div></th>
+                <th><div>Special Bonus</div></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="tier-1">
+                <td>Radiant Heart</td>
+                <td>&lpar;50 + Luck&rpar;%</td>
+                <td>Radiant Heart</td>
+                <td>1</td>
+                <td>&lpar;0.001 x Luck&rpar;%</td>
+                <td>Pandora's Twinkling Heart</td>
+                <td>+10 Luck</td>
+            </tr>
+            <tr class="tier-1">
+                <td>Chaos Heart</td>
+                <td>&lpar;50 + Luck&rpar;%</td>
+                <td>Chaos Heart</td>
+                <td>1</td>
+                <td>&lpar;0.001 x Luck&rpar;%</td>
+                <td>Nephilim's Wicked Heart</td>
+                <td>+10 Luck</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="search-category">
+    <h3 class="highlight-text">Trap Room</h3>
+    <table class="style-table" class="style-table">
+        <thead class="style-header">
+            <tr>
+                <th><div>Element</div></th>
+                <th><div>Standard Trap</div></th>
+                <th><div>Fatal Trap</div></th>
+				<th><div>Avoid Rate</div></th>
+                <th><div>Fatal Rate</div></th>
+                <th><div>Standard Result</div></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="icon-cell"><div><img src="./gallery/Icons/Elements/Fire.webp" alt="Fire"></div></td>
+                <td>Magma Jets</td>
+                <td>Lava Pit</td>
+				<td>10 + Luck + Res</td>
+                <td>&lpar;15 - &lpar;1 x Luck&rpar;&rpar;%</td>
+                <td>&lpar;[100 to 300] x Map Tier&rpar; Damage</td>
+            </tr>
+            <tr>
+                <td class="icon-cell"><div><img src="./gallery/Icons/Elements/Water.webp" alt="Water"></div></td>
+                <td>Whirlpool Pit</td>
+                <td>Drowned</td>
+				<td>10 + Luck + Res</td>
+                <td>&lpar;15 - &lpar;1 x Luck&rpar;&rpar;%</td>
+                <td>&lpar;[100 to 300] x Map Tier&rpar; Damage</td>
+            </tr>
+            <tr>
+                <td class="icon-cell"><div><img src="./gallery/Icons/Elements/Lightning.webp" alt="Lightning"></div></td>
+                <td>Lightning Bolt</td>
+                <td>Paralyzed</td>
+				<td>10 + Luck + Res</td>
+                <td>&lpar;15 - &lpar;1 x Luck&rpar;&rpar;%</td>
+                <td>&lpar;[100 to 300] x Map Tier&rpar; Damage</td>
+            </tr>
+            <tr>
+                <td class="icon-cell"><div><img src="./gallery/Icons/Elements/Earth.webp" alt="Earth"></div></td>
+                <td>Boulder</td>
+                <td>Petrified</td>
+				<td>10 + Luck + Res</td>
+                <td>&lpar;15 - &lpar;1 x Luck&rpar;&rpar;%</td>
+                <td>&lpar;[100 to 300] x Map Tier&rpar; Damage</td>
+            </tr>
+            <tr>
+                <td class="icon-cell"><div><img src="./gallery/Icons/Elements/Wind.webp" alt="Wind"></div></td>
+                <td>Gust</td>
+                <td>Torn Apart</td>
+				<td>10 + Luck + Res</td>
+                <td>&lpar;15 - &lpar;1 x Luck&rpar;&rpar;%</td>
+                <td>&lpar;[100 to 300] x Map Tier&rpar; Damage</td>
+            </tr>
+            <tr>
+                <td class="icon-cell"><div><img src="./gallery/Icons/Elements/Ice.webp" alt="Ice"></div></td>
+                <td>Icicles</td>
+                <td>Frozen</td>
+				<td>10 + Luck + Res</td>
+                <td>&lpar;15 - &lpar;1 x Luck&rpar;&rpar;%</td>
+                <td>&lpar;[100 to 300] x Map Tier&rpar; Damage</td>
+            </tr>
+            <tr>
+                <td class="icon-cell"><div><img src="./gallery/Icons/Elements/Shadow.webp" alt="Shadow"></div></td>
+                <td>Blinded</td>
+                <td>Corrupted</td>
+				<td>10 + Luck + Res</td>
+                <td>&lpar;15 - &lpar;1 x Luck&rpar;&rpar;%</td>
+                <td>Teleport</td>
+            </tr>
+            <tr>
+                <td class="icon-cell"><div><img src="./gallery/Icons/Elements/Light.webp" alt="Light"></div></td>
+                <td>Flash</td>
+                <td>Laser</td>
+				<td>10 + Luck + Res</td>
+                <td>&lpar;15 - &lpar;1 x Luck&rpar;&rpar;%</td>
+                <td>Teleport</td>
+            </tr>
+            <tr>
+                <td class="icon-cell"><div><img src="./gallery/Icons/Elements/Celestial.webp" alt="Celestial"></div></td>
+                <td>Teleported</td>
+                <td>Disintegrated</td>
+				<td>10 + Luck + Res</td>
+                <td>&lpar;15 - &lpar;1 x Luck&rpar;&rpar;%</td>
+                <td>Teleport</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

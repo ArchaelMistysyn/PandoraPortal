@@ -1,0 +1,164 @@
+:root {
+  --brand-color-primary: #007bff;
+  --brand-color-secondary: #780ac3;
+  --brand-color-3: #ff0000;
+  --brand-color-4: #ff1493;
+  --brand-color-5: #ffc107;
+  --brand-color-6: #da9932;
+
+  --bg-gradient-primary: linear-gradient(#110eb8, #1c117e, #09086b);
+  --bg-gradient-secondary: linear-gradient(#1e1e1e, #111111);
+  --bg-gradient-tertiary: linear-gradient(#da9932, #ae7a28);
+
+  --bg-gradient-dark: linear-gradient(#2f2f2f, black);
+  --border-primary-light: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+#gallery-main-container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: flex-start;
+  flex-direction: column;
+  padding-top: 10px;
+}
+
+#gallery-top-container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+#display-container {
+  position: relative;
+  min-height: 580px;
+  width: 920px;
+  background-color: #111;
+}
+
+.search-category {
+  display: contents;
+}
+#tab-content {
+  display: grid;
+  justify-content: center;
+  position: relative;
+  row-gap: 15px;
+  column-gap: 20px;
+  width: 100%;
+  margin: 20px auto;
+}
+#tab-content.Dragons, #tab-content.Banners, #tab-content.Locations {
+  grid-template-columns: repeat(auto-fill, minmax(250px, auto));
+}
+#tab-content.Paragons, #tab-content.Arbiters, #tab-content.Special {
+  grid-template-columns: repeat(auto-fill, minmax(150px, auto));
+}
+#tab-content.Items, #tab-content.Thumbnails, #tab-content.Misc,
+#tab-content.Weapons, #tab-content.Equipment, #tab-content.Rings {
+  grid-template-columns: repeat(auto-fill, minmax(75px, auto));
+}
+
+.gallery-img {
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+  object-fit: cover;
+  border: 2px solid transparent;
+  transition: border-color 0.3s ease;
+  border-color: white;
+}
+.gallery-img.display-icon {
+  width: 72px;
+  height: 72px;
+}
+.gallery-img.display-portrait {
+  width: 150px;
+  height: 200px;
+}
+.gallery-img.display-landscape {
+  width: 250px;
+  height: 170px;
+}
+
+.preview-div {
+  position:relative;
+  transition: all 0.3s;
+}
+.preview-div::before {
+  content: "";
+  display: block;
+  left: 10px;
+  top: 10px;
+  width: 10px;
+  height: 10px;
+  background: url(../images/Icons/arrows-out-fill.png) no-repeat center center;
+  background-size: contain;
+  opacity: 0;
+  position: absolute;
+  z-index: 9999;
+  transition: all 0.5s;
+  filter: brightness(1);
+  pointer-events: none;
+}
+.preview-div:hover .gallery-img{
+  filter: brightness(0.5);
+}
+.preview-div:hover::before {
+  opacity: 1;
+  width: 50px;
+  height: 50px;
+}
+
+#tab-content__img {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: start;
+  align-items: start;
+}
+#tab-content__img .display-landscape {
+  max-width: 80%;
+  object-fit: contain;
+}
+#tab-content__img .display-portrait {
+  max-width: 30%;
+  object-fit: contain;
+}
+#tab-content__img .display-icon {
+  max-width: 10%;
+  object-fit: contain;
+}
+#tab-content__expand {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  top: 2px;
+  left: 2px;
+  transition: all 0.3s ease;
+  border-radius: 6px;
+  padding: 2px;
+  background: rgba(34, 34, 34, 0.5);
+}
+#tab-content__expand:hover {
+  background: #222;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  padding: 4px;
+  cursor: pointer;
+}
+
+#mainTab-Bosses::before {
+  background-image: url("../images/Button/Button_Emerald.webp");
+}
+#mainTab-Displays::before {
+  background-image: url("../images/Button/Button_Amethyst.webp");
+}
+#mainTab-Gear::before {
+  background-image: url("../images/Button/Button_Ruby.webp");
+}
+#mainTab-Icons::before {
+  background-image: url("../images/Button/Button_Azure.webp");
+}

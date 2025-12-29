@@ -1,0 +1,98 @@
+{
+  "Genesis Dream": {
+    "description": "Grants +3000/2000/1000% to the assigned element damage, penetration, and curse."
+  },
+  "Divine Genesis": {
+    "description": "Grants +3000/3000/3000% to the assigned element damage, penetration, and curse."
+  },
+  "Universal Advent": {
+    "description": "Resonance is always active."
+  },
+  "Entwined Universe": {
+    "description": "Resonance is always active. Gain a flat damage bonus based on the total flat damage of all collected tarot cards (Equipped or not)."
+  },
+  "Phase Breaker": {
+    "description": "5% Resist Penetration per elemental damage type on hit."
+  },
+  "Reality Breaker": {
+    "description": "Bonus 25% Resist Penetration."
+  },
+  "Blood Blossom": {
+    "description": "HP Multiplier +50%. Bloom and Bleed Damage increased by 1% per 100 Max HP."
+  },
+  "Divine Blossom": {
+    "description": "HP Multiplier +50%. Bloom, Bleed, and Final Damage increased by 1% per 100 Max HP."
+  },
+  "Blazing Dawn": {
+    "description": "99% reduced Non-Solar Damage. +X% More Solar Damage."
+  },
+  "Blazing Apex": {
+    "description": "+X% More Solar Damage."
+  },
+  "Solar Winds": {
+    "description": "Attack speed is fixed to base attack speed. Hits grant 1 stack of 'Solar Spark'. Status Trigger Rate becomes 5%."
+  },
+  "Divine Winds": {
+    "description": "Attack speed is fixed to base attack speed. Hits grant 1 stack of 'Solar Spark'. Status Trigger Rate becomes 5%. Solar Flare replaced by Zenith Flare."
+  },
+  "Mana of the Boundless Ocean": {
+    "description": "Mana limit is set to X. Mana no longer resets at 0 and can go negative. While mana is negative all hits trigger Mana Shatter. Mana Shatter Damage is 1% per negative mana point."
+  },
+  "Mana of the Divine Sea": {
+    "description": "Mana limit is set to X. Mana no longer resets at 0 and can go negative. While mana is negative all hits trigger Mana Shatter. Mana Shatter Damage is 1% per negative mana point. Mana starts at 0."
+  },
+  "Disruption Boundary": {
+    "description": "Sets the rate to fixed 100%."
+  },
+  "Forbidden Boundary": {
+    "description": "Sets the rate to fixed 100%. Grants +5 to Life and Mana Application."
+  },
+  "Calamity Spiral": {
+    "description": "90% chance for Non-Bloom hits to trigger Calamity."
+  },
+  "Aqua Cascade": {
+    "description": "Elemental Capacity becomes 1. Non-water damage becomes 0."
+  },
+  "Aqua Conversion": {
+    "description": "Converts all skill points to Path of Waterfalls and all application points to Aqua Application."
+  },
+  "Aqua Manifestation": {
+    "description": "Grants Resonance [The Clarity]. Water Damage Multiplier is added to the Critical Damage Multiplier."
+  },
+  "Heavenly Star": {
+    "description": "50% chance for Bloom hits to trigger Heavenly Bloom. Heavenly Bloom hits apply a fixed 1000% bloom penetration (10x)."
+  },
+  "Stygian Star": {
+    "description": "50% chance for Non-Bloom hits to trigger Stygian Bloom. Stygian Bloom hits apply bloom multiplier at triple the value."
+  },
+  "Banquet of Bones": {
+    "description": "0.1% increased base damage per accumulated soul. Bosses grant 1 soul per tier. Map monsters grant 1, 2, and 3 souls respectively for basic, elite, and legendary enemies."
+  },
+  "Avaricious Ruin": {
+    "description": "For each Cursed Golden Skull consumed by the ring, the base damage increases by 100,000."
+  },
+  "Rainbow's End": {
+    "description": "10% Omni Curse per Aurora Tear consumed by the ring."
+  },
+  "Cursed Wish": {
+    "description": "500% Omni Damage, Penetration, and Curse."
+  },
+  "Ruler's Glare": {
+    "description": "NEEDS DATA"
+  },
+  "Ruler's Tenacity": {
+    "description": "1000% Health Multiplier."
+  },
+  "Stasis Zone": {
+    "description": "NEEDS DATA"
+  },
+  "Divine Aegis": {
+    "description": "2000% Health Multiplier."
+  },
+  "Sovereign's Omniscience": {
+    "description": "Weapon base damage is fixed to the highest value on hit."
+  },
+  "Sacred Core": {
+    "description": "Defence Penetration +50%."
+  }
+}

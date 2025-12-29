@@ -1,0 +1,334 @@
+{
+  "Elemental Signet of Fire": {
+    "tier": 4,
+    "skills": [
+      {"name": "Fire Curse", "value": 200, "attr_name": "elemental_curse", "index": 0}
+    ],
+    "element": [0]
+  },
+  "Elemental Signet of Water": {
+    "tier": 4,
+    "skills": [
+      {"name": "Water Curse", "value": 200, "attr_name": "elemental_curse", "index": 1}
+    ],
+    "element": [1]
+  },
+  "Elemental Signet of Lightning": {
+    "tier": 4,
+    "skills": [
+      {"name": "Lightning Curse", "value": 200, "attr_name": "elemental_curse", "index": 2}
+    ],
+    "element": [2]
+  },
+  "Elemental Signet of Earth": {
+    "tier": 4,
+    "skills": [
+      {"name": "Earth Curse", "value": 200, "attr_name": "elemental_curse", "index": 3}
+    ],
+    "element": [3]
+  },
+  "Elemental Signet of Wind": {
+    "tier": 4,
+    "skills": [
+      {"name": "Wind Curse", "value": 200, "attr_name": "elemental_curse", "index": 4}
+    ],
+    "element": [4]
+  },
+  "Elemental Signet of Ice": {
+    "tier": 4,
+    "skills": [
+      {"name": "Ice Curse", "value": 200, "attr_name": "elemental_curse", "index": 5}
+    ],
+    "element": [5]
+  },
+  "Elemental Signet of Shadow": {
+    "tier": 4,
+    "skills": [
+      {"name": "Shadow Curse", "value": 200, "attr_name": "elemental_curse", "index": 6}
+    ],
+    "element": [6]
+  },
+  "Elemental Signet of Light": {
+    "tier": 4,
+    "skills": [
+      {"name": "Light Curse", "value": 200, "attr_name": "elemental_curse", "index": 7}
+    ],
+    "element": [7]
+  },
+  "Elemental Signet of Celestia": {
+    "tier": 4,
+    "skills": [
+      {"name": "Celestial Curse", "value": 200, "attr_name": "elemental_curse", "index": 8}
+    ],
+    "element": [8]
+  },
+  "Ruby Ring of Incineration": {
+    "tier": 5,
+    "skills": [
+      {"name": "Fire Curse", "value": 500, "attr_name": "elemental_curse", "index": 0}
+    ],
+    "resonance": 1,
+    "element": [0]
+  },
+  "Sapphire Ring of Atlantis": {
+    "tier": 5,
+    "skills": [
+      {"name": "Water Curse", "value": 500, "attr_name": "elemental_curse", "index": 1}
+    ],
+    "resonance": 14,
+    "element": [1]
+  },
+  "Topaz Ring of Dancing Thunder": {
+    "tier": 5,
+    "skills": [
+      {"name": "Lightning Curse", "value": 500, "attr_name": "elemental_curse", "index": 2}
+    ],
+    "resonance": 8,
+    "element": [2]
+  },
+  "Agate Ring of Seismic Tremors": {
+    "tier": 5,
+    "skills": [
+      {"name": "Earth Curse", "value": 500, "attr_name": "elemental_curse", "index": 3}
+    ],
+    "resonance": 16,
+    "element": [3]
+  },
+  "Emerald Ring of Wailing Winds": {
+    "tier": 5,
+    "skills": [
+      {"name": "Wind Curse", "value": 500, "attr_name": "elemental_curse", "index": 4}
+    ],
+    "resonance": 9,
+    "element": [4]
+  },
+  "Zircon Ring of the Frozen Castle": {
+    "tier": 5,
+    "skills": [
+      {"name": "Ice Curse", "value": 500, "attr_name": "elemental_curse", "index": 5}
+    ],
+    "resonance": 13,
+    "element": [5]
+  },
+  "Obsidian Ring of Tormented Souls": {
+    "tier": 5,
+    "skills": [
+      {"name": "Shadow Curse", "value": 500, "attr_name": "elemental_curse", "index": 6}
+    ],
+    "resonance": 12,
+    "element": [6]
+  },
+  "Opal Ring of Scintillation": {
+    "tier": 5,
+    "skills": [
+      {"name": "Light Curse", "value": 500, "attr_name": "elemental_curse", "index": 7}
+    ],
+    "resonance": 11,
+    "element": [7]
+  },
+  "Amethyst Ring of Shifting Stars": {
+    "tier": 5,
+    "skills": [
+      {"name": "Celestial Curse", "value": 500, "attr_name": "elemental_curse", "index": 8}
+    ],
+    "resonance": 17,
+    "element": [8]
+  },
+  "Invoking Ring of Storms": {
+    "tier": 6,
+    "skills": [
+      {"name": "Water Curse", "value": 250, "attr_name": "elemental_curse", "index": 1},
+      {"name": "Lightning Curse", "value": 250, "attr_name": "elemental_curse", "index": 2},
+      {"name": "Path of Storms +10"}
+    ],
+    "resonance": 20,
+    "element": [1, 2],
+    "path": 0
+  },
+  "Primordial Ring of Frostfire": {
+    "tier": 6,
+    "skills": [
+      {"name": "Fire Curse", "value": 250, "attr_name": "elemental_curse", "index": 0},
+      {"name": "Ice Curse", "value": 250, "attr_name": "elemental_curse", "index": 5},
+      {"name": "Path of Frostfire +10"}
+    ],
+    "resonance": 15,
+    "element": [0, 5],
+    "path": 1
+  },
+  "Boundary Ring of Horizon": {
+    "tier": 6,
+    "skills": [
+      {"name": "Earth Curse", "value": 250, "attr_name": "elemental_curse", "index": 3},
+      {"name": "Wind Curse", "value": 250, "attr_name": "elemental_curse", "index": 4},
+      {"name": "Path of Horizon +10"}
+    ],
+    "resonance": 11,
+    "element": [3, 4],
+    "path": 2
+  },
+  "Hidden Ring of Eclipse": {
+    "tier": 6,
+    "skills": [
+      {"name": "Shadow Curse", "value": 250, "attr_name": "elemental_curse", "index": 6},
+      {"name": "Light Curse", "value": 250, "attr_name": "elemental_curse", "index": 7},
+      {"name": "Path of Eclipse +10"}
+    ],
+    "resonance": 12,
+    "element": [6, 7],
+    "path": 3
+  },
+  "Cosmic Ring of Stars": {
+    "tier": 6,
+    "skills": [
+      {"name": "Celestial Curse", "value": 1000, "attr_name": "elemental_curse", "index": 8},
+      {"name": "Path of Stars +10"}
+    ],
+    "resonance": 17,
+    "element": [8],
+    "path": 4
+  },
+  "Orbital Ring of Solar Flux": {
+    "tier": 6,
+    "skills": [
+      {"name": "Fire Curse", "value": 200, "attr_name": "elemental_curse", "index": 0},
+      {"name": "Wind Curse", "value": 200, "attr_name": "elemental_curse", "index": 4},
+      {"name": "Light Curse", "value": 200, "attr_name": "elemental_curse", "index": 7},
+      {"name": "Path of Solar Flux +10"}
+    ],
+    "resonance": 19,
+    "element": [0, 4, 7],
+    "path": 5
+  },
+  "Orbital Ring of Lunar Tides": {
+    "tier": 6,
+    "skills": [
+      {"name": "Water Curse", "value": 200, "attr_name": "elemental_curse", "index": 1},
+      {"name": "Ice Curse", "value": 200, "attr_name": "elemental_curse", "index": 5},
+      {"name": "Shadow Curse", "value": 200, "attr_name": "elemental_curse", "index": 6},
+      {"name": "Path of Lunar Tides +10"}
+    ],
+    "resonance": 18,
+    "element": [1, 5, 6],
+    "path": 6
+  },
+  "Orbital Ring of Terrestria": {
+    "tier": 6,
+    "skills": [
+      {"name": "Singularity Curse", "value": 750, "attr_name": "singularity_curse"},
+      {"name": "Path of Terrestria +10"}
+    ],
+    "resonance": 21,
+    "element": [2, 3, 8],
+    "path": 7
+  },
+  "Rainbow Ring of Confluence": {
+    "tier": 6,
+    "skills": [
+      {"name": "Omni Curse", "value": 200, "attr_name": "all_elemental_curse"},
+      {"name": "Path of Confluence +10"}
+    ],
+    "resonance": 6,
+    "element": ["all"],
+    "path": 8
+  },
+  "Dragon's Eye Diamond": {
+    "tier": 7,
+    "skills": [
+      {"name": "Critical Eye", "attr_name": "perfect_rate", "value": 100, "index": "Critical"},
+      {"name": "Critical Damage", "value": 500, "attr_name": "critical_mult"}
+    ],
+    "resonance": 4,
+    "element": [0]
+  },
+  "Bleeding Hearts": {
+    "tier": 7,
+    "skills": [
+      {"name": "Bleed Application +", "value": 5, "attr_name": "appli", "index": "Bleed"}
+    ],
+    "resonance": 5,
+    "element": [3, 4]
+  },
+  "Gambler's Masterpiece": {
+    "tier": 7,
+    "skills": [
+      {"name": "All-In!", "attr_name": "rng_bonus", "value": 777}
+    ],
+    "resonance": 0,
+    "element": ["all"]
+  },
+  "Lonely Ring of the Dark Star": {
+    "tier": 7,
+    "skills": [
+      {"name": "Dark Dream", "attr_name": "spec_conv", "value": 300, "index": "DarkDream"},
+      {"name": "Stygian Star", "description": "50% chance for Non-Bloom hits to trigger Stygian Bloom", "attr_name": "spec_conv", "value": 25, "index": "Stygian"}
+    ],
+    "resonance": 3,
+    "element": [0, 2, 3, 6, 8]
+  },
+  "Lonely Ring of the Light Star": {
+    "tier": 7,
+    "skills": [
+      {"name": "Glittering Dream", "attr_name": "spec_conv", "value": 300, "index": "LightDream"},
+      {"name": "Heavenly Star", "description": "50% chance for Bloom hits to trigger Heavenly Bloom", "attr_name": "spec_conv", "value": 25, "index": "Heavenly"}
+    ],
+    "resonance": 4,
+    "element": [1, 4, 5, 7, 8]
+  },
+  "Stygian Calamity": {
+    "tier": 8,
+    "skills": [
+      {"name": "Calamity Spiral", "description": "99% chance for Non-Bloom hits to trigger Calamity", "attr_name": "spec_conv", "value": 90, "index": "Calamity"},
+      {"name": "Hybrid Curse (Chaos)", "attr_name": "elemental_curse", "value": 999, "index": [0, 2, 3, 6]}
+    ],
+    "resonance": "Random",
+    "element": [0, 2, 3, 6]
+  },
+  "Heavenly Calamity": {
+    "tier": 8,
+    "skills": [
+      {"name": "Calamity Spiral", "description": "99% chance for Non-Bloom hits to trigger Calamity", "attr_name": "spec_conv", "value": 90, "index": "Calamity"},
+      {"name": "Hybrid Curse (Holy)", "attr_name": "elemental_curse", "value": 999, "index": [1, 4, 5, 7]}
+    ],
+    "resonance": "Random",
+    "element": [1, 4, 5, 7]
+  },
+  "Hadal's Raindrop": {
+    "tier": 8,
+    "skills": [
+      {"name": "Aqua Cascade", "description": "Elemental Capacity becomes 1. Non water damage becomes 0", "attr_name": "aqua_mode", "value": 100},
+      {"name": "Aqua Conversion"},
+      {"name": "Aqua Manifestation"}
+    ],
+    "resonance": 14,
+    "element": [1]
+  },
+  "Twin Rings of Divergent Stars": {
+    "tier": 8,
+    "skills": [
+      {"name": "Heavenly Star", "description": "50% chance for Bloom hits to trigger Heavenly Bloom", "attr_name": "spec_conv", "value": 50, "index": "Heavenly"},
+      {"name": "Stygian Star", "description": "50% chance for Non-Bloom hits to trigger Stygian Bloom", "attr_name": "spec_conv", "value": 50, "index": "Stygian"},
+      {"name": "300% Omni Curse", "attr_name": "all_elemental_curse", "value": 300}
+    ],
+    "resonance": "Random",
+    "element": [6, 7, 8]
+  },
+  "Crown of Skulls": {
+    "tier": 8,
+    "skills": [
+      {"name": "Avaricious Ruin"},
+      {"name": "Banquet of Bones"}
+    ],
+    "resonance": "Random",
+    "element": [5]
+  },
+  "Chromatic Tears": {
+    "tier": 8,
+    "skills": [
+      {"name": "Rainbow's End"},
+      {"name": "Cursed Wish"}
+    ],
+    "resonance": 25,
+    "element": ["all"]
+  }
+}

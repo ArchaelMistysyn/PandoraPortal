@@ -1,0 +1,28 @@
+deployment:
+  tasks:
+    - /bin/mkdir -p /home/kylep910/pandoraportal.ca/CSS
+    - /bin/mkdir -p /home/kylep910/pandoraportal.ca/scripts
+    - /bin/mkdir -p /home/kylep910/pandoraportal.ca/images
+    - /bin/mkdir -p /home/kylep910/pandoraportal.ca/gallery
+    - /bin/mkdir -p /home/kylep910/pandoraportal.ca/galleryPages
+    - /bin/mkdir -p /home/kylep910/pandoraportal.ca/font
+    - /bin/mkdir -p /home/kylep910/pandoraportal.ca/bot_php
+    - /bin/mkdir -p /home/kylep910/pandoraportal.ca/image_display
+    - /bin/mkdir -p /home/kylep910/pandoraportal.ca/botimages
+    - /bin/mkdir -p /home/kylep910/pandoraportal.ca/botimages/NonGear_Icon
+    - /bin/mkdir -p /home/kylep910/pandoraportal.ca/Lore
+    - /bin/mkdir -p /home/kylep910/pandoraportal.ca/botimages/bosses/Demon
+    - /bin/cp -R botimages/NonGear_Icon /home/kylep910/pandoraportal.ca/botimages/
+    - /bin/cp -R CSS/* /home/kylep910/pandoraportal.ca/CSS/
+    - /bin/cp -R scripts/* /home/kylep910/pandoraportal.ca/scripts/
+    - /bin/cp -R images/* /home/kylep910/pandoraportal.ca/images/
+    - /bin/cp -R gallery/* /home/kylep910/pandoraportal.ca/gallery/
+    - /bin/cp -R galleryPages/* /home/kylep910/pandoraportal.ca/galleryPages/
+    - /bin/cp -R font/* /home/kylep910/pandoraportal.ca/font/
+    - /bin/cp -R bot_php/* /home/kylep910/pandoraportal.ca/bot_php/
+    - /bin/cp -R image_display/* /home/kylep910/pandoraportal.ca/image_display/
+    - /bin/cp -R *.php /home/kylep910/pandoraportal.ca/
+    - /bin/cp -R *.html /home/kylep910/pandoraportal.ca/
+    - /bin/cp -R .cpanel.yml /home/kylep910/pandoraportal.ca/
+    - /bin/cp -R Lore/* /home/kylep910/pandoraportal.ca/Lore/
+    - /bin/cp -R botimages/bosses/Demon/* /home/kylep910/pandoraportal.ca/botimages/bosses/Demon/
