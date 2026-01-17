@@ -522,7 +522,7 @@ function handle_skill($player, &$boss, &$tracker, $combo_count, $weapon, $is_ult
         $tracker->solar_stacks += ($player->flare_type !== "") ? 1 : 0;
     }
     $triggers = apply_triggers($player, $tracker, $damage);
-    $str_dmg = limit_and_calc($boss, $damage);
+    $str_dmg = limit_and_calc($boss, $damage, $player);
     $trigger_data = implode(" ", $triggers);
     if ($is_ultimate){ 
         $rows[] = ["action_type" => "ultimate" . ($triggers ? " " . $trigger_data : ""), "triggers" => strtoupper($trigger_data), 
@@ -553,16 +553,17 @@ function handle_bleed($player, &$boss, &$tracker, $weapon, $is_ultimate = false)
         $damage = big_mul($damage, 1 + $player->bleed_mult);
         $triggers = ["hyperbleed"];
     }
-    $str_dmg = limit_and_calc($boss, $damage);
+    $str_dmg = limit_and_calc($boss, $damage, $player);
     $trigger_data = implode(" ", $triggers);
     $rows[] = ["action_type" => $type . ($triggers ? " " . $trigger_data : ""), "triggers" => strtoupper($trigger_data), 
         "action_name" => "$label_prefix Rupture [$count_label]", "damage_value" => $str_dmg, "new_hp" => $boss->boss_cHP];
     return $rows;
 }
 
-function limit_and_calc($boss, $damage) {
-    if ($boss->damage_cap !== '-1' && big_cmp($damage, $boss->damage_cap) > 0) {
-        $str_dmg = $boss->damage_cap;
+function limit_and_calc($boss, $damage, $player) {
+    $boss_damage_cap = $player->limit_shift <= 0 ? $damage : big_mul($boss->damage_cap, $player->limit_shift);
+    if ($boss->damage_cap !== '-1' && big_cmp($damage, $boss_damage_cap) > 0) {
+        $str_dmg = strval($boss_damage_cap);
     } else {
         $str_dmg = strval($damage);
     }
@@ -723,7 +724,7 @@ function trigger_flare($player, &$boss, &$tracker) {
     $tracker->solar_stacks = 0;
     $flare_rate = ($player->flare_type === "Solar") ? 0.10 : 0.25;
     $damage = big_mul($boss->boss_cHP, $flare_rate);
-    $str_dmg = limit_and_calc($boss, $damage);
+    $str_dmg = limit_and_calc($boss, $damage, $player);
     return [["action_type" => "flare", "action_name" => $player->flare_type . " Flare", 
         "damage_value" => $str_dmg, "new_hp" => $boss->boss_cHP]];
 }

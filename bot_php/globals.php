@@ -366,7 +366,7 @@
 		"Martin Steffen" => ["I", "XXVI"],
 		"Aiming Chen" => ["XXIII", "XVIII", "XIX"],
 		"Alina Arkhipova" => ["XXVIII"],
-		"Elvany Destiani" => ["0", "II", "XXV", "XVII"],
+		"Elvany Destiani" => ["0", "II", "XXV", "XVII", "XXIX"],
 		"Maybelle Gormate" => ["XVII"],
 		"Leonardo Guinard"=> ["XXXC", "XXXD"],
 		"Tan kwokYeow" => ["XXXA", "XXXB"]

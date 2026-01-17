@@ -27,6 +27,7 @@ class PlayerProfile {
     public $singularity_mult, $singularity_pen, $singularity_curse;
 
     // Specialization stats
+	public $limit_shift;
     public $unique_glyph_ability, $elemental_capacity;
     public $mana_mult, $start_mana, $mana_limit, $mana_shatter;
     public $bleed_mult, $bleed_pen;
@@ -103,6 +104,7 @@ class PlayerProfile {
         $this->singularity_pen = 0.0;
         $this->singularity_curse = 0.0;
 
+		$this->limit_shift = 1.0;
         $this->unique_glyph_ability = array_fill(0, 9, false);
         $this->elemental_capacity = 3;
         $this->mana_mult = 1.0;
@@ -809,6 +811,12 @@ class PlayerProfile {
 				$html .= "<div class='player-table-stat'>";
 					$html .= "<div class='stat-section-left'><img src='/images/Icons/diamonds-four-fill.png' alt='stat icon' class='icon-small stat-icon'/><h3 class='unconditional'>Defence Penetration: </h3></div>";
 					$html .= "<div class='stat-section-right'><p>" . number_format(show_num($this->defence_pen)) . "%</p></div>";
+				$html .= "</div>";
+				// Damage Limit
+				$html .= "<div class='player-table-stat'>";
+					$html .= "<div class='stat-section-left'><img src='/images/Icons/diamonds-four-fill.png' alt='stat icon' class='icon-small stat-icon'/><h3 class='unconditional'>Boss Damage Limit: </h3></div>";
+					$limit_display = $this->limit_shift <= 1 ? "FREE" : number_format(show_num($this->limit_shift));
+					$html .= "<div class='stat-section-right'><p>" . $limit_display . "%</p></div>";
 				$html .= "</div>";
 			$html .= "</div>";
 		$html .= "</div></div>";
