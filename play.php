@@ -24,6 +24,7 @@
 	// Web Inclusions
 	include_once('./bot_php/db_queries.php');
 	include_once('./bot_php/globals.php');
+    include_once('./bot_php/shared_methods.php');
     include_once('./bot_php/containers.php');
 	include_once('./bot_php/player.php');
 	include_once('./bot_php/tarot.php');

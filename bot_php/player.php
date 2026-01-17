@@ -67,7 +67,7 @@ class PlayerProfile {
         $this->player_quest = 0;
         $this->quest_tokens = array_fill(0, 30, 0);
         $this->quest_tokens[1] = 1;
-        $this->player_coins = 0;
+        $this->player_coins = "0";
         $this->player_stamina = 0;
         $this->luck_bonus = 0;
 		$this->player_oath_num = -1;
@@ -182,7 +182,7 @@ class PlayerProfile {
 		$query .= ", player_quest = " . intval($this->player_quest);
 		$query .= ", player_level = " . intval($this->player_level);
 		$query .= ", player_echelon = " . intval($this->player_echelon);
-		$query .= ", player_coins = " . intval($this->player_coins);
+		$query .= ", player_coins = " . strval($this->player_coins);
 		$query .= ", player_stamina = " . intval($this->player_stamina);
 		$query .= ", player_pact = '" . addslashes($this->player_pact);
 		$query .= "', player_insignia = '" . addslashes($this->player_insignia);
@@ -260,7 +260,7 @@ class PlayerProfile {
 		}
 		$html .= '<tr class="player-table-stat"><td><img src="/images/Icons/diamonds-four-fill.png" alt="stat icon" class="icon-small stat-icon"/>Oath:</td><td>' . $oath_label . '</td></tr>';
 		// Lotus Coins
-		$formatted_coin_value = number_format($this->player_coins);
+		$formatted_coin_value = big_format($this->player_coins);
 		$html .= '<tr class="player-table-stat"><td><img src="./gallery/Icons/Misc/Lotus Coin.webp" alt="Coins" class="icon-small stat-icon"/>Lotus Coins:</td><td> ' . $formatted_coin_value . '</td></tr>';
 		$html .= '</table>';
 		// Skill Points & Glyphs
@@ -925,7 +925,7 @@ function get_player_by_id($search_input, $check_method="player") {
 		$player_profile->player_class = $data['player_class'];
 		$player_profile->player_quest = $data['player_quest'];
 		$player_profile->quest_tokens = array_map('intval', explode(';', $data['quest_tokens']));
-		$player_profile->player_coins = $data['player_coins'];
+		$player_profile->player_coins = (string)$data['player_coins'];
 		$player_profile->player_stamina = $data['player_stamina'];
 		$player_profile->player_stats = array_map('intval', explode(';', $data['player_stats']));
 		$player_profile->player_equipped = array_map('intval', explode(';', $data['player_equipped']));

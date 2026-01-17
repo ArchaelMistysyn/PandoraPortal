@@ -746,7 +746,7 @@ function handle_rewards($player_profile, $boss_profile, $combat_tracker, $gauntl
     // Update Coins
     $coin_msg = "";
     $coin_gain = calculate_coin_gain($coin_amount, $pact->pact_variant, $coin_msg);
-    $player_profile->player_coins += (int) $coin_gain;
+    $player_profile->player_coins = big_add($player_profile->player_coins, $coin_gain);
     // Update Exp
     $exp_msg = "";
     $exp_amount = calculate_exp_gain($exp_amount, $pact->pact_variant, $exp_msg);

@@ -66,6 +66,20 @@ function big_rand($min, $max) {
     return bcadd($min, $num);
 }
 
+function big_format($value) {
+    $n = normalize_bcmath_number($value);
+    $sign = '';
+    if (strlen($n) > 0 && $n[0] === '-') {
+        $sign = '-';
+        $n = substr($n, 1);
+    }
+    $n = str_strip_decimal($n);
+    $n = ltrim($n, '0');
+    if ($n === '') $n = '0';
+    $n = preg_replace('/\B(?=(\d{3})+(?!\d))/', ',', $n);
+    return $sign . $n;
+}
+
 
 function number_conversion($input_number) {
     $labels = ['', 'K', 'M', 'B', 'T', 'Q', 'Qt', 'Z', 'Z+', 'Z++', 'Z+++', 

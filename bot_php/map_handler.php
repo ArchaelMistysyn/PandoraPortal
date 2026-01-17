@@ -684,7 +684,7 @@ function handlePenetralia($expedition, $method){
             return $item->item_id;
         }
         $total = $rewardCoins + $bonusCoins;
-        $expedition->player->player_coins += $total;
+        $expedition->player->player_coins = big_add($expedition->player->player_coins, $total);
         $expedition->player->update_player_data();
         return "Acquired {$total} lotus coins!";
     }
@@ -890,8 +890,8 @@ function handleTrial($expedition, $action) {
     # Trial of Greed
     if ($expedition->current_room->variant === "Greed") {
         $cost = $greed_cost_list[$index];
-        if ($expedition->player->player_coins >= $cost) {
-            $expedition->player->player_coins -= $cost;
+        if (big_cmp($expedition->player->player_coins, $cost) >= 0) {
+            $expedition->player->player_coins = big_sub($expedition->player->player_coins, $cost);
             $expedition->player->update_player_data();
             $expedition->luck += $reward;
             return "Sacrificed {$cost} coins. Gained +{$reward} Luck.";

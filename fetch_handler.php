@@ -555,14 +555,14 @@ function getShopCostHTML(&$item_html, $item_id) {
         } else {
             $item_html .= '<img src="' . $web_url_base . 'gallery/Icons/Misc/Lotus Coin.webp" alt="Lotus Coins" class="cost-icon">';
             $item_html .= '<span class="cost-name"> Lotus Coins </span>';
-            $item_html .= '<span class="cost-quantity">' .  number_format((int)$player_profile->player_coins) . ' / ' . number_format((int)$cost) . '</span>';
-            if($player_profile->player_coins >= $cost) {
+            $item_html .= '<span class="cost-quantity">' .  big_format($player_profile->player_coins) . ' / ' . number_format((int)$cost) . '</span>';
+            if (big_cmp($player_profile->player_coins, $cost) >= 0) {
                 $purchase_button = "<button class='lightbox-button-green' onclick=\"purchaseShopItem('{$item_id}')\">Buy 1</button>";
             }
-            if($player_profile->player_coins >= $cost * 10) {
+            if (big_cmp($player_profile->player_coins, big_mul($cost, '10')) >= 0) {
                 $purchase_button .= "<button class='lightbox-button-green' onclick=\"purchaseShopItem('{$item_id}', 10)\">Buy 10</button>";
             }
-            if($player_profile->player_coins >= $cost * 100) {
+            if (big_cmp($player_profile->player_coins, big_mul($cost, '100')) >= 0) {
                 $purchase_button .= "<button class='lightbox-button-green' onclick=\"purchaseShopItem('{$item_id}', 100)\">Buy 100</button>";
             }
         }
@@ -590,8 +590,8 @@ function purchaseShopItem($item_id, $quantity = 1) {
     global $verified_player_id, $itemData;
     $cost = $itemData[$item_id]['cost'] ?? 0;
     $player = get_player_by_id($verified_player_id);
-    if ($player->player_coins < $cost * $quantity) { return ["success" => false, "message" => "Not enough coins"]; }
-    $player->player_coins -= $cost * $quantity;
+    if (big_cmp($player->player_coins, big_mul($cost, (string)$quantity)) < 0) { return ["success" => false, "message" => "Not enough coins"]; }
+    $player->player_coins = big_sub($player->player_coins, big_mul($cost, (string)$quantity));
     $player->update_player_data();
     update_stock($verified_player_id, $item_id, $quantity);
     return create_inventory_lightbox($verified_player_id, $item_id, true);
@@ -775,7 +775,7 @@ function assign_sell_reward($player, $item) {
         5 => 10000, 6 => 25000, 7 => 50000, 8 => 100000, 9 => 500000
     ];
     $sell_value = $sell_value_by_tier[$item->item_tier] ?? 0;
-    $player->player_coins += $sell_value;
+    $player->player_coins = big_add($player->player_coins, $sell_value);
     return "Sold for $sell_value coins.";
 }
 
@@ -981,7 +981,7 @@ function process_quest_completion($player_profile, $quest, $choice_reward = null
         $coin_gain = calculate_coin_gain($coin_gain, $pact->pact_variant, $coin_msg);
     }
     $player_profile->player_exp += $exp_gain;
-    $player_profile->player_coins += $coin_gain;
+    $player_profile->player_coins = big_add($player_profile->player_coins, $coin_gain);
     // Update Level
     $lvl_data = apply_level_up($player_profile);
     $level_increase = $lvl_data[0];
