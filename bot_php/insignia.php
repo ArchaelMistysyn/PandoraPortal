@@ -24,7 +24,15 @@
 			$this->pen = $insignia_multipliers[$this->num_elements][0];
 			$this->pen += $insignia_multipliers[$this->num_elements][1] * $this->insignia_stars * $mutation_adjust;
 			$this->insignia_name = "{$insignia_name_list[$this->num_elements]} Insignia";
-			$this->insignia_link = "./botimages/iconframes/Icon_Border_106px/Icon_border_Silver_106px.png";
+			$selected = [];
+			foreach ($this->element_list as $idx => $val) {
+				if ($val === 1) {
+					$selected[] = $idx;
+				}
+			}
+			sort($selected);
+			$digits = (count($selected) === 9) ? "012345678" : implode("", $selected);
+			$this->insignia_link = "https://PandoraPortal.ca/botimages/Gear_Icon/Insignia/Frame_Insignia/Frame_Insignia{$digits}_{$this->insignia_stars}.png";
 		}
 		
 		private function get_insignia_stars($echelon, $mutation_tier) {
