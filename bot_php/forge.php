@@ -416,4 +416,82 @@
         return new CustomItem($verified_player_id, $item_type, $new_tier, "", false, true);
     }
 
+    function check_meld($player_profile, $gearA_item, $gearB_item) {
+        $canSwap = false;
+        $canMeld = false;
+        $playerTokens = 0;
+        $meldCost = 0;
+        $targetTier = 0;
+        $affinityRate = 0;
+        if ($gearA_item !== null) {
+            $canSwap = !in_array($gearA_item->item_id, $player_profile->player_equipped, true);
+        }
+        if ($gearA_item === null || $gearB_item === null) {
+            return ["canSwap"=>$canSwap, "canMeld"=>false, "affinityRate"=>0, "targetTier"=>0, "playerTokens"=>0, "meldCost"=>0];
+        }
+        $isGemA = strpos($gearA_item->item_type, "D") !== false;
+        $isGemB = strpos($gearB_item->item_type, "D") !== false;
+        $slot2NotEquipped = !in_array($gearB_item->item_id, $player_profile->player_equipped, true);
+        $validTierA = $gearA_item->item_tier >= 5 && $gearA_item->item_tier <= 8;
+        $validTierB = $gearB_item->item_tier >= 5 && $gearB_item->item_tier <= 8;
+        $targetTier = $gearA_item->item_tier;
+        if ($gearA_item->item_tier <= $gearB_item->item_tier && $gearA_item->item_tier < 8) {
+            $targetTier += 1;
+        }
+        $meldCost = $gearA_item->item_tier + $gearB_item->item_tier - 8;
+        $tokenData = get_inventory_by_player_id($player_profile->player_id, "Token4");
+        if ($tokenData["success"]) {
+            $playerTokens = $tokenData["item"]["item_qty"];
+        }
+        $damageA = $gearA_item->item_damage_min + $gearA_item->item_damage_max;
+        $damageB = $gearB_item->item_damage_min + $gearB_item->item_damage_max;
+        $affinityRate = 50;
+        if ($damageA > 0 && $damageB > 0) {
+            $ratioPercent = (int) round(
+                min($damageA,$damageB) / max($damageA,$damageB) * 100
+            );
+            $affinityRate = min(100, 50 + $ratioPercent);
+        }
+        if ($isGemA && $isGemB && $slot2NotEquipped && $validTierA && $validTierB && $playerTokens >= $meldCost ) { $canMeld = true; }
+        return ["canSwap"=>$canSwap, "canMeld"=>$canMeld, "affinityRate"=>$affinityRate, "targetTier"=>$targetTier, "playerTokens"=>$playerTokens, "meldCost"=>$meldCost];
+    }
+
+    function process_meld($player, $gem_1, $gem_2, $cost, $affinity){
+        if (!$gem_1 || !$gem_2 || $gem_1->player_id !== $player->player_id || $gem_2->player_id !== $player->player_id) {
+            return ["success"=>false, "message"=>"Melding interrupted: Invalid Jewels"];
+        }
+        $stock = checkUserStock($player->player_id,["Token4"]);
+        if ($stock["Token4"] < $cost) {
+            return ["success"=>false, "message"=>"Not enough tokens"];
+        }
+        update_stock($player->player_id,"Token4",-1*$cost);
+        $damage1 = $gem_1->item_damage_min + $gem_1->item_damage_max;
+        $damage2 = $gem_2->item_damage_min + $gem_2->item_damage_max;
+        delete_custom_item($player->player_id,$gem_2->item_id);
+        if (rand(1,100) > $affinity) {
+            return ["success"=>true, "meld_success"=>false, "return_gem"=>$gem_1];
+        }
+        if ($gem_1->item_tier <= $gem_2->item_tier && $gem_1->item_tier < 8) {
+            $gem_1->item_tier++;
+            $gem_1->update_damage();
+            $gem_1->set_item_name();
+        }
+        $roll_change_list = [];
+        $roll_values_1 = $gem_1->item_roll_values;
+        $roll_values_2 = $gem_2->item_roll_values;
+        foreach ($roll_values_2 as $i=>$secondary_roll) {
+            if (rand(0,1)==1) {
+                $new_roll = substr($secondary_roll,1);
+                $roll_change_list[$i] = true;
+            } else {
+                $new_roll = substr($roll_values_1[$i],1);
+                $roll_change_list[$i] = false;
+            }
+            $roll_values_1[$i] = $gem_1->item_tier.$new_roll;
+        }
+        $gem_1->item_roll_values = $roll_values_1;
+        $gem_1->saveChanges();
+        return ["success"=>true, "meld_success"=>true, "return_gem"=>$gem_1, "roll_changes"=>$roll_change_list];
+    }
+
 ?>

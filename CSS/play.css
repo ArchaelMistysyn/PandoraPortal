@@ -406,7 +406,7 @@
   }
   #lightbox-container {
     position: relative;
-    width: 400px;
+    width: 600px;
     max-width: 90%;
     text-align: center;
     display: flex;
@@ -462,7 +462,8 @@
     justify-content: center;
     gap: 10px;
   }
-  #lightbox-menu button, #action-box-menu button {
+  #lightbox-menu button, #action-box-menu button, 
+  #meld-button-container button, .meld-slot-container button {
     text-shadow: 2px 2px black;
     color: white;
     border: none;
@@ -586,14 +587,18 @@
 }
 
 /* Forge */
-  #forge-container, #refine-container {
+  #forge-container, #refine-container, #meld-container {
     position: relative;
     display: none;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     height: 100%;
     width: 100%;
     padding-bottom: 80px;
+  }
+  #meld-container {
+    padding-bottom: 20px;
   }
   #forge-screen-container, #refine-screen-container {
     position: relative;
@@ -607,6 +612,34 @@
     gap: 50px;
     padding-bottom: 80px;
   }
+  #meld-screen-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  #meld-slot-row {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 50px;
+    width: 100%;
+  }
+  .meld-slot-container{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  #meld-cost-display {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+  }
+  #meld-cost-display, #meld-target-display, #meld-affinity-display{
+    font-size: 1.3rem;
+    line-height: 32px;
+  }
   #forge-menu, #refine-menu {
     position: relative;
     display: flex;
@@ -618,7 +651,7 @@
     height: 651px;
     padding: 20px;
   }
-  #sub-forge-menu, #sub-refine-menu {
+  #sub-forge-menu, #sub-refine-menu, #meld-info-panel {
     position: relative;
     display: flex;
     flex-direction: column;
@@ -628,7 +661,13 @@
     padding: 10px;
     gap: 10px;
   }
-  .forge-submenu-border {
+  #meld-info-panel {
+    gap: 3px;
+  }
+  #meld-select-a, #meld-select-b {
+    margin: 10px;
+  }
+  .forge-submenu-border{
     border: 2px solid rgba(58, 58, 58, 0.7);
   }
   #forge-sub-header, #refine-sub-header {
@@ -972,8 +1011,11 @@
   }
   #battle-screen-bg {
     position: absolute;
-    background-size: cover;
-    width: 100%;
+    left: 600px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
+    width: calc(100% - 600px);
     height: 100%;
   }
   #battle-screen-bg.bg-hidden {
@@ -1008,6 +1050,16 @@
     padding: 10px;
     z-index: 10;
   }
+  #action-box-image {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: -1; 
+    width: 300px;
+    height: 300px;
+    pointer-events: none;
+  }
   #action-box-name, #action-box-value{
     font-size:2rem;
     color: red
@@ -1030,6 +1082,41 @@
   .battle-rewards {
     padding: 8px 0px;
     width: 350px;
+  }
+  .hp-bar-container {
+      position: relative;
+      width: 360px;
+      height: 20px;
+      background: rgb(0, 0, 0);
+      border: 1px solid rgb(255, 255, 255);
+      border-radius: 8px;
+      overflow: hidden;
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 4px;
+  }
+  .hp-bar-fill {
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 100%;
+      transition: width 0.4s ease;
+      z-index: 1;
+  }
+  .hp-bar-text {
+      position: absolute;
+      width: 100%;
+      text-align: center;
+      font-size: 16px;
+      font-weight: bold;
+      color: white;
+      z-index: 2;
+      line-height: 20px;
+      pointer-events: none;
+  }
+  .boss-hp-fill, .player-hp-fill {
+      background: linear-gradient(to right, #ff0000, #ff0062);
   }
   /* Trigger Text */
   #action-box-name.calamity, #action-box-value.calamity {
@@ -1289,7 +1376,6 @@
   #quest-right-panel {
     width: 400px;
     height: 600px;
-    border: 2px solid red; /* temp */
   }
 
   #quest-box {
@@ -1676,9 +1762,14 @@
     width: 100%;
     padding: 0.3rem 0 0.3rem 10%;
   }
-  
   .skill-slot:hover {
     background: var(--bg-gradient-secondary);
+  }
+  .skill-transfer {
+    background-color:#8a6a0265;
+  }
+  .skill-transfer:hover {
+    background-color:#8a6a02a2;
   }
   .item-class-thumbnail {
     position: absolute;
@@ -1869,7 +1960,7 @@
     padding: 2px;
     bottom: 5px;
   }
-  #forge-screen-container, #refine-screen-container{
+  #forge-screen-container, #refine-screen-container, #meld-screen-container{
     overflow-y: auto;
     padding: 8px;
   }

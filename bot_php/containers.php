@@ -68,6 +68,32 @@
         $forgeContainerHTML .= '</div>';
     $forgeContainerHTML .= '</div>';
 
+    // Interfaces - Meld Container
+    $meldContainerHTML = '<div id="meld-container">';
+        $meldContainerHTML .= '<div id="meld-screen-container">';
+            $meldContainerHTML .= '<div id="meld-slot-row">';
+                $meldContainerHTML .= '<div class="meld-slot-container">';
+                    $meldContainerHTML .= '<div id="meld-slot-a"><div class="item-slot"></div></div>';
+                    $meldContainerHTML .= '<button id="meld-select-a" class="lightbox-button-blue" onclick="gemSelect(\'A\')">Select</button>';
+                $meldContainerHTML .= '</div>';
+                $meldContainerHTML .= '<div class="meld-slot-container">';
+                    $meldContainerHTML .= '<div id="meld-slot-b"><div class="item-slot"></div></div>';
+                    $meldContainerHTML .= '<button id="meld-select-b" class="lightbox-button-blue" onclick="gemSelect(\'B\')">Select</button>';
+                $meldContainerHTML .= '</div>';
+            $meldContainerHTML .= '</div>';
+            $meldContainerHTML .= '<div id="meld-info-panel">';
+                $meldContainerHTML .= '<div id="meld-cost-display">Cost: —</div>';
+                $meldContainerHTML .= '<div id="meld-target-display">Target Tier: —</div>';
+                $meldContainerHTML .= '<div id="meld-affinity-display">Affinity: —</div>';
+                $meldContainerHTML .= '<div id="meld-button-container">';
+                    $meldContainerHTML .= '<button id="swap-button" class="lightbox-button-gray" onclick="swapGems()" disabled>Swap</button>';
+                    $meldContainerHTML .= '<button id="meld-button" class="lightbox-button-gray" onclick="runMeld()" disabled>Meld</button>';
+                $meldContainerHTML .= '</div>';
+            $meldContainerHTML .= '</div>';
+        $meldContainerHTML .= '</div>';
+    $meldContainerHTML .= '</div>';
+
+
     // Interfaces - Refinery Container
     $refineryContainerHTML = '<div id="refine-container">';
         $refineryContainerHTML .= '<div id="gear-menu">';
@@ -155,7 +181,10 @@
                 $battleContainerHTML .= '<div id="log-boss-header"><span id="log-boss-name" class="highlight-text"></span><span id="log-boss-lvl"></span></div>';
                 $battleContainerHTML .= '<div class="style-line"></div>';
                 $battleContainerHTML .= '<div id="log-top">';
-                    $battleContainerHTML .= '<div id="log-boss-hp"></div>';
+                    $battleContainerHTML .= '<div class="hp-bar-container">';
+                        $battleContainerHTML .= '<div id="boss-hp-bar" class="hp-bar-fill boss-hp-fill"></div>';
+                        $battleContainerHTML .= '<div id="log-boss-hp" class="hp-bar-text">0 / 0</div>';
+                    $battleContainerHTML .= '</div>';
                     $battleContainerHTML .= '<div id="log-boss-details"></div>';
                     $battleContainerHTML .= '<div id="log-boss-status"></div>';
                     $battleContainerHTML .= '<div id="weakness-tag"><u>Weakness Types</u></div>';
@@ -168,7 +197,10 @@
                 $battleContainerHTML .= '</div>';
                 $battleContainerHTML .= '<div class="style-line"></div>';
                 $battleContainerHTML .= '<div id="log-player-section">';
-                    $battleContainerHTML .= '<div id="log-player-hp"></div>';
+                    $battleContainerHTML .= '<div class="hp-bar-container">';
+                        $battleContainerHTML .= '<div id="player-hp-bar" class="hp-bar-fill boss-hp-fill"></div>';
+                        $battleContainerHTML .= '<div id="log-player-hp" class="hp-bar-text">0 / 0</div>';
+                    $battleContainerHTML .= '</div>';
                     $battleContainerHTML .= '<div id="log-player-recovery"></div>';
                     $battleContainerHTML .= '<div id="log-player-status"></div>';
                 $battleContainerHTML .= '</div>';
@@ -206,5 +238,5 @@
 
     // Default Containers
     $containersHTML = $inventoryContainerHTML . $gearContainerHTML . $forgeContainerHTML . $loreContainerHTML . $battleContainerHTML . $questContainerHTML;
-    $containersHTML .= $travelContainerHTML .  $refineryContainerHTML . $shopContainerHTML;
+    $containersHTML .= $travelContainerHTML .  $meldContainerHTML . $refineryContainerHTML . $shopContainerHTML;
 ?>

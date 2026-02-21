@@ -32,38 +32,38 @@ const travelSubmenus = {
     // visitation checks required
     exploration: [
         { label: "Map Select", threshold: 5, trigger: () => onMap("Default") },
-        { label: "Unreleased", threshold: 99/*threshold: 21, trigger: () => onMap("Auto")*/ }, // Automap option - not for beta release
-        { label: "Unreleased", threshold: 99 } // Manifest option - not for beta release
+        { label: "Automap", threshold: 99/*threshold: 21, trigger: () => onMap("Auto")*/ }, // not for beta release
+        { label: "Manifest", threshold: 99 } // not for beta release
     ],
     mortal: [
         { label: "Refinery", image: galleryURL + "Displays/Locations/Refinery.webp", trigger: () => onRefine() },
         { label: "Alchemist", image:  galleryURL + "Displays/Locations/Alchemist Shop.webp", trigger: () => onShop("Infuse") },
         { label: "Market", image: "", trigger: () => onShop("Market") },
-        { label: "Bazaar", image: "" },
+        { label: "Bazaar", image: "", threshold: 99 }, // not for beta release
         { label: "Monument", level: 15, monument_id: 1, trigger: (e) => checkMonument(1, galleryURL + "Displays/Locations/Monument of Beginnings.webp", e.target) },
-        { label: "Fishing" }
+        { label: "Fishing", threshold: 99} // not for beta release
     ],
     celestial: [
         { label: "Forge", threshold: 1, image: galleryURL + "Displays/Locations/Celstial Forge.webp", trigger: () => onForge()},
         { label: "Planetarium", threshold: 1, image: galleryURL + "Displays/Locations/Planetarium.webp", trigger: () => onShop("Tarot") },
-        { label: "Thana", threshold: 1, message: "", image: galleryURL + "Tarot/Paragon/XIII - Thana, The Death.webp" }, // varies by visit count
+        { label: "Thana", threshold: 99, message: "", image: galleryURL + "Tarot/Paragon/XIII - Thana, The Death.webp" }, // Threshold 1, varies by count, not for beta
         { label: "Monument", threshold: 30, monument_id: 2, trigger: (e) => checkMonument(2, galleryURL + "Displays/Locations/Monument of Journeys.webp", e.target) }
     ],
     divine: [
-        { label: "Mysmir", threshold: 10, message: "Bring me enough tokens and even you can be rewritten.", 
-            image: galleryURL + "Tarot/Arbiter/XII - Mysmir, The Changeling.webp" },
+        { label: "Mysmir", threshold: 99, message: "Bring me enough tokens and even you can be rewritten.", 
+            image: galleryURL + "Tarot/Arbiter/XII - Mysmir, The Changeling.webp" }, // Threshold 10, not for beta release
         { label: "Avalon", threshold: 1, message: "The farther you walk your path, the harder it is to change what you've become", image: "" },
         { label: "Isolde", threshold: 20, message: "You've come a long way from home child. Tell me, what kind of power do you seek?", image: galleryURL + "Tarot/Arbiter/XXIV - Isolde, The Soulweaver.webp" },
-        { label: "Kazyth", threshold: 42, message: "", image: galleryURL + "Tarot/Arbiter/XXVI - Kazyth, The Lifeblood.webp" },
-        { label: "Vexia", threshold: 46, message: "We need not turn you away, mortal. \nThe oracle has already foretold your failure. Now it need only be written into truth.", 
-            image: "" },
+        { label: "Kazyth", threshold: 42, message: "", image: galleryURL + "Tarot/Arbiter/XXVI - Kazyth, The Lifeblood.webp", trigger: () => onMeld() },
+        { label: "Vexia", threshold: 99, message: "We need not turn you away, mortal. \nThe oracle has already foretold your failure. Now it need only be written into truth.", 
+            image: "" }, // Threshold 46, not for beta release
         { label: "Fleur", threshold: 48, message: zone_msg['fleur'], image: galleryURL + "Displays/Locations/Sanctuary.webp" },
         { label: "Yubelle", threshold: 51, message: zone_msg['yubelle'], image: galleryURL + "Displays/Locations/Cathedral.webp", trigger: () => onShop("Cathedral") },
         { label: "Monument", level: 45, monument_id: 3, trigger: (e) => checkMonument(3, galleryURL + "Displays/Locations/Monument of Providence.webp", e.target) }
     ],
     abyss: [
         { label: "Deep Void", threshold: 38, image: galleryURL + "Displays/Locations/Abyssal Plane.webp",message: zone_msg['abyss'], trigger: () => onForge('W', true)},
-        { label: "Eleuia", threshold: 47, message: "", image: "" }, // Varies by visit count
+        { label: "Eleuia", threshold: 99, message: "", image: "" },  // Threshold 47, varies by count, not for beta release
         { label: "Monument", level: 60, monument_id: 4, trigger: (e) => checkMonument(4, galleryURL + "Displays/Locations/Monument of Endings.webp", e.target) },
         { label: "☆ Monument", level: 60, monument_id: 5, trigger: (e) => checkMonument(5, galleryURL + "Displays/Locations/Monument of Apotheosis.webp", e.target) }
     ]
@@ -110,6 +110,9 @@ function updateTravelMenu(playerData) {
             button.innerText = unlockData.label;
             button.onclick = () => onTravel(plane);
         }
+        if(unlockData.threshold == 99){
+            button.innerText = "Unreleased";
+        }
     });
 }
 
@@ -154,6 +157,9 @@ function updateTravelSubmenu(plane, playerData, player_gear_score) {
         } else {
             btn.className = "lightbox-button-gray";
             btn.innerText = lockText;
+            if(option.threshold == 99){
+                btn.innerText = "Unreleased";
+            }
         }
         travelSubmenu.appendChild(btn);
     });

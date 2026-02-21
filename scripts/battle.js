@@ -8,6 +8,8 @@ const actionBoxValue = document.getElementById("action-box-value");
 const actionBoxImage = document.getElementById("action-box-image");
 const actionBoxMenu = document.getElementById("action-box-menu");
 const magnitudeSlider = document.getElementById("magnitude-slider");
+const bossHpBar = document.getElementById("boss-hp-bar");
+const playerHpBar = document.getElementById("player-hp-bar");
 
 // Log elements
 const battleDetailBox = document.getElementById("battle-detail-box");
@@ -291,7 +293,9 @@ function animateCycleActions(bossData) {
                     animation_box(`action-entry ${row.action_type}`, row.action_name, `action-entry ${row.action_type}`, numberConversion(row.damage_value));
                     battleTracker.player_cHP = BigInt(battleTracker.player_cHP) - BigInt(row.damage_value);
                     if (battleTracker.player_cHP <= 0) {
-                        battleTracker.player_cHP = row.new_hp;
+                        battleTracker.player_cHP = BigInt(row.new_hp);
+                    }
+                    if (bossData.battle_status === "player_dead" && bossData.combat_tracker.stun_status !== "stunned") {
                         battleScreenBg.classList.add("screen-grayscale");
                     }
                     updateBattleLog(bossData, row);
@@ -381,19 +385,24 @@ function battle_menu_box(title_class, button_class, menu_title, menu_text, rewar
     actionBox.style.display = "flex";
 }
 
-function animation_box(name_class, name_text, value_class, value_text, position = "center") {
+function animation_box(name_class, name_text, value_class, value_text, position = "right") {
     let left_pos = "50%";
-    let right_pos = "50%";
+    let top_pos = "50%";
     let translate_pos = "translate(-50%, -50%)";
     if (position == "random") {
         const randX = Math.floor(Math.random() * 41) + 30;
         const randY = Math.floor(Math.random() * 41) + 30;
         left_pos = `${randX}%`;
-        right_pos = `${randY}%`;
+        top_pos = `${randY}%`;
         translate_pos = "";
     }
+    if (position == "right") {
+        left_pos = "calc(600px + (100% - 600px) / 2)";
+        // actionBoxImage.src = "/gallery/effects/flare.webp";
+        // this will be where I can add the images for hits
+    }
     actionBox.style.left = left_pos;
-    actionBox.style.top = right_pos;
+    actionBox.style.top = top_pos;
     actionBox.style.transform = translate_pos;
     actionBoxName.className = name_class;
     actionBoxValue.className = value_class;
@@ -420,7 +429,9 @@ function updateBattleLog(data, row = null) {
     logBossName.innerText = data.boss['boss_name'];
     logBossLvl.innerText = " Lv" + data.boss['boss_level'];
     logBossDetails.innerText = "Danger Class: T" + data.boss['boss_tier'] + '-M' + data.boss['magnitude'];
-    logBossHp.innerText = "HP: " + numberConversion(battleTracker.current) + ' / ' + numberConversion(battleTracker.max);
+    logBossHp.innerText = numberConversion(battleTracker.current) + ' / ' + numberConversion(battleTracker.max);
+    const bossPercent = Number(battleTracker.current) / Number(battleTracker.max) * 100;
+    bossHpBar.style.width = bossPercent + "%";
     logCycles.innerText = `Cycle Count: ${data.combat_tracker?.total_cycles ?? "0"}`;
     let total_dps = "0 / min";
     if (data.combat_tracker?.total_dps) {
@@ -433,8 +444,12 @@ function updateBattleLog(data, row = null) {
         newStatus = "Boss Status: Enraged";
     }
     logBossStatus.innerText = newStatus;
-    logPlayerHp.innerText = `Player HP: ${numberConversion(battleTracker.player_cHP)} / ${numberConversion(battleTracker.player_mHP)}`;
-    logPlayerRecovery.innerText = `Recovery: ${battleTracker.recovery}`;
+    logPlayerHp.innerText = `${numberConversion(battleTracker.player_cHP)} / ${numberConversion(battleTracker.player_mHP)}`;
+    const playerPercent = Number(battleTracker.player_cHP) / Number(battleTracker.player_mHP) * 100;
+    playerHpBar.style.width = playerPercent + "%";
+    if (battleTracker.player_cHP <= 0){
+        logPlayerRecovery.innerText = `Recovery: ${data.combat_tracker.recovery}`;
+    }
     logPlayerStatus.innerText = `Player Status: ${data.combat_tracker?.stun_status?.trim() || "Stable"}`;
     if (row !== null) {
         logActions.innerHTML += "<div class='log-row'>" + row.action_name + ' ' + numberConversion(row.damage_value) + " " + row.triggers + "</div>";

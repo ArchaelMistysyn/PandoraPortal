@@ -157,7 +157,7 @@
 			$this->item_id = fetchInsertedItemId($this);
 		}
 		
-		public function display_item($is_gem=false, $method=null) {
+		public function display_item($is_gem=false, $method=null, $roll_changes=null) {
 			global $sovereign_item_list, $ring_skill_data, $ring_category, $path_names, $gem_point_dict, $low_tier_skills;
 			$quality = '';
 			$name = '';
@@ -258,18 +258,18 @@
 			if ($this->item_type == 'R') {
 				$html .= $this->display_ring_skills();
 			} else {
-				$html .= $this->display_item_skills();
+				$html .= $this->display_item_skills($roll_changes);
 			}
 			return $html;
 		}
 		
-		public function display_item_skills() {
+		public function display_item_skills($roll_changes=null) {
 			global $skill_data, $sovereign_item_list, $keyword_data;
 			if (empty($this->item_roll_values)) {
 				return "No skills found.";
 			}
 			$skill_display = '';
-			foreach ($this->item_roll_values as $skill) {
+			foreach ($this->item_roll_values as $i => $skill) {
 				if (!in_array($this->item_base_type, $sovereign_item_list)) {
 					$skill_obj = new ItemRoll($skill);
 					$skill_icon = $skill_obj->roll_icon;
@@ -297,7 +297,8 @@
 					$tooltip .= "<span class='tooltip'>{$description}</span>";
 					$tooltip .= "<span class='tooltip'>{$description}</span>";
 				}
-				$skill_display .= "<div class=\"skill-slot $tier_class\">$tooltip</div>";
+				$transfer_class = ($roll_changes !== null && !empty($roll_changes[$i])) ? "skill-transfer" : "no-transfer";
+				$skill_display .= "<div class=\"skill-slot $tier_class $transfer_class\">$tooltip</div>";
 			}
 			return $skill_display;
 		}
@@ -848,7 +849,6 @@
 		return 'Unknown';
 	}
 	
-	
 	function read_custom_item($item_id = null, $multi_id = null) {
 		$item_list = [];
 		if ($multi_id === null) {
@@ -902,7 +902,12 @@
 			return null;
 		}
 	}
-	
+
+	function delete_custom_item($player_id, $item_id){
+		$query = "DELETE FROM CustomInventory WHERE player_id=" . intval($player_id) . " AND item_id=".intval($item_id);
+		run_query($query, false);
+	}
+		
 	function limit_elements($player_obj, $e_weapon) {
 		$elemental_breakdown = [];
 		$temp_list = $e_weapon->item_elements;

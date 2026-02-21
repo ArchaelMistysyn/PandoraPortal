@@ -7,6 +7,7 @@ const selectMenu = document.getElementById("interface-screen");
 const gearContainer = document.getElementById("gear-container");
 const inventoryContainer = document.getElementById("inventory-container");
 const refineryContainer = document.getElementById("refine-container");
+const meldContainer = document.getElementById("meld-container");
 const forgeContainer = document.getElementById("forge-container");
 const forgeItemScreen = document.getElementById("forge-item-screen");
 const refineMenu = document.getElementById('refine-menu');
@@ -46,5 +47,6 @@ function clearScreens() {
     questContainer.style.display = "none";
     travelContainer.style.display = "none";
     refineryContainer.style.display = "none";
+    meldContainer.style.display = 'none';
     shopContainer.style.display = "none";
 }

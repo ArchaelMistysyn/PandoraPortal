@@ -134,7 +134,11 @@
 			$base_damage_max = number_format($tarot_card->card_damage * $tarot_card->resonance);
 			$html .= "<div class='style-line'></div>";
 			$html .= "<div class='stat-message'>Base: {$base_damage_min} - {$base_damage_max}</div>";
-			$html .= "<div class='stat-message'>Path of " . $path_names[$tarot_card->card_path] . " +" . $tarot_card->path_points . "</div>";
+			if ($tarot_card->card_path === "All") {
+				$html .= "<div class='stat-message'>All Paths +{$tarot_card->path_points}</div>";
+			} else {
+				$html .= "<div class='stat-message'>Path of {$path_names[$tarot_card->card_path]} +{$tarot_card->path_points}</div>";
+			}
 			$html .= "<div class='style-line'></div>";
 			$tarot_skills = $tarot_card->display_tarot_skills();
 			$html .= '<div id="tarot-skills">' . $tarot_skills . '</div>';

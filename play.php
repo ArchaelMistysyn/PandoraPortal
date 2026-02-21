@@ -92,6 +92,9 @@
     $lore["story1"] = file_get_contents("./Lore/StoryAct1.html");
     $lore["story2"] = file_get_contents("./Lore/StoryAct2.html");
     $lore["story3"] = file_get_contents("./Lore/StoryAct3.html");
+    $lore["ending0"] = file_get_contents("./Lore/Ending0.html");
+    $lore["ending1"] = file_get_contents("./Lore/Ending1.html");
+    $lore["ending2"] = file_get_contents("./Lore/Ending2.html");
 
 ?>
 <head>
@@ -139,6 +142,9 @@
             story1: <?php echo json_encode($lore["story1"]); ?>,
             story2: <?php echo json_encode($lore["story2"]); ?>,
             story3: <?php echo json_encode($lore["story3"]); ?>,
+            ending0: <?php echo json_encode($lore["ending0"]); ?>,
+            ending1: <?php echo json_encode($lore["ending1"]); ?>,
+            ending2: <?php echo json_encode($lore["ending2"]); ?>,
             prequel1: <?php echo json_encode($lore["prequel1"]); ?>,
             prequel2: <?php echo json_encode($lore["prequel2"]); ?>,
             prequel3: <?php echo json_encode($lore["prequel3"]); ?>,

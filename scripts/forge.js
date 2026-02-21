@@ -1,4 +1,14 @@
 const purify_labels = { 5: "Wish Purification", 6: "Abyss Purification", 7: "Divine Purification", 8: "Blood Purification", 9: "Blood Extraction" };
+let meldSlots = { A: null, B: null };
+const meldSlotA = document.getElementById("meld-slot-a");
+const meldSlotB = document.getElementById("meld-slot-b");
+const btnA = document.getElementById("meld-select-a");
+const btnB = document.getElementById("meld-select-b");
+const swapBtn = document.getElementById("swap-button");
+const meldBtn = document.getElementById("meld-button");
+const costDisplay=document.getElementById("meld-cost-display");
+const targetDisplay=document.getElementById("meld-target-display");
+const affinityDisplay=document.getElementById("meld-affinity-display");
 
 function onForge(selectedItem = 'W', abyss = false) {
     clearScreens();
@@ -228,6 +238,116 @@ function updateForgeUI(data, action, method, itemType, abyss = false) {
     menuHtml += `<button id="confirmForgeButton" class="${buttonClass}" ${buttonOnClick}>${buttonText}</button>`;
     subForgeMenu.classList.add('forge-submenu-border');
     subForgeMenu.innerHTML = menuHtml;
+}
+
+function onMeld() {
+    clearScreens();
+    fetch('./fetch_handler.php', {
+        method:"POST",
+        headers:{ "Content-Type":"application/json" },
+        body:JSON.stringify({action:"showTwoItems", numeric_id:meldSlots["A"], numeric_id2:meldSlots["B"] })
+    })
+    .then(response=>response.json())
+    .then(data=>{
+        if(!data.success){
+            alert(data.message || "Failed to load meld menu.");
+            return;
+        }
+        meldContainer.style.display="flex";
+        meldSlotA.innerHTML = data.slotA_html && data.slotA_html !== "null" ? data.slotA_html : "<div class='item-slot'></div>";
+        meldSlotB.innerHTML = data.slotB_html && data.slotB_html !== "null" ? data.slotB_html : "<div class='item-slot'></div>";
+        btnA.innerText=meldSlots.A ? "Unselect":"Select";
+        btnB.innerText=meldSlots.B ? "Unselect":"Select";
+        const bothFilled=meldSlots.A!==null && meldSlots.B!==null;
+        swapBtn.disabled=!bothFilled || !data.canSwap;
+        meldBtn.disabled=!bothFilled || !data.canMeld;
+        swapBtn.className=(bothFilled && data.canSwap) ? "lightbox-button-blue" : "lightbox-button-gray";
+        meldBtn.className=(bothFilled && data.canMeld) ? "lightbox-button-green" : "lightbox-button-gray";
+        updateMeldInfoPanel(data, bothFilled);
+    })
+    .catch(error=>console.error("Error:",error));
+}
+
+function updateMeldInfoPanel(data, bothFilled){
+    const itemIcon = itemData["Token4"]?.image_link || "";
+    let costValue = "—";
+    let targetValue = "—";
+    let affinityValue = "—";
+    if(bothFilled){
+        costValue = data.playerTokens + " / " + data.meldCost;
+        targetValue = data.targetTier;
+        affinityValue= data.affinityRate + "%";
+    }
+    costDisplay.innerHTML=`<img src="${itemIcon}" class="cost-icon">` + "<div class='meld-cost-text'>Cost: " + costValue + "</div>";
+    targetDisplay.innerHTML="Target Tier: " + targetValue;
+    affinityDisplay.innerHTML="Affinity: " + affinityValue;
+}
+
+function gemSelect(slot) {
+    if (meldSlots[slot] !== null) {
+        meldSlots[slot] = null;
+        onMeld();
+    } else {
+        onGear("Gem");
+    }
+}
+
+function selectMeldGem(item_id,slot){
+    const otherSlot = slot === "A" ? "B" : "A";
+    if (meldSlots[otherSlot] === item_id) {
+        meldSlots[otherSlot] = null;
+    }
+    meldSlots[slot] = item_id;
+    closeLightbox();
+    onMeld();
+}
+
+function swapGems() {
+    if (meldSlots.A === null || meldSlots.B === null) return;
+    [meldSlots.A, meldSlots.B] = [meldSlots.B, meldSlots.A];
+    onMeld();
+}
+
+function runMeld() {
+    swapBtn.disabled = true;
+    meldBtn.disabled = true;
+    swapBtn.className = "lightbox-button-gray";
+    meldBtn.className = "lightbox-button-gray";
+    if (meldSlots.A === null || meldSlots.B === null || meldSlots.A === meldSlots.B) return;
+    blockingScreen.style.display = "block";
+    fetch('./fetch_handler.php', {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({action: "executeMeld", numeric_id: meldSlots.A, numeric_id2: meldSlots.B})
+    })
+    .then(response => response.json())
+    .then(data => {
+        blockingScreen.style.display = "none";
+        if (!data.success) {
+            alert(data.message || "Meld failed.");
+            return;
+        }
+        animateMeldOutcome(data.meld_success);
+        meldSlotA.innerHTML = data.slotA_html || "<div class='item-slot'></div>";
+        meldSlotB.innerHTML = "<div class='item-slot'></div>";
+        meldSlots.B = null;
+        btnB.innerText = "Select";
+    })
+    .catch(error => {
+        blockingScreen.style.display = "none";
+        console.error("Meld error:", error);
+        alert("An error occurred during melding.");
+    });
+}
+
+function animateMeldOutcome(success) {
+    meldSlotA.classList.add(success ? "forge-success" : "forge-failure");
+    meldSlotB.classList.add("forge-failure");
+    setTimeout(() => {
+        meldSlotA.classList.remove("forge-success", "forge-failure");
+        meldSlotB.classList.remove("forge-failure");
+        blockingScreen.style.display = "none";
+    }, 1200);
 }
 
 function animateForgeOutcome(success) {

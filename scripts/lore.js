@@ -22,6 +22,7 @@ function onLore(storyKey = null) {
     .then(data => {
         if (data.success) {
             updateLoreButtons(data.player);
+            let finalKey = storyKey;
             if (storyKey !== null) {
                 document.querySelectorAll(".lore-button").forEach(button => {
                     button.classList.remove("active");
@@ -31,9 +32,10 @@ function onLore(storyKey = null) {
                 let storyHeader = storyUnlocks[storyKey]['header'];
                 if (storyKey === "story4" && data.player['player_oath_num'] >= 0) {
                     storyHeader = endingContent[data.player['player_oath_num']];
+                    finalKey = "ending" + data.player['player_oath_num'];
                 }
                 readHTML += "<div id='lore-header' class='highlight-text'>" + storyHeader + "</div>";
-                readHTML += storyData[storyKey];
+                readHTML += storyData[finalKey];
                 loreScreen.innerHTML = readHTML;
                 loreToggle();
             }

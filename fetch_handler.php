@@ -32,6 +32,7 @@ $element = isset($input['element']) && $input['element'] !== 'null' ? $input['el
 $quest_choice = isset($input['quest_choice']) && $input['quest_choice'] !== 'null' ? $input['quest_choice'] : null;
 $magnitude = isset($input['magnitude']) && $input['magnitude'] !== 'null' ? $input['magnitude'] : null;
 $numeric_id = isset($input['numeric_id']) && $input['numeric_id'] !== 'null' ? $input['numeric_id'] : null;
+$numeric_id2 = isset($input['numeric_id2']) && $input['numeric_id2'] !== 'null' ? $input['numeric_id2'] : null;
 $item_id = isset($input['item_id']) && $input['item_id'] !== 'null' ? $input['item_id'] : null;
 $recipe_name = isset($input['recipe']) && $input['recipe'] !== 'null' ? $input['recipe'] : null;
 $map_name = isset($input['map_name']) && $input['map_name'] !== 'null' ? $input['map_name'] : null;
@@ -68,6 +69,10 @@ if ($magnitude !== null && $magnitude !== '' && (!ctype_digit((string) $magnitud
 }
 if ($numeric_id !== null && $numeric_id !== '' && (!ctype_digit((string) $numeric_id) || $numeric_id < 0)) {
     echo json_encode(["success" => false, "message" => "Invalid numeric_id provided: " . $numeric_id]);
+    exit();
+}
+if ($numeric_id2 !== null && $numeric_id2 !== '' && (!ctype_digit((string) $numeric_id2) || $numeric_id2 < 0)) {
+    echo json_encode(["success" => false, "message" => "Invalid numeric_id2 provided: " . $numeric_id2]);
     exit();
 }
 if ($recipe_name !== null && !isset($all_recipe_names[$recipe_name])) {
@@ -161,7 +166,7 @@ if (in_array($action, $forge_actions)) {
             } else {
                 $response = ["success" => false, "message" => "Inventory or player not found"];
             }
-            break;        
+            break;
         case "showInventoryItem":
             if (!$item_id) {
                 $response = ["success" => false, "message" => "Missing item ID"];
@@ -291,8 +296,61 @@ if (in_array($action, $forge_actions)) {
             $player_profile = get_player_by_id($verified_player_id);
             $response = handle_gear($player_profile);
             break;
+        case "showTwoItems":
+            $player_profile = get_player_by_id($verified_player_id);
+            $gearA_item = null;
+            $gearB_item = null;
+            $contentA = ["html"=>""];
+            $contentB = ["html"=>""];
+            if ($numeric_id !== null) {
+                $gearA = get_gear_by_player_id($verified_player_id,$numeric_id);
+                if ($gearA["success"]) {
+                    $gearA_item = $gearA["item"];
+                    $contentA = generate_gear_content($player_profile,$gearA_item,false);
+                }
+            }
+            if ($numeric_id2 !== null) {
+                $gearB = get_gear_by_player_id($verified_player_id,$numeric_id2);
+                if ($gearB["success"]) {
+                    $gearB_item = $gearB["item"];
+                    $contentB = generate_gear_content($player_profile,$gearB_item,false);
+                }
+            }
+            $meldData = check_meld($player_profile, $gearA_item, $gearB_item);
+            $response = array_merge(["success"=>true, "slotA_html"=>$contentA["html"], "slotB_html"=>$contentB["html"]], $meldData);
+            break;
+        case "executeMeld":
+            if ($numeric_id === null || $numeric_id2 === null) {
+                $response = ["success"=>false, "message"=>"Missing meld items"];
+                break;
+            }
+            $player_profile = get_player_by_id($verified_player_id);
+            $gearA = get_gear_by_player_id($verified_player_id, $numeric_id);
+            $gearB = get_gear_by_player_id($verified_player_id, $numeric_id2);
+            if (!$gearA["success"] || !$gearB["success"]) {
+                $response = ["success"=>false, "message"=>"Invalid gear selection"];
+                break;
+            }
+            $gearA_item = $gearA["item"];
+            $gearB_item = $gearB["item"];
+            $meldCheck = check_meld($player_profile, $gearA_item, $gearB_item);
+            if (!$meldCheck["canMeld"]) {
+                $response = ["success"=>false, "message"=>"Meld conditions not met"];
+                break;
+            }
+            $execution = process_meld($player_profile, $gearA_item, $gearB_item, $meldCheck["meldCost"], $meldCheck["affinityRate"]);
+            if (!$execution["success"]) {
+                $response = $execution;
+                break;
+            }
+            $contentA = generate_gear_content($player_profile, $execution["return_gem"], false, $execution["roll_changes"]);
+            $contentB = ["html"=>""];
+            $response = array_merge(["success"=>true, "slotA_html"=>$contentA["html"], "slotB_html"=>"", "meld_success"=>$execution["meld_success"]], 
+                check_meld($player_profile, $execution["return_gem"], null));
+            break;
         case "showGearItem":
-            $response = create_gear_lightbox($verified_player_id, $item_id);
+            $player_profile = get_player_by_id($verified_player_id);
+            $response = create_gear_lightbox($player_profile, $item_id);
             break;
         case "equipItem":
             if ($item_id == null) {
@@ -372,7 +430,7 @@ function get_inventory_by_player_id($player_id, $specific_item_id = null) {
         }
         $specific_item_id = "'" . addslashes($specific_item_id) . "'";
     }
-    $query = "SELECT item_id, item_qty FROM BasicInventory WHERE player_id = " . intval($player_id);
+    $query = "SELECT item_id, item_qty FROM BasicInventory WHERE player_id = " . intval($player_id) . " AND item_id != ''";
     if ($specific_item_id !== null) {
         $query .= " AND item_id = " . $specific_item_id;
     }
@@ -629,8 +687,7 @@ function format_gear_item($gear, $player_profile) {
     ];
 }
 
-function create_gear_lightbox($player_id, $item_id) {
-    $player_profile = get_player_by_id($player_id);
+function create_gear_lightbox($player_profile, $item_id) {
     $item = read_custom_item($item_id);
     if (!$item) {
         return ["success" => false, "message" => "Item not found"];
@@ -638,35 +695,44 @@ function create_gear_lightbox($player_id, $item_id) {
     return generate_gear_content($player_profile, $item);
 }
 
-function generate_gear_content($player_profile, $item, $include_menu = true) {
+function generate_gear_content($player_profile, $item, $include_menu=true, $roll_changes=null) {
     global $slot_types;
     $is_gem = strpos($item->item_type, "D") !== false;
     $item_html = "<div class='item-slot'>";
-    $item_html .= $item->display_item($is_gem, "basic");
+    $item_html .= $item->display_item($is_gem, "basic", $roll_changes);
     $item_html .= "</div>";
     $menu_html = "";
-    if ($include_menu && !in_array($item->item_id, $player_profile->player_equipped, true)) {
-        if (!$is_gem) {
-            $menu_html .= "<button class='lightbox-button-green' onclick='EquipItem(\"{$item->item_id}\")'>Equip</button>";
-        } else {
-            $gear_options = "";
-            $gearData = get_gear_by_player_id($player_profile->player_id);
-            $equipped_gear = array_filter($gearData["items"], function ($gear) use ($player_profile) {
-                return in_array((int) $gear->item_id, $player_profile->player_equipped, true);
-            });
-            foreach ($equipped_gear as $gear) {
-                if ($gear->item_num_sockets > 0) {
-                    $slot_type = $gear->item_type;
-                    $gear_options .= "<button class='lightbox-button-red' value='{$slot_type}' onclick='InlayItem(\"{$item->item_id}\", \"{$slot_type}\")'>{$slot_types[$slot_type]}</button>";
-                }
-            }
-            if ($gear_options) {
-                $menu_html .= "<button class='lightbox-button-green' onclick='toggleInlayMenu()'>Inlay</button>";
-                $menu_html .= "<div id='inlay-gear-select' class='hideItem'>{$gear_options}</div>";
+    $is_equipped = in_array($item->item_id, $player_profile->player_equipped, true);
+    if ($include_menu){
+        if ($player_profile->player_quest >= 42 && $item->item_tier >= 5 && $item->item_tier <= 8) {
+            $menu_html .= "<button class='lightbox-button-blue' onclick='selectMeldGem({$item->item_id},\"A\")'>Slot 1</button>";
+            if (!$is_equipped) {
+                $menu_html .= "<button class='lightbox-button-blue' onclick='selectMeldGem({$item->item_id},\"B\")'>Slot 2</button>";
             }
         }
-        $menu_html .= "<button class='lightbox-button-blue' onclick='handleGearAction({$item->item_id}, \"Scrap\")'>Scrap</button>";
-        $menu_html .= "<button class='lightbox-button-blue' onclick='handleGearAction({$item->item_id}, \"Sell\")'>Sell</button>";
+        if (!$is_equipped) {
+            if (!$is_gem) {
+                $menu_html .= "<button class='lightbox-button-green' onclick='EquipItem(\"{$item->item_id}\")'>Equip</button>";
+            } else {
+                $gear_options = "";
+                $gearData = get_gear_by_player_id($player_profile->player_id);
+                $equipped_gear = array_filter($gearData["items"], function ($gear) use ($player_profile) {
+                    return in_array((int) $gear->item_id, $player_profile->player_equipped, true);
+                });
+                foreach ($equipped_gear as $gear) {
+                    if ($gear->item_num_sockets > 0) {
+                        $slot_type = $gear->item_type;
+                        $gear_options .= "<button class='lightbox-button-red' value='{$slot_type}' onclick='InlayItem(\"{$item->item_id}\", \"{$slot_type}\")'>{$slot_types[$slot_type]}</button>";
+                    }
+                }
+                if ($gear_options) {
+                    $menu_html .= "<button class='lightbox-button-green' onclick='toggleInlayMenu()'>Inlay</button>";
+                    $menu_html .= "<div id='inlay-gear-select' class='hideItem'>{$gear_options}</div>";
+                }
+            }
+            $menu_html .= "<button class='lightbox-button-blue' onclick='handleGearAction({$item->item_id}, \"Scrap\")'>Scrap</button>";
+            $menu_html .= "<button class='lightbox-button-blue' onclick='handleGearAction({$item->item_id}, \"Sell\")'>Sell</button>";
+        }
     }
     $menu_html .= "<button class='lightbox-button-gray' onclick='closeLightbox()'><span class='symbol-height'>✖</span> Close</button>";
     return ["success" => true, "html" => $item_html, "menu" => $menu_html ];
@@ -695,6 +761,8 @@ function get_gear_by_player_id($player_id, $specific_id = null) {
         }
         $customItem->item_elements = array_map('intval', explode(';', (string) $gear["item_elements"]));
         $customItem->item_roll_values = explode(';', (string) $gear["item_roll_values"]);
+        $customItem->base_damage_min = $gear["item_base_dmg_min"] ?? 0;
+        $customItem->base_damage_max = $gear["item_base_dmg_max"] ?? 0;
         $customItem->update_damage();
         $customItem->set_item_name();
         if ($specific_id !== null) {
