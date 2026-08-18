@@ -6,6 +6,7 @@ const actionBox = document.getElementById("action-box");
 const actionBoxName = document.getElementById("action-box-name");
 const actionBoxValue = document.getElementById("action-box-value");
 const actionBoxImage = document.getElementById("action-box-image");
+const actionBoxVisuals = document.getElementById("action-box-visuals");
 const actionBoxMenu = document.getElementById("action-box-menu");
 const magnitudeSlider = document.getElementById("magnitude-slider");
 const bossHpBar = document.getElementById("boss-hp-bar");
@@ -361,10 +362,13 @@ function reset_boss(){
     actionBox.style.display = "none";
     actionBox.style.backgroundColor = "";
     actionBox.style.border = "";
+    actionBoxImage.style.display = "none";
     actionBoxMenu.style.display = "none";
 }
 
 function battle_menu_box(title_class, button_class, menu_title, menu_text, reward = null){
+    actionBoxImage.style.display = "none";
+    actionBoxImage.src = "";
     actionBox.style.backgroundColor = "rgba(0, 0, 0, 0.9)";
     actionBox.style.left = "50%";
     actionBox.style.top = "50%";
@@ -389,6 +393,7 @@ function animation_box(name_class, name_text, value_class, value_text, position 
     let left_pos = "50%";
     let top_pos = "50%";
     let translate_pos = "translate(-50%, -50%)";
+    actionBoxVisuals.querySelectorAll(".action-box-effect").forEach(el => el.remove());
     if (position == "random") {
         const randX = Math.floor(Math.random() * 41) + 30;
         const randY = Math.floor(Math.random() * 41) + 30;
@@ -398,8 +403,14 @@ function animation_box(name_class, name_text, value_class, value_text, position 
     }
     if (position == "right") {
         left_pos = "calc(600px + (100% - 600px) / 2)";
-        // actionBoxImage.src = "/gallery/effects/flare.webp";
-        // this will be where I can add the images for hits
+        actionBoxImage.src = getVisualAction(name_class, name_text);
+        const effectList = getVisualEffect(name_class);
+        effectList.forEach(effectSrc => {
+            const effectImg = document.createElement("img");
+            effectImg.src = effectSrc;
+            effectImg.className = "action-box-effect";
+            actionBoxVisuals.appendChild(effectImg);
+        });
     }
     actionBox.style.left = left_pos;
     actionBox.style.top = top_pos;
@@ -420,12 +431,64 @@ function animation_box(name_class, name_text, value_class, value_text, position 
     }, 1800);
 }
 
+function getVisualAction(name_class, name_text) {
+    const rules = [
+        // Boss attacks
+        [() => name_class.includes("boss_skill_signature"), "BossSignature"],
+        [() => name_class.includes("boss_skill_ultimate"), "BossUltimate"],
+        [() => name_class.includes("boss_skill_basic"), "BossBasic"],
+        // Flare
+        [() => name_class.includes("flare"), "Flare"],
+        // Player exceptions
+        [() => name_text.includes("Stasis Eater"), "StasisEater"],
+        [() => name_text.includes("Ultimate: Finale"), "Finale"],
+        [() =>
+            name_text.includes("Sea of Subjugation") || name_text.includes("Ocean of Oppression") || 
+            name_text.includes("Deluge of Domination") || name_text.includes("Tides of Annihilation"), "WaterSpecial"
+        ],
+        [() => name_text.includes("Splash"), "Splash"],
+        // Bleed
+        [() => name_class.includes("hyperbleed"), "Hyperbleed"],
+        [() => name_text.includes("rupture ["), "Bleed"],
+        // Recovery
+        [() => name_class.includes("regen") || name_text.includes("recover"), "Regen"],
+        // Main triggers
+        [() => name_class.includes("time_shatter"), "TimeShatter"],
+        [() => name_class.includes("mana_shatter"), "ManaShatter"],
+        [() => name_class.includes("mana_burst"), "ManaBurst"],
+        [() => name_class.includes("fractal"), "Fractal"],
+        [() => name_class.includes("omega"), "Omega"],
+        [() => name_class.includes("critical"), "Critical"]
+    ];
+    for (const [check, result] of rules) {
+        if (check()) {
+            return `/gallery/BattleImage/${result}.webp`;
+        }
+    }
+    return "/gallery/BattleImage/Default.webp";
+}
+
+function getVisualEffect(name_class) {
+    const rules = [
+        [() => name_class.includes("bloom"), "Bloom"],
+        [() => name_class.includes("heavenly"), "Heavenly"],
+        [() => name_class.includes("stygian"), "Stygian"],
+        [() => name_class.includes("calamity"), "Calamity"],
+        [() => name_class.includes("time_lock"), "TimeLock"]
+    ];
+    const effects = [];
+    for (const [check, result] of rules) {
+        if (check()) {
+            effects.push(`/gallery/BattleImage/${result}.webp`);
+        }
+    }
+    return effects;
+}
+
 function updateBattleLog(data, row = null) {
     if (row == null) {
         logActions.innerText = "";
     }
-    // ADD HP BAR LATER
-    // add magnitude & tier
     logBossName.innerText = data.boss['boss_name'];
     logBossLvl.innerText = " Lv" + data.boss['boss_level'];
     logBossDetails.innerText = "Danger Class: T" + data.boss['boss_tier'] + '-M' + data.boss['magnitude'];

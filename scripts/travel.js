@@ -31,7 +31,7 @@ zone_msg['yubelle'] += "I suppose, even as an echo, such things do indeed fall w
 const travelSubmenus = {
     // visitation checks required
     exploration: [
-        { label: "Map Select", threshold: 5, trigger: () => onMap("Default") },
+        { label: "Map Select", threshold: 99/*threshold: 5, trigger: () => onMap("Default") */}, // not for beta release
         { label: "Automap", threshold: 99/*threshold: 21, trigger: () => onMap("Auto")*/ }, // not for beta release
         { label: "Manifest", threshold: 99 } // not for beta release
     ],

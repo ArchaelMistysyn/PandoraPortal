@@ -174,7 +174,8 @@
         $battleContainerHTML .= '<div id="battle-screen">';
             $battleContainerHTML .= '<div id="battle-screen-bg"></div>';
             $battleContainerHTML .= '<div id="action-box">';
-                $battleContainerHTML .= '<div id="action-box-name"></div><div id="action-box-value"></div><div id="action-box-image"></div>';
+                $battleContainerHTML .= '<div id="action-box-name"></div><div id="action-box-value"></div>';
+                $battleContainerHTML .= '<div id="action-box-visuals" class="action-box-visuals"><img id="action-box-image" src="" alt=""></div>';
                 $battleContainerHTML .= '<div id="action-box-menu"></div>';
             $battleContainerHTML .= '</div>';
             $battleContainerHTML .= '<div id="battle-detail-box">';

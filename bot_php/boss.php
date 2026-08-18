@@ -27,9 +27,9 @@ $all_names_dict = [
         ["VII - Astratha, The Dimensional"]
     ],
     "Demon" => [
-        ["Beelzebub", "Azazel", "Astaroth", "Belial"],
-        ["Abbadon", "Asura", "Baphomet", "Charybdis"],
-        ["Iblis", "Lilith", "Ifrit", "Scylla"],
+        ["Azazel", "Belial"],
+        ["Scylla", "Charybdis"],
+        ["Iblis", "Astaroth"],
         ["VIII - Tyra, The Behemoth"]
     ],
     "Paragon" => array_fill(0, 6, []),

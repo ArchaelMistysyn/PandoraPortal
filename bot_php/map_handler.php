@@ -216,7 +216,7 @@ class Room {
                 $item1 = checkEssence($item1, $reward_pool);
                 $item2 = checkEssence($item2, $reward_pool);
                 if (mt_rand(1, 20000) == 1) { $item1 = "Skull4"; }
-                $this->variant = "{$item1};{$item2}";
+                $this->variant = "{$item1}/{$item2}";
                 $button_options = [
                     ["label" => $itemData[$item1]['name'], "style" => "blue", "action" => "selectOption1"],
                     ["label" => $itemData[$item2]['name'], "style" => "blue", "action" => "selectOption2"],
@@ -337,10 +337,6 @@ function handleRoomAction($player_profile, $room_type, $room_action) {
         case "trapBypass":
         case "nextRoom":
             $next_room = $expedition->nextRoom();
-            if ($next_room === null) {
-                $display = create_end_menu();
-            }
-            break;
         case "shortRest":
         case "longRest":
             $title = ($room_action === "shortRest") ? "Short rest" : "Long rest";
@@ -431,7 +427,7 @@ function handleRoomAction($player_profile, $room_type, $room_action) {
         $image = get_frame_image($description);
         $item_name = $itemData[$description]['name'];
         $description = "Received item(s): {$item_name}";
-    } else if (ctype_digit($description)) {
+    } else if (is_int($description) || (is_string($description) && ctype_digit($description))) {
         $custom_item_id = intval($description);
         $item_obj = read_custom_item($custom_item_id);
         if ($item_obj) {
@@ -736,7 +732,7 @@ function handleHeart($expedition, $method){
 }
 
 function handleSelection($expedition, $action){
-    $reward_items = explode(";", $expedition->current_room->variant);
+    $reward_items = explode("/", $expedition->current_room->variant);
     if ($action === "selectOption1") {
         update_stock($expedition->player->player_id, $reward_items[0], 1);
         return $reward_items[0];
@@ -797,7 +793,7 @@ function handlePact($expedition, $action){
         $damage = handleDamage($expedition, 100 * $demonTier, 300 * $demonTier, $expedition->current_room->element);
         $death = handleDeath($expedition) ? " You have been slain." : "";
         $expValue = 500 + (100 * $expedition->tier) + (25 * $expedition->luck);
-        if ($death_msg === "") {
+        if ($death === "") {
             $exp_msg = "";
             $pact = new Pact($expedition->player);
             $exp_gain = (500 + (100 * $expedition->tier) + (25 * $expedition->luck));

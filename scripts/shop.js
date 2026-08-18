@@ -9,7 +9,7 @@ const shopOptions = {
         { label: "Tier 4 Shop", value: "t4m", quest: 16 },
         { label: "Tier 5 Shop", value: "t5m", quest: 21 },
         { label: "Tier 6+ Shop", value: "t6m", quest: 26 },
-        { label: "Daily Exchange", value: "dailym", quest: 0 }
+        { label: "Unreleased", value: "dailym", quest: 99 } // Disabled
     ],  
     Cathedral: [
         { label: "Tier 1 Essence", value: "t1e", quest: 51 },
@@ -182,7 +182,8 @@ function selectOption(value, shopType = 'Market') {
         t1m: (_, id, item) => item.cost > 0 && item.tier === 1 && !id.startsWith("Fae"), t2m: item => item.cost > 0 && item.tier === 2, 
         t3m: item => item.cost > 0 && item.tier === 3, t4m: (_, id, item) => item.cost > 0 && item.tier === 4 && !id.startsWith("Skull"),
         t5m: (_, id, item) => item.cost > 0 && item.tier === 5 && !id.startsWith("Skull"), t6m: (_, id, item) => item.cost > 0 && item.tier >= 6 && !id.startsWith("Skull"),
-        faem: (_, id) => id.startsWith("Fae"), dailym: (_, id) => id.startsWith("Fae"), // REPLACE FISH LOGIC LATER NEED TO UPDATE DAILY ITEMS IN SQL OR SMTHN
+        faem: (_, id) => id.startsWith("Fae"), 
+        dailym: (_, id) => id.startsWith("Fae"), // REPLACE FISH LOGIC LATER NEED TO UPDATE DAILY ITEMS IN SQL OR SMTHN
         t1e: (_, id) => id.startsWith("Essence") && itemData[id].tier === 1, t2e: (_, id) => id.startsWith("Essence") && itemData[id].tier === 2,
         t3e: (_, id) => id.startsWith("Essence") && itemData[id].tier === 3, t4e: (_, id) => id.startsWith("Essence") && itemData[id].tier === 4,
         t5e: (_, id) => id.startsWith("Essence") && itemData[id].tier === 5, t6e: (_, id) => id.startsWith("Essence") && itemData[id].tier === 6,
