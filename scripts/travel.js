@@ -75,7 +75,9 @@ function onTravel(plane = null) {
     fetch('./fetch_handler.php', {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ action: "playerExtra" })
+        body: JSON.stringify({
+            action: plane ? "playerExtra" : "player"
+        })
     })
     .then(response => response.json())
     .then(data => {
