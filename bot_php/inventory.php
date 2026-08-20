@@ -1067,6 +1067,9 @@
 			}
 		}
 		// Score Gems
+		if (empty($gem_ids)) {
+			return $score;
+		}
 		$equipped_gems = read_custom_item(null, implode(',', $gem_ids));
 		if(empty($equipped_gems)) { return $score; }
 		foreach ($equipped_gems as $gem) {
